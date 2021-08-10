@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('header') -%>
+</head>
+<body>
+    <div class="global-lg font-size-lg-1">
+        <div class="main main-login d-flex">
+            <div class="bg-container">
+                <div class="bg-image"></div>
+            </div>
+            <div class="content">
+                <div class="login-model">
+                    <div class="logo d-flex mg-b">
+                        <a href="/"><img src="/public/images/logo/logo1.png" class="cf-img"></a>
+                    </div>
+                    <div class="login-title">
+                        <h2 class="large-title">Fodance - Thi đấu nhảy múa trực tuyến</h2>
+                    </div>
+                    <div class="login-area">
+                        <div class="login-with-account">           
+                            <form method="post" action="/login" class="login-form d-flex-col-start" novalidate>
+                                <span class="error"><%- message -%></span>
+                                <label  class="username-label">Email hoặc số điện thoại</label>
+                                <input type="text" name="username" autofocus="on" value="<%- username -%>">
+                                <label class="password-label">Mật khẩu</label>
+                                <input type="password" name="password">
+                                <a href="/forgot-password" class="forgot-link">Quên mật khẩu?</a>
+                                <button type="submit" name="submit" value="Login" class="login submit-but" disabled>Đăng nhập</button>
+                                <div class="signup-choice">
+                                    <a class="signupBut">Đăng kí tài khoản?</a>
+                                </div>
+                            </form>   
+                        </div>  
+                        <div class="signup-choice choice-fb-gg">
+                            <span>hoặc đăng nhập bằng:</span>
+                        </div>
+                        <div class="login-with-gg-fb">
+                            <a href="/auth/facebook" class="connect-but cn-fb-but">
+                                <img src="/public/images/facebook.png" class="cf-img">
+                                <span class="large-span">Kết nối với Facebook</span>
+                                <span class="small-span">Facebook</span>
+                            </a>
+                            <a href="/auth/google" class="connect-but cn-gg-but">
+                                <img src="/public/images/google.png" class="cf-img">
+                                <span class="large-span">Kết nối với Google</span>
+                                <span class="small-span">Google</span>
+                            </a>
+                        </div>
+                    </div>   
+                    <div class="contact">
+                        <span>Chính sách và điều khoản</span>
+                        <span>Ngôn ngữ</span>
+                        <span>Câu hỏi thường gặp</span>
+                        <span>Hỗ trợ</span>
+                        <span>© Fodance Inc. 2020</span>
+                    </div>
+                </div>
+                <div class="signup-container"></div>
+            </div>
+        </div>
+    </div>
+    <script src="/public/js/login.js" async></script>
+</body>
+</html>

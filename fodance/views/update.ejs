@@ -1,0 +1,91 @@
+<% extend('layout') %>           
+<div class="category">
+    <div class="d-flex group-title">
+        <span class="font-size-lg-2 none-deco none-mg">Cập nhật</span>
+    </div>
+</div> 
+<div class="main-frame-post d-flex">
+    <div class="post response-frame none-pd">
+        <div class="group-title d-flex">
+            <span class="font-size-lg-3">Bản cập nhật vòng <%- round -%></span>
+            <span class="update-time"><span class="iconify mg-r-sm" data-icon="bi:clock" data-inline="false"></span><%- updateTime.getDate() -%>/<%- updateTime.getMonth() + 1 -%>/<%- updateTime.getFullYear() -%></span>
+        </div>
+        <div class="border-b"></div>
+        <div class="update-content pd">
+            <span class="font-size-lg-2"><b>Fodance</b> - Bình chọn cho những điều tuyệt vời nhất!</span>
+            <div class="d-flex-col-start mg-t">
+                <div class="d-flex-start">
+                    <span class="iconify font-icon" data-icon="gg:path-crop" data-inline="false"></span>
+                    <h3 class="mg-l-sm">Hướng dẫn sơ bộ</h3>
+                </div>
+                <div class="d-flex pd">
+                    <small><b>(Các thông số được nhấn mạnh có thể thay đổi sau mỗi bản cập nhật)</b></small>
+                </div>
+                <div class="d-flex pd">
+                    <span class="contact-item mg-r"></span><p>Fodance gồm có các chủ đề bình chọn và 3 cấp bậc: Sơ cấp, Trung cấp và Cao cấp.</p>
+                </div>
+                <div class="d-flex pd">
+                    <span class="contact-item mg-r"></span><p>Tại mỗi chủ đề có 4 tùy chọn xem: Xem theo Thứ hạng, Xem theo Ngẫu nhiên, Xem theo Mới nhất và Xem những Người theo dõi. Bạn chỉ có thể sử dụng các tùy chọn xem và chọn Cấp bậc sau khi đã chọn 1 chủ đề.</p>
+                </div>
+                <div class="d-flex pd">
+                    <span class="contact-item mg-r"></span><p>Các số cạnh các Chủ đề và Cấp bậc cho biết tổng số bài viết thuộc các Chủ đề, Cấp bậc đó.</p>
+                </div>
+                <div class="d-flex pd">
+                    <span class="contact-item mg-r"></span><p>Lọc thời gian bài viết được sử dụng cho các Chủ đề, chọn "Vòng hiện tại" để xem các bài viết thuộc Vòng bình chọn hiện tại, chọn "Tất cả" để xem tất cả các bài viết.</p>
+                </div>
+                <div class="d-flex pd">
+                    <span class="contact-item mg-r"></span><p>Các vòng bình chọn diễn ra trong <span class="theme-color">1 tuần</span>.</p>
+                </div>
+                <div class="d-flex pd">
+                    <span class="contact-item mg-r"></span><p>Sau khi kết thúc 1 vòng bình chọn, những người dùng đạt hạng <span class="theme-color">10</span> trở lên sẽ nhận được Sao và Điểm danh vọng (tối thiểu <span class="theme-color">10</span> người tham gia).</p>
+                </div>
+                <div class="d-flex pd">
+                    <span class="contact-item mg-r"></span><p>Nếu có ít hơn <span class="theme-color">10</span> người tham gia tại mỗi Chủ đề trong 1 Vòng bình chọn, bạn vẫn sẽ nhận được Điểm danh vọng, số vé đã dùng sẽ được hoàn trả.</p>
+                </div>
+                <div class="d-flex-start">
+                    <span class="iconify font-icon" data-icon="gg:path-crop" data-inline="false"></span>
+                    <h3 class="mg-l-sm">Chi tiết cập nhật Vòng <%- round -%></h3>
+                </div>
+                <div class="d-flex pd-l pd- r mg-t">
+                    <span class="contact-item mg-r"></span><p>Số Sao và Điểm danh vọng nhận được khi đạt hạng <span class="theme-color">10</span>:</p>
+                </div>
+                <div class="d-flex pd">
+                    <b>Sơ cấp:</b>
+                </div>
+                <div class="d-flex-col-start pd-l pd-r mg-l">
+                    <span>Hạng 1: <span class="theme-color">50</span> Sao, <span class="theme-color">100</span> Điểm danh vọng</span>
+                    <span>Hạng 2: <span class="theme-color">30</span> Sao, <span class="theme-color">50</span> Điểm danh vọng</span>
+                    <span>Hạng 3: <span class="theme-color">20</span> Sao, <span class="theme-color">30</span> Điểm danh vọng</span>
+                    <span>Hạng 4-10: <span class="theme-color">10</span> Sao, <span class="theme-color">10</span> Điểm danh vọng</span>
+                </div>
+                <div class="d-flex pd">
+                    <b>Trung cấp:</b>
+                </div>
+                <div class="d-flex-col-start pd-l pd-r mg-l">
+                    <span>Hạng 1: <span class="theme-color">100</span> Sao, <span class="theme-color">500</span> Điểm danh vọng</span>
+                    <span>Hạng 2: <span class="theme-color">70</span> Sao, <span class="theme-color">300</span> Điểm danh vọng</span>
+                    <span>Hạng 3: <span class="theme-color">50</span> Sao, <span class="theme-color">200</span> Điểm danh vọng</span>
+                    <span>Hạng 4-10: <span class="theme-color">30</span> Sao, <span class="theme-color">100</span> Điểm danh vọng</span>
+                </div>
+                <div class="d-flex pd">
+                    <b>Cao cấp:</b>
+                </div>
+                <div class="d-flex-col-start pd-l pd-r mg-l">
+                    <span>Hạng 1: <span class="theme-color">300</span> Sao, <span class="theme-color">1000</span> Điểm danh vọng</span>
+                    <span>Hạng 2: <span class="theme-color">250</span> Sao, <span class="theme-color">700</span> Điểm danh vọng</span>
+                    <span>Hạng 3: <span class="theme-color">200</span> Sao, <span class="theme-color">500</span> Điểm danh vọng</span>
+                    <span>Hạng 4-10: <span class="theme-color">100</span> Sao, <span class="theme-color">200</span> Điểm danh vọng</span>
+                </div>
+                <div class="d-flex pd">
+                    <small>Càng nhiều người tham gia, số sao tặng thêm càng nhiều!</small>
+                </div>
+                <div class="d-flex pd-l pd- r mg-t">
+                    <span class="contact-item mg-r"></span><p>Giá trị quy đổi Sao: <span class="theme-color">10 Sao <=> 1USD</span>, giá trị quy đổi tối thiểu: <span class="theme-color">50</span> Sao.</p>
+                </div>
+                <div class="d-flex pd-l pd- r mg-t">
+                    <span class="contact-item mg-r"></span><p>Chúng tôi sẽ gửi phần thưởng đến người sở hữu Sao sau chậm nhất là <span class="theme-color">1</span> tuần.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

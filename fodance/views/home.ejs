@@ -1,0 +1,65 @@
+<% extend('layout') %>           
+<div class="category">
+    <div class="d-flex group-title">
+        <span class="font-size-lg-2 none-deco none-mg">Thông tin vòng đấu</span>
+    </div>
+</div> 
+<div class="main-frame-post home-frame d-flex">
+    <div class="d-flex-col width-90">
+        <div class="width-100">
+            <div class="group-title d-flex-start-bottom">
+                <div class="dance-lottie"></div>
+                <span class="font-size-lg-3">Vòng hiện tại: Vòng bảng - <span class="home-rank"><%- rankName %></span></span>
+            </div>
+            <div class="timer-text d-flex">
+                <div class="mg-r-sm">Còn</div><div class="timer-bar-value"></div>
+            </div>
+            <div class="home-round-timer mg-t">
+                <div class="timer-bar"></div>
+              </div>
+            <div class="rw-text d-flex-col-start pd">
+                <span class="mg-b">Vòng bảng diễn ra trong 4 ngày đầu tuần, những người đứng đầu ở mỗi thể loại sẽ tiến vào Vòng trung kết (3 ngày cuối), tiền thưởng dựa trên tỉ lệ vũ công tham gia, bạn sẽ được trả lại vé nếu có ít hơn 3 người tham gia ở mỗi thể loại.</span>
+            </div>
+        </div>
+        <div class="top-reward d-flex-col">
+                <div class="final-reward d-flex-col mg-b">
+                    <h3>1. Thưởng hạng Chung kết hiện tại - Top 3</h3>
+                    <div class="d-flex mg-t">
+                        <div class="top-reward-frame shine rw1">
+                            <div class="d-flex">
+                                <span class="iconify icon-reward icon-reward-1" data-icon="emojione-monotone:1st-place-medal" data-inline="false"></span>
+                                <span>Hạng 1: <span><span class="bold-font rw-color"><%- finalRewardList[0] -%></span> USD</span>
+                            </div>
+                        </div>
+                        <div class="top-reward-frame shine rw2">
+                            <div class="d-flex">
+                                <span class="iconify icon-reward icon-reward-2" data-icon="emojione-monotone:2nd-place-medal" data-inline="false"></span>
+                                <span>Hạng 2: <span><span class="bold-font rw-color"><%- finalRewardList[1] -%></span> USD</span>
+                            </div>
+                        </div>
+                        <div class="top-reward-frame shine rw3">
+                            <div class="d-flex">
+                                <span class="iconify icon-reward icon-reward-3" data-icon="emojione-monotone:3rd-place-medal" data-inline="false"></span>
+                                <div>Hạng 3: <span class="bold-font rw-color"><%- finalRewardList[2] -%></span> USD</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cate-reward d-flex-col mg-b">
+                    <h3>2. Thưởng hạng thể loại hiện tại - Top 1</h3>
+                    <div class="d-flex flex-wrap mg-t">
+                    <% for (let i = 0; i < cateList.length; i++) { %>
+                        <button class="top-reward-frame category-but" topic-data="<%- cateList[i] %>">
+                            <div class="d-flex-start">
+                                <span><span class="category-item-name"><%- nameList[i] %>: </span><span class="bold-font rw-color"><%- cateRewardList[i] %></span> USD</span>
+                            </div>
+                        </button>
+                    <% } %>
+                    </div>
+                </div>
+            <div>
+                <a class="d-flex nav-red explore-but" nav-data='explore'><h3 class="nav-item-name nav-item-name-red theme-color d-flex"><span class="iconify font-icon mg-r" data-icon="ant-design:play-circle-filled" data-inline="false"></span>Khám phá và bình chọn video tham dự</h3></a>
+            </div>
+        </div>
+    </div>
+</div>

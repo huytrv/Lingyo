@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fodance | <%- user.username -%></title>
+    <%- include('header') -%>
+</head>
+<body>
+    <div class="global">
+        <div class="header">
+            <div class="header-inner-mobile">
+                <div class="d-flex-start">
+                    <div class="sidenav-frame">
+                        <div class="sidenav">
+                            <a class="closebtn close-nav">&times;</a>
+                            <a class="nav-item nav-red avt header-nickname noselect mg-r" nav-data='personal' data-user-df="<%- currentProfile.nickname -%>">
+                                <% if (currentProfile.avatar.includes("http")) { %>
+                                    <img src="<%- currentProfile.avatar -%>" class="user-avt header-avatar" username="<%- currentUsername -%>">
+                                    <% } %>
+                                <% if (!currentProfile.avatar.includes("http")) { %>
+                                    <img src="https://cdn.fodance.com/cf-media/<%- currentProfile.avatar -%>" class="user-avt header-avatar" username="<%- currentUsername -%>">
+                                    <% } %>
+                                <div class="d-flex-col-start">
+                                    <span class="avt-username header-username nav-item-name-red none-deco user-username"><% if (currentUsername.length > 15) { %><%- currentUsername.substring(0, 12) + '...' + currentUsername.substring(currentUsername.length) -%><% } %><% if (currentUsername.length <= 15) { %><%- currentUsername -%><% } %></span>
+                                    <span class="avt-nickname avatar-nickname">@<%- currentProfile.nickname -%></span>
+                                </div>
+                            </a>
+                            <div class="d-flex-start pd">
+                                <div class="header-dp d-flex user-stars noselect">
+                                    <span class="iconify font-icon mg-r-sm theme-color" data-icon="emojione-v1:money-bag" data-inline="false"></span>
+                                    <span class="star-total"><%- profile.stars -%></span>
+                                </div>
+                                <div class="header-dp d-flex user-tickets noselect mg-r-lg">
+                                    <span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>
+                                    <span class="ticket-total"><%- profile.tickets -%></span>
+                                </div>
+                            </div>
+                            <div class="search-but pd">
+                                <span class="iconify icon" data-icon="heroicons-outline:search" data-inline="false"></span>
+                                <form autocomplete="off" class="search-form">
+                                    <input type="text" name="search" class="home-input search-input" placeholder="Tìm kiếm trên Fodance" maxlength="30">   
+                                </form>
+                            </div>
+                            <div class="border-b mg-l mg-r"></div>
+                            <div class="d-flex">
+                                <a class="sort-content-but d-flex-col noselect sort-cate <% if (cateActive != '') { %>sort-content-but-active <% } %>" sort-data="rank-sort-content"><span class="iconify" data-icon="bi:bar-chart-fill" data-inline="false"></span><div class="d-flex-col"><span>Thứ</span><span>hạng</span></div></a>
+                                <a class="sort-content-but d-flex-col noselect" sort-data='random-sort-content'><span class="iconify" data-icon="fe:random" data-inline="false"></span><div class="d-flex-col"><span>Ngẫu</span><span>nhiên</span></div></a>
+                                <a class="sort-content-but d-flex-col noselect" sort-data='latest-sort-content'><span class="iconify" data-icon="ic:twotone-autorenew" data-inline="false"></span><div class="d-flex-col"><span>Mới</span><span>nhất</span></div></a>
+                                <a class="sort-content-but d-flex-col noselect" sort-data='follow-sort-content'><span class="iconify" data-icon="ri:user-follow-line" data-inline="false"></span><div class="d-flex-col"><span>Theo</span><span>dõi</span></div></a>
+                            </div>
+                            <div class="border-b mg-l mg-r"></div>
+                            <a class="nav-item d-flex-start noselect filter-but dropdown-but mg-t">
+                                <span class="iconify dropdown-icon mg-r-sm" data-icon="whh:sortbysizedescending" data-inline="false"></span><div class="dropdown-text"><span>Lọc</span></div>
+                            </a>
+                            <a class="nav-item nav-red honors-but <% if (active == 'honors') { %> active <% } %>" nav-data='honors'><span class="iconify" data-icon="ph:medal-light" data-inline="false"></span><span class="nav-item-name-red">Vinh danh</span></a>
+                            <a class="nav-item nav-red saved-but <% if (active == 'saved') { %> active <% } %>" nav-data='saved'><span class="iconify" data-icon="bi:bookmark-check" data-inline="false"></span><span class="nav-item-name-red">Đã lưu</span></a>
+                            <a class="nav-item nav-red add-topic-but <% if (active == 'add-topic') { %> active <% } %>" nav-data='add-topic'><span class="iconify" data-icon="heroicons-outline:view-grid-add" data-inline="false"></span><span class="nav-item-name-red">Thêm thể loại</span></a>
+                            <div class="border-b mg-l mg-r"></div>
+                            <a class="nav-item d-flex-start nav-red" nav-data="setting" setting-data="feedback"><span class="iconify" data-icon="bx:bx-layer-plus" data-inline="false"></span><span class="nav-item-name-red">Ý kiến và phản hồi</span></a>
+                            <a class="nav-item d-flex-start nav-red" nav-data="setting" setting-data="normal"><span class="iconify" data-icon="cil:settings" data-inline="false"></span><span class="nav-item-name-red">Cài đặt</span></a>
+                            <div class="border-b mg-l mg-r"></div>
+                            <a href="/login" class="nav-item mg-b d-flex-start"><span class="iconify" data-icon="ant-design:logout-outlined" data-inline="false"></span><span class="nav-item-name-red">Đăng suất</span></a>
+                        </div>
+                    </div> 
+                    <div class="avt open-nav">
+                        <% if (currentProfile.avatar.includes("http")) { %>
+                            <img src="<%- currentProfile.avatar -%>" class="user-avt mg-l-sm" username="<%- username -%>">
+                            <% } %>
+                        <% if (!currentProfile.avatar.includes("http")) { %>
+                            <img src="https://cdn.fodance.com/cf-media/<%- currentProfile.avatar -%>" class="user-avt mg-l-sm" username="<%- username -%>">
+                            <% } %>
+                    </div>
+                    <div class="title"><h2 class="title-content"></h2></div>
+                </div>
+                <div class="header-rank d-flex">
+                    <button class="header-rank-but d-flex mg-r" rank-data="primary"><span class="iconify mg-r-sm" data-icon="uil:medal" data-inline="false"></span><span class="header-rank-but-name">Sơ cấp</span><span class="rank-post-count"></span></button>
+                    <button class="header-rank-but mg-r d-flex" rank-data="intermediate"><span class="iconify mg-r-sm" data-icon="la:medal-solid" data-inline="false"></span><span class="header-rank-but-name">Trung cấp</span><span class="rank-post-count"></span></button>
+                    <button class="header-rank-but d-flex" rank-data="highgrade"><span class="iconify mg-r-sm" data-icon="emojione-monotone:sports-medal" data-inline="false"></span><span class="header-rank-but-name">Cao cấp</span><span class="rank-post-count"></span></button>
+                </div>
+            </div>
+            <div class="header-inner">
+                <div class="logo">
+                    <a class="logo-but nav-red" nav-data=''><img src="/public/images/logo/logo1.png" class="cf-img"><span class="nav-item-name-red"></span></a>   
+                    <div class="search-but">
+                        <span class="iconify icon" data-icon="heroicons-outline:search" data-inline="false"></span>
+                        <form autocomplete="off" class="search-form">
+                            <input type="text" name="search" class="home-input search-input" placeholder="Tìm kiếm trên Fodance" maxlength="30">   
+                        </form>
+                    </div> 
+                </div>   
+                <div class="header-rank">
+                    <button class="header-rank-but d-flex mg-r" rank-data="primary"><span class="iconify mg-r-sm" data-icon="uil:medal" data-inline="false"></span><span class="header-rank-but-name">Sơ cấp</span><span class="rank-post-count"></span></button>
+                    <button class="header-rank-but mg-r d-flex" rank-data="intermediate"><span class="iconify mg-r-sm" data-icon="la:medal-solid" data-inline="false"></span><span class="header-rank-but-name">Trung cấp</span><span class="rank-post-count"></span></button>
+                    <button class="header-rank-but d-flex" rank-data="highgrade"><span class="iconify mg-r-sm" data-icon="emojione-monotone:sports-medal" data-inline="false"></span><span class="header-rank-but-name">Cao cấp</span><span class="rank-post-count"></span></button>
+                </div>
+                <div class="d-flex mg-r">
+                    <div class="personal">
+                        <a class="avt-header nav-red avt avt-but header-nickname d-flex noselect mg-r" nav-data='personal' data-user-df="<%- currentProfile.nickname -%>">
+                            <% if (currentProfile.avatar.includes("http")) { %>
+                                <img src="<%- currentProfile.avatar -%>" class="user-avt header-avatar" username="<%- currentUsername -%>">
+                            <% } %>
+                            <% if (!currentProfile.avatar.includes("http")) { %>
+                                <img src="https://cdn.fodance.com/cf-media/<%- currentProfile.avatar -%>" class="user-avt header-avatar" username="<%- currentUsername -%>">
+                            <% } %>
+                            <span class="avt-username header-username nav-item-name-red none-deco user-username"><% if (currentUsername.length > 15) { %><%- currentUsername.substring(0, 12) + '...' + currentUsername.substring(currentUsername.length) -%><% } %><% if (currentUsername.length <= 15) { %><%- currentUsername -%><% } %></span>
+                        </a>
+                    </div>
+                    <div class="header-dp user-stars noselect mg-r">
+                        <span class="star-total"><%- currentProfile.stars -%></span>
+                        <span class="iconify font-icon mg-l-sm theme-color" data-icon="emojione-v1:money-bag" data-inline="false"></span>
+                    </div>
+                    <div class="header-dp user-tickets noselect mg-r">
+                        <span class="ticket-total"><%- currentProfile.tickets -%></span>
+                        <span class="iconify font-icon mg-l-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>
+                    </div>
+                    <div class="dropdown personal-dropdown">
+                        <button class="avt-but header-but dropdown-but personal-dropdown-but">
+                            <span class="iconify dropdown-icon" data-icon="bx:bxs-down-arrow" data-inline="false"></span>
+                        </button>  
+                        <div class="info-dropdown-content dropdown-content   ">
+                            <a class="avt nav-red nav-item border-b mg-t none-deco d-flex d-flex-col personal-but header-nickname" nav-data='personal' data-user-df="<%- currentProfile.nickname -%>">
+                                <% if (currentProfile.avatar.includes("http")) { %>
+                                    <img src="<%- currentProfile.avatar -%>" class="user-avt mg-l-sm" username="<%- currentUsername -%>">
+                                <% } %>
+                                <% if (!currentProfile.avatar.includes("http")) { %>
+                                    <img src="https://cdn.fodance.com/cf-media/<%- currentProfile.avatar -%>" class="user-avt mg-l-sm" username="<%- currentUsername -%>">
+                                <% } %>
+                                <div class="d-flex-col">
+                                    <span class="avt-username nav-item-name-red font-size-lg-1 noselect none-deco user-username"><% if (currentUsername.length > 15) { %><%- currentUsername.substring(0, 12) + '...' + currentUsername.substring(currentUsername.length) -%><% } %><% if (currentUsername.length <= 15) { %><%- currentUsername -%><% } %></span>
+                                    <span>Xem trang cá nhân của bạn</span>
+                                </div>
+                            </a>
+                            <a class="nav-item d-flex-start nav-red" nav-data="setting" setting-data="feedback"><span class="iconify" data-icon="bx:bx-layer-plus" data-inline="false"></span><span class="nav-item-name-red">Ý kiến và phản hồi</span></a>
+                            <a class="nav-item d-flex-start nav-red" nav-data="setting" setting-data="normal"><span class="iconify" data-icon="cil:settings" data-inline="false"></span><span class="nav-item-name-red">Cài đặt</span></a>
+                            <a href="/login" class="nav-item mg-b d-flex-start"><span class="iconify" data-icon="ant-design:logout-outlined" data-inline="false"></span>Đăng suất</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main bg-color">
+            <div class="main-inner">
+                <div class="main-wrapper">
+                    <div class="left-nav">
+                        <div class="left-nav-inner">
+                            <div class="list-box">
+                                <a class="nav-ele nav-item nav-red home-but <% if (active == 'home') { %> active <% } %>" nav-data=''><span class="iconify" data-icon="octicon:home" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Trang chủ</span></a>
+                                <a class="nav-ele nav-item nav-red explore-but <% if (active == 'explore') { %> active <% } %>" nav-data='explore'><span class="iconify" data-icon="carbon:star-review" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Khám phá</span></a>
+                                <a class="nav-ele nav-item nav-red fame-but <% if (active == 'fame') { %> active <% } %>" nav-data='fame'><span class="iconify" data-icon="bi:bar-chart" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Xếp hạng</span></a>                             
+                                <a class="nav-ele nav-item nav-red notifications-but <% if (active == 'notifications') { %> active <% } %>" nav-data='notifications'><span class="iconify" data-icon="ph:bell-simple" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Thông báo</span></a>
+                                <a class="nav-ele nav-item nav-red saved-but <% if (active == 'saved') { %> active <% } %>" nav-data='saved'><span class="iconify" data-icon="bi:bookmark-check" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Đã lưu</span></a>
+                                <a class="nav-ele nav-item nav-red honors-but <% if (active == 'honors') { %> active <% } %>" nav-data='honors'><span class="iconify" data-icon="ph:medal-light" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Vinh danh</span></a>
+                                <a class="nav-ele nav-item nav-red add-topic-but <% if (active == 'add-topic') { %> active <% } %>" nav-data='add-topic'><span class="iconify" data-icon="heroicons-outline:view-grid-add" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Thêm thể loại</span></a>
+                                <button class="dropdown-but nav-ele nav-item nav-dropdown mg-b">
+                                    <span class="iconify dropdown-icon" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span>
+                                </button>
+                                <div class="dropdown-content nav-dropdown-content noselect">
+                                    <a class="nav-item nav-red saved-but2" nav-data='saved'><span class="iconify" data-icon="uim:layer-group" data-inline="false"></span><span class="nav-item-name-red">Đã lưu</span></a>
+                                    <a class="nav-item nav-red honors-but2 <% if (active == 'honors') { %> active <% } %>" nav-data='honors'><span class="iconify" data-icon="ph:medal-light" data-inline="false"></span><span class="nav-item-name-red">Vinh danh</span></a>
+                                    <a class="nav-item nav-red add-topic-but2" nav-data='add-topic'><span class="iconify" data-icon="heroicons-outline:view-grid-add" data-inline="false"></span><span class="nav-item-name-red">Thêm thể loại</span></a>
+                                </div>
+                            </div>
+                            <div class="mg-b-lg pd-l pd-r">
+                                <button class="create-post-but" data-create-but="layout">Tạo</button>
+                                <div class="create-post-handler <% if (modal && modal == 'create-post') { %>create-post-handler-begin<% } %><% if (modal && modal == 'ticket-payment') { %>ticket-payment-handler-begin<% } %><% if (modal && modal == 'alert-success') { %>alert-success-begin<% } %><% if (modal && modal == 'alert-failure') { %>alert-failure-begin<% } %><% if (modal && modal == 'star-reward') { %>star-reward-handler-begin<% } %>"></div>   
+                            </div>
+                            <div class="left-nav-info mg-b">
+                                <div class="contact-info">
+                                    <a href="/privacy-policy" class="mg-r-sm">Điều khoản Dịch vụ</a>
+                                    <a href="/privacy-policy" class="contact-item mg-r-sm">Quyền riêng tư</a>
+                                    <a href="/privacy-policy" class="contact-item mg-r-sm">Chính sách Cookie</a>
+                                    <a href="/privacy-policy" class="contact-item mg-r-sm">Hỗ trợ khách hàng</a>
+                                    <a href="/privacy-policy" class="contact-item">Xem thêm</a><br>
+                                    <span>Fodance © 2020</span>
+                                </div>
+                                <div class="dropdown language-dropdown">
+                                    <button class="language-button dropdown-but">Tiếng Việt</button>
+                                    <div class="language-dropdown-content dropdown-content">
+                                        <a class="nav-item">Tiếng Việt</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-frame"> 
+                        <div class="category">
+                            <div class="d-flex group-title">
+                                <span class="font-size-lg-2 none-deco none-mg user-username category-username"><%- user.username -%></span>
+                            </div>
+                        </div>
+                        <div class="main-frame-post d-flex">
+                            <div class="main-frame-post-inner main-frame-post-inner-personal">
+                                <div class="avt-cover-info">
+                                    <div class="cover">
+                                        <img src="https://cdn.fodance.com/cf-media/<%- profile.cover -%>" class="user-cover">
+                                    </div>
+                                    <div class="avatar-frame">
+                                        <div class="avatar">
+                                            <% if (profile.avatar.includes("http")) { %>
+                                                <img src="<%- profile.avatar -%>" class="user-avt user-avatar">
+                                                <% } %>
+                                            <% if (!profile.avatar.includes("http")) { %>
+                                                <img src="https://cdn.fodance.com/cf-media/<%- profile.avatar -%>" class="user-avt user-avatar">
+                                                <% } %>
+                                            <% if (user.username.length <= 15) { %>
+                                            <div class="avatar-name">
+                                                <span class="nav-red" data-user-df="<%- profile.nickname -%>">
+                                                    <span class="user-username avatar-username ">
+                                                        <%- user.username -%>
+                                                    </span>
+                                                </span>
+                                                <span class="avatar-nickname">
+                                                    @<%- profile.nickname -%>
+                                                </span>
+                                            </div>   
+                                            <% } %>  
+                                        </div>
+                                        <% if (isCurrentUser) { %>
+                                        <div class="change-profile">
+                                            <button class="add-info-but d-flex <% if (modal && modal == 'edit-profile') { %>add-info-begin<% } %>"><span class="iconify" data-icon="cil:pen" data-inline="false"></span><span class="add-info-text mg-l-sm">Chỉnh sửa hồ sơ</span></button>
+                                        </div>
+                                        <% } %>
+                                        <% if (!isCurrentUser) { %>
+                                            <% if (!followed) { %>
+                                                <button class="follow-but" data-following="false">
+                                                    <span class="follow-text">Theo dõi</span>
+                                                </button>
+                                            <% } %>
+                                            <% if (followed) { %>
+                                                <button class="follow-but following-but" data-following="true">
+                                                    <span class="follow-text">Đang theo dõi</span>
+                                                </button>
+                                            <% } %>
+                                        <% } %>
+                                    </div>
+                                    <% if (user.username.length > 15) { %>
+                                    <div class="avatar-name avatar-name-mg">
+                                        <span class="nav-red" data-user-df="<%- profile.nickname -%>">
+                                            <span class="user-username avatar-username ">
+                                                <%- user.username -%>
+                                            </span>
+                                        </span>
+                                        <span class="avatar-nickname">
+                                            @<%- profile.nickname -%>
+                                        </span>
+                                    </div>   
+                                    <% } %>    
+                                    <div class="avatar-name-mobile avatar-name-mg">
+                                        <span class="nav-red" data-user-df="<%- profile.nickname -%>">
+                                            <span class="user-username avatar-username ">
+                                                <%- user.username -%>
+                                            </span>
+                                        </span>
+                                        <span class="avatar-nickname">
+                                            @<%- profile.nickname -%>
+                                        </span>
+                                    </div>     
+                                    <div class="follow-user-info-mobile">
+                                        <div class="follow-user-info-inner d-flex-start">
+                                            <a class="following noselect"><b class="following-total"><%- profile.following -%></b> Đang theo dõi</a>
+                                            <a class="followers noselect"><b class="followers-total"><%- profile.followers -%></b> Theo dõi</a>
+                                        </div>                 
+                                    </div>   
+                                    <div class="highlights-mobile">
+                                        <div class="info-content">
+                                            <div class="info-content-element mg-b">
+                                                <div class="d-flex-start">
+                                                    <div class="d-flex mg-r user-stars">
+                                                        <span class="iconify font-icon mg-r-sm theme-color" data-icon="emojione-v1:money-bag" data-inline="false"></span>
+                                                        <span><%- profile.stars -%></span>
+                                                    </div>
+                                                    <div class="d-flex user-tickets">
+                                                        <span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>
+                                                        <span><%- profile.tickets -%></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="info-content-element mg-b">
+                                                <div class="d-flex-col-start">
+                                                    <div class="d-flex">
+                                                        <span class="iconify font-icon mg-r" data-icon="emojione-monotone:sports-medal" data-inline="false"></span>
+                                                        <span class="vote-achie">Thành tích bình chọn</span>
+                                                    </div>   
+                                                    <div class="d-flex-col-start pd-l mg-l-lg">
+                                                        <a class="mg-r"><span>Hạng nhất: <span class="number-top"><%- profile.rank1 -%></span>lần</span></a>
+                                                        <a class="mg-r"><span>Hạng hai: <span class="number-top"><%- profile.rank2 -%></span>lần</span></a>
+                                                        <a class="mg-r"><span>Hạng ba: <span class="number-top"><%- profile.rank3 -%></span>lần</span></a>
+                                                        <a class="mg-r"><span>Hạng 4-10: <span class="number-top"><%- profile.rank10 -%></span>lần</span></a>
+                                                    </div>                              
+                                                </div>
+                                            </div>
+                                            <div class="info-content-element mg-b">
+                                                <div class="d-flex-start">
+                                                    <span class="iconify font-icon mg-r" data-icon="cil:birthday-cake" data-inline="false"></span>
+                                                    <% if (profile.birthday) { %>
+                                                        <div class="birthday-content">
+                                                            <div>
+                                                                Sinh ngày <span class="day-birthday"><%- /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(profile.birthday)[3] -%></span>, tháng <span class="month-birthday"><%- /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(profile.birthday)[2] -%></span>, năm <span class="year-birthday"><%- /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(profile.birthday)[1] -%></span>
+                                                            </div>
+                                                        </div>
+                                                    <% } %>
+                                                    <% if (!profile.birthday) { %>
+                                                        <div class="birthday-content">Chưa cập nhật ngày sinh</div>
+                                                    <% } %>
+                                                </div>
+                                            </div>
+                                            <div class="info-content-element mg-b">
+                                                <div class="d-flex-start">
+                                                    <span class="iconify font-icon mg-r" data-icon="bytesize:location" data-inline="false"></span>
+                                                    <% if (profile.location) { %>
+                                                        <span class="location-content"><%- profile.location -%></span>
+                                                    <% } %>
+                                                    <% if (!profile.location) { %>
+                                                        <span class="location-content">Chưa cập nhật địa điểm</span>
+                                                    <% } %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>   
+                                    <div class="follow-user-info <% if (user.username.length <= 15) { %>avatar-name-mg<% } %>">
+                                        <div class="follow-user-info-inner d-flex-start">
+                                            <a class="following noselect"><b class="following-total"><%- profile.following -%></b> Đang theo dõi</a>
+                                            <a class="followers noselect"><b class="followers-total"><%- profile.followers -%></b> Theo dõi</a>
+                                        </div>                 
+                                    </div> 
+                                    <div class="basic-user-info">
+                                        <div class="basic-user-info-inner">
+                                            <% if (profile.description) { %>
+                                                <span class="introduce-content"><%- profile.description -%></span>
+                                            <% } %>
+                                            <% if (!profile.description) { %>
+                                                <span class="introduce-content">Thêm đoạn ngắn giới thiệu bản thân..</span>
+                                            <% } %>
+                                        </div>                 
+                                    </div>               
+                                </div>
+                                <div class="nav-info">
+                                    <button class="nav-info-but nav-info-but-active">Bài đăng</button>
+                                    <button class="nav-info-but">Theo dõi</button>
+                                    <button class="nav-info-but">Ảnh</button>
+                                    <button class="nav-info-but">Video</button>
+                                </div>
+                                <div class="info-frame bg-color">
+                                    <div class="info-personal-inner frame-post-content posted mg-t"> 
+                                        <div class="post-section">
+                                            <% if (posts) { %>
+                                                <% for (let i = 0; i < posts.length; i++) { %>
+                                                    <div class="post" data-post-df="<%- posts[i].postId -%>">
+                                                        <div class="post-util">
+                                                            <button class="avt-but header-but dropdown-but util-dropdown-but">
+                                                                <span class="iconify dropdown-icon bg-white" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span>
+                                                            </button>
+                                                            <div class="util-dropdown-content dropdown-content">
+                                                                <% if (!saved[i]) { %>
+                                                                    <a class="nav-item save-post"><span class="iconify" data-icon="bi:bookmark-plus" data-inline="false"></span>Lưu bài viết</a>
+                                                                <% } %>
+                                                                <% if (saved[i]) { %>
+                                                                    <a class="nav-item remove-save-post"><span class="iconify" data-icon="bi:bookmark-dash" data-inline="false"></span>Bỏ lưu bài viết</a>
+                                                                <% } %>
+                                                                <% if (!currentProfile.notice.includes(posts[i].postId.toString())) { %>
+                                                                    <a class="nav-item post-notice"><span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn</a>
+                                                                <% } %>
+                                                                <% if (currentProfile.notice.includes(posts[i].postId.toString())) { %>
+                                                                    <a class="nav-item remove-post-notice"><span class="iconify" data-icon="ph:bell-simple-slash" data-inline="false"></span>Tắt thông báo bình chọn</a>
+                                                                <% } %>
+                                                                <a class="nav-item copy-link-post"><span class="iconify" data-icon="clarity:copy-line" data-inline="false"></span>Sao chép liên kết</a>
+                                                                <% if (currentUserId == posts[i].userId) { %>
+                                                                    <a class="nav-item del-post"><span class="iconify" data-icon="bx:bx-hide" data-inline="false"></span>Xóa bài viết</a>
+                                                                <% } %>
+                                                            </div>
+                                                        </div>   
+                                                        <div class="post-user">
+                                                            <div class="post-info">
+                                                                <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile[i].nickname -%>">
+                                                                    <% if (postProfile[i].avatar.includes("http")) { %>
+                                                                        <img src="<%- postProfile[i].avatar -%>" class="user-avt" username="<%- posts[i]['user.username'] -%>">
+                                                                        <% } %>
+                                                                    <% if (!postProfile[i].avatar.includes("http")) { %>
+                                                                        <img src="https://cdn.fodance.com/cf-media/<%- postProfile[i].avatar -%>" class="user-avt" username="<%- posts[i]['user.username'] -%>">
+                                                                        <% } %>
+                                                                </a>    
+                                                                <div class="avt-info">
+                                                                    <% if (posts[i]['currentUserId'] == currentUserId) { %>
+                                                                        <div class="d-flex">
+                                                                            <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile[i].nickname -%>"><span class="avt-username user-username"><%- posts[i]['user.username'] -%></span></a>
+                                                                            <div class="mark-icon">
+                                                                            </div>
+                                                                            <div class="mg-l d-flex">
+                                                                                <span class="contact-item"></span>
+                                                                                <a class="avt"><span class="post-time">
+                                                                                    <% if ((Date.now() - posts[i].time)/1000 < 5) { %>
+                                                                                        <span class="theme-color">Vừa xong</span>
+                                                                                    <% } %>
+                                                                                    <% if ((Date.now() - posts[i].time)/1000 > 5 && (Date.now() - posts[i].time)/1000 < 60) { %>
+                                                                                        <span class="theme-color"><%- Math.floor((Date.now() - posts[i].time)/1000) -%> giây</span>
+                                                                                    <% } %>
+                                                                                    <% if ((Date.now() - posts[i].time)/1000/60 >= 1 && (Date.now() - posts[i].time)/1000/60 < 60) { %>
+                                                                                        <span class="theme-color"><%- Math.floor((Date.now() - posts[i].time)/1000/60) -%> phút</span>
+                                                                                    <% } %>
+                                                                                    <% if ((Date.now() - posts[i].time)/1000/3600 >= 1 && (Date.now() - posts[i].time)/1000/3600 < 24) { %>
+                                                                                        <%- Math.floor((Date.now() - posts[i].time)/1000/3600) -%> giờ
+                                                                                    <% } %>
+                                                                                    <% if ((Date.now() - posts[i].time)/1000/3600/24 >= 1 && (Date.now() - posts[i].time)/1000/3600/24 < 8) { %>
+                                                                                        <%- Math.floor((Date.now() - posts[i].time)/1000/3600/24) -%> ngày
+                                                                                    <% } %>
+                                                                                    <% if ((Date.now() - posts[i].time)/1000/3600/24 >= 8) { %>
+                                                                                        <%- posts[i].time.getDate() + " tháng " + (posts[i].time.getMonth() + 1) + " lúc " + posts[i].time.getHours() + ':' + posts[i].time.getMinutes()-%>
+                                                                                    <% } %>
+                                                                                </span></a>
+                                                                            </div> 
+                                                                        </div>
+                                                                        <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile[i].nickname -%>">
+                                                                            <span class="post-time nickname-content">
+                                                                                @<%- postProfile[i].nickname -%>
+                                                                            </span>
+                                                                        </a>
+                                                                    <% } %>
+                                                                    <% if (posts[i]['currentUserId'] != currentUserId) { %>
+                                                                        <div class="d-flex">
+                                                                            <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile[i].nickname -%>"><span class="avt-username"><%- posts[i]['user.username'] -%></span></a>
+                                                                            <div class="mark-icon">
+                                                                            </div>
+                                                                            <div class="mg-l d-flex">
+                                                                                <span class="contact-item"></span>
+                                                                                <a class="avt"><span class="post-time">
+                                                                                    <% if ((Date.now() - posts[i].time)/1000 < 5) { %>
+                                                                                        <span class="theme-color">Vừa xong</span>
+                                                                                    <% } %>
+                                                                                    <% if ((Date.now() - posts[i].time)/1000 > 5 && (Date.now() - posts[i].time)/1000 < 60) { %>
+                                                                                        <span class="theme-color"><%- Math.floor((Date.now() - posts[i].time)/1000) -%> giây</span>
+                                                                                    <% } %>
+                                                                                    <% if ((Date.now() - posts[i].time)/1000/60 >= 1 && (Date.now() - posts[i].time)/1000/60 < 60) { %>
+                                                                                        <span class="theme-color"><%- Math.floor((Date.now() - posts[i].time)/1000/60) -%> phút</span>
+                                                                                    <% } %>
+                                                                                    <% if ((Date.now() - posts[i].time)/1000/3600 >= 1 && (Date.now() - posts[i].time)/1000/3600 < 24) { %>
+                                                                                        <%- Math.floor((Date.now() - posts[i].time)/1000/3600) -%> giờ
+                                                                                    <% } %>
+                                                                                    <% if ((Date.now() - posts[i].time)/1000/3600/24 >= 1 && (Date.now() - posts[i].time)/1000/3600/24 < 8) { %>
+                                                                                        <%- Math.floor((Date.now() - posts[i].time)/1000/3600/24) -%> ngày
+                                                                                    <% } %>
+                                                                                    <% if ((Date.now() - posts[i].time)/1000/3600/24 >= 8) { %>
+                                                                                        <%- posts[i].time.getDate() + " tháng " + (posts[i].time.getMonth() + 1) + " lúc " + posts[i].time.getHours() + ':' + posts[i].time.getMinutes()-%>
+                                                                                    <% } %>
+                                                                                </span></a>
+                                                                            </div> 
+                                                                        </div>
+                                                                        <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile[i].nickname -%>">
+                                                                            <span class="post-time">
+                                                                                @<%- postProfile[i].nickname -%>
+                                                                            </span>
+                                                                        </a>
+                                                                    <% } %>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                        <div class="post-content">
+                                                            <div class="post-description"><%- posts[i].description -%></div>
+                                                            <% if (posts[i].file) { %>
+                                                                <% if (posts[i].file.type == 'video') { %>
+                                                                <div class="post-file">
+                                                                    <video class="player media-post post-video" loop muted src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>"></video>
+                                                                </div>
+                                                                <% } %>
+                                                                <% if (posts[i].file.type == 'image') { %>
+                                                                    <% if (posts[i].file.path.length == 1) { %>
+                                                                        <div class="post-file">
+                                                                            <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <% if (posts[i].file.path.length == 2) { %>
+                                                                        <div class="post-file thumb-2-files">
+                                                                            <div class="thumb-file">
+                                                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                                                            </div>
+                                                                            <div class="thumb-file">
+                                                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <% if (posts[i].file.path.length == 3) { %>
+                                                                        <div class="post-file thumb-3-files">
+                                                                            <div class="thumb-file">
+                                                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                                                            </div>
+                                                                            <div class="thumb-file">
+                                                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                                                            </div>
+                                                                            <div class="thumb-file">
+                                                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                    <% if (posts[i].file.path.length == 4) { %>
+                                                                        <div class="post-file thumb-4-files">
+                                                                            <div class="thumb-file">
+                                                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                                                            </div>
+                                                                            <div class="thumb-file">
+                                                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                                                            </div>
+                                                                            <div class="thumb-file">
+                                                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
+                                                                            </div>
+                                                                            <div class="thumb-file">
+                                                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[3] -%>" class="media-post post-image">
+                                                                            </div>
+                                                                        </div>
+                                                                    <% } %>
+                                                                <% } %>
+                                                            <% } %>
+                                                        </div>
+                                                        <div class="d-flex-sb pd-l-lg pd-r-lg">
+                                                            <div class="interactive-but-total d-flex vote-total"><% if (posts[i].like != 0) { -%><span class="iconify vote-icon mg-r-sm" data-icon="ic:twotone-how-to-vote" data-inline="false"></span><span class="like-total"><%- posts[i].like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") -%><% } %></span></div>
+                                                            <% if (posts[i].file && posts[i].file.type == 'video') { %>
+                                                                <div class="video-views"><span class="view-total"><%- posts[i].videoViews -%></span><span> lượt xem</span></div>
+                                                            <% } %>
+                                                        </div>
+                                                        <div class="border-b mg-t-sm mg-b-sm mg-r-lg mg-l-lg"></div>
+                                                        <div class="post-interactive">           
+                                                            <% if (postLiked[i]) { %>
+                                                                <button class="interactive-but like-but interactive-but-liked" data-liked="true">
+                                                            <% } %>        
+                                                            <% if (!postLiked[i]) { %>
+                                                                <button class="interactive-but like-but" data-liked="false">
+                                                            <% } %>  
+                                                                    <span class="iconify font-size-lg-1" data-icon="simple-line-icons:like" data-inline="false"></span>
+                                                                    <span>Bình chọn</span>
+                                                                </button>
+                                                            <button class="interactive-but comment-but">
+                                                                <span class="iconify font-size-lg-1" data-icon="bi:chat-square" data-inline="false"></span>
+                                                                <span>Bình luận <% if (posts[i].comment != 0) { -%>(<span class="interactive-comment-total"><%- posts[i].comment -%></span>)<% } %><% if (posts[i].comment == 0) { -%><span class="interactive-comment-total"></span><% } %></span>
+                                                            </button>
+                                                            <button class="interactive-but share-but">
+                                                                <span class="iconify font-size-lg-1" data-icon="simple-line-icons:share-alt" data-inline="false"></span>
+                                                                <span>
+                                                                    <% if (posts[i].share != 0) { -%>
+                                                                        <%- posts[i].share -%>
+                                                                    <% } %>
+                                                                </span>
+                                                                <span>Chia sẻ</span>
+                                                                <div class="thumb-up icon"></div>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                <% } %>
+                                            <% } %>
+                                        </div>               
+                                        <div class="loading-post">
+                                            <div class="d-flex-start loading-content">
+                                                <div class="loading-post-circle mg-r"></div>
+                                                <div class="d-flex-col-start-content width-80">
+                                                    <div class="loading-post-line width-30 mg-b-sm"></div>
+                                                    <div class="loading-post-line width-20"></div>
+                                                </div>
+                                            </div>
+                                            <div class="loading-post-line width-90 mg-b-sm"></div>
+                                        </div>        
+                                    </div>
+                                </div>       
+                            </div>
+                        </div>                   
+                    </div>
+                    <div class="main-info">
+                        <div class="main-info-inner info-personal">
+                            <div class="main-info-frame mg-t">
+                                <div class="highlights">
+                                    <div class="post">
+                                        <div class="group-title">
+                                            <span class="font-size-lg-3 none-deco">Thông tin và nổi bật</span>
+                                        </div>
+                                        <div class="border-b"></div>
+                                        <div class="info-content">
+                                            <div class="info-content-element mg-b">
+                                                <div class="d-flex-start">
+                                                    <div class="d-flex mg-r">
+                                                        <span class="iconify font-icon mg-r-sm theme-color" data-icon="emojione-v1:money-bag" data-inline="false"></span>
+                                                        <span><%- profile.stars -%></span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>
+                                                        <span><%- profile.tickets -%></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="info-content-element mg-b">
+                                                <div class="d-flex-col-start">
+                                                    <div class="d-flex">
+                                                        <span class="iconify font-icon mg-r" data-icon="emojione-monotone:sports-medal" data-inline="false"></span>
+                                                        <span class="vote-achie">Thành tích bình chọn</span>
+                                                    </div>   
+                                                    <div class="d-flex-col-start pd-l mg-l-lg">
+                                                        <a class="mg-r"><span>Hạng nhất: <span class="number-top"><%- profile.rank1 -%></span>lần</span></a>
+                                                        <a class="mg-r"><span>Hạng hai: <span class="number-top"><%- profile.rank2 -%></span>lần</span></a>
+                                                        <a class="mg-r"><span>Hạng ba: <span class="number-top"><%- profile.rank3 -%></span>lần</span></a>
+                                                        <a class="mg-r"><span>Hạng 4-10: <span class="number-top"><%- profile.rank10 -%></span>lần</span></a>
+                                                    </div>                              
+                                                </div>
+                                            </div>
+                                            <div class="info-content-element mg-b">
+                                                <div class="d-flex-start">
+                                                    <span class="iconify font-icon mg-r" data-icon="cil:birthday-cake" data-inline="false"></span>
+                                                    <% if (profile.birthday) { %>
+                                                        <div class="birthday-content">
+                                                            <div>
+                                                                Sinh ngày <span class="day-birthday"><%- /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(profile.birthday)[3] -%></span>, tháng <span class="month-birthday"><%- /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(profile.birthday)[2] -%></span>, năm <span class="year-birthday"><%- /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(profile.birthday)[1] -%></span>
+                                                            </div>
+                                                        </div>
+                                                    <% } %>
+                                                    <% if (!profile.birthday) { %>
+                                                        <div class="birthday-content">Chưa cập nhật ngày sinh</div>
+                                                    <% } %>
+                                                </div>
+                                            </div>
+                                            <div class="info-content-element mg-b">
+                                                <div class="d-flex-start">
+                                                    <span class="iconify font-icon mg-r" data-icon="bytesize:location" data-inline="false"></span>
+                                                    <% if (profile.location) { %>
+                                                        <span class="location-content"><%- profile.location -%></span>
+                                                    <% } %>
+                                                    <% if (!profile.location) { %>
+                                                        <span class="location-content">Chưa cập nhật địa điểm</span>
+                                                    <% } %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="highlights mg-t-lg">
+                                    <div class="post">
+                                        <div class="group-title">
+                                            <span class="font-size-lg-3 none-deco">Tài khoản đề xuất</span>
+                                        </div>
+                                        <div class="border-b"></div>
+                                        <div class="section-content follow-suggestion-content"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-bar-mobile">
+            <a class="nav-item nav-red d-flex home-but <% if (active == 'home') { %> active <% } %>" nav-data=''><span class="iconify" data-icon="octicon:home" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Trang chủ</span></a>
+            <a class="nav-item nav-red d-flex explore-but <% if (active == 'explore') { %> active <% } %>" nav-data='explore'><span class="iconify" data-icon="carbon:star-review" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Khám phá</span></a>
+            <a class="nav-item nav-red d-flex fame-but <% if (active == 'fame') { %> active <% } %>" nav-data='fame'><span class="iconify" data-icon="bi:bar-chart" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Xếp hạng</span></a>                             
+            <a class="nav-item nav-red d-flex notifications-but <% if (active == 'notifications') { %> active <% } %>" nav-data='notifications'><span class="iconify" data-icon="ph:bell-simple" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Thông báo</span></a>
+        </div>
+        <div class="mobile-creator">
+            <button class="create-post-but d-flex" data-create-but="layout"><span class="iconify" data-icon="whh:createfolder" data-inline="false"></span></button>
+            <div class="create-post-handler"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/public/js/home_dev.js" async></script>
+</body>
+</html>

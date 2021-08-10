@@ -1,0 +1,52 @@
+<% extend('layout') %>           
+<div class="category">
+    <div class="d-flex group-title">
+        <span class="font-size-lg-2 none-deco none-mg">Xếp hạng</span>
+    </div>
+</div> 
+<div class="main-frame-post d-flex">
+    <div class="post response-frame none-pd">
+        <div class="group-title d-flex">
+            <span class="font-size-lg-3">Bảng xếp hạng điểm danh vọng</span>
+        </div>
+        <!-- <div class="border-b"></div> -->
+        <table class="fame-content d-flex">
+            <% for (i = 0; i < topFames.length; i++) { %>
+                <tr class="fame-ele nav-red <% if (i != topFames.length - 1){ %>mg-b <% } %><% if (i<3){ %>fame-top-1<% } %>" nav-data="personal" data-user-df="<%- topFames[i].nickname -%>">
+                    <td class="width-5">
+                        <span class="<% if (i == 0) { %>rank1-color<% } %><% if (i == 1) { %>rank2-color<% } %><% if (i == 2) { %>rank3-color<% } %>"><%- i + 1 -%></span>
+                    </td>
+                    <td class="width-40">
+                        <a class="avt none-deco d-flex d-flex-start nav-red <% if (i == 0) { %>avt-rank1<% } %><% if (i == 1) { %>avt-rank2<% } %><% if (i == 2) { %>avt-rank3<% } %>" nav-data="personal" data-user-df="<%- topFames[i].nickname -%>">
+                            <% if (topFames[i].avatar.includes("http")) { %>
+                            <img src="<%- topFames[i].avatar -%>">
+                            <% } %>
+                            <% if (!topFames[i].avatar.includes("http")) { %>
+                                <img src="https://cdn.fodance.com/cf-media/<%- topFames[i].avatar -%>">
+                            <% } %>
+                            <div class="d-flex-col-start">
+                                <span class="avt-username font-size-lg-1" nav-data="personal" data-user-df="<%- topFames[i].nickname -%>"><%- topFameUsers[i] -%></span>
+                                <span class="avt-nickname"><%- topFames[i].nickname -%></span>
+                            </div>
+                        </a>
+                    </td>
+                    <td class="width-15 d-flex">
+                        <span class="iconify font-icon mg-r-sm" data-icon="noto:1st-place-medal" data-inline="false"></span>
+                        <span><%- topFames[i].rank1 -%></span>
+                    </td>
+                    <td class="width-15 d-flex">
+                        <span class="iconify font-icon mg-r-sm" data-icon="noto:2nd-place-medal" data-inline="false"></span>
+                        <span><%- topFames[i].rank2 -%></span>
+                    </td>
+                    <td class="width-15 d-flex">
+                        <span class="iconify font-icon mg-r-sm" data-icon="noto:3rd-place-medal" data-inline="false"></span>
+                        <span><%- topFames[i].rank3 -%></span>
+                    </td>
+                    <td class="width-10">
+                        <span class="points d-flex <% if (i < 3) { %>animate-color<% } %>"><%- topFames[i].points -%> <span class="point-text mg-l-sm">Điểm</span></span>
+                    </td>
+                </tr>     
+            <% } %>
+        </table>
+    </div>
+</div>

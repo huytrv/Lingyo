@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kiểm duyệt</title>
+    <%- include('header') -%>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="main main-login font-size-lg-1">
+        <div class="d-flex-col">
+            <div class="d-flex pd">
+                <h2 class="mg-t-lg pd-t">Chào mừng tới trang kiểm duyệt!</h2>
+                <button href="/login" class="logout-moderate">Đăng xuất</button>
+                <button class="moderate-vibrate-but">Nhận thông báo</button>
+            </div>
+            <div class="d-flex moderate-content">
+                <% if (posts) { %>
+                    <% if (posts.length != 0) { %>
+                        <% for (let i = 0; i < posts.length; i++) { %>
+                            <div class="d-flex-col post-moderate" data-post-df="<%- posts[i].postId -%>">
+                                <div class="pre-post-media">
+                                    <% if (posts[i].file.type == "video") { %>
+                                    <video muted controls src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>"></video>
+                                    <% } %>
+                                    <% if (posts[i].file.type == "image") { %>
+                                        <% if (posts[i].file.path.length == 1) { %>
+                                            <div class="post-file">
+                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                            </div>
+                                        <% } %>
+                                        <% if (posts[i].file.path.length == 2) { %>
+                                            <div class="post-file thumb-2-files">
+                                                <div class="thumb-file">
+                                                    <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                                </div>
+                                                <div class="thumb-file">
+                                                    <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                                </div>
+                                            </div>
+                                        <% } %>
+                                        <% if (posts[i].file.path.length == 3) { %>
+                                            <div class="post-file thumb-3-files">
+                                                <div class="thumb-file">
+                                                    <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                                </div>
+                                                <div class="thumb-file">
+                                                    <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                                </div>
+                                                <div class="thumb-file">
+                                                    <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
+                                                </div>
+                                            </div>
+                                        <% } %>
+                                        <% if (posts[i].file.path.length == 4) { %>
+                                            <div class="post-file thumb-4-files">
+                                                <div class="thumb-file">
+                                                    <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                                </div>
+                                                <div class="thumb-file">
+                                                    <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                                </div>
+                                                <div class="thumb-file">
+                                                    <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
+                                                </div>
+                                                <div class="thumb-file">
+                                                    <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[3] -%>" class="media-post post-image">
+                                                </div>
+                                            </div>
+                                        <% } %>
+                                    <% } %>
+                                    <div class="pre-post-cate"><%- posts[i].category -%></div>
+                                </div>
+                                <div class="d-flex pd width-100">
+                                    <button class="submit-but validate-video" data-valid="true">Chấp nhận</button>
+                                    <button class="submit-but danger-color validate-video" data-valid="false">Không hợp lệ</button>
+                                </div>
+                            </div>
+                        <% } %>
+                    <% } %>
+                    <% if (posts.length == 0) { %>
+                        <div class="d-flex none-video">
+                            <span>Không có video nào chờ duyệt!</span>
+                        </div>
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <script src="/public/js/moderate.js" async></script>
+</body>
+</html>

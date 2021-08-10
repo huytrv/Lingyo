@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Đăng nhập - Bị chặn</title>
+    <%- include('header') -%>
+    <script src="/public/js/forgot.js" async></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner d-flex-sb header-mw">
+            <div class="logo d-flex">
+                <a href="/"><img src="/public/images/logo/logo1.png" class="cf-img"></a>          
+            </div>
+        </div>
+    </header>
+    <div class="main main-login bg-color main-forgot font-size-lg-1">
+        <div class="main-inner d-flex-center-top">
+            <div id="forgot-password" class="forgot-info">
+            <div class='d-flex-start'><h2 class='login-title'>Chức năng tạm khóa!</h2></div>
+            <p>Bạn đã nhập sai thông tin tài khoản hoặc mật khẩu quá nhiều lần, tạm thời không thể đăng nhập. Hãy đảm bảo thông tin bạn nhập là chính xác và thử lại. Hoăc thử lại sau 60s</p>
+            <div class="signup-choice">
+                <a href="/login" class="font-size-lg-1">Trở lại?</a>
+            </div>
+        </div>
+        </div>
+    </div>
+</body>
+</html>

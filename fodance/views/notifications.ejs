@@ -1,0 +1,264 @@
+<% extend('layout') %>           
+<div class="category">
+    <div class="d-flex group-title">
+        <span class="font-size-lg-2 none-deco none-mg">Thông báo</span>
+    </div>
+</div> 
+
+<div class="main-frame-post notifications-content">
+    <% if (notifications.length == 0) { %>
+        <div class="post response-frame none-pd notifications-inner">
+            <div class="d-flex pd">
+                <span class="pd mg-l-lg">Oops! Chưa có thông báo mới!</span>
+            </div>
+        </div>
+    <% } %>
+    <% if (notifications.length != 0) { %>
+        <div class="post response-frame none-pd notifications-inner">
+            <% for (i = 0; i < notifications.length; i++) { %>
+                <% if (notifications[i].type == "follow") { %>
+                    <div class="notification-item <% if (!read[i]) { %>unread-notification-bg<% } %> <% if (i < notifications.length - 1) { %>border-b<% } %> nav-red" nav-data='personal' data-user-df="<%- notificationProfile[i].nickname -%>">
+                        <div class="d-flex-start">
+                            <div class="d-flex">
+                                <a class="avt">
+                                    <% if (notificationProfile[i].avatar.includes("http")) { %>
+                                        <img src="<%- notificationProfile[i].avatar -%>" class="user-avt" username="<%- notificationName[i] -%>">
+                                        <% } %>
+                                    <% if (!notificationProfile[i].avatar.includes("http")) { %>
+                                        <img src="https://cdn.fodance.com/cf-media/<%- notificationProfile[i].avatar -%>" class="user-avt" username="<%- notificationName[i] -%>">
+                                    <% } %>
+                                </a>
+                                <div class="d-flex-col-start">
+                                    <a class="avt"><span class="avt-username user-username"><%- notificationName[i] -%></span></a>
+                                    <a class="avt">
+                                        <span class="post-time nickname-content">
+                                            @<%- notificationProfile[i].nickname -%>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                            <span class="mg-l noselect">đã theo dõi bạn</span>
+                        </div>
+                        <div class="time-noti">
+                            <% if ((Date.now() - notifications[i].time)/1000 < 5) { %>
+                                <span class="theme-color">Vừa xong</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000 > 5 && (Date.now() - notifications[i].time)/1000 < 60) { %>
+                                <span class="theme-color"><%- Math.floor((Date.now() - notifications[i].time)/1000) -%> giây trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/60 >= 1 && (Date.now() - notifications[i].time)/1000/60 < 60) { %>
+                                <span class="theme-color"><%- Math.floor((Date.now() - notifications[i].time)/1000/60) -%> phút trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600 >= 1 && (Date.now() - notifications[i].time)/1000/3600 < 24) { %>
+                                <span><%- Math.floor((Date.now() - notifications[i].time)/1000/3600) -%> giờ trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600/24 >= 1 && (Date.now() - notifications[i].time)/1000/3600/24 < 8) { %>
+                                <span><%- Math.floor((Date.now() - notifications[i].time)/1000/3600/24) -%> ngày trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600/24 >= 8) { %>
+                                <span><%- notifications[i].time.getDate() + " tháng " + (notifications[i].time.getMonth() + 1) + " lúc " + notifications[i].time.getHours() + ':' + notifications[i].time.getMinutes()-%></span>
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+                <% if (notifications[i].type == "post") { %>
+                    <div class="notification-item nav-red <% if (!read[i]) { %>unread-notification-bg<% } %> <% if (i < notifications.length - 1) { %>border-b<% } %>" nav-data="view-post" data-post-df="<%- notifications[i].postInfo[0] -%>">
+                        <div class="d-flex-col-start">
+                            <div class="d-flex-start">
+                                <div class="d-flex">
+                                    <a class="avt">
+                                        <% if (notificationProfile[i].avatar.includes("http")) { %>
+                                            <img src="<%- notificationProfile[i].avatar -%>" class="user-avt" username="<%- notificationName[i] -%>">
+                                            <% } %>
+                                        <% if (!notificationProfile[i].avatar.includes("http")) { %>
+                                            <img src="https://cdn.fodance.com/cf-media/<%- notificationProfile[i].avatar -%>" class="user-avt" username="<%- notificationName[i] -%>">
+                                        <% } %>                                    
+                                    </a>
+                                </div>
+                                <div class="d-flex-col-start">
+                                    <div class="d-flex-col-start">
+                                        <a class="avt"><span class="avt-username user-username"><%- notificationName[i] -%></span></a>
+                                    </div>
+                                    <% if (notifications[i].postInfo[1]) { %>
+                                        <div class="noselect"><span>đã đăng một bài viết mới vào chủ đề <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[1] -%></span> cấp <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[2] -%></span></span></div>
+                                    <% } %>
+                                    <% if (!notifications[i].postInfo[1]) { %>
+                                        <div class="noselect"><span>đã đăng một bài viết mới</span></div>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div class="mg-t"><span>Click để xem bài viết và bình chọn</span></div>
+                        </div>
+                        <div class="time-noti">
+                            <% if ((Date.now() - notifications[i].time)/1000 < 5) { %>
+                                <span class="theme-color">Vừa xong</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000 > 5 && (Date.now() - notifications[i].time)/1000 < 60) { %>
+                                <span class="theme-color"><%- Math.floor((Date.now() - notifications[i].time)/1000) -%> giây trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/60 >= 1 && (Date.now() - notifications[i].time)/1000/60 < 60) { %>
+                                <span class="theme-color"><%- Math.floor((Date.now() - notifications[i].time)/1000/60) -%> phút trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600 >= 1 && (Date.now() - notifications[i].time)/1000/3600 < 24) { %>
+                                <span><%- Math.floor((Date.now() - notifications[i].time)/1000/3600) -%> giờ trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600/24 >= 1 && (Date.now() - notifications[i].time)/1000/3600/24 < 8) { %>
+                                <span><%- Math.floor((Date.now() - notifications[i].time)/1000/3600/24) -%> ngày trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600/24 >= 8) { %>
+                                <span><%- notifications[i].time.getDate() + " tháng " + (notifications[i].time.getMonth() + 1) + " lúc " + notifications[i].time.getHours() + ':' + notifications[i].time.getMinutes()-%></span>
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+                <% if (notifications[i].type == "vote") { %>
+                    <div class="notification-item nav-red <% if (!read[i]) { %>unread-notification-bg<% } %> <% if (i < notifications.length - 1) { %>border-b<% } %>" nav-data="view-post" data-post-df="<%- notifications[i].postInfo[0] -%>">
+                        <div class="d-flex-start">
+                            <a class="avt">
+                                <% if (notificationProfile[i].avatar.includes("http")) { %>
+                                    <img src="<%- notificationProfile[i].avatar -%>" class="user-avt" username="<%- notificationName[i] -%>">
+                                    <% } %>
+                                <% if (!notificationProfile[i].avatar.includes("http")) { %>
+                                    <img src="https://cdn.fodance.com/cf-media/<%- notificationProfile[i].avatar -%>" class="user-avt" username="<%- notificationName[i] -%>">
+                                <% } %>                            
+                            </a>
+                            <div class="d-flex-col-start">
+                                <a class="avt"><span class="avt-username user-username"><%- notificationName[i] -%></span></a>
+                                <a class="avt">
+                                    <span class="post-time nickname-content">
+                                        @<%- notificationProfile[i].nickname -%>
+                                    </span>
+                                </a>
+                            </div>
+                            <span class="mg-l">đã có bài viết đạt <span class="theme-color"><%- notifications[i].postInfo[1] -%></span> lượt bình chọn</span>
+                        </div>
+                        <div class="time-noti">
+                            <% if ((Date.now() - notifications[i].time)/1000 < 5) { %>
+                                <span class="theme-color">Vừa xong</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000 > 5 && (Date.now() - notifications[i].time)/1000 < 60) { %>
+                                <span class="theme-color"><%- Math.floor((Date.now() - notifications[i].time)/1000) -%> giây trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/60 >= 1 && (Date.now() - notifications[i].time)/1000/60 < 60) { %>
+                                <span class="theme-color"><%- Math.floor((Date.now() - notifications[i].time)/1000/60) -%> phút trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600 >= 1 && (Date.now() - notifications[i].time)/1000/3600 < 24) { %>
+                                <span><%- Math.floor((Date.now() - notifications[i].time)/1000/3600) -%> giờ trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600/24 >= 1 && (Date.now() - notifications[i].time)/1000/3600/24 < 8) { %>
+                                <span><%- Math.floor((Date.now() - notifications[i].time)/1000/3600/24) -%> ngày trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600/24 >= 8) { %>
+                                <span><%- notifications[i].time.getDate() + " tháng " + (notifications[i].time.getMonth() + 1) + " lúc " + notifications[i].time.getHours() + ':' + notifications[i].time.getMinutes()-%></span>
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+                <% if (notifications[i].type == "like") { %>
+                    <div class="notification-item nav-red <% if (!read[i]) { %>unread-notification-bg<% } %> <% if (i < notifications.length - 1) { %>border-b<% } %>" nav-data="view-post" data-post-df="<%- notifications[i].postInfo[0] -%>">
+                        <div class="d-flex-start">
+                            <a class="avt">
+                                <% if (notificationProfile[i].avatar.includes("http")) { %>
+                                    <img src="<%- notificationProfile[i].avatar -%>" class="user-avt" username="<%- notificationName[i] -%>">
+                                    <% } %>
+                                <% if (!notificationProfile[i].avatar.includes("http")) { %>
+                                    <img src="https://cdn.fodance.com/cf-media/<%- notificationProfile[i].avatar -%>" class="user-avt" username="<%- notificationName[i] -%>">
+                                <% } %>                            
+                            </a>
+                            <div class="d-flex-col-start">
+                                <% if (notifications[i].postInfo[1] == '1') { %>
+                                    <% if (notifications[i].postInfo[2] != '') { %>
+                                        <div><b><%- notificationName[i] -%> </b> đã bình chọn bài viết của bạn tại chủ đề <%- notifications[i].postInfo[2] -%> cấp <%- notifications[i].postInfo[3] -%></div>
+                                    <% } %>
+                                    <% if (notifications[i].postInfo[2] == '') { %>
+                                        <div><b><%- notificationName[i] -%> </b> đã bình chọn bài viết của bạn</div>
+                                    <% } %>
+                                <% } %>
+                                <% if (notifications[i].postInfo[1] != '1')  { %>
+                                    <% if (notifications[i].postInfo[2] != '') { %>
+                                        <div><b><%- notificationName[i] -%> </b> và <%- notifications[i].postInfo[1] - 1 -%> người khác đã bình chọn bài viết của bạn tại chủ đề <%- notifications[i].postInfo[2] -%> cấp <%- notifications[i].postInfo[3] -%></div>
+                                    <% } %>
+                                    <% if (notifications[i].postInfo[2] == '') { %>
+                                        <div><b><%- notificationName[i] -%> </b> và <%- notifications[i].postInfo[1] - 1 -%> người khác đã bình chọn bài viết của bạn</div>
+                                    <% } %>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="time-noti">
+                            <% if ((Date.now() - notifications[i].time)/1000 < 5) { %>
+                                <span class="theme-color">Vừa xong</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000 > 5 && (Date.now() - notifications[i].time)/1000 < 60) { %>
+                                <span class="theme-color"><%- Math.floor((Date.now() - notifications[i].time)/1000) -%> giây trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/60 >= 1 && (Date.now() - notifications[i].time)/1000/60 < 60) { %>
+                                <span class="theme-color"><%- Math.floor((Date.now() - notifications[i].time)/1000/60) -%> phút trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600 >= 1 && (Date.now() - notifications[i].time)/1000/3600 < 24) { %>
+                                <span><%- Math.floor((Date.now() - notifications[i].time)/1000/3600) -%> giờ trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600/24 >= 1 && (Date.now() - notifications[i].time)/1000/3600/24 < 8) { %>
+                                <span><%- Math.floor((Date.now() - notifications[i].time)/1000/3600/24) -%> ngày trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600/24 >= 8) { %>
+                                <span><%- notifications[i].time.getDate() + " tháng " + (notifications[i].time.getMonth() + 1) + " lúc " + notifications[i].time.getHours() + ':' + notifications[i].time.getMinutes()-%></span>
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+                <% if (notifications[i].type == "comment") { %>
+                    <div class="notification-item nav-red <% if (!read[i]) { %>unread-notification-bg<% } %> <% if (i < notifications.length - 1) { %>border-b<% } %>" nav-data="view-post" data-post-df="<%- notifications[i].postInfo[0] -%>" data-cmt-df="<%- notifications[i].postInfo[1] -%>">
+                        <div class="d-flex-start">
+                            <a class="avt">
+                                <% if (notificationProfile[i].avatar.includes("http")) { %>
+                                    <img src="<%- notificationProfile[i].avatar -%>" class="user-avt" username="<%- notificationName[i] -%>">
+                                    <% } %>
+                                <% if (!notificationProfile[i].avatar.includes("http")) { %>
+                                    <img src="https://cdn.fodance.com/cf-media/<%- notificationProfile[i].avatar -%>" class="user-avt" username="<%- notificationName[i] -%>">
+                                <% } %>
+                            </a>
+                            <div class="d-flex-col-start">
+                                <% if (notifications[i].postInfo[4] == '0') { %>
+                                    <% if (notifications[i].postInfo[2] != '') { %>
+                                        <div><b><%- notificationName[i] -%> </b> đã bình luận về bài viết của bạn tại chủ đề <%- notifications[i].postInfo[2] -%> cấp <%- notifications[i].postInfo[3] -%></div>
+                                    <% } %>
+                                    <% if (notifications[i].postInfo[2] == '') { %>
+                                        <div><b><%- notificationName[i] -%> </b> đã bình luận về bài viết của bạn</div>
+                                    <% } %>
+                                <% } %>
+                                <% if (notifications[i].postInfo[4] != '0') { %>
+                                    <% if (notifications[i].postInfo[2] != '') { %>
+                                        <div><b><%- notificationName[i] -%> </b> và <%- notifications[i].postInfo[4] -%> người khác đã bình luận về bài viết của bạn tại chủ đề <%- notifications[i].postInfo[2] -%> cấp <%- notifications[i].postInfo[3] -%></div>
+                                    <% } %>
+                                    <% if (notifications[i].postInfo[2] == '') { %>
+                                        <div><b><%- notificationName[i] -%> </b> và <%- notifications[i].postInfo[4] -%> người khác đã bình luận về bài viết của bạn</div>
+                                    <% } %>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="time-noti">
+                            <% if ((Date.now() - notifications[i].time)/1000 < 5) { %>
+                                <span class="theme-color">Vừa xong</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000 > 5 && (Date.now() - notifications[i].time)/1000 < 60) { %>
+                                <span class="theme-color"><%- Math.floor((Date.now() - notifications[i].time)/1000) -%> giây trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/60 >= 1 && (Date.now() - notifications[i].time)/1000/60 < 60) { %>
+                                <span class="theme-color"><%- Math.floor((Date.now() - notifications[i].time)/1000/60) -%> phút trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600 >= 1 && (Date.now() - notifications[i].time)/1000/3600 < 24) { %>
+                                <span><%- Math.floor((Date.now() - notifications[i].time)/1000/3600) -%> giờ trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600/24 >= 1 && (Date.now() - notifications[i].time)/1000/3600/24 < 8) { %>
+                                <span><%- Math.floor((Date.now() - notifications[i].time)/1000/3600/24) -%> ngày trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600/24 >= 8) { %>
+                                <span><%- notifications[i].time.getDate() + " tháng " + (notifications[i].time.getMonth() + 1) + " lúc " + notifications[i].time.getHours() + ':' + notifications[i].time.getMinutes()-%></span>
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    <% } %>
+</div>

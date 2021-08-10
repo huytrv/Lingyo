@@ -1,0 +1,30 @@
+<% extend('layout') %>           
+<div class="category">
+    <div class="d-flex group-title">
+        <span class="font-size-lg-2 none-deco none-mg">Thêm thể loại</span>
+    </div>
+</div> 
+<div class="main-frame-post d-flex">
+    <div class="post response-frame none-pd">
+        <div class="group-title d-flex">
+            <span class="font-size-lg-3">Thêm một thể loại mới vào Fodance</span>
+        </div>
+        <div class="border-b"></div>
+        <div class="add-topic-content d-flex-col-start pd">
+            <h3 class="mg-b">Bạn muốn thêm một thể loại là thế mạnh của bạn hay chỉ đơn giản là bạn yêu thích, hãy nhập chính xác tên thể loại vào phía dưới:</h3>
+            <span class="mg-b">Chúng tôi sẽ xem xét yêu cầu, nếu thể loại hợp lệ và đủ số lượng người tối thiểu, thể loại của bạn sẽ được thêm vào Fodance.</span>
+            <input type="text" name="add-topic" class="add-topic-input" placeholder="Nhập tên thể loại" maxlength="100">
+            <i>Hiện tại bạn chỉ có tối đa <span class="theme-color bold-font">5</span> lần thêm thể loại, hãy cân nhắc thật kĩ! (hiện còn <span class="theme-color total-left bold-font"><%- 5 - topics.length -%></span> lần)</i>
+            <button class="next-but mg-t mg-b submit-add-topic">Xác nhận</button>
+            <span class="mg-b">Các thể loại đã thêm:</span>
+            <div class="topic-added d-flex">
+                <% if (topics.length != 0) { %>
+                    <% for (let i = 0; i < topics.length; i++){ %>
+                        <button class="topic-but mg-r "><%- topics[i].topic -%></button>
+                    <% } %>
+                <% } %>
+            </div>
+            <a class="del-all-topic theme-color mg-t">Chọn lại?</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% if (cateName == '') { %>
+        <title>Fodance</title>
+    <% } %>
+    <% if (cateName != '') { %>
+        <title>Fodance | <%- cateName.charAt(0).toUpperCase() + cateName.slice(1) %></title>
+    <% } %>
+    <%- include('header') -%>
+</head>
+<body>
+    <div class="global">
+        <div class="header">
+            <div class="header-inner-mobile">
+                <div class="d-flex-start">
+                    <div class="sidenav-frame">
+                        <div class="sidenav">
+                            <a class="closebtn close-nav">&times;</a>
+                            <a class="nav-item nav-red avt header-nickname noselect mg-r" nav-data='personal' data-user-df="<%- profile.nickname -%>">
+                                <% if (profile.avatar.includes("http")) { %>
+                                    <img src="<%- profile.avatar -%>" class="user-avt header-avatar" username="<%- username -%>">
+                                    <% } %>
+                                <% if (!profile.avatar.includes("http")) { %>
+                                    <img src="https://cdn.fodance.com/<%- profile.avatar -%>" class="user-avt header-avatar" username="<%- username -%>">
+                                    <% } %>
+                                <div class="d-flex-col-start">
+                                    <span class="avt-username header-username nav-item-name-red none-deco user-username"><% if (username.length > 15) { %><%- username.substring(0, 12) + '...' + username.substring(username.length) -%><% } %><% if (username.length <= 15) { %><%- username -%><% } %></span>
+                                    <span class="avt-nickname avatar-nickname">@<%- profile.nickname -%></span>
+                                </div>
+                            </a>
+                            <div class="d-flex-start pd">
+                                <div class="header-dp d-flex user-stars noselect">
+                                    <span class="iconify font-icon mg-l-sm theme-color" data-icon="emojione-v1:money-bag" data-inline="false"></span>
+                                    <span class="star-total"><%- profile.stars -%></span>
+                                </div>
+                                <div class="header-dp d-flex user-tickets noselect mg-r-lg">
+                                    <span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>
+                                    <span class="ticket-total"><%- profile.tickets -%></span>
+                                </div>
+                            </div>
+                            <div class="search-but pd">
+                                <span class="iconify icon" data-icon="heroicons-outline:search" data-inline="false"></span>
+                                <form autocomplete="off" class="search-form">
+                                    <input type="text" name="search" class="home-input search-input" placeholder="Tìm kiếm trên Fodance" maxlength="30">   
+                                </form>
+                            </div>
+                            <div class="border-b mg-l mg-r"></div>
+                            <div class="d-flex">
+                                <a class="sort-content-but d-flex-col noselect sort-cate <% if (cateActive != '') { %>sort-content-but-active <% } %>" sort-data="rank-sort-content"><span class="iconify" data-icon="bi:bar-chart-fill" data-inline="false"></span><div class="d-flex-col"><span>Thứ</span><span>hạng</span></div></a>
+                                <a class="sort-content-but d-flex-col noselect" sort-data='random-sort-content'><span class="iconify" data-icon="fe:random" data-inline="false"></span><div class="d-flex-col"><span>Ngẫu</span><span>nhiên</span></div></a>
+                                <a class="sort-content-but d-flex-col noselect" sort-data='latest-sort-content'><span class="iconify" data-icon="ic:twotone-autorenew" data-inline="false"></span><div class="d-flex-col"><span>Mới</span><span>nhất</span></div></a>
+                                <a class="sort-content-but d-flex-col noselect" sort-data='follow-sort-content'><span class="iconify" data-icon="ri:user-follow-line" data-inline="false"></span><div class="d-flex-col"><span>Theo</span><span>dõi</span></div></a>
+                            </div>
+                            <div class="border-b mg-l mg-r"></div>
+                            <a class="nav-item d-flex-start noselect filter-but dropdown-but mg-t">
+                                <span class="iconify dropdown-icon mg-r-sm" data-icon="whh:sortbysizedescending" data-inline="false"></span><div class="dropdown-text"><span>Lọc</span></div>
+                            </a>
+                            <a class="nav-item nav-red honors-but <% if (active == 'honors') { %> active <% } %>" nav-data='honors'><span class="iconify" data-icon="ph:medal-light" data-inline="false"></span><span class="nav-item-name-red">Vinh danh</span></a>
+                            <a class="nav-item nav-red saved-but <% if (active == 'saved') { %> active <% } %>" nav-data='saved'><span class="iconify" data-icon="bi:bookmark-check" data-inline="false"></span><span class="nav-item-name-red">Đã lưu</span></a>
+                            <a class="nav-item nav-red add-topic-but <% if (active == 'add-topic') { %> active <% } %>" nav-data='add-topic'><span class="iconify" data-icon="heroicons-outline:view-grid-add" data-inline="false"></span><span class="nav-item-name-red">Thêm thể loại</span></a>
+                            <div class="border-b mg-l mg-r"></div>
+                            <a class="nav-item d-flex-start nav-red" nav-data="setting" setting-data="feedback"><span class="iconify" data-icon="bx:bx-layer-plus" data-inline="false"></span><span class="nav-item-name-red">Ý kiến và phản hồi</span></a>
+                            <a class="nav-item d-flex-start nav-red" nav-data="setting" setting-data="normal"><span class="iconify" data-icon="cil:settings" data-inline="false"></span><span class="nav-item-name-red">Cài đặt</span></a>
+                            <div class="border-b mg-l mg-r"></div>
+                            <a href="/login" class="nav-item mg-b d-flex-start"><span class="iconify" data-icon="ant-design:logout-outlined" data-inline="false"></span><span class="nav-item-name-red">Đăng suất</span></a>
+                        </div>
+                    </div> 
+                    <div class="avt open-nav">
+                        <% if (profile.avatar.includes("http")) { %>
+                            <img src="<%- profile.avatar -%>" class="user-avt mg-l-sm" username="<%- username -%>">
+                            <% } %>
+                        <% if (!profile.avatar.includes("http")) { %>
+                            <img src="https://cdn.fodance.com/cf-media/<%- profile.avatar -%>" class="user-avt mg-l-sm" username="<%- username -%>">
+                            <% } %>
+                    </div>
+                    <div class="title"><h2 class="title-content"></h2></div>
+                </div>
+                <div class="header-rank d-flex">
+                    <button class="header-rank-but d-flex mg-r <% if (rankLink == 'primary') { %> header-rank-but-active <% } %>" rank-data="primary"><span class="iconify mg-r-sm" data-icon="uil:medal" data-inline="false"></span><span class="header-rank-but-name">Sơ cấp</span><span class="rank-post-count"></span></button>
+                    <button class="header-rank-but mg-r d-flex <% if (rankLink == 'intermediate') { %> header-rank-but-active <% } %>" rank-data="intermediate"><span class="iconify mg-r-sm" data-icon="la:medal-solid" data-inline="false"></span><span class="header-rank-but-name">Trung cấp</span><span class="rank-post-count"></span></button>
+                    <button class="header-rank-but d-flex <% if (rankLink == 'highgrade') { %> header-rank-but-active <% } %>" rank-data="highgrade"><span class="iconify mg-r-sm" data-icon="emojione-monotone:sports-medal" data-inline="false"></span><span class="header-rank-but-name">Cao cấp</span><span class="rank-post-count"></span></button>
+                </div>
+            </div>
+            <div class="header-inner">
+                <div class="logo">
+                    <a class="logo-but nav-red" nav-data=''><img src="/public/images/logo/logo1.png" class="cf-img"><span class="nav-item-name-red"></span></a>   
+                    <div class="search-but">
+                        <span class="iconify icon" data-icon="heroicons-outline:search" data-inline="false"></span>
+                        <form autocomplete="off" class="search-form">
+                            <input type="text" name="search" class="home-input search-input" placeholder="Tìm kiếm trên Fodance" maxlength="30">   
+                        </form>
+                    </div> 
+                </div>   
+                <div class="header-rank">
+                    <button class="header-rank-but d-flex mg-r <% if (rankLink == 'primary') { %> header-rank-but-active <% } %>" rank-data="primary"><span class="iconify mg-r-sm" data-icon="uil:medal" data-inline="false"></span><span class="header-rank-but-name">Sơ cấp</span><span class="rank-post-count"></span></button>
+                    <button class="header-rank-but mg-r d-flex <% if (rankLink == 'intermediate') { %> header-rank-but-active <% } %>" rank-data="intermediate"><span class="iconify mg-r-sm" data-icon="la:medal-solid" data-inline="false"></span><span class="header-rank-but-name">Trung cấp</span><span class="rank-post-count"></span></button>
+                    <button class="header-rank-but d-flex <% if (rankLink == 'highgrade') { %> header-rank-but-active <% } %>" rank-data="highgrade"><span class="iconify mg-r-sm" data-icon="emojione-monotone:sports-medal" data-inline="false"></span><span class="header-rank-but-name">Cao cấp</span><span class="rank-post-count"></span></button>
+                </div>
+                <div class="d-flex mg-r">
+                    <div class="personal">
+                        <a class="avt-header nav-red avt avt-but header-nickname d-flex noselect mg-r" nav-data='personal' data-user-df="<%- profile.nickname -%>">
+                            <% if (profile.avatar.includes("http")) { %>
+                                <img src="<%- profile.avatar -%>" class="user-avt header-avatar" username="<%- username -%>">
+                                <% } %>
+                            <% if (!profile.avatar.includes("http")) { %>
+                                <img src="https://cdn.fodance.com/cf-media/<%- profile.avatar -%>" class="user-avt header-avatar" username="<%- username -%>">
+                                <% } %>
+                            <span class="avt-username header-username nav-item-name-red none-deco user-username"><% if (username.length > 15) { %><%- username.substring(0, 12) + '...' + username.substring(username.length) -%><% } %><% if (username.length <= 15) { %><%- username -%><% } %></span>
+                        </a>
+                    </div>
+                    <div class="header-dp user-stars noselect mg-r">
+                        <span class="star-total"><%- profile.stars -%></span>
+                        <span class="iconify font-icon mg-l-sm theme-color" data-icon="emojione-v1:money-bag" data-inline="false"></span>
+                    </div>
+                    <div class="header-dp user-tickets noselect mg-r">
+                        <span class="ticket-total"><%- profile.tickets -%></span>
+                        <span class="iconify font-icon mg-l-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>
+                    </div>
+                    <div class="dropdown personal-dropdown">
+                        <button class="avt-but header-but dropdown-but personal-dropdown-but">
+                            <span class="iconify dropdown-icon" data-icon="bx:bxs-down-arrow" data-inline="false"></span>
+                        </button>  
+                        <div class="info-dropdown-content dropdown-content   ">
+                            <a class="avt nav-red nav-item border-b mg-t none-deco d-flex d-flex-col noselect personal-but header-nickname" nav-data='personal' data-user-df="<%- profile.nickname -%>">
+                                <% if (profile.avatar.includes("http")) { %>
+                                    <img src="<%- profile.avatar -%>" class="user-avt mg-l-sm" username="<%- username -%>">
+                                    <% } %>
+                                <% if (!profile.avatar.includes("http")) { %>
+                                    <img src="https://cdn.fodance.com/cf-media/<%- profile.avatar -%>" class="user-avt mg-l-sm" username="<%- username -%>">
+                                    <% } %>
+                                <div class="d-flex-col">
+                                    <span class="avt-username nav-item-name-red font-size-lg-1 none-deco user-username"><% if (username.length > 15) { %><%- username.substring(0, 12) + '...' + username.substring(username.length) -%><% } %><% if (username.length <= 15) { %><%- username -%><% } %></span>
+                                    <span>Xem trang cá nhân của bạn</span>
+                                </div>
+                            </a>
+                            <a class="nav-item d-flex-start nav-red" nav-data="setting" setting-data="feedback"><span class="iconify" data-icon="bx:bx-layer-plus" data-inline="false"></span><span class="nav-item-name-red">Ý kiến và phản hồi</span></a>
+                            <a class="nav-item d-flex-start nav-red" nav-data="setting" setting-data="normal"><span class="iconify" data-icon="cil:settings" data-inline="false"></span><span class="nav-item-name-red">Cài đặt</span></a>
+                            <a href="/login" class="nav-item mg-b d-flex-start"><span class="iconify" data-icon="ant-design:logout-outlined" data-inline="false"></span>Đăng suất</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main bg-color">
+            <div class="main-inner">
+                <div class="main-wrapper">
+                    <div class="left-nav">
+                        <div class="left-nav-inner">
+                            <div class="list-box">
+                                <a class="nav-ele nav-item nav-red home-but <% if (active == 'home') { %> active <% } %>" nav-data=''><span class="iconify" data-icon="octicon:home" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Trang chủ</span></a>
+                                <a class="nav-ele nav-item nav-red explore-but <% if (active == 'explore') { %> active <% } %>" nav-data='explore'><span class="iconify" data-icon="carbon:star-review" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Khám phá</span></a>
+                                <a class="nav-ele nav-item nav-red fame-but <% if (active == 'fame') { %> active <% } %>" nav-data='fame'><span class="iconify" data-icon="bi:bar-chart" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Xếp hạng</span></a>                             
+                                <a class="nav-ele nav-item nav-red notifications-but <% if (active == 'notifications') { %> active <% } %>" nav-data='notifications'><span class="iconify" data-icon="ph:bell-simple" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Thông báo</span></a>
+                                <a class="nav-ele nav-item nav-red saved-but <% if (active == 'saved') { %> active <% } %>" nav-data='saved'><span class="iconify" data-icon="bi:bookmark-check" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Đã lưu</span></a>
+                                <a class="nav-ele nav-item nav-red honors-but <% if (active == 'honors') { %> active <% } %>" nav-data='honors'><span class="iconify" data-icon="ph:medal-light" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Vinh danh</span></a>
+                                <a class="nav-ele nav-item nav-red add-topic-but <% if (active == 'add-topic') { %> active <% } %>" nav-data='add-topic'><span class="iconify" data-icon="heroicons-outline:view-grid-add" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Thêm thể loại</span></a>
+                                <button class="dropdown-but nav-ele nav-item nav-dropdown mg-b">
+                                    <span class="iconify dropdown-icon" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span>
+                                </button>
+                                <div class="dropdown-content nav-dropdown-content noselect">
+                                    <a class="nav-item nav-red saved-but2" nav-data='saved'><span class="iconify" data-icon="uim:layer-group" data-inline="false"></span><span class="nav-item-name-red">Đã lưu</span></a>
+                                    <a class="nav-item nav-red honors-but2 <% if (active == 'honors') { %> active <% } %>" nav-data='honors'><span class="iconify" data-icon="ph:medal-light" data-inline="false"></span><span class="nav-item-name-red">Vinh danh</span></a>
+                                    <a class="nav-item nav-red add-topic-but2" nav-data='add-topic'><span class="iconify" data-icon="heroicons-outline:view-grid-add" data-inline="false"></span><span class="nav-item-name-red">Thêm thể loại</span></a>
+                                </div>
+                            </div>
+                            <div class="mg-b-lg pd-l pd-r">
+                                <button class="create-post-but" data-create-but="layout">Tạo</button>
+                                <div class="create-post-handler <% if (modal && modal == 'create-post') { %>create-post-handler-begin<% } %><% if (modal && modal == 'ticket-payment') { %>ticket-payment-handler-begin<% } %><% if (modal && modal == 'alert-success') { %>alert-success-begin<% } %><% if (modal && modal == 'alert-failure') { %>alert-failure-begin<% } %><% if (modal && modal == 'star-reward') { %>star-reward-handler-begin<% } %>"></div>   
+                            </div>
+                            <div class="left-nav-info mg-b">
+                                <div class="contact-info">
+                                    <a href="/privacy-policy" class="mg-r-sm">Điều khoản Dịch vụ</a>
+                                    <a href="/privacy-policy" class="contact-item mg-r-sm">Quyền riêng tư</a>
+                                    <a href="/privacy-policy" class="contact-item mg-r-sm">Chính sách Cookie</a>
+                                    <a href="/privacy-policy" class="contact-item mg-r-sm">Hỗ trợ khách hàng</a>
+                                    <a href="/privacy-policy" class="contact-item">Xem thêm</a><br>
+                                    <span>Fodance © 2020</span>
+                                </div>
+                                <div class="dropdown language-dropdown">
+                                    <button class="language-button dropdown-but">Tiếng Việt</button>
+                                    <div class="language-dropdown-content dropdown-content">
+                                        <a class="nav-item">Tiếng Việt</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-frame">  
+                        <div class="category">
+                            <div class="d-flex group-title">
+                                <span class="font-size-lg-2 none-deco none-mg">Cài đặt</span>
+                            </div>
+                        </div> 
+                        <div class="main-frame-setting">
+                            <div class="main-frame-post-inner">
+                                <div class="setting-bar setting-bar-mobile">
+                                    <div class="pd-b-lg">
+                                        <div class="group-title">
+                                            <span class="font-size-lg-2 none-deco pd-l">Tài khoản</span>
+                                        </div>
+                                        <div class="gradient-line"></div>
+                                        <div class="pd-l-lg pd-r-lg">
+                                            <div class="setting-item border-b general-setting setting-item-active"><span>Chung</span></div>
+                                            <div class="setting-item border-b nickname-setting"><span>Tên người dùng</span></div>
+                                            <div class="setting-item border-b phone-setting"><span>Số điện thoại</span></div>
+                                            <div class="setting-item border-b email-setting"><span>Email</span></div>
+                                            <div class="setting-item border-b password-setting"><span>Đổi mật khẩu</span></div>
+                                        </div>
+                                        <div class="group-title">
+                                            <span class="font-size-lg-2 none-deco pd-l">Ý kiến & phản hồi</span>
+                                        </div>
+                                        <div class="gradient-line"></div>
+                                        <div class="pd-l-lg pd-r-lg">
+                                            <div class="setting-item border-b feedback-setting"><span>Góp ý</span></div>
+                                        </div>
+                                        <div class="group-title">
+                                            <span class="font-size-lg-2 none-deco pd-l">Chặn</span>
+                                        </div>
+                                        <div class="gradient-line"></div>
+                                        <div class="pd-l-lg pd-r-lg">
+                                            <div class="setting-item block-setting"><span>Danh sách chặn</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="setting-content">
+                                    <div class="group-title">
+                                        <span class="font-size-lg-2 none-deco pd-l general-setting-content">Thiết lập chung</span>
+                                    </div>
+                                    <div class="border-b"></div>
+                                    <div class="setting-handle">
+                                        <div class="d-flex-sb pd-b border-b">
+                                            <span>Thông báo người theo dõi</span>
+                                            <label class="switch noselect">
+                                                <% if (followCheck) { %>
+                                                    <input type="checkbox" class="notification-checkbox" data-checkbox="follow-notification-checkbox" checked>
+                                                <% } %>
+                                                <% if (!followCheck) { %>
+                                                    <input type="checkbox" class="notification-checkbox" data-checkbox="follow-notification-checkbox">
+                                                <% } %>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="d-flex-sb pd-t pd-b border-b">
+                                            <span>Thông báo bài viết đạt mốc bình chọn</span>
+                                            <label class="switch noselect">
+                                                <% if (voteFollowCheck) { %>
+                                                    <input type="checkbox" class="notification-checkbox" data-checkbox="vote-follow-notification-checkbox" checked>
+                                                <% } %>
+                                                <% if (!voteFollowCheck) { %>
+                                                    <input type="checkbox" class="notification-checkbox" data-checkbox="vote-follow-notification-checkbox">
+                                                <% } %>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="d-flex-sb pd-t pd-b">
+                                            <span>Thông báo bài viết mới của người bạn theo dõi</span>
+                                            <label class="switch noselect">
+                                                <% if (postFollowCheck) { %>
+                                                    <input type="checkbox" class="notification-checkbox" data-checkbox="post-follow-notification-checkbox" checked>
+                                                    <% } %>
+                                                <% if (!postFollowCheck) { %>
+                                                    <input type="checkbox" class="notification-checkbox" data-checkbox="post-follow-notification-checkbox" >
+                                                    <% } %>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-info">
+                        <div class="main-info-inner info-setting">
+                            <div class="setting-bar">
+                                <div class="pd-b-lg">
+                                    <div class="group-title">
+                                        <span class="font-size-lg-2 none-deco pd-l">Tài khoản</span>
+                                    </div>
+                                    <div class="gradient-line"></div>
+                                    <div class="pd-l-lg pd-r-lg">
+                                        <div class="setting-item border-b general-setting setting-item-active"><span>Chung</span></div>
+                                        <div class="setting-item border-b nickname-setting"><span>Tên người dùng</span></div>
+                                        <div class="setting-item border-b phone-setting"><span>Số điện thoại</span></div>
+                                        <div class="setting-item border-b email-setting"><span>Email</span></div>
+                                        <div class="setting-item border-b password-setting"><span>Đổi mật khẩu</span></div>
+                                    </div>
+                                    <div class="group-title">
+                                        <span class="font-size-lg-2 none-deco pd-l">Ý kiến & phản hồi</span>
+                                    </div>
+                                    <div class="gradient-line"></div>
+                                    <div class="pd-l-lg pd-r-lg">
+                                        <div class="setting-item border-b feedback-setting"><span>Góp ý</span></div>
+                                    </div>
+                                    <div class="group-title">
+                                        <span class="font-size-lg-2 none-deco pd-l">Chặn</span>
+                                    </div>
+                                    <div class="gradient-line"></div>
+                                    <div class="pd-l-lg pd-r-lg">
+                                        <div class="setting-item block-setting"><span>Danh sách chặn</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-bar-mobile">
+            <a class="nav-item nav-red d-flex home-but <% if (active == 'home') { %> active <% } %>" nav-data=''><span class="iconify" data-icon="octicon:home" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Trang chủ</span></a>
+            <a class="nav-item nav-red d-flex explore-but <% if (active == 'explore') { %> active <% } %>" nav-data='explore'><span class="iconify" data-icon="carbon:star-review" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Khám phá</span></a>
+            <a class="nav-item nav-red d-flex fame-but <% if (active == 'fame') { %> active <% } %>" nav-data='fame'><span class="iconify" data-icon="bi:bar-chart" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Xếp hạng</span></a>                             
+            <a class="nav-item nav-red d-flex notifications-but <% if (active == 'notifications') { %> active <% } %>" nav-data='notifications'><span class="iconify" data-icon="ph:bell-simple" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Thông báo</span></a>
+        </div>
+        <div class="mobile-creator">
+            <button class="create-post-but d-flex" data-create-but="layout"><span class="iconify" data-icon="whh:createfolder" data-inline="false"></span></button>
+            <div class="create-post-handler"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/public/js/home_dev.js" async></script>
+</body>
+</html>

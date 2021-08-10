@@ -1,0 +1,43 @@
+<% extend('layout') %>
+
+<div class="category">
+    <div class="d-flex group-title"><span class="font-size-lg-2 none-deco none-mg">Kết quả tìm kiếm cho "<%- text -%>"</div>
+</div> 
+<div class="main-frame-post d-flex">
+    <div class="response-frame">
+        <div class="search-content">
+            <% for (let i = 0; i < result.length; i++){ %>
+                <div class="search-item border-b mg-b pd nav-red d-flex-col-start" nav-data='personal' data-user-df="<%- result[i][2] -%>" data-user-id="<%- result[i][0] -%>">
+                    <div class="d-flex-sb">
+                        <div class="d-flex">
+                            <% if (result[i][3].includes("http")) { %>
+                                <a class="avt"><img src="<%- result[i][3] -%>" class="user-avt" username="<%- result[i][1] -%>"></a>
+                                <% } %>
+                            <% if (!result[i][3].includes("http")) { %>
+                                <a class="avt"><img src="https://cdn.fodance.com/cf-media/<%- result[i][3] -%>" class="user-avt" username="<%- result[i][1] -%>"></a>
+                                <% } %>
+                            <div class="d-flex-col-start">
+                                <a class="avt"><span class="avt-username user-username"><%- result[i][1] -%></span></a>
+                                <a class="avt"><span class="post-time nickname-content">@<%- result[i][2] -%></span></a>
+                            </div>
+                        </div>
+                        <div>
+                            <% if (result[i][5]) { %>
+                            <button class="follow-but following-but" data-following="<%- result[i][5] -%>">
+                                <span class="follow-text">Đang theo dõi</span>
+                            </button>
+                            <% } %>
+                            <% if (!result[i][5]) { %>
+                            <button class="follow-but" data-following="<%- result[i][5] -%>">
+                                <span class="follow-text">Theo dõi</span>
+                            </button>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="mg-t"><%- result[i][4] -%></div>
+                </div>
+            <% } %>
+        </div>
+        <div class="seemore-frame pd-l-lg pd-r-lg pd-t pd-b"><span class="seemore-result">Hiển thị thêm</span></div>
+    </div>
+</div>
