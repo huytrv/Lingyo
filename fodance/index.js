@@ -448,6 +448,7 @@ const server = https.createServer(op, app).listen(443, function(){
 
 app.get("*", function (req, res) {
     if (req.headers.host == "18.142.122.185") {res.render("notfound")}
+    else {res.end()}
 })
 
 // const server = https.createServer(op, (req, res) => {
