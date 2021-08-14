@@ -447,7 +447,7 @@ const server = https.createServer(op, app).listen(443, function(){
 });
 
 app.get("*", function (req, res) {
-    if (req.headers.host == "18.142.122.185") {res.redirect('https://' + req.headers.host + req.url)}
+    if (req.headers.host == "18.142.122.185") {res.redirect('https://fodance.com/' + req.url)}
 })
 
 // const server = https.createServer(op, (req, res) => {
