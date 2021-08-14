@@ -436,6 +436,12 @@ http.listen(80);
 const https = require('https');
 const fs = require('fs');
 
+if(req.socket.remoteAddress == '18.142.122.185'){
+    res.writeHead(403, {"Content-Type": "text/plain"});
+    res.write('403 Access Denied');
+    res.end();
+}
+
 const op = {
   key: fs.readFileSync('config/cert/privkey.pem'),
   cert: fs.readFileSync('config/cert/cert.pem'),
