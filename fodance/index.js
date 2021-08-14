@@ -453,14 +453,6 @@ const server = https.createServer(op, app).listen(443, function(){
     console.log("Server is running...")
 });
 
-https.get('*', function(req, res) {  
-    if(req.socket.remoteAddress == '18.142.122.185'){
-        res.writeHead(403, {"Content-Type": "text/plain"});
-        res.write('403 Access Denied');
-        res.end();
-    }
-})
-
 // const server = https.createServer(op, (req, res) => {
 //     console.log("Server is running...")
 //     res.writeHead(200);
