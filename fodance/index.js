@@ -428,19 +428,20 @@ app.use(morgan("dev"))
 const http = express();
 
 http.get('*', function(req, res) {  
-    res.redirect('https://' + req.headers.host + req.url);
+    if(req.socket.remoteAddress == '18.142.122.185'){
+        res.writeHead(403, {"Content-Type": "text/plain"});
+        res.write('403 Access Denied');
+        res.end();
+    }
+    else {
+        res.redirect('https://' + req.headers.host + req.url);
+    }
 })
 
 http.listen(80);
 
 const https = require('https');
 const fs = require('fs');
-
-if(req.socket.remoteAddress == '18.142.122.185'){
-    res.writeHead(403, {"Content-Type": "text/plain"});
-    res.write('403 Access Denied');
-    res.end();
-}
 
 const op = {
   key: fs.readFileSync('config/cert/privkey.pem'),
@@ -451,6 +452,14 @@ const op = {
 const server = https.createServer(op, app).listen(443, function(){
     console.log("Server is running...")
 });
+
+https.get('*', function(req, res) {  
+    if(req.socket.remoteAddress == '18.142.122.185'){
+        res.writeHead(403, {"Content-Type": "text/plain"});
+        res.write('403 Access Denied');
+        res.end();
+    }
+})
 
 // const server = https.createServer(op, (req, res) => {
 //     console.log("Server is running...")
