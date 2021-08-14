@@ -461,5 +461,5 @@ updateController(app, users)
 homeController(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber)
 
 app.get("*", function (req, res) {
-    if (req.headers.host == "18.142.122.185") {res.redirect('https://fodance.com/' + req.url)}
+    if (req.headers.host == "18.142.122.185") {res.redirect('https://fodance.com')}
 })
