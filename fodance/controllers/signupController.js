@@ -8,8 +8,11 @@ const { Op } = require("sequelize")
 
 module.exports = function(app, users, userProfile, emailRegister, phoneRegister){
     app.get("/signup", function(req, res){
-        req.logout()
-        res.render("login", {message: '', username: ''})
+        if (req.headers.host == "18.142.122.185") {res.redirect('https://fodance.com')}
+        else {
+            req.logout()
+            res.render("login", {message: '', username: ''})
+        }
     })
 
     let emailConfirmCode = phoneConfirmCode = ""

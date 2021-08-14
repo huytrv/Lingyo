@@ -9,8 +9,11 @@ module.exports = function(app, users){
     app.use(flash());
     app.route('/login')
     .get(function(req, res){
-        req.logout()
-        res.render("login", {message: '', username: ''})
+        if (req.headers.host == "18.142.122.185") {res.redirect('https://fodance.com')}
+        else {
+            req.logout()
+            res.render("login", {message: '', username: ''})
+        }
     })
     .post(function(req, res, next){
         passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login'}, function(err, user, info) {
