@@ -428,7 +428,13 @@ app.use(morgan("dev"))
 const http = express();
 
 http.get('*', function(req, res) {  
-    res.redirect('https://' + req.headers.host + req.url);
+    var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (ip == '18.142.122.185'){
+        res.send("404 ERROR")
+    }
+    else {
+        res.redirect('https://' + req.headers.host + req.url);
+    }
 })
 
 http.listen(80);
@@ -445,14 +451,6 @@ const op = {
 const server = https.createServer(op, app).listen(443, function(){
     console.log("Server is running...")
 });
-
-app.get("*", function (req, res) {
-    var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-    if (ip == '18.142.122.185'){
-        res.send("404 ERROR")
-    }
-})
-
 
 // const server = https.createServer(op, (req, res) => {
 //     console.log("Server is running...")
