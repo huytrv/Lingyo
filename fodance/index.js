@@ -446,10 +446,6 @@ const server = https.createServer(op, app).listen(443, function(){
     console.log("Server is running...")
 });
 
-app.get("*", function (req, res) {
-    if (req.headers.host == "18.142.122.185") {res.redirect('https://fodance.com/' + req.url)}
-})
-
 // const server = https.createServer(op, (req, res) => {
 //     console.log("Server is running...")
 //     res.writeHead(200);
@@ -463,3 +459,7 @@ loginController(app, users)
 forgotController(app, users, forgotPasswordToken, forgotPasswordCode)
 updateController(app, users)
 homeController(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber)
+
+app.get("*", function (req, res) {
+    if (req.headers.host == "18.142.122.185") {res.redirect('https://fodance.com/' + req.url)}
+})
