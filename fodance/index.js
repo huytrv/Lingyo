@@ -442,15 +442,16 @@ const op = {
   ca: fs.readFileSync('config/cert/fullchain.pem')
 };
 
-const server = https.createServer(op, app).listen(443, function(req, res){
+const server = https.createServer(op, app).listen(443, function(){
+    console.log("Server is running...")
+});
+
+app.get("*", function (req, res) {
     var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (ip == '18.142.122.185'){
         res.send("404 ERROR")
     }
-    else {
-        console.log("Server is running...")
-    }
-});
+})
 
 
 // const server = https.createServer(op, (req, res) => {
