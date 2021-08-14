@@ -11,27 +11,40 @@ const FileType = require('file-type')
 const sendSMS = require("../contacts/sendSMS")
 const sendMail = require("../contacts/sendMail")
 const sendModerateMail = require("../contacts/sendModerateMail")
+//azure
 const { BlobServiceClient } = require("@azure/storage-blob");
+
+//gg-cloud
 const {Storage} = require('@google-cloud/storage');
 const gc = new Storage({
     keyFilename: path.join(__dirname, "../cf-project-318304-41a96963c2de.json"),
     projectId: "cf-project-318304"
 })
-
 const cfFileBucket = gc.bucket("fodance-bk")
+
+//aws
+const S3 = require("aws-sdk/clients/s3")
+const bucketName = process.env.AWS_BUCKET_NAME
+const accessKeyId = process.env.AWS_ACCESS_KEY
+const secretAccessKey = process.env.AWS_SECRET_KEY
+const s3 = new S3({
+    accessKeyId,
+    secretAccessKey
+})
 
 
 module.exports = function(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber){
     const rankList = ["primary", "intermediate", "highgrade"]
     const rankName = ["Sơ cấp", "Trung cấp", "Cao cấp"]
-    const cateList = ["hiphop", "rap", "contemporary", "ballroom", "modern", "ballet", "shuffle", "jazz", "sexy", "flashmob", "freestyle", "other"]
-    const cateName = ["Hiphop", "Rap", "Múa đương đại", "Khiêu vũ", "Nhảy hiện đại", "Múa ba lê", "Shuffle", "Jazz", "Sexy", "Fashmob", "Nhảy tự do", "Khác"]
+    const cateList = ["freestyle", "hiphop", "rap", "contemporary", "ballroom", "modern", "ballet", "shuffle", "jazz", "sexy", "flashmob", "other"]
+    const cateName = ["Nhảy tự do", "Hiphop", "Rap", "Múa đương đại", "Khiêu vũ", "Nhảy hiện đại", "Múa ba lê", "Shuffle", "Jazz", "Sexy", "Fashmob", "Khác"]
     const navList = ["fame", "notifications", "saved", "honors", "add-topic", "setting"]
     const navName = ["Xếp hạng", "Thông báo", "Đã lưu", "Vinh danh", "Thêm thể loại", "Cài đặt"]
     const startTimeline = new Date("Mon Dec 28 2020 00:00:00")
     let round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
     let currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
-
+    let roundType
+    if (new Date().getDay() >= 1 && new Date().getDay() <= 5) {roundType = "group-stage"}else {roundType = "final"}
     //handleVoteChampion
     setInterval(function(){ 
         const newRound = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
@@ -261,6 +274,32 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
     }, 1000)
 
+    //aws upload
+    function uploadFile(file, filename) {
+        const fileStream =  fs.createReadStream(file.path)
+
+        const uploadParams = {
+            Bucket: bucketName,
+            Body: fileStream,
+            Key: "fd-media/" + filename,
+            ContentType: file.type
+        }
+
+        return s3.upload(uploadParams).promise()
+    }
+    //aws remove
+    function removeFile(filename) {
+        const uploadParams = {
+            Bucket: bucketName,
+            Key: "fd-media/" + filename
+        }
+
+        return s3.deleteObject(uploadParams, function (err) {
+            console.log(err)
+            console.log("deleted")
+        }).promise()
+    }
+
     app.get("/", function(req, res) {
         if (req.isAuthenticated()){
             req.session.tryTime = 0
@@ -425,7 +464,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             if (fl) {followed[i] = true}
                                             else {followed[i] = false}
                                             if (buf == p.length){
-                                                res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', rankLink: '', rankName: rankName, cateActive: 'explore', cateName: '', rank: false, winnerCongrat: winnerCongrat, modal: modal, newUser: newUser})
+                                                res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', rankLink: '', rankName: rankName, cateActive: 'explore', cateName: '', rank: false, winnerCongrat: winnerCongrat, modal: modal, newUser: newUser, roundType: roundType})
                                             }
                                         })
                                     })
@@ -434,7 +473,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         }
                     }
                     else {
-                        res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', rankLink: '', cateActive: 'explore', cateName: '', rankName: rankName, rank: false, winnerCongrat: winnerCongrat, modal: modal, newUser: newUser})
+                        res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', rankLink: '', cateActive: 'explore', cateName: '', rankName: rankName, rank: false, winnerCongrat: winnerCongrat, modal: modal, newUser: newUser, roundType: roundType})
                     }
                 })
             })
@@ -470,17 +509,26 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         })
                     }
                     else {
+
+                        //azure
                         // const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STRING;
                         // const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
-                        // const containerClient = blobServiceClient.getContainerClient("cf-media");
+                        // const containerClient = blobServiceClient.getContainerClient("fd-media");
                         // for (let i = 0; i < p.file.path.length; i++){
                         //     const blockBlobClient = containerClient.getBlockBlobClient(p.file.path[i])
                         //     blockBlobClient.delete();
                         // }
+
+                        //gg
+                        // for (let i = 0; i < p.file.path.length; i++){
+                            // (async function() {
+                            //     await cfFileBucket.file("fd-media/" + p.file.path[i]).delete();
+                            // })();
+                        // }
+
+                        //aws
                         for (let i = 0; i < p.file.path.length; i++){
-                            (async function() {
-                                await cfFileBucket.file("cf-media/" + p.file.path[i]).delete();
-                            })();
+                            removeFile(p.file.path[i])
                         }
                         
                         posts.destroy({
@@ -1023,7 +1071,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     if (fl) {followed[i] = true}
                                                     else {followed[i] = false}
                                                     if (buf == p.length){
-                                                        res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', rankLink: rank, rankName: rankName, cateActive: cateList[c], cateName: cateName[c], rank: true, winnerCongrat: false, modal: false, newUser: false})
+                                                        res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', rankLink: rank, rankName: rankName, cateActive: cateList[c], cateName: cateName[c], rank: true, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                     }
                                                 })
                                             })
@@ -1032,7 +1080,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 }
                             }
                             else {
-                                res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', rankLink: rank, rankName: rankName, cateActive: cateList[c], cateName: cateName[c], rank: true, winnerCongrat: false, modal: false, newUser: false})
+                                res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', rankLink: rank, rankName: rankName, cateActive: cateList[c], cateName: cateName[c], rank: true, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                             }
                         })
                     })
@@ -1236,7 +1284,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     else {followed[i] = false}
                                                     if (buf == p.length){
                                                         res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', 
-                                                        rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: true, winnerCongrat: false, modal: false, newUser: false})
+                                                        rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: true, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                     }                                                
                                                 })
                                             })
@@ -1246,7 +1294,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             }
                             else {
                                 res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', 
-                                rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: true, winnerCongrat: false, modal: false, newUser: false})
+                                rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: true, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                             }
                         // }
                     })
@@ -1340,7 +1388,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     else {followed[i] = false}
                                                     if (buf == p.length){
                                                         res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', 
-                                                        rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false})
+                                                        rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                     }
                                                 })
                                             })
@@ -1350,7 +1398,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             }
                             else {
                                 res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', 
-                                rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false})
+                                rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                             }
                         // }
                     })
@@ -1444,7 +1492,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     else {followed[i] = false}
                                                     if (buf == p.length){
                                                         res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', 
-                                                        rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false})
+                                                        rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                     }
                                                 })
                                             })
@@ -1454,7 +1502,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             }
                             else {
                                 res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', 
-                                rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false})
+                                rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                             }
                         // }
                     })
@@ -1567,7 +1615,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                         count ++
                                                                         if (count == p.length){
                                                                             res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', 
-                                                                            rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false})
+                                                                            rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                                         }
                                                                     })
                                                                 })
@@ -1577,7 +1625,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                 }
                                                 else {
                                                     res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', 
-                                                    rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false})
+                                                    rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                 }
                                             // }
                                         })
@@ -1653,7 +1701,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                             count ++
                                                             if (count == p.length){
                                                                 res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', 
-                                                                rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false})
+                                                                rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                             }
                                                         })
                                                     })
@@ -1663,7 +1711,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     }
                                     else {
                                         res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', 
-                                        rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false})
+                                        rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                     }
                                 // }
                             })
@@ -1677,6 +1725,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
     })
     
+    //create-post
     app.post('/', function (req, res) {
         if (req.isAuthenticated()){
             req.session.tryTime = 0
@@ -1691,6 +1740,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 const description = fields.description
                 let category = fields.category
                 let rank = fields.rank
+                let competition = fields.competition
                 let files = [f.file], file = {}
                 if (!Array.isArray(files)) {
                     files = [files]
@@ -1702,10 +1752,9 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         (async () => {
                             const mineType = await FileType.fromFile(files[i].path)
                             if (mineType.mime.match(reg) || files[i].size > 209715200 || files.length > 4) {fileValid = false}
-                        })();                        
+                        })();
                     }
                 }
-                console.log(fileValid)
                 if (fileValid){
                     file.path = paths
                     if (files[0] == null) { file = null}
@@ -1719,7 +1768,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     userId: req.user.userId
                                 }
                             }).then(function(profile){
-                                if ((cateList.includes(category) && f.file.type.includes("video")) || !cateList.includes(category)){
+                                if ((competition && f.file.type.includes("video")) || (cateList.includes(category) && f.file.type.includes("video")) || !cateList.includes(category)){
                                     if (rank == "primary" || rank == "intermediate" || rank == "highgrade" || rank == ''){
                                         if (cateList.includes(category) || category == ''){
                                             if ((category != '' && rank != '') || (category == '' && rank == '')){
@@ -1746,6 +1795,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                         share: 0,
                                                                         category: category,
                                                                         rank: rank,
+                                                                        competition: competition,
                                                                         videoViews: 0,
                                                                         auth: false,
                                                                         userId: req.user.userId
@@ -1862,16 +1912,23 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 // fs.writeFile(root + paths[i], rawData, function(err){
                                 // })
 
+                                //azure
                                 // const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING)
-                                // const containerClient = blobServiceClient.getContainerClient("cf-media")
+                                // const containerClient = blobServiceClient.getContainerClient("fd-media")
                                 // const blockBlobClient = containerClient.getBlockBlobClient(paths[i])
                                 // const blobOptions = { blobHTTPHeaders: { blobContentType: files[i].type } }
                                 // blockBlobClient.upload(rawData, files[i].size, blobOptions)
 
-                                const blob = cfFileBucket.file("cf-media/" + paths[i]);
-                                const blobStream = blob.createWriteStream();
-                                blobStream.end(rawData)
-                                blobStream.on('finish', () => {
+                                //gg
+                                // const blob = cfFileBucket.file("fd-media/" + paths[i]);
+                                // const blobStream = blob.createWriteStream();
+                                // blobStream.end(rawData)
+                                // blobStream.on('finish', () => {
+                                //     postCreator()
+                                // })
+
+                                //aws
+                                uploadFile(files[i], paths[i]).then(function(){
                                     postCreator()
                                 })
                             }
@@ -2095,7 +2152,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             result2[i] = [pu.userId, pu.username, p[i].nickname, p[i].avatar, description, followed]
                                             count2 ++
                                             if (count2 == p.length){
-                                                res.render("search", {username: req.user.username, userId: req.user.userId, profile: currentUser, result: result1.concat(result2), text: req.query.q, end: end, active: 'explore', rankLink: '', cateActive: '', cateName: '', rank: false, modal: false})
+                                                res.render("search", {username: req.user.username, userId: req.user.userId, profile: currentUser, result: result1.concat(result2), text: req.query.q, end: end, active: 'explore', rankLink: '', rankName: '', cateActive: '', cateName: '', rank: false, modal: false})
                                             }
                                         })
                                     })
@@ -2109,7 +2166,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     userId: req.user.userId
                                 }
                             }).then(function(currentUser){
-                                res.render("search", {username: req.user.username, userId: req.user.userId, profile: currentUser, result: result1.concat(result2), text: req.query.q, end: end , active: 'explore', rankLink: '', cateActive: '', cateName: '', rank: false, modal: false})
+                                res.render("search", {username: req.user.username, userId: req.user.userId, profile: currentUser, result: result1.concat(result2), text: req.query.q, end: end , active: 'explore', rankLink: '', rankName: '', cateActive: '', cateName: '', rank: false, modal: false})
                             })
                         }
                     })
@@ -3160,14 +3217,21 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 }
                             }).then(function(){
                                 if (p.file){
+
+                                    //azure
                                     // const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STRING;
                                     // const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
-                                    // const containerClient = blobServiceClient.getContainerClient("cf-media");
+                                    // const containerClient = blobServiceClient.getContainerClient("fd-media");
                                     // const blockBlobClient = containerClient.getBlockBlobClient(p.file.path)
                                     // blockBlobClient.delete();
-                                    (async function() {
-                                        await cfFileBucket.file("cf-media/" + p.file.path).delete();
-                                    })();
+
+                                    //gg
+                                    // (async function() {
+                                    //     await cfFileBucket.file("fd-media/" + p.file.path).delete();
+                                    // })();
+
+                                    //aws
+                                    removeFile(p.file.path)
                                 }
                                 posts.destroy({
                                     where: {
@@ -4401,10 +4465,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             return image
                             .extract({ left, top, width, height })
                             .toFile(root + "uploads\\" + filename, (err, info) => {
-                                const blob = cfFileBucket.file("cf-media/" + filename);
-                                const blobStream = blob.createWriteStream();
-                                const rawData = fs.readFileSync(filePath)
-                                blobStream.on('finish', () => {
+                                //aws
+                                uploadFile(f.file, filename).then(function () {
                                     (async function updateProfile(){
                                         await userProfile.update({
                                             avatar: filename
@@ -4424,13 +4486,39 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         status: 'done',
                                         data: data
                                     })
-                                });
-                                
-                                blobStream.end(rawData)
+                                })
+
+                                //gg
+                                // const blob = cfFileBucket.file("fd-media/" + filename);
+                                // const blobStream = blob.createWriteStream();
+                                // const rawData = fs.readFileSync(filePath)
+                                // blobStream.on('finish', () => {
+                                //     (async function updateProfile(){
+                                //         await userProfile.update({
+                                //             avatar: filename
+                                //         }, {
+                                //             where: {
+                                //                 userId: req.user.userId
+                                //             }
+                                //         }).then(function(){
+                                //             fs.unlinkSync(filePath)
+                                //         })
+                                //     })()
+                                //     const data = {
+                                //         avt: filename,
+                                //         size: width
+                                //     }
+                                //     res.json({
+                                //         status: 'done',
+                                //         data: data
+                                //     })
+                                // });
+                                // blobStream.end(rawData)
     
+                                //azure
                                 // const rawData = fs.readFileSync(filePath)
                                 // const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
-                                // const containerClient = blobServiceClient.getContainerClient("cf-media");
+                                // const containerClient = blobServiceClient.getContainerClient("fd-media");
                                 // const blockBlobClient = containerClient.getBlockBlobClient(filename);
                                 // const blobOptions = { blobHTTPHeaders: { blobContentType: f.file.type } };
                                 // blockBlobClient.upload(rawData, Buffer.byteLength(rawData), blobOptions).then(function(){
@@ -4473,13 +4561,11 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             return image
                             .extract({ left, top, width, height })
                             .toFile(root + "uploads\\" + filename, (err, info) => {
-                                const blob = cfFileBucket.file("cf-media/" + filename);
-                                const blobStream = blob.createWriteStream();
-                                const rawData = fs.readFileSync(filePath)
-                                blobStream.on('finish', () => {
+                                 //aws
+                                 uploadFile(f.file, filename).then(function () {
                                     (async function updateProfile(){
                                         await userProfile.update({
-                                            cover: filename
+                                            avatar: filename
                                         }, {
                                             where: {
                                                 userId: req.user.userId
@@ -4489,15 +4575,41 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         })
                                     })()
                                     const data = {
-                                        cover: filename,
+                                        avt: filename,
                                         size: width
                                     }
                                     res.json({
                                         status: 'done',
                                         data: data
                                     })
-                                });
-                                blobStream.end(rawData)
+                                })
+
+                                //gg
+                                // const blob = cfFileBucket.file("fd-media/" + filename);
+                                // const blobStream = blob.createWriteStream();
+                                // const rawData = fs.readFileSync(filePath)
+                                // blobStream.on('finish', () => {
+                                //     (async function updateProfile(){
+                                //         await userProfile.update({
+                                //             cover: filename
+                                //         }, {
+                                //             where: {
+                                //                 userId: req.user.userId
+                                //             }
+                                //         }).then(function(){
+                                //             fs.unlinkSync(filePath)
+                                //         })
+                                //     })()
+                                //     const data = {
+                                //         cover: filename,
+                                //         size: width
+                                //     }
+                                //     res.json({
+                                //         status: 'done',
+                                //         data: data
+                                //     })
+                                // });
+                                // blobStream.end(rawData)
                             })
                         })
                     }

@@ -1,7 +1,7 @@
 <%- include('header') -%>
   <div id="frame" style="position: relative; z-index: 0; width: 480px; height: 270px;"> 
     <video id="my-video" muted controls="true" width="480" height="270" autoplay crossorigin="anonymous" style="z-index: -1; visibility: hidden; ">
-      <source src="/public/images/Honeymoon Fades - Sabrina Carpenter _ KOOJAEMO Choreography.mp4" type="video/mp4">
+      <source src="/public/videos/video.mp4" type="video/mp4">
     </video>
     
     <canvas id="my-canvas" width="480" height="270" style="position: absolute; top:0;left: 0; opacity: 1; visibility: hidden;"></canvas>
@@ -14,7 +14,7 @@
 
 
 <script>
-document.querySelector('#my-video').playbackRate = 4.0;
+// document.querySelector('#my-video').playbackRate = 4.0;
 
 var processor = {
   timerCallback: function() {
@@ -49,17 +49,17 @@ var processor = {
 
   computeFrame: function() {
     this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
-    var frame = this.ctx1.getImageData(0, 0, this.width, this.height);
-    var l = frame.data.length / 4;
+    // var frame = this.ctx1.getImageData(0, 0, this.width, this.height);
+    // var l = frame.data.length / 4;
 
-    for (var i = 0; i < l; i++) {
-      var grey = (frame.data[i * 4 + 0] + frame.data[i * 4 + 1] + frame.data[i * 4 + 2]) / 3;
+    // for (var i = 0; i < l; i++) {
+    //   var grey = (frame.data[i * 4 + 0] + frame.data[i * 4 + 1] + frame.data[i * 4 + 2]) / 3;
 
-      frame.data[i * 4 + 0] = grey;
-      frame.data[i * 4 + 1] = grey;
-      frame.data[i * 4 + 2] = grey;
-    }
-    this.ctx1.putImageData(frame, 0, 0);
+    //   frame.data[i * 4 + 0] = grey;
+    //   frame.data[i * 4 + 1] = grey;
+    //   frame.data[i * 4 + 2] = grey;
+    // }
+    // this.ctx1.putImageData(frame, 0, 0);
 
     return;
   }
@@ -115,6 +115,7 @@ function exportStream(e) {
   }
   document.querySelector("#frame").insertBefore(vid, canvas);
   var data = new FormData();
+  console.log(chunks)
   data.append('file', blob)
   let xhttp
     if (window.XMLHttpRequest) {

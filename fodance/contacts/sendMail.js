@@ -23,7 +23,7 @@ module.exports = function(email, code){
     <td height="24" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px"> &nbsp; </td>
     </tr>
     <tr>
-    <td align="center" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px;font-size:0px;line-height:100%;padding:0px"> <a href="https://fodance.com" style="text-decoration:none;border-style:none;border:0px;padding:0px;margin:0px;color:#FFF6F6;text-decoration:none" target="_blank" data-saferedirecturl=""> <img src="https://cdn.fodance.com/cf-media/logo1.png" width="50px" height="50px" alt="Fodance" title="Fodance" style="margin:0px;padding:0px;display:inline-block;border:none;outline:none" class="CToWUd"> </a> </td>
+    <td align="center" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px;font-size:0px;line-height:100%;padding:0px"> <a href="https://fodance.com" style="text-decoration:none;border-style:none;border:0px;padding:0px;margin:0px;color:#FFF6F6;text-decoration:none" target="_blank" data-saferedirecturl=""> <img src="https://cdn.fodance.com/fd-media/logo1.png" width="50px" height="50px" alt="Fodance" title="Fodance" style="margin:0px;padding:0px;display:inline-block;border:none;outline:none" class="CToWUd"> </a> </td>
     </tr>
     <tr>
     <td height="24" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px"> &nbsp; </td>
@@ -132,8 +132,8 @@ module.exports = function(email, code){
         secure: false,
         port: 30,
         auth: {
-            user: 'fodancemailer@gmail.com',
-            pass: 'stafield2905@'
+            user: process.env.MAIL_USER,
+            pass: process.env.MAIL_PASS
         }, 
         tls: {
             rejectUnauthorized: false

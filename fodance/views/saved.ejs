@@ -37,7 +37,7 @@
                                         <img src="<%- postProfile[i].avatar -%>" class="user-avt" username="<%- postUsername[i] -%>">
                                         <% } %>
                                     <% if (!postProfile[i].avatar.includes("http")) { %>
-                                        <img src="https://cdn.fodance.com/cf-media/<%- postProfile[i].avatar -%>" class="user-avt" username="<%- postUsername[i] -%>">
+                                        <img src="https://cdn.fodance.com/fd-media/<%- postProfile[i].avatar -%>" class="user-avt" username="<%- postUsername[i] -%>">
                                         <% } %>
                                 </a>    
                                 <div class="avt-info">
@@ -119,51 +119,51 @@
                             <% if (posts[i].file) { %>
                                 <% if (posts[i].file.type == 'video') { %>
                                 <div class="post-file">
-                                    <video class="player media-post post-video" loop muted src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>"></video>
+                                    <video class="player media-post post-video" loop muted src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>"></video>
                                 </div>
                                 <% } %>
                                 <% if (posts[i].file.type == 'image') { %>
                                     <% if (posts[i].file.path.length == 1) { %>
                                         <div class="post-file">
-                                            <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                            <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
                                         </div>
                                     <% } %>
                                     <% if (posts[i].file.path.length == 2) { %>
                                         <div class="post-file thumb-2-files">
                                             <div class="thumb-file">
-                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
                                             </div>
                                             <div class="thumb-file">
-                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
                                             </div>
                                         </div>
                                     <% } %>
                                     <% if (posts[i].file.path.length == 3) { %>
                                         <div class="post-file thumb-3-files">
                                             <div class="thumb-file">
-                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
                                             </div>
                                             <div class="thumb-file">
-                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
                                             </div>
                                             <div class="thumb-file">
-                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
+                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
                                             </div>
                                         </div>
                                     <% } %>
                                     <% if (posts[i].file.path.length == 4) { %>
                                         <div class="post-file thumb-4-files">
                                             <div class="thumb-file">
-                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
                                             </div>
                                             <div class="thumb-file">
-                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
                                             </div>
                                             <div class="thumb-file">
-                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
+                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
                                             </div>
                                             <div class="thumb-file">
-                                                <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[3] -%>" class="media-post post-image">
+                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[3] -%>" class="media-post post-image">
                                             </div>
                                         </div>
                                     <% } %>
@@ -206,7 +206,7 @@
                 <% } %>
             <% } %>
         </div>
-        <div class="loading-post d-flex">
+        <div class="loading-post">
             <div class="d-flex-start loading-content">
                 <div class="loading-post-circle mg-r"></div>
                 <div class="d-flex-col-start-content width-80">

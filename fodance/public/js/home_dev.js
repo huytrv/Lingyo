@@ -4,7 +4,7 @@ window.onload = toggleHeader;
 let scrollRange = scrollPage = stopScrollPage = round = 0
 let rankIndex = 5, cateSort = "rank-sort-content", rankLink = "primary", rankName = "Sơ cấp", filter = "current"
 let cateLink = exploreContentText = "explore"
-let navLink = statusRedirect = infoContentText = homeContentText = personalPostText = categoryContentText = postContentText = cateName = avtUpdate = usernameUpdate = nicknameUpdate = nicknameBeforeUpdate = rankLinkPost = cateLinkPost =  filter = searchQuery = ''
+let roundType = navLink = statusRedirect = infoContentText = homeContentText = personalPostText = categoryContentText = postContentText = cateName = avtUpdate = usernameUpdate = nicknameUpdate = nicknameBeforeUpdate = rankLinkPost = cateLinkPost =  filter = searchQuery = ''
 let headerContentText = document.querySelector(".header").innerHTML
 let personalLink = interval = null
 let openVolume = false
@@ -12,10 +12,10 @@ let videoAjaxSend = [], paused = []
 let postDisplayedList = [], cmtDisplayedList = {}, repCmtDisplayedList = {}, searchDisplayedList = []
 let param = navState = cateState = ''
 const url = window.location.href
-const cateList = ["hiphop", "rap", "contemporary", "ballroom", "modern", "ballet", "shuffle", "jazz", "sexy", "flashmob", "freestyle", "other"]
+const cateList = ["freestyle", "hiphop", "rap", "contemporary", "ballroom", "modern", "ballet", "shuffle", "jazz", "sexy", "flashmob", "other"]
 const navList = ["explore", "fame", "notifications", "saved", "honors", "add-topic", "setting"]
 const navName = ["Khám phá", "Xếp hạng", "Thông báo", "Đã lưu", "Vinh danh", "Thêm thể loại", "Cài đặt"]
-
+if (new Date().getDay() >= 1 && new Date().getDay() <= 5) {roundType = "group-stage"}else {roundType = "final"}
 //start
 const showAlert = function(text){
     if (document.querySelectorAll(".alert").length != 0){
@@ -99,16 +99,19 @@ function handleMobileResponse() {
             e.remove()
         })
         for (let i = 0; i < navList.length; i++){
-            if (window.location.pathname.replace('/', '') == navList[i]){
+            if (navLink == navList[i]){
                 document.querySelector(".title-content").textContent = navName[i]
                 if (i < 4) {document.querySelector(".mobile-creator").style.display = "block"}
                 else {document.querySelector(".mobile-creator").style.display = "none"}
             }
-            if (window.location.pathname.replace('/', '') == cateList[i]){
+            else if (cateLink == cateList[i]){
                 document.querySelector(".title-content").textContent = "Khám phá"
             }
-            if (window.location.pathname.replace('/', '') == ''){
+            else if (navLink == ''){
                 document.querySelector(".title-content").textContent = "Trang chủ"
+            }
+            else if (navLink == 'personal'){
+                document.querySelector(".title-content").textContent = "Hồ sơ"
             }
         }
         if(!document.querySelector(".category-slidebar")){
@@ -278,7 +281,7 @@ function pretreatment(){
     
     
     const cate = window.location.pathname.replace('/', '')
-
+    
     if (cate == 'explore' || cate == '') {
         const rankButs = document.querySelectorAll(".header-rank-but")
         for (let i = 0; i < rankButs.length; i++){
@@ -299,6 +302,9 @@ function pretreatment(){
         }
         cateLink = cate
     }
+    
+    if (cate == 'create-post'){navLink = 'explore'}
+    if (document.querySelector(".main-frame-post-inner-personal")){navLink = 'personal'}
 
     if (document.querySelector(".home-frame")) {
         homeContentText = document.querySelector(".main-frame").innerHTML
@@ -606,7 +612,7 @@ function replaceLinkName(){
     //     const path = e.getAttribute('src')
     //     if (!path.includes("https")) {
     //         if ((e.tagName == "IMG" || e.tagName == "VIDEO") && !e.classList.contains("cf-img") && e.getAttribute("src") != "/public/images/default-cover.png" && e.getAttribute("src") != "/public/images/default-user.png"){
-    //             e.setAttribute('src', "https://cdn.fodance.com/cf-media/" + path)
+    //             e.setAttribute('src', "https://cdn.fodance.com/fd-media/" + path)
     //         }
     //         else {
     //             e.setAttribute('src', "https://fodance.com" + path)
@@ -642,7 +648,7 @@ function searchRedirect(text, pushState){
         }
         window.scrollTo(0, 0)
         navLink = "search"
-        document.querySelector(".category").innerHTML = `<div class="d-flex group-title"><span class="mg-l-lg font-size-lg-2 none-deco none-mg">Kết quả tìm kiếm cho "${text}"</div>`
+        // document.querySelector(".category").innerHTML = `<div class="d-flex group-title"><span class="mg-l-lg font-size-lg-2 none-deco none-mg">Kết quả tìm kiếm cho "${text}"</div>`
         if (document.querySelector(".post-frame")){
             document.querySelector(".post-frame").innerHTML = '<div class="loading-post"><div class="d-flex-start loading-content"><div class="loading-post-circle mg-r"></div><div class="d-flex-col-start-content width-80"><div class="loading-post-line width-30 mg-b-sm"></div><div class="loading-post-line width-20"></div></div></div><div class="loading-post-line width-90 mg-b-sm"></div></div></div>'
         }
@@ -666,7 +672,7 @@ function searchRedirect(text, pushState){
                                     <a class="avt"><img src="${res.result[i][3]}" class="user-avt" username="${res.result[i][1]}"></a>
                                     `}
                                     else {return `
-                                    <a class="avt"><img src="https://cdn.fodance.com/cf-media/${res.result[i][3]}" class="user-avt" username="${res.result[i][1]}"></a>
+                                    <a class="avt"><img src="https://cdn.fodance.com/fd-media/${res.result[i][3]}" class="user-avt" username="${res.result[i][1]}"></a>
                                     `}
                                     })()}
                                     <div class="d-flex-col-start">
@@ -702,7 +708,7 @@ function searchRedirect(text, pushState){
                 else {
                     if (document.querySelector(".seemore-result")){
                         document.querySelector(".seemore-result").remove()
-                        document.querySelector(".search-content").insertAdjacentHTML('beforeend', '<div class="pd mg no-result"><span class="">Không còn kết quả tìm kiếm!</span></div>')
+                        document.querySelector(".search-content").insertAdjacentHTML('beforeend', '<div class="pd mg no-result d-flex"><span class="">Không còn kết quả tìm kiếm!</span></div>')
                     }
                 }
                 document.querySelector(".search-input").value = ''
@@ -743,11 +749,11 @@ function handleSearch(){
             if (document.querySelectorAll(".no-result").length != 0){
                 document.querySelector(".no-result").remove()
             }
-            if (window.innerWidth <= 662){
-                document.querySelector(".header").style.top = "-48px"
-                document.querySelector(".category").style.top = "0"
-                document.querySelector(".main").style.paddingTop = "0"
-            }
+            // if (window.innerWidth <= 662){
+            //     document.querySelector(".header").style.top = "-48px"
+            //     document.querySelector(".category").remove()
+            //     document.querySelector(".main").style.paddingTop = "0"
+            // }
             searchRedirect(text, true)
         }
     
@@ -908,6 +914,7 @@ function rankRedirect(rankBut, pushState){
                 handleRankPostCount()
                 handleNavigation()
                 handleMainFrame()
+                lottie()
             }    
         }
         xhttp.open("GET", "/?rank=" + rankLink, true)
@@ -1097,7 +1104,7 @@ function handleRefreshTask(){
                                             <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                             `}
                                             else {return `
-                                            <img src="https://cdn.fodance.com/cf-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                            <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                             `}
                                             })()}
                                             </a>
@@ -1129,7 +1136,7 @@ function handleRefreshTask(){
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     else {return `
-                                                    <img src="https://cdn.fodance.com/cf-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                                    <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     })()}
                                                 </a>
@@ -1163,7 +1170,7 @@ function handleRefreshTask(){
                                         <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}"></a>
                                             `}
                                         else {return `
-                                        <img src="https://cdn.fodance.com/cf-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}"></a>
+                                        <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}"></a>
                                         `}
                                         })()}
                                     </div>
@@ -1191,7 +1198,7 @@ function handleRefreshTask(){
                                         <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                         `}
                                         else {return `
-                                        <img src="https://cdn.fodance.com/cf-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                        <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                         `}
                                         })()}
                                         </a>
@@ -1213,7 +1220,7 @@ function handleRefreshTask(){
                                         <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                         `}
                                         else {return `
-                                        <img src="https://cdn.fodance.com/cf-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                        <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                         `}
                                         })()}
                                         </a>
@@ -1286,20 +1293,22 @@ function handleRoundTimerBar(){
                 <div class="fire-ele"></div>`
                 const fires = document.querySelectorAll(".fire-ele");
                 var id = setInterval(frame, 1000);
+                if (roundType == "group-stage"){roundDay = 5, roundLeft = 5} else {roundDay = 7, roundLeft = 2}
                 function frame() {
-                    const timeLeft = 4*24*60*60 - Math.floor((Date.now() - timeline)/1000)
+                    const timeLeft = roundDay*24*60*60 - Math.floor((Date.now() - timeline)/1000)
                     if (timeLeft <= 0) {
                         clearInterval(id);
                         i = 0;
                     } else {
-                        const percentTimeLeft = Math.floor(((4*24*60*60 - timeLeft)/(4*24*60*60)) * 100)
+                        const percentTimeLeft = Math.floor(((roundLeft*24*60*60 - timeLeft)/(roundLeft*24*60*60)) * 100)
+                        console.log(percentTimeLeft)
+
                         elem.style.width = percentTimeLeft + "%";
-                        console.log(elem.clientWidth)
                         fires.forEach(function(e){
                             e.style.marginLeft = elem.clientWidth + "px"
                         })
                         if (valueText) {
-                            valueText.textContent = (3 - Math.floor((Date.now() - timeline)/1000/60/60/24)) + " ngày, " + (23 - Math.floor((Date.now() - timeline)/1000/60/60 % 24)) + " giờ, " + (59 - Math.floor((Date.now() - timeline)/1000/60 % 60)) + " phút, " + (59 - Math.floor((Date.now() - timeline)/1000 % 60)) + " giây"
+                            valueText.textContent = (roundDay - 1 - Math.floor((Date.now() - timeline)/1000/60/60/24)) + " ngày, " + (23 - Math.floor((Date.now() - timeline)/1000/60/60 % 24)) + " giờ, " + (59 - Math.floor((Date.now() - timeline)/1000/60 % 60)) + " phút, " + (59 - Math.floor((Date.now() - timeline)/1000 % 60)) + " giây"
                         }
                     }
                 }
@@ -1363,7 +1372,7 @@ function handleMainInfo(){
                             <img src="${res.profileSuggestion[i].avatar}">                            
                             `}
                             else {return `
-                            <img src="https://cdn.fodance.com/cf-media/${res.profileSuggestion[i].avatar}">                            
+                            <img src="https://cdn.fodance.com/fd-media/${res.profileSuggestion[i].avatar}">                            
                             `}})()}<div class="d-flex-col-start"><span class="avt-username" data-user-df="${res.profileSuggestion[i].nickname}">${res.userSuggestion[i]}</span><span class="avt-nickname">${res.profileSuggestion[i].nickname}</span></div></a><button class="follow-but" data-following="false"><span class="follow-text">Theo dõi</span></button></div>`)
                         }   
                         replaceLinkName()
@@ -1733,6 +1742,7 @@ function createPostRedirect(c, pushState){
             </div>
             ${(()=>{if (c.getAttribute("data-create-but") == "layout") {return `
             <div class="create-post-category d-flex">
+                <button type="button" class="create-post-category-but" data-category-create-post="freestyle">Nhảy tự do</button>
                 <button type="button" class="create-post-category-but" data-category-create-post="hiphop">Hiphop</button>
                 <button type="button" class="create-post-category-but" data-category-create-post="rap">Rap</button>
                 <button type="button" class="create-post-category-but" data-category-create-post="contemporary">Múa đương đại</button>
@@ -1743,7 +1753,6 @@ function createPostRedirect(c, pushState){
                 <button type="button" class="create-post-category-but" data-category-create-post="jazz">Jazz</button>
                 <button type="button" class="create-post-category-but" data-category-create-post="sexy">Sexy</button>
                 <button type="button" class="create-post-category-but" data-category-create-post="flashmob">Fashmob</button>
-                <button type="button" class="create-post-category-but" data-category-create-post="freestyle">Nhảy tự do</button>
                 <button type="button" class="create-post-category-but" data-category-create-post="other">Khác</button>
                 </div>
             `} else {return ''}})()}
@@ -1794,7 +1803,12 @@ function createPostRedirect(c, pushState){
     }
 
     const createPostCateBut = document.querySelectorAll(".create-post-category-but")
+    const createPostRankBut = document.querySelectorAll(".create-post-rank-but")
     for (let i = 0; i < createPostCateBut.length; i++){
+        if (createPostCateBut[i].getAttribute("data-category-create-post") == 'freestyle') {
+            createPostCateBut[i].classList.add("create-post-category-but-active")
+            createPostRankBut[0].classList.add("create-post-rank-but-active")
+        }
         createPostCateBut[i].onclick = function(){
             if (!this.classList.contains("create-post-category-but-active")){
                 for (let i = 0; i < createPostCateBut.length; i++){
@@ -1811,18 +1825,17 @@ function createPostRedirect(c, pushState){
                 this.classList.add("create-post-category-but-active")
                 cateLinkPost = this.getAttribute("data-category-create-post")
             }
-            else {
-                this.classList.remove("create-post-category-but-active")
-                for (let i = 0; i < createPostRankBut.length; i++){
-                    createPostRankBut[i].classList.remove("create-post-rank-but-active")
-                }
-                cateLinkPost = ''
-                rankLinkPost = ''
-            }
+            // else {
+            //     this.classList.remove("create-post-category-but-active")
+            //     for (let i = 0; i < createPostRankBut.length; i++){
+            //         createPostRankBut[i].classList.remove("create-post-rank-but-active")
+            //     }
+            //     cateLinkPost = ''
+            //     rankLinkPost = ''
+            // }
         }
     }
 
-    const createPostRankBut = document.querySelectorAll(".create-post-rank-but")
     for (let i = 0; i < createPostRankBut.length; i++){
         createPostRankBut[i].onclick = function(){
             let valid = false
@@ -1917,18 +1930,15 @@ function createPostRedirect(c, pushState){
             files = evt.target.files
             if (files.length > 4 || fileCounter + files.length > 4) {fileValid = 1}
             for (let i = 0; i < files.length; i++){
-                if (files[i].type.includes("video") && (files.length > 1 || fileCounter > 0)) {fileValid = 1}
                 const file = files[i]
                 let fileReader = new FileReader();
                 fileReader.onloadend = function(e) {
-                    console.log(e)
                     let arr = (new Uint8Array(e.target.result)).subarray(0, 4);
-                    console.log(arr)
+                    console.log(new Uint8Array(e.target.result))
                     let header = "";
                     for(let i = 0; i < arr.length; i++) {
                         header += arr[i].toString(16);
                     }
-                    console.log(header)
                     const reg = /image\/jpeg|image\/jpg|image\/png|image\/gif|video\/mp4|video\/webm|video\/flv|video\/mov|video\/wmv|video\/avi/gi
                     switch (header) {
                         case "89504e47":
@@ -1945,7 +1955,6 @@ function createPostRedirect(c, pushState){
                             type = "image/gif";
                             break;
                         case "66747970":
-                        case "00018":
                             type = "video/mp4";
                             break;
                         case "1a45dfa3":
@@ -1964,10 +1973,11 @@ function createPostRedirect(c, pushState){
                             type = "unknown";
                             break;
                     }
-                    if (!type.match(reg) || file.size > 209715200) {fileValid = 1}
+                    if (header[0] == '0' && header[1] == '0' && header[2] == '0' && header[3] != '0') {type = "video/mp4"}
                     console.log(type)
-                    console.log(type.match(reg))
-                    console.log(fileValid)
+                    if (type.includes("video") && (files.length > 1 || fileCounter > 0)) {fileValid = 1}
+                    if ((navLink != 'community') && !type.includes("video")) {fileValid = 1}
+                    if (!type.match(reg) || file.size > 209715200) {fileValid = 1}
                     if (fileValid == 0) {
                         for (let i = 0, f; f = files[i]; i++) {
                             arrayFile.push(f)
@@ -2049,7 +2059,12 @@ function createPostRedirect(c, pushState){
                         }
                     }
                     else {
-                        showAlert("Hãy chọn tối đa 4 ảnh hoặc 1 video!")
+                        if (navLink != 'community'&& !type.includes("video")) {
+                            showAlert("Hãy chọn 1 video cho thể loại!")
+                        }
+                        else {
+                            showAlert("Hãy chọn tối đa 4 ảnh hoặc 1 video!")
+                        }
                         document.querySelector(".submit-but").disabled = true
                         if(document.querySelectorAll(".thumb-preview").length != 0) {
                             document.querySelectorAll(".thumb-preview").forEach(function(e) {
@@ -2111,6 +2126,8 @@ function createPostRedirect(c, pushState){
                         else {
                             formData.append("category", cateLink)
                         }
+                        if (navLink != "community"){formData.append("competition", true)}
+                        else {formData.append("competition", false)}
                         if (cateLink != 'explore' && postiton == "home" && rankLinkPost == ''){rankLinkPost = rankLink}
                         formData.append("rank", rankLinkPost)
                         for (let i = 0; i < arrayFile.length; i++){
@@ -2131,7 +2148,7 @@ function createPostRedirect(c, pushState){
                                     clearInterval(interv)
                                     if ((res.data.category == cateLink && res.data.rank == rankLink) || (cateLink == 'explore')){
                                         if ( document.querySelector(".post-section")){
-                                        document.querySelector(".post-section").insertAdjacentHTML("afterbegin", `<div class='post post-create-down' data-post-df=${res.data.post.postId}><div class='post-util'><button class='avt-but header-but dropdown-but util-dropdown-but'><span class='iconify dropdown-icon bg-white' data-icon='vaadin:ellipsis-dots-h' data-inline='false'></span></button><div class='util-dropdown-content dropdown-content'><a class='nav-item save-post'><span class='iconify' data-icon='bi:bookmark-plus' data-inline='false'></span>Lưu bài viết</a><a class="nav-item post-notice"><span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn</a><a class="nav-item copy-link-post"><span class="iconify" data-icon="clarity:copy-line" data-inline="false"></span>Sao chép liên kết</a><a class='nav-item del-post'><span class='iconify' data-icon='bx:bx-hide' data-inline='false'></span>Xóa bài viết</a></div></div><div class='post-user'><div class='post-info'><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}">${(()=>{if (res.data.profile.avatar.includes("http")) {return `<img src="${res.data.profile.avatar}" class='user-avt'>`}else {return `<img src="https://cdn.fodance.com/cf-media/${res.data.profile.avatar}" class='user-avt'>`}})()}</a><div class='avt-info'><div class="d-flex"><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}"><span class='avt-username user-username'>${res.data.username}</span></a><div class='mark-icon'></div><div class='mg-l d-flex'><span class='contact-item'></span><a class='avt'><span class='post-time theme-color'>Vừa xong</span></a></div></div><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}"><span class='post-time nickname-content'>${(() => {if(res.data.profile && res.data.profile.nickname) {return `@${res.data.profile.nickname}`}else {return `@${res.data.username}`}})()}</span></a></div></div></div><div class='post-content'><p class='post-description'>${res.data.post.description}</p>${(() => {if(res.data.post.file) {if(res.data.post.file.type == 'video'){return `<div class='post-file'><video class='player media-post' src="https://cdn.fodance.com/cf-media/${res.data.post.file.path}"></video></div>`}else{if (res.data.post.file.path.length == 1) {return `<div class='post-file'><img src="https://cdn.fodance.com/cf-media/${res.data.post.file.path[0]}" class='media-post post-image'></div>`}if (res.data.post.file.path.length == 2) {return `<div class='post-file thumb-2-files'><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.post.file.path[1]}" class='media-post post-image'></div></div>`}if (res.data.post.file.path.length == 3) {return `<div class='post-file thumb-3-files'><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.post.file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.post.file.path[2]}" class='media-post post-image''></div></div>`}if (res.data.post.file.path.length == 4) {return `<div class='post-file thumb-4-files'><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.post.file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.post.file.path[2]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.post.file.path[3]}" class='media-post post-image'></div></div>`}}} else {return ''}})()}</div><div class="d-flex-start pd-l-lg pd-r-lg"><div class="interactive-but-total d-flex vote-total"></div></div><div class="border-b mg-t-sm mg-b-sm mg-r-lg mg-l-lg"></div><div class='post-interactive'><button class="interactive-but like-but" data-liked="false"><span class='iconify font-size-lg-1' data-icon='simple-line-icons:like' data-inline='false'></span><span>Bình chọn</span></button><button class='interactive-but comment-but'><span class='iconify font-size-lg-1' data-icon='bi:chat-square' data-inline='false'></span><span>Bình luận<span class="interactive-comment-total"></span></span></button><button class='interactive-but'><span class='iconify font-size-lg-1' data-icon='simple-line-icons:share-alt' data-inline='false'></span><span>Chia sẻ</span></button></div></div>`)                    
+                                        document.querySelector(".post-section").insertAdjacentHTML("afterbegin", `<div class='post post-create-down' data-post-df=${res.data.post.postId}><div class='post-util'><button class='avt-but header-but dropdown-but util-dropdown-but'><span class='iconify dropdown-icon bg-white' data-icon='vaadin:ellipsis-dots-h' data-inline='false'></span></button><div class='util-dropdown-content dropdown-content'><a class='nav-item save-post'><span class='iconify' data-icon='bi:bookmark-plus' data-inline='false'></span>Lưu bài viết</a><a class="nav-item post-notice"><span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn</a><a class="nav-item copy-link-post"><span class="iconify" data-icon="clarity:copy-line" data-inline="false"></span>Sao chép liên kết</a><a class='nav-item del-post'><span class='iconify' data-icon='bx:bx-hide' data-inline='false'></span>Xóa bài viết</a></div></div><div class='post-user'><div class='post-info'><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}">${(()=>{if (res.data.profile.avatar.includes("http")) {return `<img src="${res.data.profile.avatar}" class='user-avt'>`}else {return `<img src="https://cdn.fodance.com/fd-media/${res.data.profile.avatar}" class='user-avt'>`}})()}</a><div class='avt-info'><div class="d-flex"><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}"><span class='avt-username user-username'>${res.data.username}</span></a><div class='mark-icon'></div><div class='mg-l d-flex'><span class='contact-item'></span><a class='avt'><span class='post-time theme-color'>Vừa xong</span></a></div></div><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}"><span class='post-time nickname-content'>${(() => {if(res.data.profile && res.data.profile.nickname) {return `@${res.data.profile.nickname}`}else {return `@${res.data.username}`}})()}</span></a></div></div></div><div class='post-content'><p class='post-description'>${res.data.post.description}</p>${(() => {if(res.data.post.file) {if(res.data.post.file.type == 'video'){return `<div class='post-file'><video class='player media-post' src="https://cdn.fodance.com/fd-media/${res.data.post.file.path}"></video></div>`}else{if (res.data.post.file.path.length == 1) {return `<div class='post-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[0]}" class='media-post post-image'></div>`}if (res.data.post.file.path.length == 2) {return `<div class='post-file thumb-2-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[1]}" class='media-post post-image'></div></div>`}if (res.data.post.file.path.length == 3) {return `<div class='post-file thumb-3-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[2]}" class='media-post post-image''></div></div>`}if (res.data.post.file.path.length == 4) {return `<div class='post-file thumb-4-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[2]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[3]}" class='media-post post-image'></div></div>`}}} else {return ''}})()}</div><div class="d-flex-start pd-l-lg pd-r-lg"><div class="interactive-but-total d-flex vote-total"></div></div><div class="border-b mg-t-sm mg-b-sm mg-r-lg mg-l-lg"></div><div class='post-interactive'><button class="interactive-but like-but" data-liked="false"><span class='iconify font-size-lg-1' data-icon='simple-line-icons:like' data-inline='false'></span><span>Bình chọn</span></button><button class='interactive-but comment-but'><span class='iconify font-size-lg-1' data-icon='bi:chat-square' data-inline='false'></span><span>Bình luận<span class="interactive-comment-total"></span></span></button><button class='interactive-but'><span class='iconify font-size-lg-1' data-icon='simple-line-icons:share-alt' data-inline='false'></span><span>Chia sẻ</span></button></div></div>`)                    
                                         document.querySelector('.post-create-down').onanimationend = function() {
                                             document.querySelector(`[data-post-df='${res.data.post.postId}']`).classList.remove('post-create-down')
                                             if (document.querySelector(".frame-post-home")){
@@ -2285,7 +2302,7 @@ function commentPostHandle(viewPost, viewWithCmt){
                             }
                             for(let i = 0; i < res.data.cmts.length; i++) {
                                 function showCmt(cmtFrame, data, reply, i){
-                                    cmtFrame.insertAdjacentHTML('beforeend', `<div class="comment-item d-flex-start-top" data-cmt-df="${data.cmts[i].cmtId}"><div class="comment-content"><a class="avt nav-red mg-t ${(()=>{if (reply) {return 'rep-avt-small'} else {return ''}})()}" nav-data="personal" data-user-df="${data.cmtNicknames[i]}"><img src="${(()=>{if (data.cmtAvts[i].includes("https")) {return `${data.cmtAvts[i]}`} else {return `https://cdn.fodance.com/cf-media/${data.cmtAvts[i]}`}})()}"></a><div class="comment-inner d-flex-col-start mg-l-sm"><div class="comment-wrapper d-flex-col-start"><div class="d-flex"><div class="d-flex"><a class="avt nav-red username" nav-data="personal" data-user-df="${data.cmtNicknames[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="avt-username user-username cmt-username">'} else {return '<span class="avt-username cmt-username">'}})()}${data.cmtUsernames[i]}</span></a><div class="mark-icon"></div></div><a class="avt nav-red d-flex mg-l-sm" nav-data="personal" data-user-df="${data.cmtNicknames[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="post-time nickname-content">'} else {return '<span class="post-time nickname-content">'}})()}@${data.cmtNicknames[i]}</span></a></div><div>${(()=>{if (data.cmts[i].tag){return`<a class="nav-red username mg-r-sm" nav-data="personal" data-user-df="${data.cmtTagNickname[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="avt-username user-username cmt-username">'} else {return '<span class="avt-username cmt-username">'}})()}${data.cmtTags[i]}</span></a>`} else {return ''}})()}${data.cmts[i].content}</div></div><div class="d-flex"><div class="comment-interactive d-flex-start">${(() => {if (data.cmtLiked[i]) {return '<a class="like-cmt-but interactive-but-liked d-flex-start mg-r noselect" data-cmt-liked="true">'} else {return '<a class="like-cmt-but d-flex-start noselect" data-cmt-liked="false">'}})()}<span class="iconify mg-r-sm" data-icon="simple-line-icons:like" data-inline="false"></span><span>Thích </span><span class="comment-total mg-r-sm">${(() => {if (data.cmts[i].like != 0) {return `(${data.cmts[i].like})`} else {return ''}})()}</span></a><a class="rep-comment-but ${(()=>{if (reply) {return 'rep-with-tag'} else {return ''}})()} d-flex-start noselect"><span class="iconify mg-r-sm" data-icon="bi:chat-square" data-inline="false"></span><span>Trả lời</span></a></div><div class="d-flex mg-l"><span class="contact-item"></span><a class="avt"><span class='post-time'>${(() => {if ((Date.now() - Date.parse(data.cmts[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(data.cmts[i].time))/1000 > 5 && (Date.now() - Date.parse(data.cmts[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000)} giây</span>`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/60)} phút</span>`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/3600)} giờ`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24)} ngày`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 >= 8) {return `${new Date(data.cmts[i].time).getDate() + " tháng " + (new Date(data.cmts[i].time).getMonth() + 1) + " lúc " + new Date(data.cmts[i].time).getHours() + ':' + new Date(data.cmts[i].time).getMinutes()}`}})()}</span></a></div></div></div><div class="comment-util noselect"><button class="avt-but header-but dropdown-but util-dropdown-but"><span class="iconify dropdown-icon bg-white" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span></button><div class="comment-util-dropdown-content dropdown-content">${(()=> {if (data.user == data.cmts[i].user || data.postUser == data.user) {return '<a class="nav-item del-cmt"><span class="iconify" data-icon="bx:bx-hide" data-inline="false"></span>Xóa bình luận</a>'} else {return '<a class="nav-item report-cmt"><span class="iconify" data-icon="octicon:issue-opened" data-inline="false"></span>Báo cáo bình luận</a>'}})()}</div></div></div></div>`)
+                                    cmtFrame.insertAdjacentHTML('beforeend', `<div class="comment-item d-flex-start-top" data-cmt-df="${data.cmts[i].cmtId}"><div class="comment-content"><a class="avt nav-red mg-t ${(()=>{if (reply) {return 'rep-avt-small'} else {return ''}})()}" nav-data="personal" data-user-df="${data.cmtNicknames[i]}"><img src="${(()=>{if (data.cmtAvts[i].includes("https")) {return `${data.cmtAvts[i]}`} else {return `https://cdn.fodance.com/fd-media/${data.cmtAvts[i]}`}})()}"></a><div class="comment-inner d-flex-col-start mg-l-sm"><div class="comment-wrapper d-flex-col-start"><div class="d-flex"><div class="d-flex"><a class="avt nav-red username" nav-data="personal" data-user-df="${data.cmtNicknames[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="avt-username user-username cmt-username">'} else {return '<span class="avt-username cmt-username">'}})()}${data.cmtUsernames[i]}</span></a><div class="mark-icon"></div></div><a class="avt nav-red d-flex mg-l-sm" nav-data="personal" data-user-df="${data.cmtNicknames[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="post-time nickname-content">'} else {return '<span class="post-time nickname-content">'}})()}@${data.cmtNicknames[i]}</span></a></div><div>${(()=>{if (data.cmts[i].tag){return`<a class="nav-red username mg-r-sm" nav-data="personal" data-user-df="${data.cmtTagNickname[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="avt-username user-username cmt-username">'} else {return '<span class="avt-username cmt-username">'}})()}${data.cmtTags[i]}</span></a>`} else {return ''}})()}${data.cmts[i].content}</div></div><div class="d-flex"><div class="comment-interactive d-flex-start">${(() => {if (data.cmtLiked[i]) {return '<a class="like-cmt-but interactive-but-liked d-flex-start mg-r noselect" data-cmt-liked="true">'} else {return '<a class="like-cmt-but d-flex-start noselect" data-cmt-liked="false">'}})()}<span class="iconify mg-r-sm" data-icon="simple-line-icons:like" data-inline="false"></span><span>Thích </span><span class="comment-total mg-r-sm">${(() => {if (data.cmts[i].like != 0) {return `(${data.cmts[i].like})`} else {return ''}})()}</span></a><a class="rep-comment-but ${(()=>{if (reply) {return 'rep-with-tag'} else {return ''}})()} d-flex-start noselect"><span class="iconify mg-r-sm" data-icon="bi:chat-square" data-inline="false"></span><span>Trả lời</span></a></div><div class="d-flex mg-l"><span class="contact-item"></span><a class="avt"><span class='post-time'>${(() => {if ((Date.now() - Date.parse(data.cmts[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(data.cmts[i].time))/1000 > 5 && (Date.now() - Date.parse(data.cmts[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000)} giây</span>`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/60)} phút</span>`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/3600)} giờ`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24)} ngày`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 >= 8) {return `${new Date(data.cmts[i].time).getDate() + " tháng " + (new Date(data.cmts[i].time).getMonth() + 1) + " lúc " + new Date(data.cmts[i].time).getHours() + ':' + new Date(data.cmts[i].time).getMinutes()}`}})()}</span></a></div></div></div><div class="comment-util noselect"><button class="avt-but header-but dropdown-but util-dropdown-but"><span class="iconify dropdown-icon bg-white" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span></button><div class="comment-util-dropdown-content dropdown-content">${(()=> {if (data.user == data.cmts[i].user || data.postUser == data.user) {return '<a class="nav-item del-cmt"><span class="iconify" data-icon="bx:bx-hide" data-inline="false"></span>Xóa bình luận</a>'} else {return '<a class="nav-item report-cmt"><span class="iconify" data-icon="octicon:issue-opened" data-inline="false"></span>Báo cáo bình luận</a>'}})()}</div></div></div></div>`)
                                     handleToggle()
                                     handleNavigation()
                                     replaceLinkName()
@@ -2442,7 +2459,7 @@ function commentPostHandle(viewPost, viewWithCmt){
                             if (xhttp.readyState == 4 && xhttp.status == 200) {
                                 const res = JSON.parse(xhttp.responseText)
                                 if (res.status == 'done'){
-                                    commented.insertAdjacentHTML(pos, `<div class="comment-item d-flex-start-top" data-cmt-df="${res.data.cmtId}"><div class="comment-content"><a class="avt mg-t nav-red ${(()=>{if (cmtId) {return 'rep-avt-small'} else {return ''}})()}" nav-data="personal" data-user-df="${res.data.nickname}"><img src="${(()=>{if (res.data.avt.includes("https")) {return `${res.data.avt}`} else {return `https://cdn.fodance.com/cf-media/${res.data.avt}`}})()}"></a><div class="comment-inner d-flex-col-start mg-l-sm"><div class="comment-wrapper d-flex-col-start"><div class="d-flex"><a class="nav-red username" nav-data="personal" data-user-df="${res.data.nickname}"><span class="avt-username user-username cmt-username">${res.data.username}</span></a><div class="mark-icon"></div><a class="avt d-flex mg-l-sm"><span class="post-time nickname-content">@${res.data.nickname}</span></a></div><div>${(() => {if (data.tag){return `<a class="nav-red" nav-data="personal" data-user-df="${data.tag}"><span class="avt-username cmt-username">${tagUsername}</span></a>`} else {return ""}})()}${data.content}</div></div><div class="d-flex"><div class="comment-interactive d-flex-start"><a class="like-cmt-but d-flex-start noselect" data-cmt-liked="false"><span class="iconify mg-r-sm" data-icon="simple-line-icons:like" data-inline="false"></span><span>Thích </span><span class="comment-total mg-r-sm"></span></a><a class="rep-comment-but d-flex-start noselect"><span class="iconify mg-r-sm" data-icon="bi:chat-square" data-inline="false"></span><span>Trả lời</span></a></div><div class="mg-l d-flex"><span class="contact-item"></span><a class="avt"><span class="post-time"><span class="theme-color">Vừa xong</span></a></div></div></div><div class="comment-util noselect"><button class="avt-but header-but dropdown-but util-dropdown-but"><span class="iconify dropdown-icon bg-white" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span></button><div class="comment-util-dropdown-content dropdown-content"><a class="nav-item del-cmt"><span class="iconify" data-icon="bx:bx-hide" data-inline="false"></span>Xóa bình luận</a></div></div><div></div>`)
+                                    commented.insertAdjacentHTML(pos, `<div class="comment-item d-flex-start-top" data-cmt-df="${res.data.cmtId}"><div class="comment-content"><a class="avt mg-t nav-red ${(()=>{if (cmtId) {return 'rep-avt-small'} else {return ''}})()}" nav-data="personal" data-user-df="${res.data.nickname}"><img src="${(()=>{if (res.data.avt.includes("https")) {return `${res.data.avt}`} else {return `https://cdn.fodance.com/fd-media/${res.data.avt}`}})()}"></a><div class="comment-inner d-flex-col-start mg-l-sm"><div class="comment-wrapper d-flex-col-start"><div class="d-flex"><a class="nav-red username" nav-data="personal" data-user-df="${res.data.nickname}"><span class="avt-username user-username cmt-username">${res.data.username}</span></a><div class="mark-icon"></div><a class="avt d-flex mg-l-sm"><span class="post-time nickname-content">@${res.data.nickname}</span></a></div><div>${(() => {if (data.tag){return `<a class="nav-red" nav-data="personal" data-user-df="${data.tag}"><span class="avt-username cmt-username">${tagUsername}</span></a>`} else {return ""}})()}${data.content}</div></div><div class="d-flex"><div class="comment-interactive d-flex-start"><a class="like-cmt-but d-flex-start noselect" data-cmt-liked="false"><span class="iconify mg-r-sm" data-icon="simple-line-icons:like" data-inline="false"></span><span>Thích </span><span class="comment-total mg-r-sm"></span></a><a class="rep-comment-but d-flex-start noselect"><span class="iconify mg-r-sm" data-icon="bi:chat-square" data-inline="false"></span><span>Trả lời</span></a></div><div class="mg-l d-flex"><span class="contact-item"></span><a class="avt"><span class="post-time"><span class="theme-color">Vừa xong</span></a></div></div></div><div class="comment-util noselect"><button class="avt-but header-but dropdown-but util-dropdown-but"><span class="iconify dropdown-icon bg-white" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span></button><div class="comment-util-dropdown-content dropdown-content"><a class="nav-item del-cmt"><span class="iconify" data-icon="bx:bx-hide" data-inline="false"></span>Xóa bình luận</a></div></div><div></div>`)
                                     cmtTextarea.value = null
                                     cmtTextarea.style.height = '35px'
                                     cmtTextarea.style.overflowY = "hidden"
@@ -2899,23 +2916,51 @@ function viewPostRedirect(t, post, pushState){
     }
 }
 
+function handleCreatePost(){
+    if (document.querySelectorAll(".create-post-but").length != 0){
+        document.querySelectorAll(".create-post-but").forEach(function(c){
+            c.onclick = function(){
+                createPostRedirect(c, true)
+            }
+        })
+    }
+
+    if (document.querySelector(".create-post-handler").classList.contains("create-post-handler-begin")){
+        const createBut = document.querySelector(".create-post-handler").parentNode.querySelector(".create-post-but")
+        createPostRedirect(createBut, false)
+        document.querySelector(".create-post-handler").classList.remove("create-post-handler-begin")
+    }
+
+}
+handleCreatePost()
+
+function lottie() {
+    bodymovin.loadAnimation({
+        container: document.querySelector('.dance-lottie'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'https://assets2.lottiefiles.com/packages/lf20_6aYlBl.json'
+    })
+    if (document.querySelectorAll(".no-post-lottie").length == 1){
+        bodymovin.loadAnimation({
+            container: document.querySelector(".no-post-lottie"),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets2.lottiefiles.com/packages/lf20_6aYlBl.json'
+        })
+        handleCreatePost()
+    }
+}
+lottie()
+
 function handleMainFrame(){
     Plyr.setup('video.player')
     replaceLinkName()
     handleMobileResponse()
     handleStars()
     handlePayment()
-
-    function lottie() {
-        bodymovin.loadAnimation({
-            container: document.querySelector('.dance-lottie'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: 'https://assets2.lottiefiles.com/packages/lf20_6aYlBl.json'
-        })
-    }
-    lottie()
 
     function runningReward() {
         let rewardMoney = document.querySelectorAll(".rw-color")
@@ -2950,24 +2995,6 @@ function handleMainFrame(){
         })   
     }
     handleOpenAudioMusic()
-
-    function handleCreatePost(){
-        if (document.querySelectorAll(".create-post-but").length != 0){
-            document.querySelectorAll(".create-post-but").forEach(function(c){
-                c.onclick = function(){
-                    createPostRedirect(c, true)
-                }
-            })
-        }
-
-        if (document.querySelector(".create-post-handler").classList.contains("create-post-handler-begin")){
-            const createBut = document.querySelector(".create-post-handler").parentNode.querySelector(".create-post-but")
-            createPostRedirect(createBut, false)
-            document.querySelector(".create-post-handler").classList.remove("create-post-handler-begin")
-        }
-    
-    }
-    handleCreatePost()
 
     function hanldeFullscreen(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
@@ -3719,10 +3746,23 @@ function handleMainFrame(){
 
     if (document.querySelectorAll(".post-section").length != 0 && document.querySelectorAll(".post-section .post").length < 5 && document.querySelector(".loading-post")) {
         if (window.location.pathname != "/saved"){
-            document.querySelector(".loading-post").innerHTML = 'Oops! Hãy tiếp tục đăng bài viết nào!'
+            console.log(roundType)
+            if (roundType == "final") {
+                document.querySelector(".loading-post").innerHTML = `<div class="no-post-text"><div>Oop! Mọi người đang chuẩn bị!</div>Nếu bạn đã nằm trong Top những người chiến thắng Vòng bảng, bạn sẽ tham gia bình chọn Vòng chung kết tại đây!${cateName}!</div><div class="no-post-lottie"></div><button class="create-post-but" data-create-but="layout">Tạo video tham dự!</button>`
+                lottie()
+            }
+            else {
+                document.querySelector(".loading-post").innerHTML = `<div class="no-post-text">Oops! Chưa có ai tham gia ở ${cateName}!</div><div class="no-post-lottie"></div><button class="create-post-but" data-create-but="layout">Be The First!</button>`
+                lottie()
+            }
         }
         else {
-            document.querySelector(".loading-post").innerHTML = 'Oops! Bạn chưa lưu bài viết nào!'
+            document.querySelector(".loading-post").innerHTML = '<div class="no-post-text">Oops! Bạn chưa lưu bài viết nào!</div><div class="no-post-lottie"></div>'
+            lottie()
+        }
+        if (document.querySelector(".info-personal")) {
+            document.querySelector(".loading-post").innerHTML = `<div class="no-post-text">Oops! Chưa có bài viết nào!${cateName}!</div><div class="no-post-lottie"></div><button class="create-post-but" data-create-but="layout">Be The First!</button>`
+            lottie()
         }
         stopScrollPage = 1
     }
@@ -3756,7 +3796,7 @@ function handleScroll(){
             }
             let contentHeight = main.offsetHeight
             let y = Math.ceil(window.pageYOffset) + window.innerHeight
-            if (document.querySelector(".loading-post") && document.querySelector(".loading-post").textContent == "Oops! Hãy tiếp tục đăng bài viết nào!"){
+            if (document.querySelector(".loading-post") && document.querySelector(".no-post-text").textContent != ''){
                 stopScrollPage = 1
             }
             else {
@@ -3792,7 +3832,7 @@ function handleScroll(){
                                         document.querySelector(".post-section").insertAdjacentHTML("beforeend", `
                                         <div class='post' data-post-df='${res.data.posts[i].postId}'>
                                         ${(()=>{if(res.data.rank){if (rankIndex > 3 && rankIndex <= 10){return `<div class="ranking"><span>10th</span></div>`} else{return ''}} else{return ''}})()}
-                                        <div class='post-util'><button class='avt-but header-but dropdown-but util-dropdown-but'><span class='iconify dropdown-icon bg-white' data-icon='vaadin:ellipsis-dots-h' data-inline='false'></span></button><div class='util-dropdown-content dropdown-content'>${(() => {if(!res.data.saved[i]) {return "<a class='nav-item save-post'><span class='iconify' data-icon='bi:bookmark-plus' data-inline='false'></span>Lưu bài viết</a>"} else {return '<a class="nav-item remove-save-post"><span class="iconify" data-icon="bi:bookmark-dash" data-inline="false"></span>Bỏ lưu bài viết</a>'}})()}${(() => {if(!res.data.notice[i]) {return '<a class="nav-item post-notice"><span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn</a>'} else {return '<a class="nav-item remove-post-notice"><span class="iconify" data-icon="ph:bell-simple-slash" data-inline="false"></span>Tắt thông báo bình chọn</a>'}})()}<a class="nav-item copy-link-post"><span class="iconify" data-icon="clarity:copy-line" data-inline="false"></span>Sao chép liên kết</a>${(() => {if(res.data.userId != res.data.posts[i].userId) {if (!res.data.followed[i]){return `<a class="nav-item follow-post-user" data-following="false"><span class="iconify" data-icon="simple-line-icons:user-following" data-inline="false"></span><span class="follow-text mg-r-sm">Theo dõi</span> ${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</a>`} else {return `<a class="nav-item follow-post-user" data-following="true"><span class="iconify" data-icon="simple-line-icons:user-following" data-inline="false"></span><span class="follow-text mg-r-sm">Bỏ theo dõi</span> ${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</a>`}}else {return "<a class='nav-item del-post'><span class='iconify' data-icon='bx:bx-hide' data-inline='false'></span>Xóa bài viết</a>"}})()}</div></div><div class='post-user'><div class='post-info'><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}"> ${(()=>{if (res.data.postProfile[i].avatar.includes("http")) {return `<img src="${res.data.postProfile[i].avatar}" class="user-avt" username="${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}">`}else {return `<img src="https://cdn.fodance.com/cf-media/${res.data.postProfile[i].avatar}" class="user-avt" username="${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}">`}})()}</a><div class='avt-info'><div class="d-flex"><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}">${(() => {if(res.data.userId == res.data.posts[i].userId) {return "<span class='avt-username user-username'>"}else {return "<span class='avt-username'>"}})()}${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</span></a><div class='mark-icon'></div><div class='mg-l d-flex'><span class='contact-item'></span><a class='avt'><span class='post-time'>${(() => {if ((Date.now() - Date.parse(res.data.posts[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.data.posts[i].time))/1000 > 5 && (Date.now() - Date.parse(res.data.posts[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000)} giây</span>`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.data.posts[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000/60)} phút</span>`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.data.posts[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600)} giờ`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24)} ngày`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24 >= 8) {return `${new Date(res.data.posts[i].time).getDate() + " tháng " + (new Date(res.data.posts[i].time).getMonth() + 1) + " lúc " + new Date(res.data.posts[i].time).getHours() + ':' + new Date(res.data.posts[i].time).getMinutes()}`}})()}</span></a></div></div><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}">${(() => {if(res.data.userId == res.data.posts[i].userId) {return "<span class='post-time nickname-content'>"}else {return "<span class='post-time'>"}})()}@${res.data.postProfile[i].nickname}</span></a></div></div></div><div class='post-content'><p class='post-description'>${res.data.posts[i].description}</p>${(() => {if(res.data.posts[i].file) {if(res.data.posts[i].file.type == 'video'){return `<div class='post-file'><video class='player media-post post-video' src="https://cdn.fodance.com/cf-media/${res.data.posts[i].file.path}"></video></div>`}else{if (res.data.posts[i].file.path.length == 1) {return `<div class='post-file'><img src="https://cdn.fodance.com/cf-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div>`}if (res.data.posts[i].file.path.length == 2) {return `<div class='post-file thumb-2-files'><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.posts[i].file.path[1]}" class='media-post post-image'></div></div>`}if (res.data.posts[i].file.path.length == 3) {return `<div class='post-file thumb-3-files'><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.posts[i].file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.posts[i].file.path[2]}" class='media-post post-image'></div></div>`}if (res.data.posts[i].file.path.length == 4) {return `<div class='post-file thumb-4-files'><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.posts[i].file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.posts[i].file.path[2]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/cf-media/${res.data.posts[i].file.path[3]}" class='media-post post-image'></div></div>`}}} else {return ''}})()}</div><div class="d-flex-sb pd-l-lg pd-r-lg"><div class="interactive-but-total d-flex vote-total">${(() => {if (res.data.posts[i].like != 0) {return `<span class="iconify vote-icon mg-r-sm" data-icon="ic:twotone-how-to-vote" data-inline="false"></span></span><span class="like-total">${res.data.posts[i].like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>`} else {return ''}})()}</div>${(() => {if (res.data.posts[i].file && res.data.posts[i].file.type == 'video') {return `<div class="video-views"><span class="view-total">${res.data.posts[i].videoViews}</span><span> lượt xem</span></div>`} else {return ''}})()}</div><div class="border-b mg-t-sm mg-b-sm mg-r-lg mg-l-lg"></div><div class='post-interactive'>${(() => {if(res.data.postLiked[i]) { return `<button class="interactive-but like-but interactive-but-liked" data-liked="true">`} else {return `<button class="interactive-but like-but" data-liked="false">`}})()}<span class="iconify font-size-lg-1" data-icon="simple-line-icons:like" data-inline="false"></span><span>Bình chọn</span></button><button class="interactive-but comment-but"><span class="iconify font-size-lg-1" data-icon="bi:chat-square" data-inline="false"></span><span>Bình luận ${(() => {if(res.data.posts[i].comment != 0) {return `(<span class="interactive-comment-total">${res.data.posts[i].comment}</span>)`} else {return '<span class="interactive-comment-total"></span>'}})()}</span></button><button class="interactive-but share-but"><span class="iconify font-size-lg-1" data-icon="simple-line-icons:share-alt" data-inline="false"></span><span>${(() => {if(res.data.posts[i].share != 0) {res.data.posts[i].share} else {return ''}})()}</span><span>Chia sẻ</span></button></div></div>`)
+                                        <div class='post-util'><button class='avt-but header-but dropdown-but util-dropdown-but'><span class='iconify dropdown-icon bg-white' data-icon='vaadin:ellipsis-dots-h' data-inline='false'></span></button><div class='util-dropdown-content dropdown-content'>${(() => {if(!res.data.saved[i]) {return "<a class='nav-item save-post'><span class='iconify' data-icon='bi:bookmark-plus' data-inline='false'></span>Lưu bài viết</a>"} else {return '<a class="nav-item remove-save-post"><span class="iconify" data-icon="bi:bookmark-dash" data-inline="false"></span>Bỏ lưu bài viết</a>'}})()}${(() => {if(!res.data.notice[i]) {return '<a class="nav-item post-notice"><span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn</a>'} else {return '<a class="nav-item remove-post-notice"><span class="iconify" data-icon="ph:bell-simple-slash" data-inline="false"></span>Tắt thông báo bình chọn</a>'}})()}<a class="nav-item copy-link-post"><span class="iconify" data-icon="clarity:copy-line" data-inline="false"></span>Sao chép liên kết</a>${(() => {if(res.data.userId != res.data.posts[i].userId) {if (!res.data.followed[i]){return `<a class="nav-item follow-post-user" data-following="false"><span class="iconify" data-icon="simple-line-icons:user-following" data-inline="false"></span><span class="follow-text mg-r-sm">Theo dõi</span> ${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</a>`} else {return `<a class="nav-item follow-post-user" data-following="true"><span class="iconify" data-icon="simple-line-icons:user-following" data-inline="false"></span><span class="follow-text mg-r-sm">Bỏ theo dõi</span> ${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</a>`}}else {return "<a class='nav-item del-post'><span class='iconify' data-icon='bx:bx-hide' data-inline='false'></span>Xóa bài viết</a>"}})()}</div></div><div class='post-user'><div class='post-info'><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}"> ${(()=>{if (res.data.postProfile[i].avatar.includes("http")) {return `<img src="${res.data.postProfile[i].avatar}" class="user-avt" username="${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}">`}else {return `<img src="https://cdn.fodance.com/fd-media/${res.data.postProfile[i].avatar}" class="user-avt" username="${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}">`}})()}</a><div class='avt-info'><div class="d-flex"><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}">${(() => {if(res.data.userId == res.data.posts[i].userId) {return "<span class='avt-username user-username'>"}else {return "<span class='avt-username'>"}})()}${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</span></a><div class='mark-icon'></div><div class='mg-l d-flex'><span class='contact-item'></span><a class='avt'><span class='post-time'>${(() => {if ((Date.now() - Date.parse(res.data.posts[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.data.posts[i].time))/1000 > 5 && (Date.now() - Date.parse(res.data.posts[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000)} giây</span>`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.data.posts[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000/60)} phút</span>`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.data.posts[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600)} giờ`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24)} ngày`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24 >= 8) {return `${new Date(res.data.posts[i].time).getDate() + " tháng " + (new Date(res.data.posts[i].time).getMonth() + 1) + " lúc " + new Date(res.data.posts[i].time).getHours() + ':' + new Date(res.data.posts[i].time).getMinutes()}`}})()}</span></a></div></div><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}">${(() => {if(res.data.userId == res.data.posts[i].userId) {return "<span class='post-time nickname-content'>"}else {return "<span class='post-time'>"}})()}@${res.data.postProfile[i].nickname}</span></a></div></div></div><div class='post-content'><p class='post-description'>${res.data.posts[i].description}</p>${(() => {if(res.data.posts[i].file) {if(res.data.posts[i].file.type == 'video'){return `<div class='post-file'><video class='player media-post post-video' src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path}"></video></div>`}else{if (res.data.posts[i].file.path.length == 1) {return `<div class='post-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div>`}if (res.data.posts[i].file.path.length == 2) {return `<div class='post-file thumb-2-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[1]}" class='media-post post-image'></div></div>`}if (res.data.posts[i].file.path.length == 3) {return `<div class='post-file thumb-3-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[2]}" class='media-post post-image'></div></div>`}if (res.data.posts[i].file.path.length == 4) {return `<div class='post-file thumb-4-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[2]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[3]}" class='media-post post-image'></div></div>`}}} else {return ''}})()}</div><div class="d-flex-sb pd-l-lg pd-r-lg"><div class="interactive-but-total d-flex vote-total">${(() => {if (res.data.posts[i].like != 0) {return `<span class="iconify vote-icon mg-r-sm" data-icon="ic:twotone-how-to-vote" data-inline="false"></span></span><span class="like-total">${res.data.posts[i].like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>`} else {return ''}})()}</div>${(() => {if (res.data.posts[i].file && res.data.posts[i].file.type == 'video') {return `<div class="video-views"><span class="view-total">${res.data.posts[i].videoViews}</span><span> lượt xem</span></div>`} else {return ''}})()}</div><div class="border-b mg-t-sm mg-b-sm mg-r-lg mg-l-lg"></div><div class='post-interactive'>${(() => {if(res.data.postLiked[i]) { return `<button class="interactive-but like-but interactive-but-liked" data-liked="true">`} else {return `<button class="interactive-but like-but" data-liked="false">`}})()}<span class="iconify font-size-lg-1" data-icon="simple-line-icons:like" data-inline="false"></span><span>Bình chọn</span></button><button class="interactive-but comment-but"><span class="iconify font-size-lg-1" data-icon="bi:chat-square" data-inline="false"></span><span>Bình luận ${(() => {if(res.data.posts[i].comment != 0) {return `(<span class="interactive-comment-total">${res.data.posts[i].comment}</span>)`} else {return '<span class="interactive-comment-total"></span>'}})()}</span></button><button class="interactive-but share-but"><span class="iconify font-size-lg-1" data-icon="simple-line-icons:share-alt" data-inline="false"></span><span>${(() => {if(res.data.posts[i].share != 0) {res.data.posts[i].share} else {return ''}})()}</span><span>Chia sẻ</span></button></div></div>`)
                                     }
                                     Plyr.setup('video.player')
                                     handleMainFrame()
@@ -3805,7 +3845,7 @@ function handleScroll(){
                                 }
                                 if (postDisplayedList.length == res.data.total){
                                     if (document.querySelectorAll(".loading-post").length != 0){
-                                        document.querySelector(".loading-post").innerHTML = 'Oops! Hãy tiếp tục đăng bài viết nào!'
+                                        document.querySelector(".loading-post").innerHTML = '<div class="no-post-text">Oops! Không còn ai tham gia ở đây!</div><div class="no-post-lottie"></div><button class="create-post-but" data-create-but="layout">Be The First!</button>'
                                         stopScrollPage = 1
                                         rankIndex = 5
                                         if (statusRedirect == ''){
@@ -4177,7 +4217,9 @@ function handleNavigation(){
                             if (categoryContentText != ''){
                                 document.querySelector(".category").innerHTML = categoryContentText
                             }
-                            document.querySelector('.category-slidebar').scrollLeft = scrollRange
+                            if (document.querySelector('.category-slidebar')){
+                                document.querySelector('.category-slidebar').scrollLeft = scrollRange
+                            }
                             handleRankHeader()
                             handleMainFrame()
                             handleNavigation()
@@ -4208,7 +4250,7 @@ function handleNavigation(){
                         if (document.querySelectorAll(".user-avt")){
                             document.querySelectorAll(".user-avt").forEach(function(e){
                                 if (e.parentNode.getAttribute("data-user-df") == document.querySelector(".avt-header").getAttribute("data-user-df")){
-                                    e.setAttribute("src", "https://cdn.fodance.com/cf-media/" + avtUpdate)
+                                    e.setAttribute("src", "https://cdn.fodance.com/fd-media/" + avtUpdate)
                                 }
                             })
                         }
@@ -4319,6 +4361,7 @@ function handleNavigation(){
                     handleRankPostCount()
                     handleNavigation()
                     handleMainFrame()
+                    lottie()
                 }    
             }
             xhttp.open("GET", '/' + "?rank=" + rankLink, true)
@@ -4349,6 +4392,7 @@ function handleNavigation(){
                         })
                     }
                     handleMainFrame()
+                    lottie()
                 }
             }
             document.querySelector(".modal").remove()
@@ -4704,7 +4748,7 @@ function editProfileRedirect(editBut, pushState){
                                         if (res.status == 'done'){
                                             avtUpdate = res.data.avt
                                             document.querySelectorAll(".user-avt").forEach(function(e){
-                                                e.setAttribute("src", "https://cdn.fodance.com/cf-media/" + res.data.avt)
+                                                e.setAttribute("src", "https://cdn.fodance.com/fd-media/" + res.data.avt)
                                             })
                                         }
                                         else {
@@ -4941,7 +4985,7 @@ function editProfileRedirect(editBut, pushState){
                                     const res = JSON.parse(xhttp.responseText)
                                     if (res.status == 'done'){
                                         document.querySelectorAll(".user-cover").forEach(function(e){
-                                            e.setAttribute("src", "https://cdn.fodance.com/cf-media/" + res.data.cover)
+                                            e.setAttribute("src", "https://cdn.fodance.com/fd-media/" + res.data.cover)
                                         })
                                     }
                                     else {
@@ -5166,7 +5210,7 @@ function handleNavInfo(){
                                 <img src="${res.followersAvt[i]}">
                                 `}
                                 else {return `
-                                <img src="https://cdn.fodance.com/cf-media/${res.followersAvt[i]}">
+                                <img src="https://cdn.fodance.com/fd-media/${res.followersAvt[i]}">
                                 `}
                                 })()}<div class="d-flex-col-start"><span class="avt-username font-size-lg-1">${res.followersUsername[i]}</span><span class="avt-nickname">${res.followersList[i]}</span></div></a>${(() => {if (res.isFollowing[i]) {return '<button class="follow-but following-but" data-following="true"><span class="follow-text">Đang theo dõi</span></button>'} else if (res.isCurrentUser[i]) {return ''} else {return '<button class="follow-but" data-following="false"><span class="follow-text">Theo dõi</span></button>'}})()}</div>`)
                             }
@@ -5242,7 +5286,7 @@ function handleNavInfo(){
                                 <img src="${res.followingAvt[i]}">
                                 `}
                                 else {return `
-                                <img src="https://cdn.fodance.com/cf-media/${res.followingAvt[i]}">
+                                <img src="https://cdn.fodance.com/fd-media/${res.followingAvt[i]}">
                                 `}
                                 })()}
                                 <div class="d-flex-col-start"><span class="avt-username font-size-lg-1">${res.followingUsername[i]}</span><span class="avt-nickname">${res.followingList[i]}</span></div></a>${(() => {if (res.isFollowing[i]) {return '<button class="follow-but following-but" data-following="true"><span class="follow-text">Đang theo dõi</span></button>'} else if (res.isCurrentUser[i]) {return ''} else {return '<button class="follow-but" data-following="false"><span class="follow-text">Theo dõi</span></button>'}})()}</div>`)
@@ -5331,7 +5375,7 @@ function handleNavInfo(){
                                             imageDisplayedList.push(res.postIdList[i])
                                         }
                                         for(let i = 0; i < res.images.length; i++){
-                                            document.querySelector(".media-content").insertAdjacentHTML('beforeend', `<div class="image-item"><img src="https://cdn.fodance.com/cf-media/${res.images[i]}" class="profile-images"><div>`)
+                                            document.querySelector(".media-content").insertAdjacentHTML('beforeend', `<div class="image-item"><img src="https://cdn.fodance.com/fd-media/${res.images[i]}" class="profile-images"><div>`)
                                         }
                                         if (imageDisplayedList.length == res.total){
                                             if (document.querySelector(".seemore-frame")){document.querySelector(".seemore-frame").remove()}
@@ -5386,7 +5430,7 @@ function handleNavInfo(){
                                             videoDisplayedList.push(res.postIdList[i])
                                         }
                                         for(let i = 0; i < res.videos.length; i++){
-                                            document.querySelector(".media-content").insertAdjacentHTML('beforeend', `<div class="video-item"><video src="https://cdn.fodance.com/cf-media/${res.videos[i]}" class="profile-videos"></video><div>`)
+                                            document.querySelector(".media-content").insertAdjacentHTML('beforeend', `<div class="video-item"><video src="https://cdn.fodance.com/fd-media/${res.videos[i]}" class="profile-videos"></video><div>`)
                                         }
                                         const videoItem = document.querySelectorAll(".video-item video")
                                         for (let i = 0; i < videoItem.length; i++){

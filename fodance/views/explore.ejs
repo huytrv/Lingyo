@@ -1,10 +1,12 @@
 <% extend('layout') %>
 <div class="category">
+    <% if (roundType == "group-stage") { %>
     <button class="arrow-but d-flex arrow-to-left">
         <span class="iconify arrow-icon" data-icon="ic:outline-arrow-left" data-inline="false"></span>
     </button>        
     <div class="category-slidebar noselect">
         <button class="category-but d-flex <% if (cateActive == 'explore') { %> active <% } %>" topic-data="explore"><span class="category-item-name">Tất cả</span><span class="cate-post-count"></span></button>
+        <button class="category-but d-flex <% if (cateActive == 'freestyle') { %> active <% } %>" topic-data="freestyle"><span class="category-item-name">Nhảy tự do</span><span class="cate-post-count"></span></button>
         <button class="category-but d-flex <% if (cateActive == 'hiphop') { %> active <% } %>" topic-data="hiphop"><span class="category-item-name">Hiphop</span><span class="cate-post-count"></span></button>
         <button class="category-but d-flex <% if (cateActive == 'rap') { %> active <% } %>" topic-data="rap"><span class="category-item-name">Rap</span><span class="cate-post-count"></span></button>
         <button class="category-but d-flex <% if (cateActive == 'contemporary') { %> active <% } %>" topic-data="contemporary"><span class="category-item-name">Múa đương đại</span><span class="cate-post-count"></span></button>
@@ -15,12 +17,17 @@
         <button class="category-but d-flex <% if (cateActive == 'jazz') { %> active <% } %>" topic-data="jazz"><span class="category-item-name">Jazz</span><span class="cate-post-count"></span></button>
         <button class="category-but d-flex <% if (cateActive == 'sexy') { %> active <% } %>" topic-data="sexy"><span class="category-item-name">Sexy</span><span class="cate-post-count"></span></button>
         <button class="category-but d-flex <% if (cateActive == 'flashmob') { %> active <% } %>" topic-data="flashmob"><span class="category-item-name">Flashmob</span><span class="cate-post-count"></span></button>
-        <button class="category-but d-flex <% if (cateActive == 'freestyle') { %> active <% } %>" topic-data="freestyle"><span class="category-item-name">Nhảy tự do</span><span class="cate-post-count"></span></button>
         <button class="category-but d-flex <% if (cateActive == 'other') { %> active <% } %>" topic-data="other"><span class="category-item-name">Khác</span><span class="cate-post-count"></span></button>
     </div>
     <button class="arrow-but d-flex arrow-to-right">
         <span class="iconify arrow-icon" data-icon="ic:outline-arrow-right" data-inline="false"></span>
     </button>
+    <% } %>
+    <% if (roundType == "final") { %>
+        <div class="d-flex group-title">
+            <span class="font-size-lg-2 none-deco none-mg red-color">Vòng chung kết</span>
+        </div>
+    <% } %>
 </div>
 <div class="main-frame-post d-flex">
     <div class="main-frame-post-sort">
@@ -122,7 +129,7 @@
                                     <img src="<%- postProfile[i].avatar -%>" class="user-avt" username="<%- posts[i]['user.username'] -%>">
                                 <% } %>
                                 <% if (!postProfile[i].avatar.includes("http")) { %>
-                                    <img src="https://cdn.fodance.com/cf-media/<%- postProfile[i].avatar -%>" class="user-avt" username="<%- posts[i]['user.username'] -%>">
+                                    <img src="https://cdn.fodance.com/fd-media/<%- postProfile[i].avatar -%>" class="user-avt" username="<%- posts[i]['user.username'] -%>">
                                 <% } %>
                             </a>    
                             <div class="avt-info">
@@ -204,51 +211,51 @@
                         <% if (posts[i].file) { %>
                             <% if (posts[i].file.type == 'video') { %>
                             <div class="post-file">
-                                <video class="player media-post post-video" loop muted poster="/public/images/poster.png" src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>"></video>
+                                <video class="player media-post post-video" loop muted poster="/public/images/poster.png" src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>"></video>
                             </div>
                             <% } %>
                             <% if (posts[i].file.type == 'image') { %>
                                 <% if (posts[i].file.path.length == 1) { %>
                                     <div class="post-file">
-                                        <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                        <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
                                     </div>
                                 <% } %>
                                 <% if (posts[i].file.path.length == 2) { %>
                                     <div class="post-file thumb-2-files">
                                         <div class="thumb-file">
-                                            <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                            <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
                                         </div>
                                         <div class="thumb-file">
-                                            <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                            <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
                                         </div>
                                     </div>
                                 <% } %>
                                 <% if (posts[i].file.path.length == 3) { %>
                                     <div class="post-file thumb-3-files">
                                         <div class="thumb-file">
-                                            <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                            <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
                                         </div>
                                         <div class="thumb-file">
-                                            <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                            <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
                                         </div>
                                         <div class="thumb-file">
-                                            <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
+                                            <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
                                         </div>
                                     </div>
                                 <% } %>
                                 <% if (posts[i].file.path.length == 4) { %>
                                     <div class="post-file thumb-4-files">
                                         <div class="thumb-file">
-                                            <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                            <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
                                         </div>
                                         <div class="thumb-file">
-                                            <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                            <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
                                         </div>
                                         <div class="thumb-file">
-                                            <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
+                                            <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
                                         </div>
                                         <div class="thumb-file">
-                                            <img src="https://cdn.fodance.com/cf-media/<%- posts[i].file.path[3] -%>" class="media-post post-image">
+                                            <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[3] -%>" class="media-post post-image">
                                         </div>
                                     </div>
                                 <% } %>

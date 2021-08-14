@@ -11,8 +11,8 @@ module.exports = function(email, code){
         secure: false,
         port: 30,
         auth: {
-            user: 'fodancemailer@gmail.com',
-            pass: 'stafield2905@'
+            user: process.env.MAIL_USER,
+            pass: process.env.MAIL_PASS
         }, 
         tls: {
             rejectUnauthorized: false

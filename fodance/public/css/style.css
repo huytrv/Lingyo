@@ -388,6 +388,10 @@ input[type=number] {
   width: 10% !important;
 }
 
+.width-12 {
+  width: 12% !important;
+}
+
 .width-15 {
   width: 15% !important;
 }
@@ -687,7 +691,7 @@ video {
 }
 
 .mobile-creator .create-post-topic {
-  padding: 20px 10px;
+  padding: 20px 15px;
 }
 
 .create-post-topic {
@@ -703,7 +707,7 @@ video {
 }
 
 .mobile-creator .create-post-category-but {
-  padding: 10px 5px;
+  padding: 10px 3px;
   width: 30%;
 }
 
@@ -1520,9 +1524,9 @@ input:checked + .slider:before {
   position: absolute;
   top: -10px;
   left: 8%;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent; 
-  border-bottom: 20px solid white;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent; 
+  border-bottom: 10px solid white;
 }
 
 .follow-frame::before {
@@ -1530,9 +1534,9 @@ input:checked + .slider:before {
   position: absolute;
   top: -10px;
   left: 34%;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent; 
-  border-bottom: 20px solid white;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent; 
+  border-bottom: 10px solid white;
 }
 
 .image-frame::before {
@@ -1540,9 +1544,9 @@ input:checked + .slider:before {
   position: absolute;
   top: -10px;
   left: 59%;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent; 
-  border-bottom: 20px solid white;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent; 
+  border-bottom: 10px solid white;
 }
 
 .video-frame::before {
@@ -1550,9 +1554,9 @@ input:checked + .slider:before {
   position: absolute;
   top: -10px;
   left: 84%;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent; 
-  border-bottom: 20px solid white;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent; 
+  border-bottom: 10px solid white;
 }
 
 .follow-frame {
@@ -1700,6 +1704,10 @@ input:checked + .slider:before {
 
 .update-content .font-icon{
   font-size: 30px;
+}
+
+.fame-content .font-icon{
+  font-size: 22px;
 }
 
 .update-content p{
@@ -2417,7 +2425,7 @@ input:checked + .slider:before {
   background-color: white;
   border: 1px solid #6AB5B3;
   border-radius: 20px;
-  padding: 10px 5px;
+  padding: 9px 5px;
   margin: 3px;
   cursor: pointer;
   color: black;
@@ -2434,7 +2442,7 @@ input:checked + .slider:before {
   border: 1px solid #00ade2;
   background-color: white;
   border-radius: 20px;
-  padding: 6px 5px;
+  padding: 5px;
   margin: 3px;
   cursor: pointer;
   color: black;
@@ -2714,7 +2722,7 @@ input:checked + .slider:before {
   padding: 0 13px;
   border-radius: 20px;
   margin-right: 10px;
-  font-weight: 500;
+  /* font-weight: 500; */
   cursor: pointer;
   flex-shrink: 0;
   transition: left 1s;
@@ -2777,7 +2785,7 @@ input:checked + .slider:before {
 
 .sort-content-but, .for-you {
   background-color: #f1f2f5;
-  padding: 25px 0;
+  padding: 16px 0;
   cursor: pointer;
   width: 45px;
   font-weight: 700;
@@ -3483,6 +3491,7 @@ img.thumb {
   padding: 10px 0;
   text-align: center;
   /* border-bottom: 1px solid rgb(216, 216, 216); */
+  margin: 0 20px;
 }
 
 .group-title span {
@@ -3493,6 +3502,7 @@ img.thumb {
 .home-frame .group-title{
   padding: 0;
   margin-bottom: 5px;
+  margin-top: 15px;
 }
 
 /* .highlights .group-title {
@@ -3759,12 +3769,11 @@ input[type=password]:focus .username-label{
 }
 
 .search-content {
-  background-color: #f1f2f5;
   border-radius: 0;
 }
 
 .search-item .follow-but {
-  background-color: #f1f2f5;
+  background-color: white;
 }
 
 .signup-choice {
@@ -4685,7 +4694,15 @@ input[type='range']::-ms-fill-lower {
   padding: 20px 50px;
   margin-bottom: 10px;
   border-radius: 0;
-  box-shadow: 0 0 5px 1px rgb(238, 238, 238);
+  box-shadow: 0 0 5px 1px rgb(230, 233, 235);
+  text-align: center;
+}
+
+.loading-post .create-post-but {
+  border: none;
+  background-color: transparent;
+  color: #00ade2;
+  text-decoration: underline;
 }
 
 .loading-post-line {
@@ -5260,16 +5277,32 @@ input[type='range']::-ms-fill-lower {
   cursor: pointer;
 }
 
+.top-reward .d-flex {
+  flex-wrap: wrap;
+}
+
 .top-reward-frame {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  padding: 5px;
+  padding: 10px 8px;
   border-radius: 20px;
-  background-image: linear-gradient(to right, #ebdede, rgb(248, 247, 247));
+  background-image: linear-gradient(to right, #f7dee9, rgb(252, 248, 248));
   color: black;
-  margin: 2px;
+  margin: 5px 3px;
   z-index: 1;
+}
+
+/* .home-frame {
+  background-color: #f1f2f5;
+} */
+
+.top-reward-inner {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .cate-reward .category-but {
@@ -5300,7 +5333,7 @@ input[type='range']::-ms-fill-lower {
 }
 
 .icon-reward-2 {
-  color: #ffe600;
+  color: #ffd000;
   animation-name: animate-post-down;
   animation-duration: 0.3s;
 }
@@ -5324,7 +5357,7 @@ input[type='range']::-ms-fill-lower {
 }
 
 .icon-reward {
-  font-size: 50px;
+  font-size: 30px;
 }
 
 .gradient-border {
@@ -5854,8 +5887,26 @@ tbody {
     margin: 5px;
   }
 
+  .top-reward-inner {
+    flex-direction: row;
+    text-align: start;
+  }
+
+  .top-reward .d-flex {
+    flex-wrap: nowrap;
+  }
+
   .icon-reward {
     font-size: 30px;
+  }
+
+  .fame-content .font-icon{
+    font-size: 24px;
+  }
+
+  .home-frame .group-title, .response-frame .group-title {
+    margin-top: 0;
+    padding: 0;
   }
 
   /* .header-rank-but {
@@ -5888,6 +5939,12 @@ tbody {
 
   .modal-content {
     background-color: #f1f2f5f3;
+  }
+
+  .close-thumb {
+    background-color: white;
+    border-radius: 50%;
+    padding: 1px 3px;
   }
 
   .logo {
@@ -5978,7 +6035,7 @@ tbody {
   }
 
   .fame-content {
-    padding: 0 10px !important;
+    padding: 0 20px !important;
     height: 400px;
     overflow-y: scroll;
   }
@@ -6191,6 +6248,10 @@ tbody {
     border-radius: 10px;
   }
 
+  .search-item .follow-but {
+    background-color: #f1f2f5;
+  }
+
   .edit-profile-frame {
     height: 510px;
   }
@@ -6232,8 +6293,8 @@ tbody {
   }
 }
 
-/* @media screen and (min-width: 500px) {
-  .whatsapp-share {
-      display: none;
+@media screen and (max-width: 500px) {
+  .final-reward .top-reward-frame:first-child {
+    width: 51%;
   }
-} */
+}
