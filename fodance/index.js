@@ -439,7 +439,6 @@ const fs = require('fs');
 const op = {
   key: fs.readFileSync('config/cert/privkey.pem'),
   cert: fs.readFileSync('config/cert/cert.pem'),
-  ca: fs.readFileSync('config/cert/fullchain.pem')
 };
 
 const server = https.createServer(op, app).listen(443, function(){
