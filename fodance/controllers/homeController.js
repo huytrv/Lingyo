@@ -286,7 +286,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             ContentType: fileType
         }
 
-        return s3.upload(uploadParams, (err) => {console.log(err)}).promise()
+        return s3.upload(uploadParams).promise()
     }
     //aws remove
     function removeFile(filename) {
@@ -1762,7 +1762,10 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     else if (files[0].type.includes('video')) {file.type = 'video'}
                     else {file.type = 'image' }
                     if ((description.length != 0 && description.length <= 1000) || f.file){
+                        console.log(1)
                         function postCreator(){
+                            console.log(2)
+
                             userProfile.findOne({
                                 raw: true,
                                 where: {
@@ -1772,7 +1775,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 if ((competition && f.file.type.includes("video")) || (cateList.includes(category) && f.file.type.includes("video")) || !cateList.includes(category)){
                                     if (rank == "primary" || rank == "intermediate" || rank == "highgrade" || rank == ''){
                                         if (cateList.includes(category) || category == ''){
-                                            if ((category != '' && rank != '') || (category == '' && rank == '')){
+                                            if ((category != '' && rank != '') || category == ''){
                                                 let ticketValid = true
                                                 if (rank == '' && competition){rank = "primary"}
                                                 if (rank == "intermediate" && profile.tickets < 1){ticketValid = false}
@@ -1930,7 +1933,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 // })
 
                                 //aws
-                                uploadFile(files[i].path, paths[i], files[i].type).then(function(){
+                                uploadFile(files[i].path, paths[i], files[i].type).then(function (){
                                     postCreator()
                                 })
                             }
