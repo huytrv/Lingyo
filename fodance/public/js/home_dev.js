@@ -101,7 +101,7 @@ function handleMobileResponse() {
         console.log(1)
         for (let i = 0; i < navList.length; i++){
             if (navLink == navList[i]){
-                if (roundType == "final"){
+                if (roundType == "final" && navLink == "explore"){
                     document.querySelector(".title-content").textContent = "Chung kết"
                 }
                 else {
