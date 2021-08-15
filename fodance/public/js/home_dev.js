@@ -1700,7 +1700,6 @@ function categoryRedirect(cate, pushState){
 
 function createPostRedirect(c, pushState){
     let isMobile = false
-    rankLinkPost = "primary"
     if (document.querySelector(".left-nav")){
         document.querySelector(".left-nav").style.zIndex = 10000
     }
@@ -2114,8 +2113,8 @@ function createPostRedirect(c, pushState){
             else {
                 const ticket = parseInt(document.querySelector(".ticket-total").textContent)
                 let ticketValid = true
-                if (rankLink == "intermediate" && ticket < 1){ticketValid = false}
-                if (rankLink == "highgrade" && ticket < 3){ticketValid = false}
+                if (rankLinkPost == "intermediate" && ticket < 1){ticketValid = false}
+                if (rankLinkPost == "highgrade" && ticket < 3){ticketValid = false}
                 if (ticketValid){
                     let xhttp
                     if (window.XMLHttpRequest) {
