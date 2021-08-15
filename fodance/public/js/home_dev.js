@@ -1700,6 +1700,7 @@ function categoryRedirect(cate, pushState){
 
 function createPostRedirect(c, pushState){
     let isMobile = false
+    rankLinkPost = "primary"
     if (document.querySelector(".left-nav")){
         document.querySelector(".left-nav").style.zIndex = 10000
     }
