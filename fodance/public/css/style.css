@@ -531,7 +531,7 @@ video {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 48px;
+  height: 50px;
   border-bottom: 1px solid #eee;
   /* box-shadow: 0 2px 3px rgba(0,0,0,0.04); */
   border-top: none;
@@ -2237,7 +2237,7 @@ input:checked + .slider:before {
   margin-bottom: 10px;
   padding-top: 5px;
   border-radius: 0;
-  /* box-shadow: 0 10px 3px 1px rgb(203 203 203); */
+  box-shadow: 0 1px 3px 1px rgb(231, 231, 231);
   resize: none;
 }
 
@@ -2286,6 +2286,7 @@ input:checked + .slider:before {
   width: auto;
   max-width: 85%;
   overflow-wrap: break-word;
+  color: rgb(69, 69, 69)
 }
 
 .comment-content {
@@ -2307,7 +2308,7 @@ input:checked + .slider:before {
   font-size: 15px;
   border: none;
   border-radius: 20px;
-  padding: 8px 40px 8px 20px;
+  padding: 10px 40px 8px 20px;
   white-space: pre-wrap;
   font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
   overflow: hidden;
@@ -2327,7 +2328,6 @@ input:checked + .slider:before {
 }
 
 .like-cmt-but, .rep-comment-but {
-  font-weight: 700;
   font-size: 12px;
   color: rgb(90, 90, 90);
   cursor: pointer;
@@ -2641,7 +2641,7 @@ input:checked + .slider:before {
 
 .category {
   position: sticky;
-  top: 48px;
+  top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2785,7 +2785,7 @@ input:checked + .slider:before {
 
 .sort-content-but, .for-you {
   background-color: #f1f2f5;
-  padding: 16px 0;
+  padding: 20px 0;
   cursor: pointer;
   width: 45px;
   font-weight: 700;
@@ -3106,7 +3106,7 @@ img.thumb {
 
 .post-util {
   position: absolute;
-  top: 15px;
+  top: 5px;
   right: 15px;
   cursor: pointer;
 }
@@ -3196,6 +3196,7 @@ img.thumb {
   position: relative;
   display: inline-block;
   padding-bottom: 10px;
+  margin-top: 5px;
 }
 
 .post-description {
@@ -3203,6 +3204,7 @@ img.thumb {
   font-size: 15px;
   white-space: pre-wrap;
   word-wrap: break-word;
+  color: rgb(59, 59, 59);
 }
 
 .post-description-mobile {
@@ -3244,9 +3246,10 @@ img.thumb {
   height: 100%;
   border-radius: 0;
   max-height: 500px;
+  min-height: 250px;
   border-top: 1px solid rgb(226, 226, 226);
   border-bottom: 1px solid rgb(226, 226, 226);
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .post-file img {
@@ -3367,7 +3370,7 @@ img.thumb {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 5px;
+  margin: 0 10px;
   padding-bottom: 5px;
 }
 
@@ -3408,7 +3411,7 @@ img.thumb {
   border-radius: 20px;
   padding: 8px 10px;
   justify-content: flex-start;
-  color: rgb(63, 63, 63);
+  color: rgb(70, 70, 70);
   cursor: pointer;
 }
 
@@ -3434,7 +3437,7 @@ img.thumb {
 }
 
 .interactive-but span {
-  font-weight: bold;
+  font-weight: normal;
   font-size: 0.9rem;
   color: rgb(66, 66, 66);
 }
@@ -3501,6 +3504,7 @@ img.thumb {
 
 .home-frame .group-title{
   padding: 0;
+  margin: 0;
   margin-bottom: 5px;
   margin-top: 15px;
 }
@@ -5339,7 +5343,7 @@ input[type='range']::-ms-fill-lower {
 }
 
 .icon-reward-1 {
-  color: #ff0055;
+  color: #ff0055e1;
   animation-name: animate-post-down;
   animation-duration: 0.3s;
 }
@@ -5447,7 +5451,7 @@ input[type='range']::-ms-fill-lower {
 .fame-content {
   height: 100%;
   overflow-x: hidden;
-  padding: 0 !important;
+  padding: 0 10px;
   border-collapse: collapse;
 }
 
@@ -5867,7 +5871,7 @@ tbody {
     position: fixed;
     /* background-image: linear-gradient(to right, #2C3A93, rgb(60, 207, 158)); */
     background-color: white;
-    border-bottom: none;
+    border-bottom: 1px solid rgb(243, 243, 243);
   }
 
   .avt-but {
@@ -5963,7 +5967,7 @@ tbody {
   }
 
   .main-frame-post-inner {
-    width: 75%;
+    width: 73%;
     min-width: 480px;
     max-width: 600px;
   }
@@ -6063,7 +6067,7 @@ tbody {
   }
 
   .category {
-    top: 48px;
+    top: 50px;
     height: 42px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -6182,7 +6186,7 @@ tbody {
 
   .post {
     border-radius: 8px;
-    /* box-shadow: 0 1px 3px 1px rgb(231, 231, 231); */
+    box-shadow: 0 1px 3px 1px rgb(231, 231, 231);
   }
 
   /* .create-post-but span {
@@ -6193,10 +6197,10 @@ tbody {
     padding: 0;
   }
 
-  .post-file {
-    padding: 0 20px;
-    border-radius: 10px;
-  }
+  /* .post-file { */
+    /* padding: 0 20px; */
+    /* border-radius: 10px; */
+  /* } */
 
   .post-file video{
     border: 1px solid #dddddd;

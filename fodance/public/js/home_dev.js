@@ -98,14 +98,25 @@ function handleMobileResponse() {
         document.querySelectorAll("input[data-plyr='volume']").forEach(function(e){
             e.remove()
         })
+        console.log(1)
         for (let i = 0; i < navList.length; i++){
             if (navLink == navList[i]){
-                document.querySelector(".title-content").textContent = navName[i]
+                if (roundType == "final"){
+                    document.querySelector(".title-content").textContent = "Chung kết"
+                }
+                else {
+                    document.querySelector(".title-content").textContent = navName[i]
+                }
                 if (i < 4) {document.querySelector(".mobile-creator").style.display = "block"}
                 else {document.querySelector(".mobile-creator").style.display = "none"}
             }
             else if (cateLink == cateList[i]){
-                document.querySelector(".title-content").textContent = "Khám phá"
+                if (roundType == "final"){
+                    document.querySelector(".title-content").textContent = "Chung kết"
+                }
+                else {
+                    document.querySelector(".title-content").textContent = "Khám phá"
+                }
             }
             else if (navLink == ''){
                 document.querySelector(".title-content").textContent = "Trang chủ"
@@ -1301,8 +1312,6 @@ function handleRoundTimerBar(){
                         i = 0;
                     } else {
                         const percentTimeLeft = Math.floor(((roundLeft*24*60*60 - timeLeft)/(roundLeft*24*60*60)) * 100)
-                        console.log(percentTimeLeft)
-
                         elem.style.width = percentTimeLeft + "%";
                         fires.forEach(function(e){
                             e.style.marginLeft = elem.clientWidth + "px"
@@ -1594,6 +1603,7 @@ function categoryRedirect(cate, pushState){
     }
     cateLink = cate.getAttribute("topic-data")
     cateName = cate.querySelector(".category-item-name").textContent
+    if (roundType == "final") {cateLink = 'explore'}
     const rankButs = document.querySelectorAll(".header-rank-but")
     for (let i = 0; i < rankButs.length; i++){
         if (rankButs[i].getAttribute("rank-data") == rankLink){
@@ -1934,7 +1944,6 @@ function createPostRedirect(c, pushState){
                 let fileReader = new FileReader();
                 fileReader.onloadend = function(e) {
                     let arr = (new Uint8Array(e.target.result)).subarray(0, 4);
-                    console.log(new Uint8Array(e.target.result))
                     let header = "";
                     for(let i = 0; i < arr.length; i++) {
                         header += arr[i].toString(16);
@@ -1974,7 +1983,6 @@ function createPostRedirect(c, pushState){
                             break;
                     }
                     if (header[0] == '0' && header[1] == '0' && header[2] == '0' && header[3] != '0') {type = "video/mp4"}
-                    console.log(type)
                     if (type.includes("video") && (files.length > 1 || fileCounter > 0)) {fileValid = 1}
                     if ((navLink != 'community') && !type.includes("video")) {fileValid = 1}
                     if (!type.match(reg) || file.size > 209715200) {fileValid = 1}
@@ -2327,7 +2335,7 @@ function commentPostHandle(viewPost, viewWithCmt){
                                     } else{
                                         if (focus){
                                             comment.querySelector(".rep-comment-textarea").scrollIntoView({block: "center"})
-                                            comment.querySelector(".rep-comment-textarea").focus()
+                                            // comment.querySelector(".rep-comment-textarea").focus()
                                         }
                                     }     
                                     const repCmtTextarea = comment.querySelector(".rep-comment-textarea")
@@ -2432,7 +2440,7 @@ function commentPostHandle(viewPost, viewWithCmt){
             }
             loadCmt()
             const cmtTextarea = post.querySelector(".comment-textarea")
-            cmtTextarea.focus()
+            // cmtTextarea.focus()
             function createCmt(event, cmtTextarea, commented, cmtId, tag, tagUsername, pos){
                 if (event.keyCode === 13 && !event.shiftKey) {
                     event.preventDefault()
@@ -2495,7 +2503,7 @@ function commentPostHandle(viewPost, viewWithCmt){
                                             comment.querySelector(".rep-comment").insertAdjacentHTML('beforeend', `<div class="comment-textarea-frame d-flex-start pd-b mg-t-sm"><a class="avt d-flex rep-avt-small"><img src="${document.querySelectorAll(".user-avt")[0].getAttribute('src')}"></a><textarea type="text" name="comment" class="mg-l-sm comment-textarea rep-comment-textarea d-flex-col" maxlength="1000" placeholder="Viết bình luận..."></textarea><button class="comment-emoji-but comment-emoji rep-comment-emoji-but emoji-but d-flex"><span class="iconify" data-icon="bi:emoji-smile" data-inline="false"></span></button></div></div></div>`)
                                             areaHandle(".rep-comment-textarea", ".rep-comment-emoji-but")  
                                             const repCmtTextarea = comment.querySelector(".rep-comment-textarea")
-                                            repCmtTextarea.focus()
+                                            // repCmtTextarea.focus()
                                             const repCommented = comment.querySelector(".rep-commented")
                                             // repCmtTextarea.value = tag.username + ' '
                                             repCmtTextarea.onkeydown = function(event){
@@ -3121,19 +3129,21 @@ function handleMainFrame(){
                         slider.scrollLeft = scrollRange
                     }
                 })
-    
-                document.querySelector(".arrow-to-left").onclick = function(){
-                    document.querySelector(".category-slidebar").style.scrollBehavior = 'smooth'
-                    if (scrollRange > 300){scrollRange -= 300}
-                    else {scrollRange = 0}
-                    slider.scrollLeft = scrollRange
-                }
-                document.querySelector(".arrow-to-right").onclick = function(){
-                    document.querySelector(".category-slidebar").style.scrollBehavior = 'smooth'
-                    const maxScrollLeft = slider.scrollWidth - slider.clientWidth
-                    if (scrollRange < maxScrollLeft){scrollRange += 300}
-                    else {scrollRange = maxScrollLeft}
-                    slider.scrollLeft = scrollRange
+                
+                if (document.querySelector(".arrow-to-left")){
+                    document.querySelector(".arrow-to-left").onclick = function(){
+                        document.querySelector(".category-slidebar").style.scrollBehavior = 'smooth'
+                        if (scrollRange > 300){scrollRange -= 300}
+                        else {scrollRange = 0}
+                        slider.scrollLeft = scrollRange
+                    }
+                    document.querySelector(".arrow-to-right").onclick = function(){
+                        document.querySelector(".category-slidebar").style.scrollBehavior = 'smooth'
+                        const maxScrollLeft = slider.scrollWidth - slider.clientWidth
+                        if (scrollRange < maxScrollLeft){scrollRange += 300}
+                        else {scrollRange = maxScrollLeft}
+                        slider.scrollLeft = scrollRange
+                    }
                 }
             }
             
@@ -3746,7 +3756,6 @@ function handleMainFrame(){
 
     if (document.querySelectorAll(".post-section").length != 0 && document.querySelectorAll(".post-section .post").length < 5 && document.querySelector(".loading-post")) {
         if (window.location.pathname != "/saved"){
-            console.log(roundType)
             if (roundType == "final") {
                 document.querySelector(".loading-post").innerHTML = `<div class="no-post-text"><div>Oop! Mọi người đang chuẩn bị!</div>Nếu bạn đã nằm trong Top những người chiến thắng Vòng bảng, bạn sẽ tham gia bình chọn Vòng chung kết tại đây!${cateName}!</div><div class="no-post-lottie"></div><button class="create-post-but" data-create-but="layout">Tạo video tham dự!</button>`
                 lottie()
@@ -4548,7 +4557,6 @@ function editProfileRedirect(editBut, pushState){
                     for(let i = 0; i < arr.length; i++) {
                         header += arr[i].toString(16);
                     }
-                    console.log(header)
                     switch (header) {
                         case "89504e47":
                             type = "image/png";
@@ -4782,7 +4790,6 @@ function editProfileRedirect(editBut, pushState){
                     for(let i = 0; i < arr.length; i++) {
                         header += arr[i].toString(16);
                     }
-                    console.log(header)
                     switch (header) {
                         case "89504e47":
                             type = "image/png";
@@ -4798,8 +4805,6 @@ function editProfileRedirect(editBut, pushState){
                             type = "unknown";
                             break;
                     }
-                    console.log(type)
-                    console.log(type.match(reg))
                     if (type.match(reg)) {
                         if (window.innerWidth <= 662) {
                             document.querySelector(".edit-profile").insertAdjacentHTML('beforeend', '<div class="modal avt-crop-modal"><div class="modal-content cover-crop-modal-content"><div class="group-title d-flex"><span>Ảnh hồ sơ</span><div class="close-edit-avt-modal return-but"><span class="iconify" data-icon="heroicons-outline:arrow-left" data-inline="false"></span></div><button class="next-but save-edit-avt" type="button">Áp dụng</button></div><div class="gradient-line"></div><div class="avt-preview"><div class="avt-frame"><div class="pos-cover"><div class="avt-canvas"></div></div><div class="crop-frame"></div></div></div><div class="d-flex mg-t-lg"><input type="range" min="0", max="100", value="0" class="input-zoom"><div class="output-zoom mg-l-sm">0</div></div><div>')

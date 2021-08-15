@@ -45,6 +45,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     let currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
     let roundType
     if (new Date().getDay() >= 1 && new Date().getDay() <= 5) {roundType = "group-stage"}else {roundType = "final"}
+    if (roundType == "final"){currentTimeline = currentTimeline + 5*24*60*60*1000}
     //handleVoteChampion
     setInterval(function(){ 
         const newRound = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
@@ -275,17 +276,17 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     }, 1000)
 
     //aws upload
-    function uploadFile(file, filename) {
-        const fileStream =  fs.createReadStream(file.path)
+    function uploadFile(file, filename, fileType) {
+        const fileStream =  fs.createReadStream(file)
 
         const uploadParams = {
             Bucket: bucketName,
             Body: fileStream,
             Key: "fd-media/" + filename,
-            ContentType: file.type
+            ContentType: fileType
         }
 
-        return s3.upload(uploadParams).promise()
+        return s3.upload(uploadParams, (err) => {console.log(err)}).promise()
     }
     //aws remove
     function removeFile(filename) {
@@ -295,8 +296,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
 
         return s3.deleteObject(uploadParams, function (err) {
-            console.log(err)
-            console.log("deleted")
         }).promise()
     }
 
@@ -359,6 +358,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
     })
 
+    //handle explore
     function explore(req, res, modal){
         if (req.isAuthenticated()){
             req.session.tryTime = 0
@@ -1725,7 +1725,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
     })
     
-    //create-post
+    //handle create post
     app.post('/', function (req, res) {
         if (req.isAuthenticated()){
             req.session.tryTime = 0
@@ -1740,6 +1740,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 const description = fields.description
                 let category = fields.category
                 let rank = fields.rank
+                if (rank == '' && roundType == 'final'){rank = 'primary'}
                 let competition = fields.competition
                 let files = [f.file], file = {}
                 if (!Array.isArray(files)) {
@@ -1773,6 +1774,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         if (cateList.includes(category) || category == ''){
                                             if ((category != '' && rank != '') || (category == '' && rank == '')){
                                                 let ticketValid = true
+                                                if (rank == '' && competition){rank = "primary"}
                                                 if (rank == "intermediate" && profile.tickets < 1){ticketValid = false}
                                                 if (rank == "highgrade" && profile.tickets < 3){ticketValid = false}
                                                 if (ticketValid){
@@ -1907,8 +1909,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         }
                         if (f.file){
                             for (let i = 0; i < files.length; i++){
-                                var oldPath = files[i].path; 
-                                var rawData = fs.readFileSync(oldPath)
+                                // var oldPath = files[i].path; 
+                                // var rawData = fs.readFileSync(oldPath)
                                 // fs.writeFile(root + paths[i], rawData, function(err){
                                 // })
 
@@ -1928,7 +1930,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 // })
 
                                 //aws
-                                uploadFile(files[i], paths[i]).then(function(){
+                                uploadFile(files[i].path, paths[i], files[i].type).then(function(){
                                     postCreator()
                                 })
                             }
@@ -1952,7 +1954,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             form.on('fileBegin', function (name, file){
                 let filename
                 if (file.name > 255) { filename =  Date.now() + "_" + randomize('0', 6)}
-                else { filename =  Date.now() + "_" + randomize('0', 6) + "_" + file.name}
+                else { filename =  Date.now() + "_" + randomize('0', 6) + "_" + file.name.replace(/[^\w\.]/gi, '')}
                 paths.push(filename)
             })
         }
@@ -4449,7 +4451,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             req.session.blockLogin = false
             const form = formidable()
             form.parse(req, (err, fields, f) => {
-                const reg = /image\/jpeg|image\/jpg|image\/png|image/gi;
+                const reg = /image\/jpeg|image\/jpg|image\/png/gi;
                 (async () => {
                     const mineType = await FileType.fromFile(f.file.path)
                     if (mineType.mime.match(reg)){
@@ -4457,16 +4459,16 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         const image = sharp(f.file.path);
                         let filename
                         if (f.file.name > 255) { filename =  Date.now() + "_" + randomize('0', 6)}
-                        else {filename =  Date.now() + "_" + randomize('0', 6) + "_" + f.file.name}
+                        else {filename =  Date.now() + "_" + randomize('0', 6) + "_" + f.file.name.replace(/[^\w\.]/gi, '')}
                         const filePath = path.join(root, 'uploads', filename)
                         image.metadata()
                         .then(metadata => {
                             const left = parseInt(fields.xCrop), top = parseInt(fields.yCrop), width = parseInt(300*fields.size), height = parseInt(300*fields.size);
                             return image
                             .extract({ left, top, width, height })
-                            .toFile(root + "uploads\\" + filename, (err, info) => {
+                            .toFile(filePath, (err, info) => {
                                 //aws
-                                uploadFile(f.file, filename).then(function () {
+                                uploadFile(filePath, filename, f.file.type).then(function () {
                                     (async function updateProfile(){
                                         await userProfile.update({
                                             avatar: filename
@@ -4487,7 +4489,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         data: data
                                     })
                                 })
-
                                 //gg
                                 // const blob = cfFileBucket.file("fd-media/" + filename);
                                 // const blobStream = blob.createWriteStream();
@@ -4545,27 +4546,28 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             req.session.blockLogin = false
             const form = formidable()
             form.parse(req, (err, fields, f) => {
-                const reg = /image\/jpeg|image\/jpg|image\/png|image/gi;
+                const reg = /image\/jpeg|image\/jpg|image\/png/gi;
                 (async () => {
                     const mineType = await FileType.fromFile(f.file.path)
+                    console.log(mineType)
                     if (mineType.mime.match(reg)){
                         const root =  __dirname.replace('\controllers', '')
                         const image = sharp(f.file.path);
                         let filename
                         if (f.file.name > 255) { filename =  Date.now() + "_" + randomize('0', 6)}
-                        else {filename =  Date.now() + "_" + randomize('0', 6) + "_" + f.file.name}
+                        else {filename =  Date.now() + "_" + randomize('0', 6) + "_" + f.file.name.replace(/[^\w\.]/gi, '')}
                         const filePath = path.join(root, 'uploads', filename)
                         image.metadata()
                         .then(metadata => {
                             const left = parseInt(fields.xCrop), top = parseInt(fields.yCrop), width = parseInt(500*fields.size), height = parseInt(200*fields.size);
                             return image
                             .extract({ left, top, width, height })
-                            .toFile(root + "uploads\\" + filename, (err, info) => {
-                                 //aws
-                                 uploadFile(f.file, filename).then(function () {
+                            .toFile(filePath, (err, info) => {
+                                //aws
+                                uploadFile(filePath, filename, f.file.type).then(function () {
                                     (async function updateProfile(){
                                         await userProfile.update({
-                                            avatar: filename
+                                            cover: filename
                                         }, {
                                             where: {
                                                 userId: req.user.userId
@@ -4575,7 +4577,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         })
                                     })()
                                     const data = {
-                                        avt: filename,
+                                        cover: filename,
                                         size: width
                                     }
                                     res.json({
@@ -4618,7 +4620,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             status: 'err',
                         })
                     }
-                })
+                })()
             })
         }
         else {
