@@ -4506,7 +4506,7 @@ input[type='range']::-ms-fill-lower {
   height: 45px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgb(190, 49, 108);
+  border: 2px solid rgb(230, 47, 101);
   animation: colorchange-avt-rank1 2s;
   animation-iteration-count:infinite;
 }
@@ -4517,7 +4517,7 @@ input[type='range']::-ms-fill-lower {
   height: 45px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgb(235, 182, 68);
+  border: 2px solid rgb(231, 170, 37);
   animation: colorchange-avt-rank2 2s;
   animation-iteration-count:infinite;
 }
@@ -4528,23 +4528,23 @@ input[type='range']::-ms-fill-lower {
   height: 45px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgb(49, 157, 190);
+  border: 2px solid rgb(50, 188, 230);
   animation: colorchange-avt-rank3 2s;
   animation-iteration-count:infinite;
 }
 
 .rank1-color {
-  color: rgb(190, 49, 108);
+  color: rgb(230, 47, 101);
   font-weight: 600;
 }
 
 .rank2-color {
-  color: rgb(235, 182, 68);
+  color: rgb(231, 170, 37);
   font-weight: 600;
 }
 
 .rank3-color {
-  color: rgb(49, 157, 190);
+  color: rgb(50, 188, 230);
   font-weight: 600;
 }
 
@@ -4569,11 +4569,11 @@ input[type='range']::-ms-fill-lower {
 
 @keyframes colorchange-avt-rank1
 {
-  0%   {border:3px solid rgb(190, 49, 108);}
-  25%   {border:3px solid rgb(194, 72, 123);}
-  50%   {border:3px solid rgb(189, 83, 127);}
-  75%   {border:3px solid rgb(190, 121, 150);}
-  100% {border:3px solid rgb(194, 41, 104);}
+  0%   {border:3px solid rgb(223, 57, 79);}
+  25%   {border:3px solid rgb(216, 54, 108);}
+  50%   {border:3px solid rgb(207, 87, 143);}
+  75%   {border:3px solid rgb(202, 115, 152);}
+  100% {border:3px solid rgb(218, 25, 99);}
 }
 
 @keyframes colorchange-avt-rank2
@@ -5504,7 +5504,7 @@ input[type='range']::-ms-fill-lower {
 }
 
 .fame-top-1 {
-  background-color: rgba(233, 246, 255, 0.822);
+  background-color: rgb(233, 252, 255);
 }
 
 .point-text {
