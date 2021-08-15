@@ -807,7 +807,7 @@ video {
 .return-but {
   position: absolute;
   top: 11px;
-  left: 10px;
+  left: 5px;
   color: #00ade2;
   font-size: 20px;
   z-index: 1000;
