@@ -2,9 +2,9 @@ window.onresize = toggleHeader;
 window.onload = toggleHeader;
 
 let scrollRange = scrollPage = stopScrollPage = round = 0
-let rankIndex = 5, cateSort = "rank-sort-content", rankLink = "primary", rankName = "Sơ cấp", filter = "current"
+let rankIndex = 5, cateSort = "rank-sort-content", rankLink = rankLinkPost = "primary", rankName = "Sơ cấp", filter = "current"
 let cateLink = exploreContentText = "explore"
-let roundType = navLink = statusRedirect = infoContentText = homeContentText = personalPostText = categoryContentText = postContentText = cateName = avtUpdate = usernameUpdate = nicknameUpdate = nicknameBeforeUpdate = rankLinkPost = cateLinkPost =  filter = searchQuery = ''
+let roundType = navLink = statusRedirect = infoContentText = homeContentText = personalPostText = categoryContentText = postContentText = cateName = avtUpdate = usernameUpdate = nicknameUpdate = nicknameBeforeUpdate = cateLinkPost = filter = searchQuery = ''
 let headerContentText = document.querySelector(".header").innerHTML
 let personalLink = interval = null
 let openVolume = false
