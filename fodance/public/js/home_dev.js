@@ -3004,30 +3004,30 @@ function handleMainFrame(){
     }
     handleOpenAudioMusic()
 
-    // function hanldeFullscreen(){
-    //     document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
-    //         e.onclick = function(){
-    //             if (e.classList.contains("plyr__control--pressed")){
-    //                 e.parentElement.parentElement.querySelector("video").style.maxHeight = "400px"
-    //             }
-    //             else {
-    //                 e.parentElement.parentElement.querySelector("video").style.maxHeight = "initial"
-    //             }
-    //         }
-    //     }) 
+    function hanldeFullscreen(){
+        document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
+            e.onclick = function(){
+                if (e.classList.contains("plyr__control--pressed")){
+                    e.parentElement.parentElement.querySelector("video").style.maxHeight = "400px"
+                }
+                else {
+                    e.parentElement.parentElement.querySelector("video").style.maxHeight = "initial"
+                }
+            }
+        }) 
 
-    //     document.querySelectorAll(".post-file").forEach(function(e){
-    //         e.ondblclick = function(){
-    //             if(e.querySelector("video").offsetWidth < window.innerWidth){
-    //                 e.querySelector("video").style.maxHeight = "initial"
-    //             }
-    //             else {
-    //                 e.querySelector("video").style.maxHeight = "400px"
-    //             }
-    //         }
-    //     }) 
-    // }
-    // hanldeFullscreen()
+        document.querySelectorAll(".post-file").forEach(function(e){
+            e.ondblclick = function(){
+                if(e.querySelector("video").offsetWidth < window.innerWidth){
+                    e.querySelector("video").style.maxHeight = "initial"
+                }
+                else {
+                    e.querySelector("video").style.maxHeight = "400px"
+                }
+            }
+        }) 
+    }
+    hanldeFullscreen()
 
     handleToggle()
 
