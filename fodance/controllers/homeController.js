@@ -1762,10 +1762,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     else if (files[0].type.includes('video')) {file.type = 'video'}
                     else {file.type = 'image' }
                     if ((description.length != 0 && description.length <= 1000) || f.file){
-                        console.log(1)
                         function postCreator(){
-                            console.log(2)
-
                             userProfile.findOne({
                                 raw: true,
                                 where: {
