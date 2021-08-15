@@ -529,7 +529,7 @@ video {
 
 .header {
   position: fixed;
-  top: 0;
+  /* top: 0; */
   width: 100%;
   height: 50px;
   border-bottom: 1px solid #eee;
@@ -3384,7 +3384,7 @@ img.thumb {
 
 .post-interactive-mobile .interactive-but {
   background-color: transparent;
-  color: rgb(66, 66, 66);
+  color: rgb(39, 39, 39);
 }
 
 .post-interactive-mobile .interactive-but span {

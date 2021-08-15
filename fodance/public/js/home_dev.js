@@ -4343,6 +4343,7 @@ function handleNavigation(){
                 xhttp = new ActiveXObject("Microsoft.XMLHTTP")
             }
             window.scrollTo(0, 0)
+            document.querySelector(".main-frame").innerHTML = '<div class="loading-frame d-flex"><span class="iconify spin loading-icon" data-icon="ant-design:loading-3-quarters-outlined" data-inline="false"></span></div>'
             const rankHeader = document.querySelectorAll(".header-rank-but")
             for (let i = 0; i < rankHeader.length; i++){
                 if (rankHeader[i].getAttribute("rank-data") == rankLink){
