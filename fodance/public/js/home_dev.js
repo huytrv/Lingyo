@@ -3767,11 +3767,11 @@ function handleMainFrame(){
             }
         }
         else {
-            document.querySelector(".loading-post").innerHTML = '<div class="no-post-text">Oops! Bạn chưa lưu bài viết nào!</div><div class="no-post-lottie"></div>'
+            document.querySelector(".loading-post").innerHTML = '<div class="no-post-text">Oops! Bạn không còn bài viết nào đang lưu!</div><div class="no-post-lottie"></div>'
             lottie()
         }
         if (document.querySelector(".info-personal")) {
-            document.querySelector(".loading-post").innerHTML = `<div class="no-post-text">Oops! Chưa có bài viết nào!${cateName}!</div><div class="no-post-lottie"></div><button class="create-post-but" data-create-but="layout">Be The First!</button>`
+            document.querySelector(".loading-post").innerHTML = `<div class="no-post-text">Oops! Không còn bài viết nào!${cateName}!</div><div class="no-post-lottie"></div><button class="create-post-but" data-create-but="layout">Be The First!</button>`
             lottie()
         }
         stopScrollPage = 1
