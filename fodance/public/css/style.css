@@ -807,7 +807,7 @@ video {
 .return-but {
   position: absolute;
   top: 11px;
-  left: 5px;
+  left: 0;
   color: #00ade2;
   font-size: 20px;
   z-index: 1000;
@@ -2423,7 +2423,7 @@ input:checked + .slider:before {
   width: 23%;
   border: none;
   background-color: white;
-  border: 1px solid #6AB5B3;
+  border: 1px solid #6a78b5;
   border-radius: 20px;
   padding: 9px 5px;
   margin: 3px;
@@ -2439,7 +2439,7 @@ input:checked + .slider:before {
 
 .create-post-rank-but {
   width: 31%;
-  border: 1px solid #00ade2;
+  border: 1px solid #0075e2;
   background-color: white;
   border-radius: 20px;
   padding: 5px;

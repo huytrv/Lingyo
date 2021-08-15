@@ -1740,7 +1740,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 const description = fields.description
                 let category = fields.category
                 let rank = fields.rank
-                if (rank == '' && roundType == 'final'){rank = 'primary'}
+                if (rank != "primary" && rank != "intermediate" && rank != "highgrade"){rank = 'primary'}
                 let competition = fields.competition
                 let files = [f.file], file = {}
                 if (!Array.isArray(files)) {
