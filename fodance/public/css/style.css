@@ -3384,7 +3384,7 @@ img.thumb {
 
 .post-interactive-mobile .interactive-but {
   background-color: transparent;
-  color: rgb(39, 39, 39);
+  color: rgb(66, 66, 66);
 }
 
 .post-interactive-mobile .interactive-but span {
@@ -5338,7 +5338,7 @@ input[type='range']::-ms-fill-lower {
 }
 
 .icon-reward-2 {
-  color: #ffd000;
+  color: #ffd000d2;
   animation-name: animate-post-down;
   animation-duration: 0.3s;
 }
@@ -5454,6 +5454,23 @@ input[type='range']::-ms-fill-lower {
   overflow-x: hidden;
   padding: 0 10px;
   border-collapse: collapse;
+}
+
+.fame-title {
+  padding: 10px 0;
+}
+
+.fame-title th {
+  display: flex;
+  justify-content: start;
+}
+
+.fame-title th:nth-child(1) {
+  margin-left: 8px;
+}
+
+.fame-title th:nth-child(2) {
+  margin-left: 10px;
 }
 
 .fame-ele {

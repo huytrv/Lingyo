@@ -9,8 +9,18 @@
         <div class="group-title d-flex">
             <span class="font-size-lg-3 pd">Bảng xếp hạng điểm danh vọng</span>
         </div>
-        <!-- <div class="border-b"></div> -->
+        <div class="d-flex">
+            <div class="border-b width-80"></div>
+        </div>
         <table class="fame-content d-flex">
+                <tr class="d-flex fame-title">
+                    <th class="width-5">#</th>
+                    <th class="width-50">Vũ công</th>
+                    <th class="width-12">#1</th>
+                    <th class="width-12">#2</th>
+                    <th class="width-12">#3</th>
+                    <th class="width-10">Điểm</th>
+                </tr>
             <% for (i = 0; i < topFames.length; i++) { %>
                 <tr class="fame-ele nav-red <% if (i != topFames.length - 1){ %>mg-b <% } %><% if (i<3){ %>fame-top-1<% } %>" nav-data="personal" data-user-df="<%- topFames[i].nickname -%>">
                     <td class="width-5">
@@ -31,15 +41,12 @@
                         </a>
                     </td>
                     <td class="width-12 d-flex">
-                        <span class="iconify font-icon icon-reward-1" data-icon="emojione-monotone:1st-place-medal" data-inline="false"></span>
                         <span><%- topFames[i].rank1 -%></span>
                     </td>
                     <td class="width-12 d-flex">
-                        <span class="iconify font-icon icon-reward-2" data-icon="emojione-monotone:2nd-place-medal" data-inline="false"></span>
                         <span><%- topFames[i].rank2 -%></span>
                     </td>
                     <td class="width-12 d-flex">
-                        <span class="iconify font-icon icon-reward-3" data-icon="emojione-monotone:3rd-place-medal" data-inline="false"></span>
                         <span><%- topFames[i].rank3 -%></span>
                     </td>
                     <td class="width-10">
