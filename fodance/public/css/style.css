@@ -2451,6 +2451,7 @@ input:checked + .slider:before {
 .create-post-rank-but-active {
   background-color: #00ade2;
   color: white;
+  border: none;
 }
 
 .center-right-frame {
