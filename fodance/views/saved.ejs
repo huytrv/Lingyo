@@ -119,7 +119,7 @@
                             <% if (posts[i].file) { %>
                                 <% if (posts[i].file.type == 'video') { %>
                                 <div class="post-file">
-                                    <video class="player media-post post-video" loop muted src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>"></video>
+                                    <video class="player media-post post-video" loop muted poster="/public/images/poster.png" src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>"></video>
                                 </div>
                                 <% } %>
                                 <% if (posts[i].file.type == 'image') { %>
