@@ -3755,9 +3755,9 @@ function handleMainFrame(){
     handleVideoScroll()
 
     if (document.querySelectorAll(".post-section").length != 0 && document.querySelectorAll(".post-section .post").length < 5 && document.querySelector(".loading-post")) {
-        if (window.location.pathname != "/saved"){
+        if (window.location.pathname != "/saved" && document.querySelector(".category-slidebar")){
             if (roundType == "final") {
-                document.querySelector(".loading-post").innerHTML = `<div class="no-post-text"><div>Oop! Mọi người đang chuẩn bị!</div>Nếu bạn đã nằm trong Top những người chiến thắng Vòng bảng, bạn sẽ tham gia bình chọn Vòng chung kết tại đây!${cateName}!</div><div class="no-post-lottie"></div><button class="create-post-but" data-create-but="layout">Tạo video tham dự!</button>`
+                document.querySelector(".loading-post").innerHTML = `<div class="no-post-text"><div>Oops! Mọi người đang chuẩn bị!</div>Nếu bạn đã nằm trong Top những người chiến thắng Vòng bảng, bạn sẽ tham gia bình chọn Vòng chung kết tại đây!${cateName}!</div><div class="no-post-lottie"></div><button class="create-post-but" data-create-but="layout">Tạo video tham dự!</button>`
                 lottie()
             }
             else {
