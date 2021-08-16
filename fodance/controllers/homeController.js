@@ -5623,7 +5623,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                 }
                                                             }
                                                             if (buf == p.length){
-                                                                res.render("personal", {isCurrentUser: isCurrentUser, currentUsername: currentUser.username, currentUserId: currentUser.userId, currentProfile: currentProfile, followed: followed, user: user, profile: profile, posts: p, postProfile: postProfile, postLiked: postLiked, saved: saved, active: '', cateActive: '', cateName: '', rank: false, modal: modal})
+                                                                res.render("personal", {isCurrentUser: isCurrentUser, username: req.user.username, currentUsername: currentUser.username, currentUserId: currentUser.userId, currentProfile: currentProfile, followed: followed, user: user, profile: profile, posts: p, postProfile: postProfile, postLiked: postLiked, saved: saved, active: '', cateActive: '', cateName: '', rank: false, modal: modal})
                                                             }
                                                         })
                                                     })
@@ -5631,7 +5631,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             }
                                         }
                                         else {
-                                            res.render("personal", {isCurrentUser: isCurrentUser, currentUsername: currentUser.username, currentUserId: currentUser.userId, currentProfile: currentProfile, followed: followed, user: user, profile: profile, posts: p, postProfile: postProfile, postLiked: postLiked, saved: saved, active: '', cateActive: '', cateName: '', rank: false, modal: modal})
+                                            res.render("personal", {isCurrentUser: isCurrentUser, username: req.user.username, currentUsername: currentUser.username, currentUserId: currentUser.userId, currentProfile: currentProfile, followed: followed, user: user, profile: profile, posts: p, postProfile: postProfile, postLiked: postLiked, saved: saved, active: '', cateActive: '', cateName: '', rank: false, modal: modal})
                                         }
                                     })
                                 })
