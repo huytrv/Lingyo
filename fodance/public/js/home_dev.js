@@ -5611,7 +5611,9 @@ function handleSetting(type){
                       }, ms || 0)
                     }
                 }
-                document.querySelector(".category").innerHTML = '<div class="d-flex group-title"><span class="mg-l-lg font-size-lg-2 none-deco none-mg">Cài đặt</span></div>'
+                if (document.querySelector(".category")){
+                    document.querySelector(".category").innerHTML = '<div class="d-flex group-title"><span class="mg-l-lg font-size-lg-2 none-deco none-mg">Cài đặt</span></div>'
+                }
                 handleMobileResponse()
                 if (this.classList.contains("general-setting")){
                     if (!document.querySelector(".general-setting-content")){
