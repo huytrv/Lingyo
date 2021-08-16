@@ -102,12 +102,10 @@ function handleMobileResponse() {
         if (cateLink == ''){cateLinkTitle = window.location.pathname.replace('/', '')} else {cateLinkTitle = cateLink}
         for (let i = 0; i < navList.length; i++){
             if (navLinkTitle == navList[i]){
-                console.log(navLink)
                 if (roundType == "final" && navLinkTitle == "competition"){
                     document.querySelector(".title-content").textContent = "Chung kết"
                 }
                 else {
-                    console.log(navName[i])
                     document.querySelector(".title-content").textContent = navName[i]
                 }
                 if (i < 4) {document.querySelector(".mobile-creator").style.display = "block"}
@@ -127,7 +125,6 @@ function handleMobileResponse() {
                     document.querySelector(".title-content").textContent = "Chung kết"
                 }
                 else {
-                    console.log(cateLinkTitle)
                     document.querySelector(".title-content").textContent = "Vòng đấu"
                 }
             }
