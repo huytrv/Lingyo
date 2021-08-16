@@ -20,156 +20,156 @@ const updateController = require("./controllers/updateController.js")
 
 const app = express();
 
-passport.use(new facebookStrategy({
-    clientID: "2671130773138286",
-    clientSecret: "199ef7c41209b16d275cabe262123ab0",
-    callbackURL:"https://fodance.com/facebook/callback",
-    profileFields: ["id", "displayName", "name", "picture.type(large)", "email"]
-},
-function(token, refreshToken, profile, done){
-    function getRndInteger(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
-    }
-    users.findOne({
-        where: {
-            facebookId: profile.id
-        }
-    }).then(function(u){
-        if (!u){
-            const uid = getRndInteger(1000000000, 10000000000)
-            if (profile.emails){facebookEmail = profile.emails[0].value}
-            else {facebookEmail = null}
-            users.create({ 
-                userId: uid,
-                email: null,
-                phone: null,
-                username: profile.displayName,
-                password: null,
-                facebookEmail: facebookEmail,
-                facebookId: profile.id,
-                googleEmail: null,
-                googleId: null
-            }).then(function(user){
-                function generateProfile(){
-                    const ran = getRndInteger(10000000, 100000000)
-                    const nickname = profile.displayName.replace(/[^a-zA-Z0-9_]/g, "") + ran
-                    userProfile.findOne({
-                        where: {
-                            nickname: nickname
-                        }
-                    }).then(function(p){
-                        if (!p){
-                            userProfile.create({ 
-                                userId: user.userId,
-                                nickname: nickname,
-                                avatar: profile.photos[0].value,
-                                cover: "default-cover.png",
-                                followers: 0,
-                                following: 0,
-                                points: 0,
-                                stars: 0,
-                                tickets: 0,
-                                rank1: 0,
-                                rank2: 0,
-                                rank3: 0,
-                                rank10: 0,
-                                winner: [],
-                                saved: [],
-                                notice: [],
-                                followNotification: true,
-                                voteFollowNotification: true,
-                                postFollowNotification: true,
-                            }).then(function(){
-                                return done(null, user)
-                            })
-                        }
-                        else {
-                            generateProfile()
-                        }
-                    })
-                }
-                generateProfile()
-            })
-        }
-        else {
-            return done(null, u)
-        }
-    })
-}))
+// passport.use(new facebookStrategy({
+//     clientID: "2671130773138286",
+//     clientSecret: "199ef7c41209b16d275cabe262123ab0",
+//     callbackURL:"https://fodance.com/facebook/callback",
+//     profileFields: ["id", "displayName", "name", "picture.type(large)", "email"]
+// },
+// function(token, refreshToken, profile, done){
+//     function getRndInteger(min, max) {
+//         return Math.floor(Math.random() * (max - min)) + min;
+//     }
+//     users.findOne({
+//         where: {
+//             facebookId: profile.id
+//         }
+//     }).then(function(u){
+//         if (!u){
+//             const uid = getRndInteger(1000000000, 10000000000)
+//             if (profile.emails){facebookEmail = profile.emails[0].value}
+//             else {facebookEmail = null}
+//             users.create({ 
+//                 userId: uid,
+//                 email: null,
+//                 phone: null,
+//                 username: profile.displayName,
+//                 password: null,
+//                 facebookEmail: facebookEmail,
+//                 facebookId: profile.id,
+//                 googleEmail: null,
+//                 googleId: null
+//             }).then(function(user){
+//                 function generateProfile(){
+//                     const ran = getRndInteger(10000000, 100000000)
+//                     const nickname = profile.displayName.replace(/[^a-zA-Z0-9_]/g, "") + ran
+//                     userProfile.findOne({
+//                         where: {
+//                             nickname: nickname
+//                         }
+//                     }).then(function(p){
+//                         if (!p){
+//                             userProfile.create({ 
+//                                 userId: user.userId,
+//                                 nickname: nickname,
+//                                 avatar: profile.photos[0].value,
+//                                 cover: "default-cover.png",
+//                                 followers: 0,
+//                                 following: 0,
+//                                 points: 0,
+//                                 stars: 0,
+//                                 tickets: 0,
+//                                 rank1: 0,
+//                                 rank2: 0,
+//                                 rank3: 0,
+//                                 rank10: 0,
+//                                 winner: [],
+//                                 saved: [],
+//                                 notice: [],
+//                                 followNotification: true,
+//                                 voteFollowNotification: true,
+//                                 postFollowNotification: true,
+//                             }).then(function(){
+//                                 return done(null, user)
+//                             })
+//                         }
+//                         else {
+//                             generateProfile()
+//                         }
+//                     })
+//                 }
+//                 generateProfile()
+//             })
+//         }
+//         else {
+//             return done(null, u)
+//         }
+//     })
+// }))
 
-passport.use(new googleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.CALLBACK_URL,
-    passReqToCallback: true
-}, function(request, accessToken, refreshToken, profile, done){
-    function getRndInteger(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
-    }
-    users.findOne({
-        where: {
-            googleId: profile.id
-        }
-    }).then(function(u){
-        if (!u){
-            const uid = getRndInteger(1000000000, 10000000000)
-            users.create({ 
-                userId: uid,
-                email: null,
-                phone: null,
-                username: profile.displayName,
-                password: null,
-                facebookEmail: null,
-                facebookId: null,
-                googleEmail: profile.emails[0].value,
-                googleId: profile.id
-            }).then(function(user){
-                function generateProfile(){
-                    const ran = getRndInteger(10000000, 100000000)
-                    const nickname = profile.displayName.replace(/[^a-zA-Z0-9_]/g, "") + ran
-                    userProfile.findOne({
-                        where: {
-                            nickname: nickname
-                        }
-                    }).then(function(p){
-                        if (!p){
-                            userProfile.create({ 
-                                userId: user.userId,
-                                nickname: nickname,
-                                avatar: profile.photos[0].value,
-                                cover: "default-cover.png",
-                                followers: 0,
-                                following: 0,
-                                points: 0,
-                                stars: 0,
-                                tickets: 0,
-                                rank1: 0,
-                                rank2: 0,
-                                rank3: 0,
-                                rank10: 0,
-                                winner: [],
-                                saved: [],
-                                notice: [],
-                                followNotification: true,
-                                voteFollowNotification: true,
-                                postFollowNotification: true,
-                            }).then(function(){
-                                return done(null, user)
-                            })
-                        }
-                        else {
-                            generateProfile()
-                        }
-                    })
-                }
-                generateProfile()
-            })
-        }
-        else {
-            return done(null, u)
-        }
-    })
-}))
+// passport.use(new googleStrategy({
+//     clientID: process.env.GOOGLE_CLIENT_ID,
+//     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//     callbackURL: process.env.CALLBACK_URL,
+//     passReqToCallback: true
+// }, function(request, accessToken, refreshToken, profile, done){
+//     function getRndInteger(min, max) {
+//         return Math.floor(Math.random() * (max - min)) + min;
+//     }
+//     users.findOne({
+//         where: {
+//             googleId: profile.id
+//         }
+//     }).then(function(u){
+//         if (!u){
+//             const uid = getRndInteger(1000000000, 10000000000)
+//             users.create({ 
+//                 userId: uid,
+//                 email: null,
+//                 phone: null,
+//                 username: profile.displayName,
+//                 password: null,
+//                 facebookEmail: null,
+//                 facebookId: null,
+//                 googleEmail: profile.emails[0].value,
+//                 googleId: profile.id
+//             }).then(function(user){
+//                 function generateProfile(){
+//                     const ran = getRndInteger(10000000, 100000000)
+//                     const nickname = profile.displayName.replace(/[^a-zA-Z0-9_]/g, "") + ran
+//                     userProfile.findOne({
+//                         where: {
+//                             nickname: nickname
+//                         }
+//                     }).then(function(p){
+//                         if (!p){
+//                             userProfile.create({ 
+//                                 userId: user.userId,
+//                                 nickname: nickname,
+//                                 avatar: profile.photos[0].value,
+//                                 cover: "default-cover.png",
+//                                 followers: 0,
+//                                 following: 0,
+//                                 points: 0,
+//                                 stars: 0,
+//                                 tickets: 0,
+//                                 rank1: 0,
+//                                 rank2: 0,
+//                                 rank3: 0,
+//                                 rank10: 0,
+//                                 winner: [],
+//                                 saved: [],
+//                                 notice: [],
+//                                 followNotification: true,
+//                                 voteFollowNotification: true,
+//                                 postFollowNotification: true,
+//                             }).then(function(){
+//                                 return done(null, user)
+//                             })
+//                         }
+//                         else {
+//                             generateProfile()
+//                         }
+//                     })
+//                 }
+//                 generateProfile()
+//             })
+//         }
+//         else {
+//             return done(null, u)
+//         }
+//     })
+// }))
 
 paypal.configure({
     "mode": "live",
@@ -454,7 +454,7 @@ const server = https.createServer(op, app).listen(443, function(){
 
 const io = socketio(server)
 
-signupController(app, users, userProfile, emailRegister, phoneRegister)
+// signupController(app, users, userProfile, emailRegister, phoneRegister)
 loginController(app, users)
 forgotController(app, users, forgotPasswordToken, forgotPasswordCode)
 updateController(app, users)
