@@ -4701,6 +4701,7 @@ input[type='range']::-ms-fill-lower {
   border-radius: 0;
   box-shadow: 0 0 5px 1px rgb(230, 233, 235);
   text-align: center;
+  margin-top: 10px;
 }
 
 .loading-post .create-post-but {
@@ -5479,7 +5480,8 @@ input[type='range']::-ms-fill-lower {
   align-items: center;
   padding: 10px;
   cursor: pointer;
-  background-color: white;
+  background-color: rgba(239, 253, 255, 0.822);
+  color: rgb(36, 36, 36);
 }
 
 .fame-ele:hover {

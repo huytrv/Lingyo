@@ -3,7 +3,7 @@ window.onload = toggleHeader;
 
 let scrollRange = scrollPage = stopScrollPage = round = 0
 let rankIndex = 5, cateSort = "rank-sort-content", rankLink = rankLinkPost = "primary", rankName = "Sơ cấp", filter = "current"
-let cateLink = exploreContentText = "explore"
+let cateLink = competitionContentText = "competition"
 let roundType = navLink = statusRedirect = infoContentText = homeContentText = personalPostText = categoryContentText = postContentText = cateName = avtUpdate = usernameUpdate = nicknameUpdate = nicknameBeforeUpdate = cateLinkPost = filter = searchQuery = ''
 let headerContentText = document.querySelector(".header").innerHTML
 let personalLink = interval = null
@@ -13,8 +13,8 @@ let postDisplayedList = [], cmtDisplayedList = {}, repCmtDisplayedList = {}, sea
 let param = navState = cateState = ''
 const url = window.location.href
 const cateList = ["freestyle", "hiphop", "rap", "contemporary", "ballroom", "modern", "ballet", "shuffle", "jazz", "sexy", "flashmob", "other"]
-const navList = ["explore", "fame", "notifications", "saved", "honors", "add-topic", "setting"]
-const navName = ["Khám phá", "Xếp hạng", "Thông báo", "Đã lưu", "Vinh danh", "Thêm thể loại", "Cài đặt"]
+const navList = ["competition", "fame", "notifications", "saved", "honors", "add-topic", "setting"]
+const navName = ["Vòng đấu", "Xếp hạng", "Thông báo", "Đã lưu", "Vinh danh", "Thêm thể loại", "Cài đặt"]
 if (new Date().getDay() >= 1 && new Date().getDay() <= 5) {roundType = "group-stage"}else {roundType = "final"}
 //start
 const showAlert = function(text){
@@ -98,31 +98,38 @@ function handleMobileResponse() {
         document.querySelectorAll("input[data-plyr='volume']").forEach(function(e){
             e.remove()
         })
-        console.log(1)
+        if (navLink == ''){navLinkTitle = window.location.pathname.replace('/', '')} else {navLinkTitle = navLink}
+        if (cateLink == ''){cateLinkTitle = window.location.pathname.replace('/', '')} else {cateLinkTitle = cateLink}
         for (let i = 0; i < navList.length; i++){
-            if (navLink == navList[i]){
-                if (roundType == "final" && navLink == "explore"){
+            if (navLinkTitle == navList[i]){
+                console.log(navLink)
+                if (roundType == "final" && navLinkTitle == "competition"){
                     document.querySelector(".title-content").textContent = "Chung kết"
                 }
                 else {
+                    console.log(navName[i])
                     document.querySelector(".title-content").textContent = navName[i]
                 }
                 if (i < 4) {document.querySelector(".mobile-creator").style.display = "block"}
                 else {document.querySelector(".mobile-creator").style.display = "none"}
             }
-            else if (cateLink == cateList[i]){
+            else if (navLinkTitle == ''){
+                document.querySelector(".title-content").textContent = "Trang chủ"
+            }
+            else if (navLinkTitle == 'personal'){
+                document.querySelector(".title-content").textContent = "Hồ sơ"
+            }
+        }
+
+        for (let i = 0; i < cateList.length; i++){
+            if (cateLinkTitle == cateList[i] && (navLink == "competition" || navLink == '')){
                 if (roundType == "final"){
                     document.querySelector(".title-content").textContent = "Chung kết"
                 }
                 else {
-                    document.querySelector(".title-content").textContent = "Khám phá"
+                    console.log(cateLinkTitle)
+                    document.querySelector(".title-content").textContent = "Vòng đấu"
                 }
-            }
-            else if (navLink == ''){
-                document.querySelector(".title-content").textContent = "Trang chủ"
-            }
-            else if (navLink == 'personal'){
-                document.querySelector(".title-content").textContent = "Hồ sơ"
             }
         }
         if(!document.querySelector(".category-slidebar")){
@@ -247,7 +254,7 @@ function pretreatment(){
         document.querySelector(".congrat-submit").onclick = function(){
             document.querySelector(".congrat-modal").remove()
             if (document.querySelector(".frame-post-home")){
-                exploreContentText = document.querySelector(".main-frame").innerHTML
+                competitionContentText = document.querySelector(".main-frame").innerHTML
             }
         }
     }
@@ -264,7 +271,7 @@ function pretreatment(){
     })
     
     if (document.querySelector(".main-frame").querySelector(".frame-post-home")){
-        exploreContentText = document.querySelector(".main-frame").innerHTML
+        competitionContentText = document.querySelector(".main-frame").innerHTML
     }
     else {
         // document.querySelector(".main-frame").style.minHeight = "calc(100vh - 55px)"
@@ -293,7 +300,7 @@ function pretreatment(){
     
     const cate = window.location.pathname.replace('/', '')
     
-    if (cate == 'explore' || cate == '') {
+    if (cate == 'competition' || cate == '') {
         const rankButs = document.querySelectorAll(".header-rank-but")
         for (let i = 0; i < rankButs.length; i++){
             if (rankButs[i].getAttribute("rank-data") == rankLink){
@@ -314,7 +321,7 @@ function pretreatment(){
         cateLink = cate
     }
     
-    if (cate == 'create-post'){navLink = 'explore'}
+    if (cate == 'create-post'){navLink = 'competition'}
     if (document.querySelector(".main-frame-post-inner-personal")){navLink = 'personal'}
 
     if (document.querySelector(".home-frame")) {
@@ -839,7 +846,7 @@ function rankRedirect(rankBut, pushState){
             document.querySelector(".current-filter").classList.add("theme-color")
         }
         document.querySelectorAll(".nav-ele").forEach(function(e){
-            if (e.getAttribute("nav-data") == 'explore'){
+            if (e.getAttribute("nav-data") == 'competition'){
                 e.classList.add("active")
             }
             else {
@@ -874,7 +881,7 @@ function rankRedirect(rankBut, pushState){
                     handleMainInfo()
                 }
                 if (document.querySelector(".frame-post-home")){
-                    exploreContentText = document.querySelector(".main-frame").innerHTML
+                    competitionContentText = document.querySelector(".main-frame").innerHTML
                 }
                 if (document.querySelector(".main-info")){
                     infoContentText = document.querySelector(".main-info").innerHTML
@@ -1050,7 +1057,7 @@ function handleRankPostCount(){
 
             if (document.querySelectorAll(".rank-post-count").length != 0){
                 const postRankCountEle = document.querySelectorAll(".rank-post-count")
-                // if (cateLink != 'explore'){
+                // if (cateLink != 'competition'){
                     for (let i = 0; i < res.postRankCountList.length; i++){
                         if (res.postRankCountList[i] != 0){
                             postRankCountEle[i].textContent = res.postRankCountList[i] 
@@ -1603,7 +1610,7 @@ function categoryRedirect(cate, pushState){
     }
     cateLink = cate.getAttribute("topic-data")
     cateName = cate.querySelector(".category-item-name").textContent
-    if (roundType == "final") {cateLink = 'explore'}
+    if (roundType == "final") {cateLink = 'competition'}
     const rankButs = document.querySelectorAll(".header-rank-but")
     for (let i = 0; i < rankButs.length; i++){
         if (rankButs[i].getAttribute("rank-data") == rankLink){
@@ -1622,22 +1629,22 @@ function categoryRedirect(cate, pushState){
         document.querySelectorAll(".nav-red").forEach(function(e){
             e.classList.remove("active")
         })
-        document.querySelector(".nav-item.nav-red[nav-data='explore']").classList.add("active")
+        document.querySelector(".nav-item.nav-red[nav-data='competition']").classList.add("active")
     }
     if (document.querySelector(".frame-post-home")){
-        exploreContentText = document.querySelector(".main-frame").innerHTML
+        competitionContentText = document.querySelector(".main-frame").innerHTML
     }
     xhttp.onreadystatechange = function() {  
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             const parser = new DOMParser()
             const page = parser.parseFromString(xhttp.responseText, 'text/html')
             const contentText = page.querySelector(".post-frame").innerHTML
-            exploreContentText = page.querySelector(".main-frame").innerHTML
+            competitionContentText = page.querySelector(".main-frame").innerHTML
             if (document.querySelectorAll(".post-frame").length != 0){
                 document.querySelector(".post-frame").innerHTML = contentText
             }
             else {
-                document.querySelector(".main-frame").innerHTML = exploreContentText
+                document.querySelector(".main-frame").innerHTML = competitionContentText
             }
             if (document.querySelector(".main-info-inner") && document.querySelector(".main-info-inner").classList.contains("info-personal")) {
                 const mainInfo = page.querySelector(".main-info")
@@ -1647,7 +1654,7 @@ function categoryRedirect(cate, pushState){
             }
 
             const currentCate = window.location.pathname.replace('/', '')
-            if (currentCate != '' && (cateList.includes(currentCate) || cateLink == 'explore')){
+            if (currentCate != '' && (cateList.includes(currentCate) || cateLink == 'competition')){
                 if (document.querySelectorAll(".category-but").length != 0){
                     document.querySelector(".category-but[topic-data='" + cateLink + "'").scrollIntoView({block: "end", inline: "center"})
                     scrollRange = document.querySelector('.category-slidebar').scrollLeft
@@ -1659,7 +1666,7 @@ function categoryRedirect(cate, pushState){
             }
             const sortEle = document.querySelectorAll(".sort-content-but")
             for (let i = 0; i < sortEle.length; i++){
-                if (i==0 && cateLink != 'explore'){sortEle[i].classList.add("sort-content-but-active")}
+                if (i==0 && cateLink != 'competition'){sortEle[i].classList.add("sort-content-but-active")}
                 else {sortEle[i].classList.remove("sort-content-but-active")}
             }
             rankIndex = 5
@@ -1680,7 +1687,7 @@ function categoryRedirect(cate, pushState){
         }
     }
     if (pushState){
-        // if (cateLink != 'explore'){
+        // if (cateLink != 'competition'){
             history.pushState({
                 cateAgent: cateAgent,
             }, '', 'https://fodance.com/' + cateLink + '?rank=' + rankLink )
@@ -1689,8 +1696,8 @@ function categoryRedirect(cate, pushState){
         // else {
         //     history.pushState({
         //         cateAgent: cateAgent,
-        //     }, '', 'https://fodance.com/explore')
-        //     document.querySelector('title').textContent = 'Fodance | Khám phá'
+        //     }, '', 'https://fodance.com/competition')
+        //     document.querySelector('title').textContent = 'Fodance | Vòng đấu'
         // }
     }
     xhttp.open("GET", '/' + cateLink + '?rank=' + rankLink , true)
@@ -1743,9 +1750,9 @@ function createPostRedirect(c, pushState){
             </div>
             <div class="thumb-content"></div>
             <div class="create-post-topic d-flex">
-                ${(()=>{if (cateLink != 'explore' || c.getAttribute("data-create-but") == "layout") {return `
-                    <button type="button" class="create-post-rank-but d-flex ${(()=>{if (cateLink != 'explore' && rankLink == "primary" && c.getAttribute("data-create-but") != "layout") {return 'create-post-rank-but-active'}})()}" data-rank-create-post="primary"><span class="mg-r-sm">${(()=>{if (isMobile){return "Sơ"}else {return "Sơ cấp:" }})()}</span><span>0</span><span class="iconify font-icon mg-l-sm red-color" data-icon="foundation:ticket" data-inline="false"></span></button>
-                    <button type="button" class="create-post-rank-but d-flex ${(()=>{if (cateLink != 'explore' && rankLink == "intermediate" && c.getAttribute("data-create-but") != "layout") {return 'create-post-rank-but-active'}})()}" data-rank-create-post="intermediate"><span class="mg-r-sm">${(()=>{if (isMobile){return "Trung"}else {return "Trung cấp:" }})()}</span><span>1</span><span class="iconify font-icon mg-l-sm red-color" data-icon="foundation:ticket" data-inline="false"></span></button><button type="button" class="create-post-rank-but d-flex ${(()=>{if (cateLink != 'explore' && rankLink == "highgrade" && c.getAttribute("data-create-but") != "layout") {return 'create-post-rank-but-active'}})()}" data-rank-create-post="highgrade"><span class="mg-r-sm">${(()=>{if (isMobile){return "Cao"}else {return "Cao cấp:" }})()}</span><span>3</span><span class="iconify font-icon mg-l-sm red-color" data-icon="foundation:ticket" data-inline="false"></span></button>
+                ${(()=>{if (cateLink != 'competition' || c.getAttribute("data-create-but") == "layout") {return `
+                    <button type="button" class="create-post-rank-but d-flex ${(()=>{if (cateLink != 'competition' && rankLink == "primary" && c.getAttribute("data-create-but") != "layout") {return 'create-post-rank-but-active'}})()}" data-rank-create-post="primary"><span class="mg-r-sm">${(()=>{if (isMobile){return "Sơ"}else {return "Sơ cấp:" }})()}</span><span>0</span><span class="iconify font-icon mg-l-sm red-color" data-icon="foundation:ticket" data-inline="false"></span></button>
+                    <button type="button" class="create-post-rank-but d-flex ${(()=>{if (cateLink != 'competition' && rankLink == "intermediate" && c.getAttribute("data-create-but") != "layout") {return 'create-post-rank-but-active'}})()}" data-rank-create-post="intermediate"><span class="mg-r-sm">${(()=>{if (isMobile){return "Trung"}else {return "Trung cấp:" }})()}</span><span>1</span><span class="iconify font-icon mg-l-sm red-color" data-icon="foundation:ticket" data-inline="false"></span></button><button type="button" class="create-post-rank-but d-flex ${(()=>{if (cateLink != 'competition' && rankLink == "highgrade" && c.getAttribute("data-create-but") != "layout") {return 'create-post-rank-but-active'}})()}" data-rank-create-post="highgrade"><span class="mg-r-sm">${(()=>{if (isMobile){return "Cao"}else {return "Cao cấp:" }})()}</span><span>3</span><span class="iconify font-icon mg-l-sm red-color" data-icon="foundation:ticket" data-inline="false"></span></button>
                 `} else {
                     return ''
                 }})()}
@@ -1852,7 +1859,7 @@ function createPostRedirect(c, pushState){
             for (let i = 0; i < createPostCateBut.length; i++){
                 if (createPostCateBut[i].classList.contains("create-post-category-but-active")){valid = true}
             }
-            if (valid || (cateLink != 'explore' && c.getAttribute("data-create-but") == "home")){
+            if (valid || (cateLink != 'competition' && c.getAttribute("data-create-but") == "home")){
                 if (!this.classList.contains("create-post-rank-but-active")){
                     for (let i = 0; i < createPostRankBut.length; i++){
                         createPostRankBut[i].classList.remove("create-post-rank-but-active")
@@ -2107,7 +2114,7 @@ function createPostRedirect(c, pushState){
             if ((description == '' || description.length > 1000) && arrayFile.length == 0) {
                 showAlert("Hãy nhập nội dung bài viết!")
             } 
-            else if (arrayFile.length != 0 && !arrayFile[0].type.includes("video") && cateLink != 'explore'){
+            else if (arrayFile.length != 0 && !arrayFile[0].type.includes("video") && cateLink != 'competition'){
                 showAlert("Hãy chọn một video cho Thể loại!")
             }
             else {
@@ -2136,7 +2143,7 @@ function createPostRedirect(c, pushState){
                         }
                         if (navLink != "community"){formData.append("competition", true)}
                         else {formData.append("competition", false)}
-                        if (cateLink != 'explore' && postiton == "home" && rankLinkPost == ''){rankLinkPost = rankLink}
+                        if (cateLink != 'competition' && postiton == "home" && rankLinkPost == ''){rankLinkPost = rankLink}
                         formData.append("rank", rankLinkPost)
                         for (let i = 0; i < arrayFile.length; i++){
                             formData.append("file", arrayFile[i])
@@ -2154,13 +2161,13 @@ function createPostRedirect(c, pushState){
                             const interv = setInterval(function(){
                                 if (res.status == "post-created") {
                                     clearInterval(interv)
-                                    if ((res.data.category == cateLink && res.data.rank == rankLink) || (cateLink == 'explore')){
+                                    if ((res.data.category == cateLink && res.data.rank == rankLink) || (cateLink == 'competition')){
                                         if ( document.querySelector(".post-section")){
                                         document.querySelector(".post-section").insertAdjacentHTML("afterbegin", `<div class='post post-create-down' data-post-df=${res.data.post.postId}><div class='post-util'><button class='avt-but header-but dropdown-but util-dropdown-but'><span class='iconify dropdown-icon bg-white' data-icon='vaadin:ellipsis-dots-h' data-inline='false'></span></button><div class='util-dropdown-content dropdown-content'><a class='nav-item save-post'><span class='iconify' data-icon='bi:bookmark-plus' data-inline='false'></span>Lưu bài viết</a><a class="nav-item post-notice"><span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn</a><a class="nav-item copy-link-post"><span class="iconify" data-icon="clarity:copy-line" data-inline="false"></span>Sao chép liên kết</a><a class='nav-item del-post'><span class='iconify' data-icon='bx:bx-hide' data-inline='false'></span>Xóa bài viết</a></div></div><div class='post-user'><div class='post-info'><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}">${(()=>{if (res.data.profile.avatar.includes("http")) {return `<img src="${res.data.profile.avatar}" class='user-avt'>`}else {return `<img src="https://cdn.fodance.com/fd-media/${res.data.profile.avatar}" class='user-avt'>`}})()}</a><div class='avt-info'><div class="d-flex"><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}"><span class='avt-username user-username'>${res.data.username}</span></a><div class='mark-icon'></div><div class='mg-l d-flex'><span class='contact-item'></span><a class='avt'><span class='post-time theme-color'>Vừa xong</span></a></div></div><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}"><span class='post-time nickname-content'>${(() => {if(res.data.profile && res.data.profile.nickname) {return `@${res.data.profile.nickname}`}else {return `@${res.data.username}`}})()}</span></a></div></div></div><div class='post-content'><p class='post-description'>${res.data.post.description}</p>${(() => {if(res.data.post.file) {if(res.data.post.file.type == 'video'){return `<div class='post-file'><video class='player media-post' poster="/public/images/poster.png" src="https://cdn.fodance.com/fd-media/${res.data.post.file.path}"></video></div>`}else{if (res.data.post.file.path.length == 1) {return `<div class='post-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[0]}" class='media-post post-image'></div>`}if (res.data.post.file.path.length == 2) {return `<div class='post-file thumb-2-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[1]}" class='media-post post-image'></div></div>`}if (res.data.post.file.path.length == 3) {return `<div class='post-file thumb-3-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[2]}" class='media-post post-image''></div></div>`}if (res.data.post.file.path.length == 4) {return `<div class='post-file thumb-4-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[2]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[3]}" class='media-post post-image'></div></div>`}}} else {return ''}})()}</div><div class="d-flex-start pd-l-lg pd-r-lg"><div class="interactive-but-total d-flex vote-total"></div></div><div class="border-b mg-t-sm mg-b-sm mg-r-lg mg-l-lg"></div><div class='post-interactive'><button class="interactive-but like-but" data-liked="false"><span class='iconify font-size-lg-1' data-icon='simple-line-icons:like' data-inline='false'></span><span>Bình chọn</span></button><button class='interactive-but comment-but'><span class='iconify font-size-lg-1' data-icon='bi:chat-square' data-inline='false'></span><span>Bình luận<span class="interactive-comment-total"></span></span></button><button class='interactive-but'><span class='iconify font-size-lg-1' data-icon='simple-line-icons:share-alt' data-inline='false'></span><span>Chia sẻ</span></button></div></div>`)                    
                                         document.querySelector('.post-create-down').onanimationend = function() {
                                             document.querySelector(`[data-post-df='${res.data.post.postId}']`).classList.remove('post-create-down')
                                             if (document.querySelector(".frame-post-home")){
-                                                exploreContentText = document.querySelector(".main-frame").innerHTML
+                                                competitionContentText = document.querySelector(".main-frame").innerHTML
                                             }
                                             if (document.querySelector(".info-frame")){
                                                 personalPostText = document.querySelector(".info-frame").innerHTML
@@ -2317,7 +2324,7 @@ function commentPostHandle(viewPost, viewWithCmt){
                                     delCmtHandle(post, post.querySelector(`.comment-item[data-cmt-df="${data.cmts[i].cmtId}"]`), reply)
                                     likeCmtHandle(post.querySelector(`.comment-item[data-cmt-df="${data.cmts[i].cmtId}"]`))
                                     reportCmtHandle(post, post.querySelector(`.comment-item[data-cmt-df="${data.cmts[i].cmtId}"]`))
-                                    // exploreContentText = document.querySelector(".main-frame").innerHTML
+                                    // competitionContentText = document.querySelector(".main-frame").innerHTML
                                     if (!reply) {
                                         cmtDisplayedList[post.getAttribute("data-post-df")].push(data.cmts[i].cmtId)
                                         repCmtDisplayedList[data.cmts[i].cmtId] = []
@@ -2422,7 +2429,7 @@ function commentPostHandle(viewPost, viewWithCmt){
                             if (cmtDisplayedList[post.getAttribute("data-post-df")].length == res.data.total){
                                 if (post.querySelectorAll(".comment-expand").length != 0){
                                     post.querySelector(".comment-expand").remove() 
-                                    // exploreContentText = document.querySelector(".main-frame").innerHTML
+                                    // competitionContentText = document.querySelector(".main-frame").innerHTML
                                 }   
                             }
                         }
@@ -2490,7 +2497,7 @@ function commentPostHandle(viewPost, viewWithCmt){
                                         }
                                         repCmtDisplayedList[cmtId].push(res.data.cmtId)
                                     }
-                                    // exploreContentText = document.querySelector(".main-frame").innerHTML
+                                    // competitionContentText = document.querySelector(".main-frame").innerHTML
                                     const comment = post.querySelector(`.comment-item[data-cmt-df="${res.data.cmtId}"]`)
                                     comment.querySelector(".rep-comment-but").onclick = function(){
                                         // const user = comment.querySelector(".username").getAttribute("data-user-df"
@@ -2562,7 +2569,7 @@ function commentPostHandle(viewPost, viewWithCmt){
                             }
                             cmt.querySelector(".modal").remove()
                             cmt.remove()
-                            // exploreContentText = document.querySelector(".main-frame").innerHTML
+                            // competitionContentText = document.querySelector(".main-frame").innerHTML
                             if (post.querySelector(".interactive-comment-total").textContent != '' && !cmtParentDf){
                                 post.querySelector(".total-commment-text").textContent = parseInt(post.querySelector(".total-commment-text").textContent) - 1 + " bình luận"
                                 const totalCmt = parseInt(post.querySelector(".interactive-comment-total").textContent.replace(')', '').replace('(', '')) - 1
@@ -3195,16 +3202,16 @@ function handleMainFrame(){
                             post.remove()
                             if (statusRedirect == ''){
                                 if (document.querySelector(".frame-post-home")){
-                                    exploreContentText = document.querySelector(".main-frame").innerHTML
+                                    competitionContentText = document.querySelector(".main-frame").innerHTML
                                 }
                             }
                             else {
-                                const mainWrap = '<div class="main-frame">' + exploreContentText + '</div>'
+                                const mainWrap = '<div class="main-frame">' + competitionContentText + '</div>'
                                 const parser = new DOMParser()
                                 const home = parser.parseFromString(mainWrap, 'text/html')
                                 if (home.querySelector(`.post[data-post-df='${data.dataPostDf}']`)){
                                     home.querySelector(`.post[data-post-df='${data.dataPostDf}']`).remove()
-                                    exploreContentText = home.querySelector(".main-frame").innerHTML
+                                    competitionContentText = home.querySelector(".main-frame").innerHTML
                                     if (document.querySelector(".info-frame")){
                                         personalPostText = document.querySelector(".info-frame").innerHTML
                                     }
@@ -3274,12 +3281,12 @@ function handleMainFrame(){
                         }
                         const postId = likePost[i].parentNode.parentNode.getAttribute("data-post-df")
                         const postInner = likePost[i].parentNode.parentNode.innerHTML
-                        const mainWrap = '<div class="main-frame">' + exploreContentText + '</div>'
+                        const mainWrap = '<div class="main-frame">' + competitionContentText + '</div>'
                         const parser = new DOMParser()
                         const home = parser.parseFromString(mainWrap, 'text/html')
                         if (home.querySelector(`.post[data-post-df='${postId}']`) && !window.location.href.includes("/post")){
                             home.querySelector(`.post[data-post-df='${postId}']`).innerHTML = postInner
-                            exploreContentText = home.querySelector(".main-frame").innerHTML
+                            competitionContentText = home.querySelector(".main-frame").innerHTML
                             if (document.querySelector(".info-frame")){
                                 personalPostText = document.querySelector(".info-frame").innerHTML
                             }
@@ -3343,7 +3350,7 @@ function handleMainFrame(){
                         noticeBut.classList.add("post-notice")
                         noticeBut.innerHTML = '<span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn'
                         if (document.querySelector(".frame-post-home")){
-                            exploreContentText = document.querySelector(".main-frame").innerHTML
+                            competitionContentText = document.querySelector(".main-frame").innerHTML
                         }
                         showAlert("Đã tắt thông báo bình chọn!")
                     }
@@ -3352,7 +3359,7 @@ function handleMainFrame(){
                         noticeBut.classList.add("remove-post-notice")
                         noticeBut.innerHTML = '<span class="iconify" data-icon="ph:bell-simple-slash" data-inline="false"></span>Tắt thông báo bình chọn'
                         if (document.querySelector(".frame-post-home")){
-                            exploreContentText = document.querySelector(".main-frame").innerHTML
+                            competitionContentText = document.querySelector(".main-frame").innerHTML
                         }
                         showAlert("Đã bật thông báo bình chọn!")
                     }
@@ -3408,7 +3415,7 @@ function handleMainFrame(){
                         saveBut.innerHTML = '<span class="iconify" data-icon="bi:bookmark-dash" data-inline="false"></span>Bỏ lưu bài viết'
                         postContentText = document.querySelector(`.post[data-post-df='${data.post}']`).outerHTML
                         if (document.querySelector(".frame-post-home")){
-                            exploreContentText = document.querySelector(".main-frame").innerHTML
+                            competitionContentText = document.querySelector(".main-frame").innerHTML
                         }
                         showAlert("Đã lưu bài viết!")
                     }
@@ -3447,12 +3454,12 @@ function handleMainFrame(){
                             </a>
                         </div>
                         <div class="social-share-item pd">
-                            <a class="twitter-share-button d-flex-start" href="https://twitter.com/intent/tweet?text=${postLink} Tôi đang tham gia thi đấu trên Fodance, hãy bình chọn cho tôi nhé!">
+                            <a class="twitter-share-button d-flex-start" href="https://twitter.com/intent/tweet?text=${postLink} Tôi đang tham gia Vòng đấu trên Fodance, hãy bình chọn cho tôi nhé!">
                                 <span class="iconify share-icon share-twitter-icon mg-r" data-icon="entypo-social:twitter-with-circle" data-inline="false"></span>Chia sẻ với Twitter
                             </a>
                         </div>
                         <div class="social-share-item pd">
-                            <a class="d-flex-start" href="https://api.whatsapp.com/send?phone&text=${postLink} Tôi đang tham gia thi đấu trên Fodance, hãy bình chọn cho tôi nhé!" target="_blank">
+                            <a class="d-flex-start" href="https://api.whatsapp.com/send?phone&text=${postLink} Tôi đang tham gia Vòng đấu trên Fodance, hãy bình chọn cho tôi nhé!" target="_blank">
                                 <span class="iconify share-icon share-whatsapp-icon mg-r" data-icon="whh:whatsapp" data-inline="false"></span>Chia sẻ với Whatsapp                                 
                             </a> 
                         </div>
@@ -3516,7 +3523,7 @@ function handleMainFrame(){
 
         for(let i = 0; i < sortItem.length; i++){
             sortItem[i].onclick = function(){
-                // if (cateLink != 'explore'){
+                // if (cateLink != 'competition'){
                     for (let i = 0; i < sortItem.length; i++){
                         sortItem[i].classList.remove("sort-content-but-active")
                     }
@@ -3554,7 +3561,7 @@ function handleMainFrame(){
             }
         }
         // if (document.querySelector(".filter-but")){
-        //     if (cateLink == 'explore'){
+        //     if (cateLink == 'competition'){
         //         document.querySelector(".filter-but").onclick = function(){
         //             if (this.querySelectorAll(".sort-notify-alert").length == 0){
         //                 showAlert("Lọc chỉ áp dụng cho Thể loại!")
@@ -3756,7 +3763,10 @@ function handleMainFrame(){
 
     if (document.querySelectorAll(".post-section").length != 0 && document.querySelectorAll(".post-section .post").length < 5 && document.querySelector(".loading-post")) {
         if (window.location.pathname != "/saved"){
-            if (navLink == '') {cname = ''}else {cname = cateName}
+            const cateTitle = window.location.pathname.replace('/', '')
+            console.log(cateTitle)
+            if (cateTitle == 'competition'){cname = "Tất cả"}
+            if (navLink == '' && !cateList.includes(cateTitle) && cateTitle != 'competition') {cname = ''}else {cname = cateName}
             if (roundType == "final") {
                 document.querySelector(".loading-post").innerHTML = `<div class="no-post-text"><div>Oops! Mọi người đang chuẩn bị!</div>Nếu bạn đã nằm trong Top những người chiến thắng Vòng bảng, bạn sẽ tham gia bình chọn Vòng chung kết tại đây!${cname}!</div><div class="no-post-lottie"></div><button class="create-post-but" data-create-but="layout">Tạo video tham dự!</button>`
                 lottie()
@@ -3801,7 +3811,7 @@ function handleScroll(){
         let savedView = false
         let main = document.querySelector(".main")
         window.addEventListener('scroll', function(){
-            if (navLink == 'explore'){
+            if (navLink == 'competition'){
                 scrollPage = window.pageYOffset
             }
             let contentHeight = main.offsetHeight
@@ -3849,7 +3859,7 @@ function handleScroll(){
                                     handleNavigation()
                                     if (statusRedirect == ''){
                                         if (document.querySelector(".frame-post-home")){
-                                            exploreContentText = document.querySelector(".main-frame").innerHTML
+                                            competitionContentText = document.querySelector(".main-frame").innerHTML
                                         }
                                     }
                                 }
@@ -3860,7 +3870,7 @@ function handleScroll(){
                                         rankIndex = 5
                                         if (statusRedirect == ''){
                                             if (document.querySelector(".frame-post-home")){
-                                                exploreContentText = document.querySelector(".main-frame").innerHTML
+                                                competitionContentText = document.querySelector(".main-frame").innerHTML
                                             }
                                         }
                                     }
@@ -3919,7 +3929,7 @@ function handleNavigation(){
             document.querySelector(".title-content").innerHTML = navName
         }
         if (navLink != ''){
-            if (navLink != 'explore'){
+            if (navLink != 'competition'){
                 personalLink = agent.getAttribute("data-user-df")
                 postLink = agent.getAttribute("data-post-df")
                 if (document.querySelector(".setting-content")){
@@ -4136,7 +4146,7 @@ function handleNavigation(){
             }
             else {
                 // document.querySelector(".main-frame").style.minHeight = "1162px"
-                if (statusRedirect == cateLink || exploreContentText == 'explore'){
+                if (statusRedirect == cateLink || competitionContentText == 'competition'){
                     let xhttp
                     if (window.XMLHttpRequest) {
                         xhttp = new XMLHttpRequest()
@@ -4161,14 +4171,14 @@ function handleNavigation(){
                     }
                     const cateButs = document.querySelectorAll(".category-but")
                     for (let i = 0; i < cateButs.length; i++){
-                        if (cateButs[i].getAttribute("topic-data") == 'explore'){
+                        if (cateButs[i].getAttribute("topic-data") == 'competition'){
                             cateButs[i].classList.add("active")
                         }
                         else {
                             cateButs[i].classList.remove("active")
                         }
                     }
-                    cateLink = 'explore'
+                    cateLink = 'competition'
                     xhttp.onreadystatechange = function() {    
                         if (xhttp.readyState == 4 && xhttp.status == 200) {
                             const parser = new DOMParser()
@@ -4183,7 +4193,7 @@ function handleNavigation(){
                             }
 
                             const currentCate = window.location.pathname.replace('/', '')
-                            if (currentCate != '' && (cateList.includes(currentCate) || cateLink == 'explore')){
+                            if (currentCate != '' && (cateList.includes(currentCate) || cateLink == 'competition')){
                                 if (document.querySelectorAll(".category-but").length != 0){
                                     document.querySelector(".category-but[topic-data='" + cateLink + "'").scrollIntoView({block: "end", inline: "center"})
                                     scrollRange = document.querySelector('.category-slidebar').scrollLeft
@@ -4206,7 +4216,7 @@ function handleNavigation(){
                                 handleMainInfo()
                             }
                             if (document.querySelector(".frame-post-home")){
-                                exploreContentText = document.querySelector(".main-frame").innerHTML
+                                competitionContentText = document.querySelector(".main-frame").innerHTML
                             }
                             if (document.querySelector(".main-info")){
                                 infoContentText = document.querySelector(".main-info").innerHTML
@@ -4236,18 +4246,18 @@ function handleNavigation(){
                             handleRankPostCount()
                         }    
                     }
-                    xhttp.open("GET", '/explore' + '?rank=' + rankLink, true)
+                    xhttp.open("GET", '/competition' + '?rank=' + rankLink, true)
                     xhttp.setRequestHeader('Content-Type', 'application/json')
                     xhttp.send()
                     if (pushState){
                         history.pushState({
                             agent: agentText,
-                        }, '', 'https://fodance.com/explore' + '?rank=' + rankLink)
+                        }, '', 'https://fodance.com/competition' + '?rank=' + rankLink)
                     }
                     document.querySelector('title').textContent = 'Fodance | Tất cả - ' + rankName
                 }
                 else {
-                    document.querySelector(".main-frame").innerHTML = exploreContentText
+                    document.querySelector(".main-frame").innerHTML = competitionContentText
                     if (postContentText != ''){
                         const parser = new DOMParser()
                         const post = parser.parseFromString(postContentText, 'text/html').querySelector(".post")
@@ -4306,7 +4316,7 @@ function handleNavigation(){
                     stopScrollPage = 0
                     statusRedirect = cateLink
                     videoAjaxSend = []
-                    // if (cateLink != 'explore'){
+                    // if (cateLink != 'competition'){
                         if (categoryContentText != ''){
                             document.querySelector(".category").innerHTML = categoryContentText
                         }
@@ -4325,9 +4335,9 @@ function handleNavigation(){
                     //     if (pushState){
                     //         history.pushState({
                     //             agent: agentText,
-                    //         }, '', 'https://fodance.com/explore')
+                    //         }, '', 'https://fodance.com/competition')
                     //     }
-                    //     document.querySelector('title').textContent = 'Fodance | Khám phá'
+                    //     document.querySelector('title').textContent = 'Fodance | Vòng đấu'
                     // }
                     handleMainFrame()
                     handleNavigation()
@@ -5046,7 +5056,7 @@ function handleFollow(followBut, parent, username){
                 data.following = false
                 sendFollowAjax()
                 if (document.querySelector(".frame-post-home")){
-                    exploreContentText = document.querySelector(".main-frame").innerHTML
+                    competitionContentText = document.querySelector(".main-frame").innerHTML
                 }
             }
             else {
@@ -5071,7 +5081,7 @@ function handleFollow(followBut, parent, username){
                     }
                     sendFollowAjax()
                     if (document.querySelector(".frame-post-home")){
-                        exploreContentText = document.querySelector(".main-frame").innerHTML
+                        competitionContentText = document.querySelector(".main-frame").innerHTML
                     }
                 }            
             }

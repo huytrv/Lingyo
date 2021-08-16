@@ -358,8 +358,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
     })
 
-    //handle explore
-    function explore(req, res, modal){
+    //handle competition
+    function competition(req, res, modal){
         if (req.isAuthenticated()){
             req.session.tryTime = 0
             req.session.blockLogin = false   
@@ -464,7 +464,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             if (fl) {followed[i] = true}
                                             else {followed[i] = false}
                                             if (buf == p.length){
-                                                res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', rankLink: '', rankName: rankName, cateActive: 'explore', cateName: '', rank: false, winnerCongrat: winnerCongrat, modal: modal, newUser: newUser, roundType: roundType})
+                                                res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'competition', rankLink: '', rankName: rankName, cateActive: 'competition', cateName: '', rank: false, winnerCongrat: winnerCongrat, modal: modal, newUser: newUser, roundType: roundType})
                                             }
                                         })
                                     })
@@ -473,7 +473,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         }
                     }
                     else {
-                        res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', rankLink: '', cateActive: 'explore', cateName: '', rankName: rankName, rank: false, winnerCongrat: winnerCongrat, modal: modal, newUser: newUser, roundType: roundType})
+                        res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'competition', rankLink: '', cateActive: 'competition', cateName: '', rankName: rankName, rank: false, winnerCongrat: winnerCongrat, modal: modal, newUser: newUser, roundType: roundType})
                     }
                 })
             })
@@ -595,20 +595,20 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
     })
 
-    app.get("/explore", function(req, res){
-        explore(req, res, false)
+    app.get("/competition", function(req, res){
+        competition(req, res, false)
     })
 
     app.get("/create-post", function(req, res){
-        explore(req, res, 'create-post')
+        competition(req, res, 'create-post')
     })
 
     app.get("/ticket-payment", function(req, res){
-        explore(req, res, 'ticket-payment')
+        competition(req, res, 'ticket-payment')
     })
 
     app.get("/star-reward", function(req, res){
-        explore(req, res, 'star-reward')
+        competition(req, res, 'star-reward')
     })
 
     app.post("/card-modal", function(req, res){
@@ -990,7 +990,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
 
     for (let c = 0; c < cateList.length; c++){
         app.get(`/${cateList[c]}`,function(req, res){
-            if (cateList[c] != "explore"){categoryList = [cateList[c]]} else {categoryList = cateList}
+            if (cateList[c] != "competition"){categoryList = [cateList[c]]} else {categoryList = cateList}
             const rank = req.query.rank
             if (rank == "primary" || rank == "intermediate" || rank == "highgrade"){
                 if (req.isAuthenticated()){
@@ -1071,7 +1071,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     if (fl) {followed[i] = true}
                                                     else {followed[i] = false}
                                                     if (buf == p.length){
-                                                        res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', rankLink: rank, rankName: rankName, cateActive: cateList[c], cateName: cateName[c], rank: true, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
+                                                        res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'competition', rankLink: rank, rankName: rankName, cateActive: cateList[c], cateName: cateName[c], rank: true, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                     }
                                                 })
                                             })
@@ -1080,7 +1080,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 }
                             }
                             else {
-                                res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', rankLink: rank, rankName: rankName, cateActive: cateList[c], cateName: cateName[c], rank: true, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
+                                res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'competition', rankLink: rank, rankName: rankName, cateActive: cateList[c], cateName: cateName[c], rank: true, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                             }
                         })
                     })
@@ -1283,7 +1283,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     if (fl) {followed[i] = true}
                                                     else {followed[i] = false}
                                                     if (buf == p.length){
-                                                        res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', 
+                                                        res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'competition', 
                                                         rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: true, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                     }                                                
                                                 })
@@ -1293,7 +1293,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 }
                             }
                             else {
-                                res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', 
+                                res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'competition', 
                                 rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: true, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                             }
                         // }
@@ -1387,7 +1387,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     if (fl) {followed[i] = true}
                                                     else {followed[i] = false}
                                                     if (buf == p.length){
-                                                        res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', 
+                                                        res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'competition', 
                                                         rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                     }
                                                 })
@@ -1397,7 +1397,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 }
                             }
                             else {
-                                res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', 
+                                res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'competition', 
                                 rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                             }
                         // }
@@ -1491,7 +1491,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     if (fl) {followed[i] = true}
                                                     else {followed[i] = false}
                                                     if (buf == p.length){
-                                                        res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', 
+                                                        res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'competition', 
                                                         rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                     }
                                                 })
@@ -1501,7 +1501,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 }
                             }
                             else {
-                                res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', 
+                                res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'competition', 
                                 rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                             }
                         // }
@@ -1614,7 +1614,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                         else {followed[i] = false}
                                                                         count ++
                                                                         if (count == p.length){
-                                                                            res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', 
+                                                                            res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'competition', 
                                                                             rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                                         }
                                                                     })
@@ -1624,7 +1624,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     }
                                                 }
                                                 else {
-                                                    res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', 
+                                                    res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'competition', 
                                                     rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                 }
                                             // }
@@ -1700,7 +1700,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                             else {followed[i] = false}
                                                             count ++
                                                             if (count == p.length){
-                                                                res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'explore', 
+                                                                res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'competition', 
                                                                 rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                             }
                                                         })
@@ -1710,7 +1710,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         }
                                     }
                                     else {
-                                        res.render("explore", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'explore', 
+                                        res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'competition', 
                                         rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                     }
                                 // }
@@ -2154,7 +2154,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             result2[i] = [pu.userId, pu.username, p[i].nickname, p[i].avatar, description, followed]
                                             count2 ++
                                             if (count2 == p.length){
-                                                res.render("search", {username: req.user.username, userId: req.user.userId, profile: currentUser, result: result1.concat(result2), text: req.query.q, end: end, active: 'explore', rankLink: '', rankName: '', cateActive: '', cateName: '', rank: false, modal: false})
+                                                res.render("search", {username: req.user.username, userId: req.user.userId, profile: currentUser, result: result1.concat(result2), text: req.query.q, end: end, active: 'competition', rankLink: '', rankName: '', cateActive: '', cateName: '', rank: false, modal: false})
                                             }
                                         })
                                     })
@@ -2168,7 +2168,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     userId: req.user.userId
                                 }
                             }).then(function(currentUser){
-                                res.render("search", {username: req.user.username, userId: req.user.userId, profile: currentUser, result: result1.concat(result2), text: req.query.q, end: end , active: 'explore', rankLink: '', rankName: '', cateActive: '', cateName: '', rank: false, modal: false})
+                                res.render("search", {username: req.user.username, userId: req.user.userId, profile: currentUser, result: result1.concat(result2), text: req.query.q, end: end , active: 'competition', rankLink: '', rankName: '', cateActive: '', cateName: '', rank: false, modal: false})
                             })
                         }
                     })
@@ -2304,7 +2304,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             if (!req.body.savedView){
                 if (req.body.param == ''){
                     // if (req.body.category != '' && cateList.includes(req.body.category)){
-                        if (req.body.category != 'explore') {categoryList = [req.body.category]} else {categoryList = cateList}
+                        if (req.body.category != 'competition') {categoryList = [req.body.category]} else {categoryList = cateList}
                         if (req.body.cateSort == 'rank-sort-content'){
                             posts.count({
                                 where: {
@@ -3495,7 +3495,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         }).then(function(fl){
                                             let followed = false
                                             if (fl) {followed = true}
-                                            res.render("postView", {username: req.user.username, userId: req.user.userId, postViewUser: pUser.username, profile: profile, post: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, cmt: false, active: 'explore', rankLink: '', rankName: '', cateActive: '', cateName: '', modal: false})
+                                            res.render("postView", {username: req.user.username, userId: req.user.userId, postViewUser: pUser.username, profile: profile, post: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, cmt: false, active: 'competition', rankLink: '', rankName: '', cateActive: '', cateName: '', modal: false})
                                         })
                                     })
                                 })
