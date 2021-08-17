@@ -3013,7 +3013,7 @@ function handleMainFrame(){
             e.onclick = function(){
 
                 // console.log(e.classList.contains("plyr__control--pressed"))
-                if (e.classList.contains("plyr__control--pressed")){
+                if (!e.classList.contains("plyr__control--pressed")){
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
                     e.parentElement.parentElement.querySelector("video").style.zIndex = "initial"
                     e.parentElement.parentElement.querySelector("video").style.transform = "rotate(0deg)"
