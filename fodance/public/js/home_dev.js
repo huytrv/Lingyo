@@ -3015,22 +3015,8 @@ function handleMainFrame(){
                 if (e.classList.contains("plyr__control--pressed")){
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
                     e.parentElement.parentElement.querySelector("video").style.zIndex = "initial"
-                    if (document.querySelector(".nav-bar-mobile")){
-                        document.querySelector(".nav-bar-mobile").style.zIndex = "0"
-                    }
-                    if (document.querySelector(".header")){
-                        document.querySelector(".header").style.zIndex = "0"
-                    }
-                    if (document.querySelector(".category")){
-                        document.querySelector(".category").style.zIndex = "0"
-                    }
-                    if (document.querySelector(".mobile-creator")){
-                        document.querySelector(".mobile-creator").style.zIndex = "0"
-                    }
-                }
-                else {
-                    e.parentElement.parentElement.querySelector("video").style.maxHeight = "100%"
-                    e.parentElement.parentElement.querySelector("video").style.zIndex = "10000"
+                    e.parentElement.parentElement.querySelector("video").style.transform = "rotate(0deg)"
+                    e.parentElement.parentElement.querySelector("video").style.objectFit = "cover"
                     if (document.querySelector(".nav-bar-mobile")){
                         document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
                     }
@@ -3042,6 +3028,24 @@ function handleMainFrame(){
                     }
                     if (document.querySelector(".mobile-creator")){
                         document.querySelector(".mobile-creator").style.zIndex = "1000"
+                    }
+                }
+                else {
+                    e.parentElement.parentElement.querySelector("video").style.maxHeight = "100%"
+                    e.parentElement.parentElement.querySelector("video").style.zIndex = "10000"
+                    e.parentElement.parentElement.querySelector("video").style.transform = "rotate(90deg)"
+                    e.parentElement.parentElement.querySelector("video").style.objectFit = "contain"
+                    if (document.querySelector(".nav-bar-mobile")){
+                        document.querySelector(".nav-bar-mobile").style.zIndex = "0"
+                    }
+                    if (document.querySelector(".header")){
+                        document.querySelector(".header").style.zIndex = "0"
+                    }
+                    if (document.querySelector(".category")){
+                        document.querySelector(".category").style.zIndex = "0"
+                    }
+                    if (document.querySelector(".mobile-creator")){
+                        document.querySelector(".mobile-creator").style.zIndex = "0"
                     }
                 }
             }
