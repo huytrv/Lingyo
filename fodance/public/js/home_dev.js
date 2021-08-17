@@ -120,7 +120,7 @@ function handleMobileResponse() {
         }
 
         for (let i = 0; i < cateList.length; i++){
-            if (cateLinkTitle == cateList[i] && (navLink == "competition" || navLink == '')){
+            if (cateLinkTitle == cateList[i] && (navLink == "competition" || cateList.includes(window.location.pathname.replace('/', '')))){
                 if (roundType == "final"){
                     document.querySelector(".title-content").textContent = "Chung kết"
                 }
@@ -3008,14 +3008,17 @@ function handleMainFrame(){
     }
     handleOpenAudioMusic()
 
-    function hanldeFullscreen(){
+    function handleFullscreen(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
             e.onclick = function(){
+                console.log(e)
                 if (e.classList.contains("plyr__control--pressed")){
-                    e.parentElement.parentElement.querySelector("video").style.maxHeight = "400px"
+                    e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
+                    e.parentElement.parentElement.querySelector("video").style.zIndex = "initial"
                 }
                 else {
-                    e.parentElement.parentElement.querySelector("video").style.maxHeight = "initial"
+                    e.parentElement.parentElement.querySelector("video").style.maxHeight = "100%"
+                    e.parentElement.parentElement.querySelector("video").style.zIndex = "10000"
                 }
             }
         }) 
@@ -3023,15 +3026,17 @@ function handleMainFrame(){
         document.querySelectorAll(".post-file").forEach(function(e){
             e.ondblclick = function(){
                 if(e.querySelector("video").offsetWidth < window.innerWidth){
-                    e.querySelector("video").style.maxHeight = "initial"
+                    e.querySelector("video").style.maxHeight = "100%"
+                    e.querySelector("video").style.zIndex = "10000"
                 }
                 else {
-                    e.querySelector("video").style.maxHeight = "400px"
+                    e.querySelector("video").style.maxHeight = "500px"
+                    e.querySelector("video").style.zIndex = "500px"
                 }
             }
         }) 
     }
-    hanldeFullscreen()
+    handleFullscreen()
 
     handleToggle()
 
