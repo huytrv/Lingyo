@@ -3016,6 +3016,22 @@ function handleMainFrame(){
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
                     e.parentElement.parentElement.querySelector("video").style.zIndex = "initial"
                     if (document.querySelector(".nav-bar-mobile")){
+                        document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
+                    }
+                    if (document.querySelector(".header")){
+                        document.querySelector(".header").style.zIndex = "1000"
+                    }
+                    if (document.querySelector(".category")){
+                        document.querySelector(".category").style.zIndex = "1000"
+                    }
+                    if (document.querySelector(".mobile-creator")){
+                        document.querySelector(".mobile-creator").style.zIndex = "1000"
+                    }
+                }
+                else {
+                    e.parentElement.parentElement.querySelector("video").style.maxHeight = "100%"
+                    e.parentElement.parentElement.querySelector("video").style.zIndex = "10000"
+                    if (document.querySelector(".nav-bar-mobile")){
                         document.querySelector(".nav-bar-mobile").style.zIndex = "0"
                     }
                     if (document.querySelector(".header")){
@@ -3024,18 +3040,8 @@ function handleMainFrame(){
                     if (document.querySelector(".category")){
                         document.querySelector(".category").style.zIndex = "0"
                     }
-                }
-                else {
-                    e.parentElement.parentElement.querySelector("video").style.maxHeight = "100%"
-                    e.parentElement.parentElement.querySelector("video").style.zIndex = "10000"
-                    if (document.querySelector(".nav-bar-mobile")){
-                        document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
-                    }
-                    if (document.querySelector(".header")){
-                        document.querySelector(".header").style.zIndex = "1000"
-                    }
-                    if (document.querySelector(".category")){
-                        document.querySelector(".category").style.zIndex = "1000"
+                    if (document.querySelector(".mobile-creator")){
+                        document.querySelector(".mobile-creator").style.zIndex = "0"
                     }
                 }
             }
