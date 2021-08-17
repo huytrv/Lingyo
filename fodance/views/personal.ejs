@@ -182,9 +182,11 @@
                         </div>
                     </div>
                     <div class="main-frame"> 
-                        <div class="category">
-                            <div class="d-flex group-title">
-                                <span class="font-size-lg-2 none-deco none-mg user-username category-username"><%- user.username -%></span>
+                        <div class="category-frame">
+                            <div class="category">
+                                <div class="d-flex group-title">
+                                    <span class="font-size-lg-2 none-deco none-mg user-username category-username"><%- user.username -%></span>
+                                </div>
                             </div>
                         </div>
                         <div class="main-frame-post d-flex">
@@ -202,16 +204,18 @@
                                                 <img src="https://cdn.fodance.com/fd-media/<%- profile.avatar -%>" class="user-avt user-avatar">
                                                 <% } %>
                                             <% if (user.username.length <= 15) { %>
-                                            <div class="avatar-name">
-                                                <span class="nav-red" data-user-df="<%- profile.nickname -%>">
-                                                    <span class="user-username avatar-username ">
-                                                        <%- user.username -%>
+                                            <div class="avatar-name-frame">
+                                                <div class="avatar-name">
+                                                    <span class="nav-red" data-user-df="<%- profile.nickname -%>">
+                                                        <span class="user-username avatar-username ">
+                                                            <%- user.username -%>
+                                                        </span>
                                                     </span>
-                                                </span>
-                                                <span class="avatar-nickname">
-                                                    @<%- profile.nickname -%>
-                                                </span>
-                                            </div>   
+                                                    <span class="avatar-nickname">
+                                                        @<%- profile.nickname -%>
+                                                    </span>
+                                                </div>   
+                                            </div>
                                             <% } %>  
                                         </div>
                                         <% if (isCurrentUser) { %>
@@ -233,95 +237,105 @@
                                         <% } %>
                                     </div>
                                     <% if (user.username.length > 15) { %>
-                                    <div class="avatar-name avatar-name-mg">
-                                        <span class="nav-red" data-user-df="<%- profile.nickname -%>">
-                                            <span class="user-username avatar-username ">
-                                                <%- user.username -%>
+                                    <div class="avatar-name-frame">
+                                        <div class="avatar-name avatar-name-mg">
+                                            <span class="nav-red" data-user-df="<%- profile.nickname -%>">
+                                                <span class="user-username avatar-username ">
+                                                    <%- user.username -%>
+                                                </span>
                                             </span>
-                                        </span>
-                                        <span class="avatar-nickname">
-                                            @<%- profile.nickname -%>
-                                        </span>
-                                    </div>   
+                                            <span class="avatar-nickname">
+                                                @<%- profile.nickname -%>
+                                            </span>
+                                        </div>   
+                                    </div>
                                     <% } %>    
-                                    <div class="avatar-name-mobile avatar-name-mg">
-                                        <span class="nav-red" data-user-df="<%- profile.nickname -%>">
-                                            <span class="user-username avatar-username ">
-                                                <%- user.username -%>
+                                    <div class="avatar-name-mobile-frame">
+                                        <div class="avatar-name-mobile avatar-name-mg">
+                                            <span class="nav-red" data-user-df="<%- profile.nickname -%>">
+                                                <span class="user-username avatar-username ">
+                                                    <%- user.username -%>
+                                                </span>
                                             </span>
-                                        </span>
-                                        <span class="avatar-nickname">
-                                            @<%- profile.nickname -%>
-                                        </span>
-                                    </div>     
-                                    <div class="follow-user-info-mobile">
-                                        <div class="follow-user-info-inner d-flex-start">
-                                            <a class="following noselect"><b class="following-total"><%- profile.following -%></b> Đang theo dõi</a>
-                                            <a class="followers noselect"><b class="followers-total"><%- profile.followers -%></b> Theo dõi</a>
-                                        </div>                 
-                                    </div>   
-                                    <div class="highlights-mobile">
-                                        <div class="info-content">
-                                            <div class="info-content-element mg-b">
-                                                <div class="d-flex-start">
-                                                    <div class="d-flex mg-r user-stars">
-                                                        <span class="iconify font-icon mg-r-sm theme-color" data-icon="emojione-v1:money-bag" data-inline="false"></span>
-                                                        <span><%- profile.stars -%></span>
-                                                    </div>
-                                                    <div class="d-flex user-tickets">
-                                                        <span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>
-                                                        <span><%- profile.tickets -%></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="info-content-element mg-b">
-                                                <div class="d-flex-col-start">
-                                                    <div class="d-flex">
-                                                        <span class="iconify font-icon mg-r" data-icon="emojione-monotone:sports-medal" data-inline="false"></span>
-                                                        <span class="vote-achie">Thành tích bình chọn</span>
-                                                    </div>   
-                                                    <div class="d-flex-col-start pd-l mg-l-lg">
-                                                        <a class="mg-r"><span>Hạng nhất: <span class="number-top"><%- profile.rank1 -%></span>lần</span></a>
-                                                        <a class="mg-r"><span>Hạng hai: <span class="number-top"><%- profile.rank2 -%></span>lần</span></a>
-                                                        <a class="mg-r"><span>Hạng ba: <span class="number-top"><%- profile.rank3 -%></span>lần</span></a>
-                                                        <a class="mg-r"><span>Hạng 4-10: <span class="number-top"><%- profile.rank10 -%></span>lần</span></a>
-                                                    </div>                              
-                                                </div>
-                                            </div>
-                                            <div class="info-content-element mg-b">
-                                                <div class="d-flex-start">
-                                                    <span class="iconify font-icon mg-r" data-icon="cil:birthday-cake" data-inline="false"></span>
-                                                    <% if (profile.birthday) { %>
-                                                        <div class="birthday-content">
-                                                            <div>
-                                                                Sinh ngày <span class="day-birthday"><%- /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(profile.birthday)[3] -%></span>, tháng <span class="month-birthday"><%- /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(profile.birthday)[2] -%></span>, năm <span class="year-birthday"><%- /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(profile.birthday)[1] -%></span>
-                                                            </div>
+                                            <span class="avatar-nickname">
+                                                @<%- profile.nickname -%>
+                                            </span>
+                                        </div>   
+                                    </div>
+                                    <div class="follow-user-info-mobile-frame">  
+                                        <div class="follow-user-info-mobile">
+                                            <div class="follow-user-info-inner d-flex-start">
+                                                <a class="following noselect"><b class="following-total"><%- profile.following -%></b> Đang theo dõi</a>
+                                                <a class="followers noselect"><b class="followers-total"><%- profile.followers -%></b> Theo dõi</a>
+                                            </div>                 
+                                        </div>   
+                                    </div>
+                                    <div class="highlights-mobile-frame">
+                                        <div class="highlights-mobile">
+                                            <div class="info-content">
+                                                <div class="info-content-element mg-b">
+                                                    <div class="d-flex-start">
+                                                        <div class="d-flex mg-r user-stars">
+                                                            <span class="iconify font-icon mg-r-sm theme-color" data-icon="emojione-v1:money-bag" data-inline="false"></span>
+                                                            <span><%- profile.stars -%></span>
                                                         </div>
-                                                    <% } %>
-                                                    <% if (!profile.birthday) { %>
-                                                        <div class="birthday-content">Chưa cập nhật ngày sinh</div>
-                                                    <% } %>
+                                                        <div class="d-flex user-tickets">
+                                                            <span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>
+                                                            <span><%- profile.tickets -%></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="info-content-element mg-b">
+                                                    <div class="d-flex-col-start">
+                                                        <div class="d-flex">
+                                                            <span class="iconify font-icon mg-r" data-icon="emojione-monotone:sports-medal" data-inline="false"></span>
+                                                            <span class="vote-achie">Thành tích bình chọn</span>
+                                                        </div>   
+                                                        <div class="d-flex-col-start pd-l mg-l-lg">
+                                                            <a class="mg-r"><span>Hạng nhất: <span class="number-top"><%- profile.rank1 -%></span>lần</span></a>
+                                                            <a class="mg-r"><span>Hạng hai: <span class="number-top"><%- profile.rank2 -%></span>lần</span></a>
+                                                            <a class="mg-r"><span>Hạng ba: <span class="number-top"><%- profile.rank3 -%></span>lần</span></a>
+                                                            <a class="mg-r"><span>Hạng 4-10: <span class="number-top"><%- profile.rank10 -%></span>lần</span></a>
+                                                        </div>                              
+                                                    </div>
+                                                </div>
+                                                <div class="info-content-element mg-b">
+                                                    <div class="d-flex-start">
+                                                        <span class="iconify font-icon mg-r" data-icon="cil:birthday-cake" data-inline="false"></span>
+                                                        <% if (profile.birthday) { %>
+                                                            <div class="birthday-content">
+                                                                <div>
+                                                                    Sinh ngày <span class="day-birthday"><%- /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(profile.birthday)[3] -%></span>, tháng <span class="month-birthday"><%- /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(profile.birthday)[2] -%></span>, năm <span class="year-birthday"><%- /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(profile.birthday)[1] -%></span>
+                                                                </div>
+                                                            </div>
+                                                        <% } %>
+                                                        <% if (!profile.birthday) { %>
+                                                            <div class="birthday-content">Chưa cập nhật ngày sinh</div>
+                                                        <% } %>
+                                                    </div>
+                                                </div>
+                                                <div class="info-content-element mg-b">
+                                                    <div class="d-flex-start">
+                                                        <span class="iconify font-icon mg-r" data-icon="bytesize:location" data-inline="false"></span>
+                                                        <% if (profile.location) { %>
+                                                            <span class="location-content"><%- profile.location -%></span>
+                                                        <% } %>
+                                                        <% if (!profile.location) { %>
+                                                            <span class="location-content">Chưa cập nhật địa điểm</span>
+                                                        <% } %>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="info-content-element mg-b">
-                                                <div class="d-flex-start">
-                                                    <span class="iconify font-icon mg-r" data-icon="bytesize:location" data-inline="false"></span>
-                                                    <% if (profile.location) { %>
-                                                        <span class="location-content"><%- profile.location -%></span>
-                                                    <% } %>
-                                                    <% if (!profile.location) { %>
-                                                        <span class="location-content">Chưa cập nhật địa điểm</span>
-                                                    <% } %>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>   
-                                    <div class="follow-user-info <% if (user.username.length <= 15) { %>avatar-name-mg<% } %>">
-                                        <div class="follow-user-info-inner d-flex-start">
-                                            <a class="following noselect"><b class="following-total"><%- profile.following -%></b> Đang theo dõi</a>
-                                            <a class="followers noselect"><b class="followers-total"><%- profile.followers -%></b> Theo dõi</a>
-                                        </div>                 
-                                    </div> 
+                                        </div>   
+                                    </div>
+                                    <div class="follow-user-info-frame">
+                                        <div class="follow-user-info <% if (user.username.length <= 15) { %>avatar-name-mg<% } %>">
+                                            <div class="follow-user-info-inner d-flex-start">
+                                                <a class="following noselect"><b class="following-total"><%- profile.following -%></b> Đang theo dõi</a>
+                                                <a class="followers noselect"><b class="followers-total"><%- profile.followers -%></b> Theo dõi</a>
+                                            </div>                 
+                                        </div> 
+                                    </div>
                                     <div class="basic-user-info">
                                         <div class="basic-user-info-inner">
                                             <% if (profile.description) { %>
@@ -639,15 +653,19 @@
                 </div>
             </div>
         </div>
-        <div class="nav-bar-mobile">
-            <a class="nav-item nav-red d-flex home-but <% if (active == 'home') { %> active <% } %>" nav-data=''><span class="iconify" data-icon="octicon:home" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Trang chủ</span></a>
-            <a class="nav-item nav-red d-flex competition-but <% if (active == 'competition') { %> active <% } %>" nav-data='competition'><span class="iconify" data-icon="carbon:star-review" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Vòng đấu</span></a>
-            <a class="nav-item nav-red d-flex fame-but <% if (active == 'fame') { %> active <% } %>" nav-data='fame'><span class="iconify" data-icon="bi:bar-chart" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Xếp hạng</span></a>                             
-            <a class="nav-item nav-red d-flex notifications-but <% if (active == 'notifications') { %> active <% } %>" nav-data='notifications'><span class="iconify" data-icon="ph:bell-simple" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Thông báo</span></a>
+        <div class="nav-bar-mobile-frame">
+            <div class="nav-bar-mobile">
+                <a class="nav-item nav-red d-flex home-but <% if (active == 'home') { %> active <% } %>" nav-data=''><span class="iconify" data-icon="octicon:home" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Trang chủ</span></a>
+                <a class="nav-item nav-red d-flex competition-but <% if (active == 'competition') { %> active <% } %>" nav-data='competition'><span class="iconify" data-icon="carbon:star-review" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Vòng đấu</span></a>
+                <a class="nav-item nav-red d-flex fame-but <% if (active == 'fame') { %> active <% } %>" nav-data='fame'><span class="iconify" data-icon="bi:bar-chart" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Xếp hạng</span></a>                             
+                <a class="nav-item nav-red d-flex notifications-but <% if (active == 'notifications') { %> active <% } %>" nav-data='notifications'><span class="iconify" data-icon="ph:bell-simple" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Thông báo</span></a>
+            </div>
         </div>
-        <div class="mobile-creator">
-            <button class="create-post-but d-flex" data-create-but="layout"><span class="iconify" data-icon="whh:createfolder" data-inline="false"></span></button>
-            <div class="create-post-handler"></div>
+        <div class="mobile-creator-frame">
+            <div class="mobile-creator">
+                <button class="create-post-but d-flex" data-create-but="layout"><span class="iconify" data-icon="whh:createfolder" data-inline="false"></span></button>
+                <div class="create-post-handler <% if (modal && modal == 'create-post') { %>create-post-handler-begin<% } %>"></div> 
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="/public/js/home_dev.js" async></script>

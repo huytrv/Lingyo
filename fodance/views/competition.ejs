@@ -1,40 +1,45 @@
 <% extend('layout') %>
-<div class="category">
-    <% if (roundType == "group-stage") { %>
-    <button class="arrow-but d-flex arrow-to-left">
-        <span class="iconify arrow-icon" data-icon="ic:outline-arrow-left" data-inline="false"></span>
-    </button>        
-    <div class="category-slidebar noselect">
-        <button class="category-but d-flex <% if (cateActive == 'competition') { %> active <% } %>" topic-data="competition"><span class="category-item-name">Tất cả</span><span class="cate-post-count"></span></button>
-        <button class="category-but d-flex <% if (cateActive == 'freestyle') { %> active <% } %>" topic-data="freestyle"><span class="category-item-name">Nhảy tự do</span><span class="cate-post-count"></span></button>
-        <button class="category-but d-flex <% if (cateActive == 'hiphop') { %> active <% } %>" topic-data="hiphop"><span class="category-item-name">Hiphop</span><span class="cate-post-count"></span></button>
-        <button class="category-but d-flex <% if (cateActive == 'rap') { %> active <% } %>" topic-data="rap"><span class="category-item-name">Rap</span><span class="cate-post-count"></span></button>
-        <button class="category-but d-flex <% if (cateActive == 'contemporary') { %> active <% } %>" topic-data="contemporary"><span class="category-item-name">Múa đương đại</span><span class="cate-post-count"></span></button>
-        <button class="category-but d-flex <% if (cateActive == 'ballroom') { %> active <% } %>" topic-data="ballroom"><span class="category-item-name">Khiêu vũ</span><span class="cate-post-count"></span></button>
-        <button class="category-but d-flex <% if (cateActive == 'modern') { %> active <% } %>" topic-data="modern"><span class="category-item-name">Nhảy hiện đại</span><span class="cate-post-count"></span></button>
-        <button class="category-but d-flex <% if (cateActive == 'ballet') { %> active <% } %>" topic-data="ballet"><span class="category-item-name">Múa ba lê</span><span class= "cate-post-count"></span></button>
-        <button class="category-but d-flex <% if (cateActive == 'shuffle') { %> active <% } %>" topic-data="shuffle"><span class="category-item-name">Shuffle</span><span class="cate-post-count"></span></button>
-        <button class="category-but d-flex <% if (cateActive == 'jazz') { %> active <% } %>" topic-data="jazz"><span class="category-item-name">Jazz</span><span class="cate-post-count"></span></button>
-        <button class="category-but d-flex <% if (cateActive == 'sexy') { %> active <% } %>" topic-data="sexy"><span class="category-item-name">Sexy</span><span class="cate-post-count"></span></button>
-        <button class="category-but d-flex <% if (cateActive == 'flashmob') { %> active <% } %>" topic-data="flashmob"><span class="category-item-name">Flashmob</span><span class="cate-post-count"></span></button>
-        <button class="category-but d-flex <% if (cateActive == 'other') { %> active <% } %>" topic-data="other"><span class="category-item-name">Khác</span><span class="cate-post-count"></span></button>
-    </div>
-    <button class="arrow-but d-flex arrow-to-right">
-        <span class="iconify arrow-icon" data-icon="ic:outline-arrow-right" data-inline="false"></span>
-    </button>
-    <% } %>
-    <% if (roundType == "final") { %>
-        <div class="d-flex group-title">
-            <span class="font-size-lg-2 none-deco none-mg red-color">Vòng chung kết</span>
+<div class="category-frame">
+    <div class="category">
+        <% if (roundType == "group-stage") { %>
+        <button class="arrow-but d-flex arrow-to-left">
+            <span class="iconify arrow-icon" data-icon="ic:outline-arrow-left" data-inline="false"></span>
+        </button>        
+        <div class="category-slidebar noselect">
+            <button class="category-but d-flex <% if (cateActive == 'competition') { %> active <% } %>" topic-data="competition"><span class="category-item-name">Tất cả</span><span class="cate-post-count"></span></button>
+            <button class="category-but d-flex <% if (cateActive == 'freestyle') { %> active <% } %>" topic-data="freestyle"><span class="category-item-name">Nhảy tự do</span><span class="cate-post-count"></span></button>
+            <button class="category-but d-flex <% if (cateActive == 'hiphop') { %> active <% } %>" topic-data="hiphop"><span class="category-item-name">Hiphop</span><span class="cate-post-count"></span></button>
+            <button class="category-but d-flex <% if (cateActive == 'rap') { %> active <% } %>" topic-data="rap"><span class="category-item-name">Rap</span><span class="cate-post-count"></span></button>
+            <button class="category-but d-flex <% if (cateActive == 'contemporary') { %> active <% } %>" topic-data="contemporary"><span class="category-item-name">Múa đương đại</span><span class="cate-post-count"></span></button>
+            <button class="category-but d-flex <% if (cateActive == 'ballroom') { %> active <% } %>" topic-data="ballroom"><span class="category-item-name">Khiêu vũ</span><span class="cate-post-count"></span></button>
+            <button class="category-but d-flex <% if (cateActive == 'modern') { %> active <% } %>" topic-data="modern"><span class="category-item-name">Nhảy hiện đại</span><span class="cate-post-count"></span></button>
+            <button class="category-but d-flex <% if (cateActive == 'ballet') { %> active <% } %>" topic-data="ballet"><span class="category-item-name">Múa ba lê</span><span class= "cate-post-count"></span></button>
+            <button class="category-but d-flex <% if (cateActive == 'shuffle') { %> active <% } %>" topic-data="shuffle"><span class="category-item-name">Shuffle</span><span class="cate-post-count"></span></button>
+            <button class="category-but d-flex <% if (cateActive == 'jazz') { %> active <% } %>" topic-data="jazz"><span class="category-item-name">Jazz</span><span class="cate-post-count"></span></button>
+            <button class="category-but d-flex <% if (cateActive == 'sexy') { %> active <% } %>" topic-data="sexy"><span class="category-item-name">Sexy</span><span class="cate-post-count"></span></button>
+            <button class="category-but d-flex <% if (cateActive == 'flashmob') { %> active <% } %>" topic-data="flashmob"><span class="category-item-name">Flashmob</span><span class="cate-post-count"></span></button>
+            <button class="category-but d-flex <% if (cateActive == 'other') { %> active <% } %>" topic-data="other"><span class="category-item-name">Khác</span><span class="cate-post-count"></span></button>
         </div>
-    <% } %>
+        <button class="arrow-but d-flex arrow-to-right">
+            <span class="iconify arrow-icon" data-icon="ic:outline-arrow-right" data-inline="false"></span>
+        </button>
+        <% } %>
+        <% if (roundType == "final") { %>
+            <div class="d-flex group-title">
+                <span class="font-size-lg-2 none-deco none-mg red-color">Vòng chung kết</span>
+            </div>
+        <% } %>
+    </div>
 </div>
+
 <div class="main-frame-post d-flex">
-    <div class="main-frame-post-sort">
-        <a class="sort-content-but d-flex-col noselect mg-b sort-cate sort-content-but-active" sort-data="rank-sort-content"><span class="iconify" data-icon="bi:bar-chart-fill" data-inline="false"></span><div class="d-flex-col"><span>Thứ</span><span>hạng</span></div></a>
-        <a class="sort-content-but d-flex-col noselect mg-b" sort-data='random-sort-content'><span class="iconify" data-icon="fe:random" data-inline="false"></span><div class="d-flex-col"><span>Ngẫu</span><span>nhiên</span></div></a>
-        <a class="sort-content-but d-flex-col noselect mg-b" sort-data='latest-sort-content'><span class="iconify" data-icon="ic:twotone-autorenew" data-inline="false"></span><div class="d-flex-col"><span>Mới</span><span>nhất</span></div></a>
-        <a class="sort-content-but d-flex-col noselect" sort-data='follow-sort-content'><span class="iconify" data-icon="ri:user-follow-line" data-inline="false"></span><div class="d-flex-col"><span>Theo</span><span>dõi</span></div></a>
+    <div class="main-frame-post-sort-rounder">
+        <div class="main-frame-post-sort">
+            <a class="sort-content-but d-flex-col noselect mg-b sort-cate sort-content-but-active" sort-data="rank-sort-content"><span class="iconify" data-icon="bi:bar-chart-fill" data-inline="false"></span><div class="d-flex-col"><span>Thứ</span><span>hạng</span></div></a>
+            <a class="sort-content-but d-flex-col noselect mg-b" sort-data='random-sort-content'><span class="iconify" data-icon="fe:random" data-inline="false"></span><div class="d-flex-col"><span>Ngẫu</span><span>nhiên</span></div></a>
+            <a class="sort-content-but d-flex-col noselect mg-b" sort-data='latest-sort-content'><span class="iconify" data-icon="ic:twotone-autorenew" data-inline="false"></span><div class="d-flex-col"><span>Mới</span><span>nhất</span></div></a>
+            <a class="sort-content-but d-flex-col noselect" sort-data='follow-sort-content'><span class="iconify" data-icon="ri:user-follow-line" data-inline="false"></span><div class="d-flex-col"><span>Theo</span><span>dõi</span></div></a>
+        </div>
     </div>
     <div class="main-frame-post-inner frame-post-content frame-post-home">
         <% if (winnerCongrat && winnerCongrat.length != 0) { %>

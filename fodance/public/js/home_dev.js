@@ -5,6 +5,7 @@ let scrollRange = scrollPage = stopScrollPage = round = 0
 let rankIndex = 5, cateSort = "rank-sort-content", rankLink = rankLinkPost = "primary", rankName = "Sơ cấp", filter = "current"
 let cateLink = competitionContentText = "competition"
 let roundType = navLink = statusRedirect = infoContentText = homeContentText = personalPostText = categoryContentText = postContentText = cateName = avtUpdate = usernameUpdate = nicknameUpdate = nicknameBeforeUpdate = cateLinkPost = filter = searchQuery = ''
+let headerInnerMobile = navbarMobile = headerInner = creatorMobile = mainInfo = leftNav = frameSort = highLightMobile = followUserInfoMobile = settingBarMobile = avtName = avtNameMobile = followUserInfo = categoryInfo = ''
 let headerContentText = document.querySelector(".header").innerHTML
 let personalLink = interval = null
 let openVolume = fullscreen = false
@@ -16,237 +17,59 @@ const cateList = ["freestyle", "hiphop", "rap", "contemporary", "ballroom", "mod
 const navList = ["competition", "fame", "notifications", "saved", "honors", "add-topic", "setting"]
 const navName = ["Vòng đấu", "Xếp hạng", "Thông báo", "Đã lưu", "Vinh danh", "Thêm thể loại", "Cài đặt"]
 if (new Date().getDay() >= 1 && new Date().getDay() <= 5) {roundType = "group-stage"}else {roundType = "final"}
+
+
 //start
-const showAlert = function(text){
-    if (document.querySelectorAll(".alert").length != 0){
-        document.querySelector(".alert").remove()
-    }
-    let alert = document.createElement("div")
-    alert.classList.add("alert")
-    let textAlert = document.createTextNode(text)
-    alert.appendChild(textAlert)
-    document.querySelector(".global").appendChild(alert)
-    setTimeout(function() {
-        if (document.querySelectorAll(".alert").length != 0){
-            document.querySelector(".alert").remove()
-        }
-    }, 3000)
-}
-
-const showAlertWithLink = function(link){
-    if (document.querySelectorAll(".alert").length != 0){
-        document.querySelector(".alert").remove()
-    }
-    let alert = document.createElement("div")
-    alert.classList.add("alert-link")
-    alert.innerHTML = link
-    document.querySelector(".global").appendChild(alert)
-    setTimeout(function() {
-        if (document.querySelectorAll(".alert-link").length != 0){
-            document.querySelector(".alert-link").remove()
-        }
-    }, 5000)
-}
-
-const showSuccessAlert = function(text) {
-    if (document.querySelectorAll(".alert-success").length != 0){
-        document.querySelector(".alert-success").remove()
-    }
-    let alert = document.createElement("div")
-    alert.classList.add("alert-success")
-    let textAlert = document.createTextNode(text)
-    alert.appendChild(textAlert)
-    document.querySelector(".global").appendChild(alert)
-    setTimeout(function() {
-        if (document.querySelectorAll(".alert-success").length != 0){
-            document.querySelector(".alert-success").remove()
-        }
-    }, 3000)
-}
-
-const showFailureAlert = function(text) {
-    if (document.querySelectorAll(".alert-failure").length != 0){
-        document.querySelector(".alert-failure").remove()
-    }
-    let alert = document.createElement("div")
-    alert.classList.add("alert-failure")
-    let textAlert = document.createTextNode(text)
-    alert.appendChild(textAlert)
-    document.querySelector(".global").appendChild(alert)
-    setTimeout(function() {
-        if (document.querySelectorAll(".alert-failure").length != 0){
-            document.querySelector(".alert-failure").remove()
-        }
-    }, 3000)
-}
-
-function handleMobileResponse() {
-    if(window.innerWidth <= 662){
-        if (document.querySelector(".main-info")){
-            document.querySelector(".main-info").remove()
-        }
-        if (document.querySelector(".left-nav")){
-            document.querySelector(".left-nav").remove()
-        }
-        if (document.querySelector(".header-inner")){
-            document.querySelector(".header-inner").remove()
-        }
-        if (document.querySelector(".main-frame-post-sort")){
-            document.querySelector(".main-frame-post-sort").remove()
-        }
-        document.querySelector(".main").style.paddingBottom = "55px"
-        document.querySelectorAll("input[data-plyr='volume']").forEach(function(e){
-            e.remove()
-        })
-        if (navLink == ''){navLinkTitle = window.location.pathname.replace('/', '')} else {navLinkTitle = navLink}
-        if (cateLink == ''){cateLinkTitle = window.location.pathname.replace('/', '')} else {cateLinkTitle = cateLink}
-        for (let i = 0; i < navList.length; i++){
-            if (navLinkTitle == navList[i]){
-                if (roundType == "final" && navLinkTitle == "competition"){
-                    document.querySelector(".title-content").textContent = "Chung kết"
-                }
-                else {
-                    document.querySelector(".title-content").textContent = navName[i]
-                }
-                if (i < 4) {document.querySelector(".mobile-creator").style.display = "block"}
-                else {document.querySelector(".mobile-creator").style.display = "none"}
-            }
-            else if (navLinkTitle == ''){
-                document.querySelector(".title-content").textContent = "Trang chủ"
-            }
-            else if (navLinkTitle == 'personal'){
-                document.querySelector(".title-content").textContent = "Hồ sơ"
-            }
-        }
-
-        for (let i = 0; i < cateList.length; i++){
-            if (cateLinkTitle == cateList[i] && (navLink == "competition" || cateList.includes(window.location.pathname.replace('/', '')))){
-                if (roundType == "final"){
-                    document.querySelector(".title-content").textContent = "Chung kết"
-                }
-                else {
-                    document.querySelector(".title-content").textContent = "Vòng đấu"
-                }
-            }
-        }
-        if(!document.querySelector(".category-slidebar")){
-            // if (document.querySelector(".header")){
-            //     document.querySelector(".header").innerHTML = headerContentText
-            // }
-            if (document.querySelector(".category")){
-                document.querySelector(".category").remove()
-            }
-            document.querySelector(".main-inner").style.marginTop = "5px"
-            // document.querySelector(".main").style.paddingTop = "-48px"
-        } else {
-            document.querySelector(".main-inner").style.marginTop = "0"
-            // document.querySelector(".main").style.paddingTop = "0"
-            // document.querySelector(".category").style.top = "0"
-            // if (!document.querySelector(".category")){
-            //     document.querySelector(".category").innerHTML = categoryContentText
-            // }
-            // if (document.querySelector(".header")){
-            //     document.querySelector(".header").remove()
-            // }
-            // if (!document.querySelector(".bg-music")){
-            //     document.querySelector(".category").insertAdjacentHTML('afterbegin', '<div class="return-but"><span class="iconify" data-icon="heroicons-outline:arrow-left" data-inline="false"></span></div>')
-            // }
-            // document.querySelector(".main").style.paddingTop = "0"
-            
-        }
-        // let prevScrollpos = window.pageYOffset
-        // window.addEventListener('scroll', function() {
-        //     let currentScrollPos = window.pageYOffset
-        //     if (document.querySelector(".bg-music")){
-        //         if (prevScrollpos > currentScrollPos) {
-        //             document.querySelector(".header").style.top = "0"
-        //             document.querySelector(".category").style.top = "48px"
-        //             document.querySelector(".main").style.paddingTop = "48px"
-        //         } else {
-        //             document.querySelector(".header").style.top = "-48px"
-        //             document.querySelector(".category").style.top = "0"
-        //             document.querySelector(".main").style.paddingTop = "0"
-        //         }
-        //     }
-        //     prevScrollpos = currentScrollPos
-        // })
-        if (document.querySelector(".sidenav")){
-            document.querySelector(".sidenav").style.width = "0";
-            document.querySelector(".sidenav-frame").style.position = "relative"
-
-            document.querySelector(".open-nav").onclick = function() {
-                document.querySelector(".header").style.zIndex = "2000";
-                document.querySelector(".sidenav").style.width = "75%";
-                document.querySelector(".sidenav-frame").style.position = "fixed";
-                document.querySelector(".mobile-creator").style.zIndex = "1000"
-            }
-              
-            document.querySelector(".close-nav").onclick = function() {
-                document.querySelector(".sidenav").style.width = "0";
-                document.querySelector(".sidenav-frame").style.position = "relative"
-                document.querySelector(".mobile-creator").style.zIndex = "5000"
-            }
-
-            document.querySelector(".sidenav-frame").onclick = function(e) {
-                if (e.target == document.querySelector(".search-but") || e.target.parentNode == document.querySelector(".search-but")|| e.target.parentNode.parentNode == document.querySelector(".search-but")){
-    
-                }
-                else if (e.target == document.querySelector(".filter-but") || e.target.parentNode == document.querySelector(".filter-but") || e.target.parentNode.parentNode == document.querySelector(".filter-but")){
-    
-                }
-                else {
-                    document.querySelector(".sidenav").style.width = "0";
-                    document.querySelector(".sidenav-frame").style.position = "relative"
-                    document.querySelector(".mobile-creator").style.zIndex = "5000"
-                }
-            }
-        }
-
-        if (document.querySelector(".return-but") && !document.querySelector(".return-but").classList.contains("close-view-post-modal")){
-            document.querySelector(".return-but").onclick = function(){
-                window.history.back()
-            }
-        }
-    }
-    else {
-        if (document.querySelector(".nav-bar-mobile")){
-            document.querySelector(".nav-bar-mobile").remove()
-        }
-        if (document.querySelector(".header-inner-mobile")){
-            document.querySelector(".header-inner-mobile").remove()
-        }
-        if (document.querySelector(".mobile-creator")){
-            document.querySelector(".mobile-creator").remove()
-        }
-    }
-
-    if (window.innerWidth <= 1024) {
-        if (document.querySelector(".avatar-name")){
-            document.querySelector(".avatar-name").remove()
-            document.querySelector(".avatar-name-mobile").style.display = "flex"
-            document.querySelector(".follow-user-info").remove()
-        }
-    }
-    else {
-        if (document.querySelector(".highlights-mobile")){
-            document.querySelector(".highlights-mobile").remove()
-        }
-        if (document.querySelector(".follow-user-info-mobile")){
-            document.querySelector(".follow-user-info-mobile").remove()
-        }
-        if (document.querySelector(".setting-bar-mobile")){
-            document.querySelector(".setting-bar-mobile").remove()
-        }
-    }
-}
-handleMobileResponse()
 
 function pretreatment(){
     // const startTimeline = new Date("Mon Oct 05 2020 00:00:00")
     // round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
     // localStorage.roundVisit = round + 1
-    
-
+    if (document.querySelector(".header-inner-mobile") && document.querySelector(".header-inner-mobile").innerHTML != ''){
+        headerInnerMobile = document.querySelector(".header").innerHTML
+    }
+    if (document.querySelector(".header-inner") && document.querySelector(".header-inner").innerHTML != ''){
+        headerInner = document.querySelector(".header").innerHTML
+    }
+    if (document.querySelector(".nav-bar-mobile") && document.querySelector(".nav-bar-mobile").innerHTML != ''){
+        navbarMobile = document.querySelector(".nav-bar-mobile-frame").innerHTML
+    }
+    if (document.querySelector(".mobile-creator") && document.querySelector(".mobile-creator").innerHTML != ''){
+        creatorMobile = document.querySelector(".mobile-creator-frame").innerHTML
+    }
+    window.addEventListener("load", function (){
+        if (document.querySelector(".main-info") && document.querySelector(".main-info") != ''){
+            mainInfo = document.querySelector(".main-info").innerHTML
+        }
+    })
+    if (document.querySelector(".left-nav") && document.querySelector(".left-nav").innerHTML != ''){
+        leftNav = document.querySelector(".left-nav").innerHTML
+    }
+    if (document.querySelector(".main-frame-post-sort-rounder") && document.querySelector(".main-frame-post-sort-rounder") != ''){
+        frameSort = document.querySelector(".main-frame-post-sort-rounder").innerHTML
+        console.log(document.querySelector(".left-nav"))
+    }
+    if (document.querySelector(".highlights-mobile") && document.querySelector(".highlights-mobile").innerHTML != ''){
+        highLightMobile = document.querySelector(".highlights-mobile-frame").innerHTML
+    }
+    if (document.querySelector(".follow-user-info-mobile") && document.querySelector(".follow-user-info-mobile").innerHTML != ''){
+        followUserInfoMobile = document.querySelector(".follow-user-info-mobile-frame").innerHTML
+    }
+    if (document.querySelector(".setting-bar-mobile") && document.querySelector(".setting-bar-mobile").innerHTML != ''){
+        settingBarMobile = document.querySelector(".setting-bar-mobile-frame").innerHTML
+    }
+    if (document.querySelector(".avatar-name") && document.querySelector(".avatar-name").innerHTML != ''){
+        avtName = document.querySelector(".avatar-name-frame").innerHTML
+    }
+    if (document.querySelector(".avatar-name-mobile") && document.querySelector(".avatar-name-mobile").innerHTML != ''){
+        avtNameMobile = document.querySelector(".avatar-name-mobile-frame").innerHTML
+    }
+    if (document.querySelector(".follow-user-info") && document.querySelector(".follow-user-info").innerHTML != ''){
+        followUserInfo = document.querySelector(".follow-user-info-frame").innerHTML
+    }
+    if (document.querySelector(".category") && document.querySelector(".category").innerHTML != ''){
+        categoryInfo = document.querySelector(".category-frame").innerHTML
+    }
     if (document.querySelector(".congrat-submit")){
         document.querySelector(".congrat-submit").onclick = function(){
             document.querySelector(".congrat-modal").remove()
@@ -384,6 +207,346 @@ function pretreatment(){
 }
 pretreatment()
 
+
+function toggleHeader() {
+    if (document.querySelector(".header-inner-mobile") && document.querySelector(".header-inner-mobile").innerHTML != ''){
+        headerInnerMobile = document.querySelector(".header").innerHTML
+    }
+    if (document.querySelector(".header-inner") && document.querySelector(".header-inner").innerHTML != ''){
+        headerInner = document.querySelector(".header").innerHTML
+    }
+    if (document.querySelector(".nav-bar-mobile") && document.querySelector(".nav-bar-mobile").innerHTML != ''){
+        navbarMobile = document.querySelector(".nav-bar-mobile-frame").innerHTML
+    }
+    if (document.querySelector(".mobile-creator") && document.querySelector(".mobile-creator").innerHTML != ''){
+        creatorMobile = document.querySelector(".mobile-creator-frame").innerHTML
+    }
+
+    handleMobileResponse()
+    if (document.querySelector(".search-but")){
+        let myWidth = window.innerWidth;
+        if (myWidth >= 1200) {
+            document.querySelector(".search-but").onmouseover = function() {
+                return false
+            }
+    
+            document.querySelector(".search-but").onmouseout = function() {
+                return false
+            }
+        }
+        else {
+            document.querySelector(".search-but").onmouseover = function(){
+                if (document.querySelector(".header-rank")){
+                    document.querySelector(".header-rank").style.display = "none"
+                }
+            }
+            
+            document.querySelector(".search-but").onmouseout = function(){
+                if (document.querySelector(".header-rank")){
+                    document.querySelector(".header-rank").style.display = "flex"
+                }
+            }
+        }
+    }
+}
+toggleHeader()
+
+
+function handleMobileResponse() {
+    if(window.innerWidth <= 662){
+        window.addEventListener("load", function () {
+            if (document.querySelector(".main-info-inner")){
+                document.querySelector(".main-info-inner").remove()
+            }
+            if (document.querySelector(".left-nav-inner")){
+                document.querySelector(".left-nav-inner").remove()
+            }
+            if (document.querySelector(".header-inner")){
+                document.querySelector(".header-inner").remove()
+            }
+            if (document.querySelector(".main-frame-post-sort")){
+                document.querySelector(".main-frame-post-sort").remove()
+            }
+        })
+        if (headerInnerMobile && !document.querySelector(".header-inner-mobile")){
+            document.querySelector(".header").innerHTML = headerInnerMobile
+        }
+        if (navbarMobile && !document.querySelector(".nav-bar-mobile")){
+            document.querySelector(".nav-bar-mobile-frame").innerHTML = navbarMobile
+        }
+        if (creatorMobile && !document.querySelector(".mobile-creator")){
+            document.querySelector(".mobile-creator-frame").innerHTML = creatorMobile
+        }
+        handleCreatePost()
+        handleNavigation()
+        handleRankHeader()
+        handleToggle()
+        document.querySelector(".main").style.paddingBottom = "55px"
+        document.querySelectorAll("input[data-plyr='volume']").forEach(function(e){
+            e.remove()
+        })
+        if (navLink == ''){navLinkTitle = window.location.pathname.replace('/', '')} else {navLinkTitle = navLink}
+        if (cateLink == ''){cateLinkTitle = window.location.pathname.replace('/', '')} else {cateLinkTitle = cateLink}
+        for (let i = 0; i < navList.length; i++){
+            if (navLinkTitle == navList[i]){
+                if (roundType == "final" && navLinkTitle == "competition"){
+                    document.querySelector(".title-content").textContent = "Chung kết"
+                }
+                else {
+                    document.querySelector(".title-content").textContent = navName[i]
+                }
+                if (document.querySelector(".mobile-creator")){
+                    if (i < 4) {document.querySelector(".mobile-creator").style.display = "block"}
+                    else {document.querySelector(".mobile-creator").style.display = "none"}
+                }
+            }
+            else if (navLinkTitle == ''){
+                document.querySelector(".title-content").textContent = "Trang chủ"
+            }
+            else if (navLinkTitle == 'personal'){
+                document.querySelector(".title-content").textContent = "Hồ sơ"
+            }
+        }
+
+        for (let i = 0; i < cateList.length; i++){
+            if (cateLinkTitle == cateList[i] && (navLink == "competition" || cateList.includes(window.location.pathname.replace('/', '')))){
+                if (roundType == "final"){
+                    document.querySelector(".title-content").textContent = "Chung kết"
+                }
+                else {
+                    document.querySelector(".title-content").textContent = "Vòng đấu"
+                }
+            }
+        }
+        if(!document.querySelector(".category-slidebar")){
+            // if (document.querySelector(".header")){
+            //     document.querySelector(".header").innerHTML = headerContentText
+            // }
+            if (document.querySelector(".category")){
+                document.querySelector(".category").remove()
+            }
+            else {
+                document.querySelector(".main-inner").style.marginTop = "5px"
+            }
+            // document.querySelector(".main").style.paddingTop = "-48px"
+        } else {
+            document.querySelector(".main-inner").style.marginTop = "0"
+            // document.querySelector(".main").style.paddingTop = "0"
+            // document.querySelector(".category").style.top = "0"
+            // if (!document.querySelector(".category")){
+            //     document.querySelector(".category").innerHTML = categoryContentText
+            // }
+            // if (document.querySelector(".header")){
+            //     document.querySelector(".header").remove()
+            // }
+            // if (!document.querySelector(".bg-music")){
+            //     document.querySelector(".category").insertAdjacentHTML('afterbegin', '<div class="return-but"><span class="iconify" data-icon="heroicons-outline:arrow-left" data-inline="false"></span></div>')
+            // }
+            // document.querySelector(".main").style.paddingTop = "0"
+            
+        }
+        // let prevScrollpos = window.pageYOffset
+        // window.addEventListener('scroll', function() {
+        //     let currentScrollPos = window.pageYOffset
+        //     if (document.querySelector(".bg-music")){
+        //         if (prevScrollpos > currentScrollPos) {
+        //             document.querySelector(".header").style.top = "0"
+        //             document.querySelector(".category").style.top = "48px"
+        //             document.querySelector(".main").style.paddingTop = "48px"
+        //         } else {
+        //             document.querySelector(".header").style.top = "-48px"
+        //             document.querySelector(".category").style.top = "0"
+        //             document.querySelector(".main").style.paddingTop = "0"
+        //         }
+        //     }
+        //     prevScrollpos = currentScrollPos
+        // })
+        if (document.querySelector(".sidenav")){
+            document.querySelector(".sidenav").style.width = "0";
+            document.querySelector(".sidenav-frame").style.position = "relative"
+
+            document.querySelector(".open-nav").onclick = function() {
+                document.querySelector(".header").style.zIndex = "2000";
+                document.querySelector(".sidenav").style.width = "75%";
+                document.querySelector(".sidenav-frame").style.position = "fixed";
+                document.querySelector(".mobile-creator").style.zIndex = "1000"
+            }
+              
+            document.querySelector(".close-nav").onclick = function() {
+                document.querySelector(".sidenav").style.width = "0";
+                document.querySelector(".sidenav-frame").style.position = "relative"
+                document.querySelector(".mobile-creator").style.zIndex = "5000"
+            }
+
+            document.querySelector(".sidenav-frame").onclick = function(e) {
+                if (e.target == document.querySelector(".search-but") || e.target.parentNode == document.querySelector(".search-but")|| e.target.parentNode.parentNode == document.querySelector(".search-but")){
+    
+                }
+                else if (e.target == document.querySelector(".filter-but") || e.target.parentNode == document.querySelector(".filter-but") || e.target.parentNode.parentNode == document.querySelector(".filter-but")){
+    
+                }
+                else {
+                    document.querySelector(".sidenav").style.width = "0";
+                    document.querySelector(".sidenav-frame").style.position = "relative"
+                    document.querySelector(".mobile-creator").style.zIndex = "5000"
+                }
+            }
+        }
+
+        if (document.querySelector(".return-but") && !document.querySelector(".return-but").classList.contains("close-view-post-modal")){
+            document.querySelector(".return-but").onclick = function(){
+                window.history.back()
+            }
+        }
+    }
+    else {
+        if (document.querySelector(".nav-bar-mobile")){
+            document.querySelector(".nav-bar-mobile").remove()
+        }
+        if (document.querySelector(".header-inner-mobile")){
+            document.querySelector(".header-inner-mobile").remove()
+        }
+        if (document.querySelector(".mobile-creator")){
+            document.querySelector(".mobile-creator").remove()
+        }
+        if (headerInner != '' && !document.querySelector(".header-inner")){
+            document.querySelector(".header").innerHTML = headerInner
+        }
+        if (mainInfo != '' && !document.querySelector(".main-info-inner")){
+            document.querySelector(".main-info").innerHTML = mainInfo
+        }
+        if (leftNav != '' && !document.querySelector(".left-nav-inner")){
+            document.querySelector(".left-nav").innerHTML = leftNav
+        }
+        if (frameSort != '' && document.querySelector(".main-frame-post-sort-rounder") && !document.querySelector(".main-frame-post-sort")){
+            document.querySelector(".main-frame-post-sort-rounder").innerHTML = frameSort
+        }
+        if (categoryInfo != '' && document.querySelector(".category-frame") && !document.querySelector(".category")){
+            document.querySelector(".category-frame").innerHTML = categoryInfo
+        }
+    }
+
+    if(!document.querySelector(".category")){
+        document.querySelector(".main-inner").style.marginTop = "5px"
+    } else {
+        document.querySelector(".main-inner").style.marginTop = "0"
+    }
+
+    if (window.innerWidth <= 1024) {
+        if (document.querySelector(".avatar-name")){
+            document.querySelector(".avatar-name").remove()
+            document.querySelector(".follow-user-info").remove()
+        }
+        if (highLightMobile != '' && document.querySelector(".highlights-mobile-frame") && !document.querySelector(".highlights-mobile")){
+            document.querySelector(".highlights-mobile-frame").innerHTML = highLightMobile
+        }
+        if (followUserInfoMobile != '' && document.querySelector(".follow-user-info-mobile-frame") && !document.querySelector(".follow-user-info-mobile")){
+            document.querySelector(".follow-user-info-mobile-frame").innerHTML = followUserInfoMobile
+        }
+        if (settingBarMobile != '' && document.querySelector(".setting-bar-mobile-frame") && !document.querySelector(".setting-bar-mobile")){
+            document.querySelector(".setting-bar-mobile-frame").innerHTML = settingBarMobile
+            handleSetting()
+        }
+        if (avtNameMobile != '' && document.querySelector(".avatar-name-mobile-frame") && !document.querySelector(".avatar-name-mobile")){
+            document.querySelector(".avatar-name-mobile-frame").innerHTML = avtNameMobile
+            document.querySelector(".avatar-name-mobile").style.display = "flex"
+        }
+    }
+    else {
+        if (document.querySelector(".highlights-mobile")){
+            document.querySelector(".highlights-mobile").remove()
+        }
+        if (document.querySelector(".follow-user-info-mobile")){
+            document.querySelector(".follow-user-info-mobile").remove()
+        }
+        if (document.querySelector(".setting-bar-mobile")){
+            document.querySelector(".setting-bar-mobile").remove()
+        }
+        if (document.querySelector(".avatar-name-mobile")) {
+            document.querySelector(".avatar-name-mobile").remove()
+        }
+        if (avtName != '' && document.querySelector(".avatar-name-frame") && !document.querySelector(".avatar-name")){
+            document.querySelector(".avatar-name-frame").innerHTML = avtName
+        }
+        if (followUserInfo != '' && document.querySelector(".follow-user-info-frame") && !document.querySelector(".follow-user-info")){
+            document.querySelector(".follow-user-info-frame").innerHTML = followUserInfo
+        }
+    }
+    handleFollow()
+    handleRankHeader()
+    handleNavigation()
+    handleNavInfo()
+    handleCreatePost()
+    handleToggle()
+    handleSetting()
+}
+handleMobileResponse()
+
+
+const showAlert = function(text){
+    if (document.querySelectorAll(".alert").length != 0){
+        document.querySelector(".alert").remove()
+    }
+    let alert = document.createElement("div")
+    alert.classList.add("alert")
+    let textAlert = document.createTextNode(text)
+    alert.appendChild(textAlert)
+    document.querySelector(".global").appendChild(alert)
+    setTimeout(function() {
+        if (document.querySelectorAll(".alert").length != 0){
+            document.querySelector(".alert").remove()
+        }
+    }, 3000)
+}
+
+const showAlertWithLink = function(link){
+    if (document.querySelectorAll(".alert").length != 0){
+        document.querySelector(".alert").remove()
+    }
+    let alert = document.createElement("div")
+    alert.classList.add("alert-link")
+    alert.innerHTML = link
+    document.querySelector(".global").appendChild(alert)
+    setTimeout(function() {
+        if (document.querySelectorAll(".alert-link").length != 0){
+            document.querySelector(".alert-link").remove()
+        }
+    }, 5000)
+}
+
+const showSuccessAlert = function(text) {
+    if (document.querySelectorAll(".alert-success").length != 0){
+        document.querySelector(".alert-success").remove()
+    }
+    let alert = document.createElement("div")
+    alert.classList.add("alert-success")
+    let textAlert = document.createTextNode(text)
+    alert.appendChild(textAlert)
+    document.querySelector(".global").appendChild(alert)
+    setTimeout(function() {
+        if (document.querySelectorAll(".alert-success").length != 0){
+            document.querySelector(".alert-success").remove()
+        }
+    }, 3000)
+}
+
+const showFailureAlert = function(text) {
+    if (document.querySelectorAll(".alert-failure").length != 0){
+        document.querySelector(".alert-failure").remove()
+    }
+    let alert = document.createElement("div")
+    alert.classList.add("alert-failure")
+    let textAlert = document.createTextNode(text)
+    alert.appendChild(textAlert)
+    document.querySelector(".global").appendChild(alert)
+    setTimeout(function() {
+        if (document.querySelectorAll(".alert-failure").length != 0){
+            document.querySelector(".alert-failure").remove()
+        }
+    }, 3000)
+}
+
+
 function starRedirect(c, pushState){
     let xhttp
     if (window.XMLHttpRequest) {
@@ -518,7 +681,7 @@ function handleStars(){
         }
     })
 
-    if (document.querySelector(".create-post-handler").classList.contains("star-reward-handler-begin")){
+    if (document.querySelector(".create-post-handler") && document.querySelector(".create-post-handler").classList.contains("star-reward-handler-begin")){
         const starBut = document.querySelector(".user-stars")
         starRedirect(starBut, false)
         document.querySelector(".create-post-handler").classList.remove("star-reward-handler-begin")
@@ -577,18 +740,20 @@ function handlePayment(){
         }
     })
 
-    if (document.querySelector(".create-post-handler").classList.contains("ticket-payment-handler-begin")){
-        const paymentBut = document.querySelector(".user-tickets")
-        paymentRedirect(paymentBut, false)
-        document.querySelector(".create-post-handler").classList.remove("ticket-payment-handler-begin")
-    }
-    if (document.querySelector(".create-post-handler").classList.contains("alert-success-begin")){
-        showSuccessAlert("Giao dịch mua vé thành công!")
-        document.querySelector(".create-post-handler").classList.remove("alert-success-begin")
-    }
-    if (document.querySelector(".create-post-handler").classList.contains("alert-failure-begin")){
-        showFailureAlert("Giao dịch mua vé không thành công!")
-        document.querySelector(".create-post-handler").classList.remove("alert-failure-begin")
+    if (document.querySelector(".create-post-handler")){
+        if (document.querySelector(".create-post-handler").classList.contains("ticket-payment-handler-begin")){
+            const paymentBut = document.querySelector(".user-tickets")
+            paymentRedirect(paymentBut, false)
+            document.querySelector(".create-post-handler").classList.remove("ticket-payment-handler-begin")
+        }
+        if (document.querySelector(".create-post-handler").classList.contains("alert-success-begin")){
+            showSuccessAlert("Giao dịch mua vé thành công!")
+            document.querySelector(".create-post-handler").classList.remove("alert-success-begin")
+        }
+        if (document.querySelector(".create-post-handler").classList.contains("alert-failure-begin")){
+            showFailureAlert("Giao dịch mua vé không thành công!")
+            document.querySelector(".create-post-handler").classList.remove("alert-failure-begin")
+        }
     }
 }
 handlePayment()
@@ -781,34 +946,6 @@ function handleSearch(){
 }
 handleSearch()
 
-function toggleHeader() {
-    if (document.querySelector(".search-but")){
-        let myWidth = window.innerWidth;
-        if (myWidth >= 1200) {
-            document.querySelector(".search-but").onmouseover = function() {
-                return false
-            }
-    
-            document.querySelector(".search-but").onmouseout = function() {
-                return false
-            }
-        }
-        else {
-            document.querySelector(".search-but").onmouseover = function(){
-                if (document.querySelector(".header-rank")){
-                    document.querySelector(".header-rank").style.display = "none"
-                }
-            }
-            
-            document.querySelector(".search-but").onmouseout = function(){
-                if (document.querySelector(".header-rank")){
-                    document.querySelector(".header-rank").style.display = "flex"
-                }
-            }
-        }
-    }
-}
-toggleHeader()
 
 function rankRedirect(rankBut, pushState){
     window.scrollTo(0, 0)
@@ -2937,7 +3074,7 @@ function handleCreatePost(){
         })
     }
 
-    if (document.querySelector(".create-post-handler").classList.contains("create-post-handler-begin")){
+    if (document.querySelector(".create-post-handler") && document.querySelector(".create-post-handler").classList.contains("create-post-handler-begin")){
         const createBut = document.querySelector(".create-post-handler").parentNode.querySelector(".create-post-but")
         createPostRedirect(createBut, false)
         document.querySelector(".create-post-handler").classList.remove("create-post-handler-begin")
@@ -3012,7 +3149,6 @@ function handleMainFrame(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
             e.onclick = function(){
                 fullscreen = !fullscreen
-                console.log(fullscreen)
                 if (!fullscreen){
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
                     e.parentElement.parentElement.querySelector("video").style.zIndex = "initial"

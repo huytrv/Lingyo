@@ -1974,10 +1974,11 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     userProfile.findAll({
                         where: {
                             nickname: {
-                                [Op.like]: '%' + req.body.searchText + '%'
+                                [Op.like]: '%' + req.body.searchText + '%',
                             },
                             userId: {
-                                [Op.notIn]: userListed.concat(req.body.searchDisplayedList)
+                                [Op.notIn]: userListed.concat(req.body.searchDisplayedList),
+                                [Op.ne]: req.user.userId
                             }
                         },
                         order: [
@@ -2038,7 +2039,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             [Op.like]: '%' + req.body.searchText + '%'
                         },
                         userId: {
-                            [Op.notIn]: req.body.searchDisplayedList
+                            [Op.notIn]: req.body.searchDisplayedList,
+                            [Op.ne]: req.user.userId
                         }
                     },
                     limit: 10
