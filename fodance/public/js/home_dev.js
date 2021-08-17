@@ -3011,7 +3011,8 @@ function handleMainFrame(){
     function handleFullscreen(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
             e.onclick = function(){
-                console.log(e)
+
+                // console.log(e.classList.contains("plyr__control--pressed"))
                 if (e.classList.contains("plyr__control--pressed")){
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
                     e.parentElement.parentElement.querySelector("video").style.zIndex = "initial"
@@ -3028,6 +3029,12 @@ function handleMainFrame(){
                     }
                     if (document.querySelector(".mobile-creator")){
                         document.querySelector(".mobile-creator").style.zIndex = "1000"
+                    }
+                    if (document.querySelector(".plyr__controls")){
+                        document.querySelector(".plyr__controls").style.transform = "rotate(0deg)"
+                        document.querySelector(".plyr__controls").style.left = "80%"
+                        document.querySelector(".plyr__controls").style.bottom = "0"
+                        document.querySelector(".plyr__controls").style.width = "auto"
                     }
                 }
                 else {
@@ -3046,6 +3053,13 @@ function handleMainFrame(){
                     }
                     if (document.querySelector(".mobile-creator")){
                         document.querySelector(".mobile-creator").style.zIndex = "0"
+                    }
+                    if (document.querySelector(".plyr__controls")){
+                        document.querySelector(".plyr__controls").style.transform = "rotate(90deg)"
+                        document.querySelector(".plyr__controls").style.top = "45%"
+                        document.querySelector(".plyr__controls").style.left = "-75%"
+                        document.querySelector(".plyr__controls").style.bottom = "45%"
+                        document.querySelector(".plyr__controls").style.width = "95vh"
                     }
                 }
             }
