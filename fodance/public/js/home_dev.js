@@ -324,6 +324,7 @@ function handleMobileResponse() {
             // }
             if (document.querySelector(".category")){
                 document.querySelector(".category").remove()
+                document.querySelector(".category-frame").style.height = "0"
             }
             else {
                 document.querySelector(".main-inner").style.marginTop = "5px"
