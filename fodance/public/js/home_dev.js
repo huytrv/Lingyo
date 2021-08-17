@@ -7,7 +7,7 @@ let cateLink = competitionContentText = "competition"
 let roundType = navLink = statusRedirect = infoContentText = homeContentText = personalPostText = categoryContentText = postContentText = cateName = avtUpdate = usernameUpdate = nicknameUpdate = nicknameBeforeUpdate = cateLinkPost = filter = searchQuery = ''
 let headerContentText = document.querySelector(".header").innerHTML
 let personalLink = interval = null
-let openVolume = false
+let openVolume = fullscreen = false
 let videoAjaxSend = [], paused = []
 let postDisplayedList = [], cmtDisplayedList = {}, repCmtDisplayedList = {}, searchDisplayedList = []
 let param = navState = cateState = ''
@@ -3011,78 +3011,40 @@ function handleMainFrame(){
     function handleFullscreen(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
             e.onclick = function(){
-                if(window.innerWidth <= 662){isMobile = true}else {isMobile = false}
-                // console.log(e.classList.contains("plyr__control--pressed"))
-                if (isMobile){
-                    if (e.classList.contains("plyr__control--pressed")){
-                        e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
-                        e.parentElement.parentElement.querySelector("video").style.zIndex = "initial"
-                        e.parentElement.parentElement.querySelector("video").style.objectFit = "cover"
-                        if (document.querySelector(".nav-bar-mobile")){
-                            document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
-                        }
-                        if (document.querySelector(".header")){
-                            document.querySelector(".header").style.zIndex = "1000"
-                        }
-                        if (document.querySelector(".category")){
-                            document.querySelector(".category").style.zIndex = "1000"
-                        }
-                        if (document.querySelector(".mobile-creator")){
-                            document.querySelector(".mobile-creator").style.zIndex = "1000"
-                        }
+                fullscreen = !fullscreen
+                console.log(fullscreen)
+                if (!fullscreen){
+                    e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
+                    e.parentElement.parentElement.querySelector("video").style.zIndex = "initial"
+                    e.parentElement.parentElement.querySelector("video").style.objectFit = "cover"
+                    if (document.querySelector(".nav-bar-mobile")){
+                        document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
                     }
-                    else {
-                        e.parentElement.parentElement.querySelector("video").style.maxHeight = "100%"
-                        e.parentElement.parentElement.querySelector("video").style.zIndex = "10000"
-                        e.parentElement.parentElement.querySelector("video").style.objectFit = "contain"
-                        if (document.querySelector(".nav-bar-mobile")){
-                            document.querySelector(".nav-bar-mobile").style.zIndex = "0"
-                        }
-                        if (document.querySelector(".header")){
-                            document.querySelector(".header").style.zIndex = "0"
-                        }
-                        if (document.querySelector(".category")){
-                            document.querySelector(".category").style.zIndex = "0"
-                        }
-                        if (document.querySelector(".mobile-creator")){
-                            document.querySelector(".mobile-creator").style.zIndex = "0"
-                        }
+                    if (document.querySelector(".header")){
+                        document.querySelector(".header").style.zIndex = "1000"
+                    }
+                    if (document.querySelector(".category")){
+                        document.querySelector(".category").style.zIndex = "1000"
+                    }
+                    if (document.querySelector(".mobile-creator")){
+                        document.querySelector(".mobile-creator").style.zIndex = "1000"
                     }
                 }
                 else {
-                    if (!e.classList.contains("plyr__control--pressed")){
-                        e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
-                        e.parentElement.parentElement.querySelector("video").style.zIndex = "initial"
-                        e.parentElement.parentElement.querySelector("video").style.objectFit = "cover"
-                        if (document.querySelector(".nav-bar-mobile")){
-                            document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
-                        }
-                        if (document.querySelector(".header")){
-                            document.querySelector(".header").style.zIndex = "1000"
-                        }
-                        if (document.querySelector(".category")){
-                            document.querySelector(".category").style.zIndex = "1000"
-                        }
-                        if (document.querySelector(".mobile-creator")){
-                            document.querySelector(".mobile-creator").style.zIndex = "1000"
-                        }
+                    e.parentElement.parentElement.querySelector("video").style.maxHeight = "100%"
+                    e.parentElement.parentElement.querySelector("video").style.zIndex = "10000"
+                    e.parentElement.parentElement.querySelector("video").style.objectFit = "contain"
+                    if (document.querySelector(".nav-bar-mobile")){
+                        document.querySelector(".nav-bar-mobile").style.zIndex = "0"
                     }
-                    else {
-                        e.parentElement.parentElement.querySelector("video").style.maxHeight = "100%"
-                        e.parentElement.parentElement.querySelector("video").style.zIndex = "10000"
-                        e.parentElement.parentElement.querySelector("video").style.objectFit = "contain"
-                        if (document.querySelector(".nav-bar-mobile")){
-                            document.querySelector(".nav-bar-mobile").style.zIndex = "0"
-                        }
-                        if (document.querySelector(".header")){
-                            document.querySelector(".header").style.zIndex = "0"
-                        }
-                        if (document.querySelector(".category")){
-                            document.querySelector(".category").style.zIndex = "0"
-                        }
-                        if (document.querySelector(".mobile-creator")){
-                            document.querySelector(".mobile-creator").style.zIndex = "0"
-                        }
+                    if (document.querySelector(".header")){
+                        document.querySelector(".header").style.zIndex = "0"
+                    }
+                    if (document.querySelector(".category")){
+                        document.querySelector(".category").style.zIndex = "0"
+                    }
+                    if (document.querySelector(".mobile-creator")){
+                        document.querySelector(".mobile-creator").style.zIndex = "0"
                     }
                 }
             }
