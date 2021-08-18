@@ -251,6 +251,46 @@ function toggleHeader() {
 }
 toggleHeader()
 
+function handleCategoryScroll() {
+    if (document.querySelector(".category-frame")){
+        const categorySlide = document.querySelector(".category-frame")
+        let isDown = false
+        let startY, walk
+        document.addEventListener('touchstart', (e) => {
+            isDown = true
+            startY = e.touches[0].clientY
+            console.log("y1: " + startY)
+        })
+        document.addEventListener('touchcancel', () => {
+            isDown = false
+        })
+        document.addEventListener('touchend', (e) => {
+            isDown = false
+            if (walk < -30){
+                categorySlide.style.top = "50px"
+            }
+            else if (walk > 30){
+                categorySlide.style.top = "0px"
+            }
+        })
+        document.addEventListener('touchmove', (e) => {
+            if(!isDown) return 
+            const y = e.touches[0].clientY
+            walk = Math.round((startY - y) * 1)
+            console.log("y2: " + y)
+            if (walk > 50) {walk = 50}
+            else if (walk < -50){walk = -50}
+            if (walk < 0){
+                categorySlide.style.top = -walk + "px"
+            }
+            else {
+                categorySlide.style.top = 50 - walk + "px"
+            }
+        })
+    }
+
+}
+handleCategoryScroll()
 
 function handleMobileResponse() {
     if(window.innerWidth <= 662){
@@ -327,11 +367,11 @@ function handleMobileResponse() {
                 document.querySelector(".category-frame").style.height = "0"
             }
             else {
-                document.querySelector(".main-inner").style.marginTop = "5px"
+                // document.querySelector(".main-inner").style.marginTop = "5px"
             }
             // document.querySelector(".main").style.paddingTop = "-48px"
         } else {
-            document.querySelector(".main-inner").style.marginTop = "0"
+            // document.querySelector(".main-inner").style.marginTop = "0"
             // document.querySelector(".main").style.paddingTop = "0"
             // document.querySelector(".category").style.top = "0"
             // if (!document.querySelector(".category")){
@@ -346,24 +386,25 @@ function handleMobileResponse() {
             // document.querySelector(".main").style.paddingTop = "0"
             
         }
-        let prevScrollpos = window.pageYOffset
-        window.addEventListener('scroll', function() {
-            let currentScrollPos = window.pageYOffset
-            // if (document.querySelector(".bg-music")){
-                if (prevScrollpos > currentScrollPos) {
-                    // document.querySelector(".header").style.top = "0"
-                    document.querySelector(".main").style.paddingTop = "48px"
-                    document.querySelector(".category-frame").style.top = "48px"
-                    document.querySelector(".category").style.top = "48px"
-                } else {
-                    // document.querySelector(".header").style.top = "-48px"
-                    document.querySelector(".main").style.paddingTop = "0"
-                    document.querySelector(".category-frame").style.top = "0"
-                    document.querySelector(".category").style.top = "0"
-                }
-            // }
-            prevScrollpos = currentScrollPos
-        })
+        // let prevScrollpos = window.pageYOffset
+        // window.addEventListener('scroll', function() {
+        //     let currentScrollPos = window.pageYOffset
+        //     // if (document.querySelector(".bg-music")){
+        //         if (prevScrollpos > currentScrollPos) {
+        //             // document.querySelector(".header").style.top = "0"
+        //             document.querySelector(".main").style.paddingTop = "48px"
+        //             document.querySelector(".category-frame").style.top = "48px"
+        //             document.querySelector(".category").style.top = "48px"
+        //         } else {
+        //             // document.querySelector(".header").style.top = "-48px"
+        //             document.querySelector(".main").style.paddingTop = "0"
+        //             document.querySelector(".category-frame").style.top = "0"
+        //             document.querySelector(".category").style.top = "0"
+        //         }
+        //     // }
+        //     prevScrollpos = currentScrollPos
+        // })
+
         if (document.querySelector(".sidenav")){
             document.querySelector(".sidenav").style.width = "0";
             document.querySelector(".sidenav-frame").style.position = "relative"
@@ -4424,6 +4465,7 @@ function handleNavigation(){
                             handleMainFrame()
                             handleNavigation()
                             handleRankPostCount()
+                            handleCategoryScroll()
                         }    
                     }
                     xhttp.open("GET", '/competition' + '?rank=' + rankLink, true)
@@ -4522,6 +4564,7 @@ function handleNavigation(){
                     handleMainFrame()
                     handleNavigation()
                     handleRankPostCount()
+                    handleCategoryScroll()
                 }
             }
         }
