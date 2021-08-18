@@ -286,7 +286,7 @@ function handleCategoryScroll() {
         document.addEventListener('touchmove', (e) => {
             if(!isDown) return 
             const y = e.touches[0].clientY
-            walk = Math.round((startY - y) * 1.5)
+            walk = Math.round((startY - y) * 0.8)
             if (walk > 50) {walk = 50}
             else if (walk < -50){walk = -50}
             if (trueTouch){
