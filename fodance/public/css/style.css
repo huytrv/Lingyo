@@ -906,6 +906,7 @@ video {
 
 .main-frame-post-inner {
   width: 100%;
+  margin-top: 10px;
 }
 
 .main-frame-post-inner-personal {
@@ -6009,6 +6010,7 @@ tbody {
     width: 73%;
     min-width: 480px;
     max-width: 600px;
+    margin-top: 0;
   }
 
   .main-frame-post {

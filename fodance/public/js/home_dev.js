@@ -259,10 +259,15 @@ function handleCategoryScroll() {
         document.addEventListener('touchstart', (e) => {
             isDown = true
             startY = e.touches[0].clientY
-            console.log("y1: " + startY)
         })
         document.addEventListener('touchcancel', () => {
             isDown = false
+            if (walk < -30){
+                categorySlide.style.top = "50px"
+            }
+            else if (walk > 30){
+                categorySlide.style.top = "0px"
+            }
         })
         document.addEventListener('touchend', (e) => {
             isDown = false
@@ -277,14 +282,15 @@ function handleCategoryScroll() {
             if(!isDown) return 
             const y = e.touches[0].clientY
             walk = Math.round((startY - y) * 1)
-            console.log("y2: " + y)
             if (walk > 50) {walk = 50}
             else if (walk < -50){walk = -50}
             if (walk < 0){
-                categorySlide.style.top = -walk + "px"
+                document.querySelector(".category-frame").style.top = -walk + "px"
+                console.log(walk)
             }
             else {
-                categorySlide.style.top = 50 - walk + "px"
+                document.querySelector(".category-frame").style.top = 50 - walk + "px"
+                console.log(walk)
             }
         })
     }
@@ -4465,7 +4471,7 @@ function handleNavigation(){
                             handleMainFrame()
                             handleNavigation()
                             handleRankPostCount()
-                            handleCategoryScroll()
+                            // handleCategoryScroll()
                         }    
                     }
                     xhttp.open("GET", '/competition' + '?rank=' + rankLink, true)
@@ -4564,7 +4570,7 @@ function handleNavigation(){
                     handleMainFrame()
                     handleNavigation()
                     handleRankPostCount()
-                    handleCategoryScroll()
+                    // handleCategoryScroll()
                 }
             }
         }
