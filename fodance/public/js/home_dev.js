@@ -285,12 +285,14 @@ function handleCategoryScroll() {
             if (walk > 50) {walk = 50}
             else if (walk < -50){walk = -50}
             if (walk < 0){
-                document.querySelector(".category-frame").style.top = -walk + "px"
-                console.log(walk)
+                if (document.querySelector(".category-frame").style.top != "50px"){
+                    document.querySelector(".category-frame").style.top = -walk + "px"
+                }
             }
             else {
-                document.querySelector(".category-frame").style.top = 50 - walk + "px"
-                console.log(walk)
+                if (document.querySelector(".category-frame").style.top != "0px"){
+                    document.querySelector(".category-frame").style.top = 50 - walk + "px"
+                }
             }
         })
     }
