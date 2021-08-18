@@ -253,30 +253,35 @@ toggleHeader()
 
 function handleCategoryScroll() {
     if (document.querySelector(".category-frame")){
-        const categorySlide = document.querySelector(".category-frame")
         let isDown = false
         let startY, walk
+        let trueTouch = true
         document.addEventListener('touchstart', (e) => {
+            if (e.target.querySelector(".category-slidebar") || e.target.querySelector(".category-but") || e.target.querySelector(".category-item-name")){
+                trueTouch = false
+            }
             isDown = true
             startY = e.touches[0].clientY
         })
         document.addEventListener('touchcancel', () => {
             isDown = false
-            if (walk < -25){
-                categorySlide.style.top = "50px"
+            if (walk < -25 && trueTouch){
+                document.querySelector(".category-frame").style.top = "50px"
             }
-            else if (walk > 25){
-                categorySlide.style.top = "0px"
+            else if (walk > 25 && trueTouch){
+                document.querySelector(".category-frame").style.top = "0px"
             }
+            console.log(walk)
         })
         document.addEventListener('touchend', (e) => {
             isDown = false
-            if (walk < -25){
-                categorySlide.style.top = "50px"
+            if (walk < -25 && trueTouch){
+                document.querySelector(".category-frame").style.top = "50px"
             }
-            else if (walk > 25){
-                categorySlide.style.top = "0px"
+            else if (walk > 25 && trueTouch){
+                document.querySelector(".category-frame").style.top = "0px"
             }
+            console.log(walk)
         })
         document.addEventListener('touchmove', (e) => {
             if(!isDown) return 
@@ -284,14 +289,16 @@ function handleCategoryScroll() {
             walk = Math.round((startY - y) * 1)
             if (walk > 50) {walk = 50}
             else if (walk < -50){walk = -50}
-            if (walk < 0){
-                if (document.querySelector(".category-frame").style.top != "50px"){
-                    document.querySelector(".category-frame").style.top = -walk + "px"
+            if (trueTouch){
+                if (walk < 0){
+                    if (document.querySelector(".category-frame").style.top != "50px"){
+                        document.querySelector(".category-frame").style.top = -walk + "px"
+                    }
                 }
-            }
-            else {
-                if (document.querySelector(".category-frame").style.top != "0px"){
-                    document.querySelector(".category-frame").style.top = 50 - walk + "px"
+                else {
+                    if (document.querySelector(".category-frame").style.top != "0px"){
+                        document.querySelector(".category-frame").style.top = 50 - walk + "px"
+                    }
                 }
             }
         })
@@ -1563,30 +1570,32 @@ function handleMainInfo(){
                     if (document.querySelector(".loading-frame")){
                         document.querySelector(".loading-frame").remove()
                     }
-                    document.querySelector(".follow-suggestion-content").innerHTML = ''
-                    if (res.topSuggestion.length == 0){
-                        document.querySelector(".follow-suggestion-content").innerHTML = '<div class="mg-t"><span class="pd-l">Oops! Không có ai ở đây!</span></div>'
-                    }
-                    else {
-                        for (let i = 0; i < res.topSuggestion.length; i++){
-                            document.querySelector(".follow-suggestion-content").insertAdjacentHTML('beforeend', `<div class="follow-hint"><a class="avt none-deco d-flex d-flex-start nav-red" nav-data='personal' data-user-df="${res.profileSuggestion[i].nickname}">
-                            ${(()=>{if (res.profileSuggestion[i].avatar.includes("http")) {return `
-                            <img src="${res.profileSuggestion[i].avatar}">                            
-                            `}
-                            else {return `
-                            <img src="https://cdn.fodance.com/fd-media/${res.profileSuggestion[i].avatar}">                            
-                            `}})()}<div class="d-flex-col-start"><span class="avt-username" data-user-df="${res.profileSuggestion[i].nickname}">${res.userSuggestion[i]}</span><span class="avt-nickname">${res.profileSuggestion[i].nickname}</span></div></a><button class="follow-but" data-following="false"><span class="follow-text">Theo dõi</span></button></div>`)
-                        }   
-                        replaceLinkName()
-                        handleNavigation()
-                        document.querySelectorAll(".follow-but").forEach(function(e){
-                            if (e.parentNode.querySelector(".avt-username")){
-                                handleFollow(e, e.parentNode, e.parentNode.querySelector(".avt-username").textContent)
-                            }
-                            else if (e.parentNode.parentNode.querySelector(".avatar-username")){
-                                handleFollow(e, e.parentNode.parentNode, e.parentNode.parentNode.querySelector(".avatar-username").textContent)
-                            }
-                        })
+                    if (document.querySelector(".follow-suggestion-content")){
+                        document.querySelector(".follow-suggestion-content").innerHTML = ''
+                        if (res.topSuggestion.length == 0){
+                            document.querySelector(".follow-suggestion-content").innerHTML = '<div class="mg-t"><span class="pd-l">Oops! Không có ai ở đây!</span></div>'
+                        }
+                        else {
+                            for (let i = 0; i < res.topSuggestion.length; i++){
+                                document.querySelector(".follow-suggestion-content").insertAdjacentHTML('beforeend', `<div class="follow-hint"><a class="avt none-deco d-flex d-flex-start nav-red" nav-data='personal' data-user-df="${res.profileSuggestion[i].nickname}">
+                                ${(()=>{if (res.profileSuggestion[i].avatar.includes("http")) {return `
+                                <img src="${res.profileSuggestion[i].avatar}">                            
+                                `}
+                                else {return `
+                                <img src="https://cdn.fodance.com/fd-media/${res.profileSuggestion[i].avatar}">                            
+                                `}})()}<div class="d-flex-col-start"><span class="avt-username" data-user-df="${res.profileSuggestion[i].nickname}">${res.userSuggestion[i]}</span><span class="avt-nickname">${res.profileSuggestion[i].nickname}</span></div></a><button class="follow-but" data-following="false"><span class="follow-text">Theo dõi</span></button></div>`)
+                            }   
+                            replaceLinkName()
+                            handleNavigation()
+                            document.querySelectorAll(".follow-but").forEach(function(e){
+                                if (e.parentNode.querySelector(".avt-username")){
+                                    handleFollow(e, e.parentNode, e.parentNode.querySelector(".avt-username").textContent)
+                                }
+                                else if (e.parentNode.parentNode.querySelector(".avatar-username")){
+                                    handleFollow(e, e.parentNode.parentNode, e.parentNode.parentNode.querySelector(".avatar-username").textContent)
+                                }
+                            })
+                        }
                     }
                 }
             }
