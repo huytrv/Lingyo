@@ -4011,7 +4011,7 @@ function handleMainFrame(){
                 lottie()
             }
             else {
-                document.querySelector(".loading-post").innerHTML = `<div class="no-post-text">Oops! Chưa có ai tham gia ở ${cname}!</div><div class="no-post-lottie"></div><button class="create-post-but" data-create-but="layout">Be The First!</button>`
+                document.querySelector(".loading-post").innerHTML = `<div class="no-post-text">Oops! Mọi người đang chuẩn bị ở ${cname}!</div><div class="no-post-lottie"></div><button class="create-post-but" data-create-but="layout">Tham dự!</button>`
                 lottie()
             }
         }
