@@ -254,14 +254,16 @@ toggleHeader()
 function handleCategoryScroll() {
     if (document.querySelector(".category-frame")){
         let isDown = false
-        let startY, walk
+        let startY = 0, walk = 0
         let trueTouch = true
         document.addEventListener('touchstart', (e) => {
+            startY = 0, walk = 0
             if (e.target.querySelector(".category-slidebar") || e.target.querySelector(".category-but") || e.target.querySelector(".category-item-name")){
                 trueTouch = false
             }
             isDown = true
             startY = e.touches[0].clientY
+            console.log(trueTouch)
         })
         document.addEventListener('touchcancel', () => {
             isDown = false
@@ -271,7 +273,8 @@ function handleCategoryScroll() {
             else if (walk > 25 && trueTouch){
                 document.querySelector(".category-frame").style.top = "0px"
             }
-            console.log(walk)
+            walk = 0
+            trueTouch = true
         })
         document.addEventListener('touchend', (e) => {
             isDown = false
@@ -281,29 +284,31 @@ function handleCategoryScroll() {
             else if (walk > 25 && trueTouch){
                 document.querySelector(".category-frame").style.top = "0px"
             }
-            console.log(walk)
+            walk = 0
+            trueTouch = true
         })
         document.addEventListener('touchmove', (e) => {
             if(!isDown) return 
             const y = e.touches[0].clientY
+            const oldWalk = walk
+            let count = oldWalk
             walk = Math.round((startY - y) * 1)
-            let count = 0
             if (walk > 50) {walk = 50}
             else if (walk < -50){walk = -50}
             document.querySelector(".category-frame").style.scrollBehavior = 'smooth'
-            if (trueTouch){
+            if (trueTouch && oldWalk != walk){
                 if (walk < 0){
                     if (document.querySelector(".category-frame").style.top != "50px"){
-                        for(let i = 0; i > walk; i--){
-                            count ++
-                            document.querySelector(".category-frame").style.top = count + "px"
+                        for(let i = oldWalk; i > walk; i--){
+                            count --
+                            document.querySelector(".category-frame").style.top = -count + "px"
                             console.log(document.querySelector(".category-frame").style.top)
                         }
                     }
                 }
                 else {
                     if (document.querySelector(".category-frame").style.top != "0px"){
-                        for(let i = 0; i < walk; i++){
+                        for(let i = oldWalk; i < walk; i++){
                             count ++
                             document.querySelector(".category-frame").style.top = 50 - count + "px"
                             console.log(document.querySelector(".category-frame").style.top)
@@ -4064,7 +4069,7 @@ function handleScroll(){
             }
             let contentHeight = main.offsetHeight
             let y = Math.ceil(window.pageYOffset) + window.innerHeight
-            if (document.querySelector(".loading-post") && document.querySelector(".no-post-text").textContent != ''){
+            if (document.querySelector(".loading-post") && document.querySelector(".no-post-text") && document.querySelector(".no-post-text").textContent != ''){
                 stopScrollPage = 1
             }
             else {
