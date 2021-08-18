@@ -262,19 +262,19 @@ function handleCategoryScroll() {
         })
         document.addEventListener('touchcancel', () => {
             isDown = false
-            if (walk < -30){
+            if (walk < -25){
                 categorySlide.style.top = "50px"
             }
-            else if (walk > 30){
+            else if (walk > 25){
                 categorySlide.style.top = "0px"
             }
         })
         document.addEventListener('touchend', (e) => {
             isDown = false
-            if (walk < -30){
+            if (walk < -25){
                 categorySlide.style.top = "50px"
             }
-            else if (walk > 30){
+            else if (walk > 25){
                 categorySlide.style.top = "0px"
             }
         })
