@@ -299,20 +299,22 @@ function handleCategoryScroll() {
             if (trueTouch && oldWalk != walk){
                 if (walk < 0){
                     if (document.querySelector(".category-frame").style.top != "50px"){
-                        for(let i = oldWalk; i > walk; i--){
-                            count --
-                            document.querySelector(".category-frame").style.top = -count + "px"
-                            console.log(document.querySelector(".category-frame").style.top)
-                        }
+                        // for(let i = oldWalk; i > walk; i--){
+                        //     count --
+                        //     document.querySelector(".category-frame").style.top = -count + "px"
+                        //     console.log(document.querySelector(".category-frame").style.top)
+                        // }
+                        document.querySelector(".category-frame").style.top =  "50px"
                     }
                 }
                 else {
                     if (document.querySelector(".category-frame").style.top != "0px"){
-                        for(let i = oldWalk; i < walk; i++){
-                            count ++
-                            document.querySelector(".category-frame").style.top = 50 - count + "px"
-                            console.log(document.querySelector(".category-frame").style.top)
-                        }
+                        // for(let i = oldWalk; i < walk; i++){
+                        //     count ++
+                        //     document.querySelector(".category-frame").style.top = 50 - count + "px"
+                        //     console.log(document.querySelector(".category-frame").style.top)
+                        // }
+                        document.querySelector(".category-frame").style.top =  "0px"
                     }
                 }
             }

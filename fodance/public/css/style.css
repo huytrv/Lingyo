@@ -2659,6 +2659,7 @@ input:checked + .slider:before {
   z-index: 1000;
   height: 45px;
   scroll-behavior: smooth;
+  transition: 0.3s;
 }
 
 .category {
