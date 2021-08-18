@@ -911,6 +911,7 @@ video {
 
 .main-frame-post-inner-personal {
   width: 100%;
+  margin-top: 0;
 }
 
 .post-section {
@@ -3918,6 +3919,8 @@ input[type=radio] {
   min-height: 550px;
   margin: 0;
   overflow-y: hidden;
+  animation-name: animate-modal-up;
+  animation-duration: 0.3s;
 }
 
 .create-post-modal-content {
@@ -4712,134 +4715,6 @@ input[type='range']::-ms-fill-lower {
 
 .full-height {
   min-height: auto !important;
-}
-
-.loading-post {
-  width: 100%;
-  background-color: white;
-  padding: 20px 50px;
-  margin-bottom: 10px;
-  border-radius: 0;
-  box-shadow: 0 0 5px 1px rgb(230, 233, 235);
-  text-align: center;
-  margin-top: 10px;
-}
-
-.loading-post .create-post-but {
-  border: none;
-  background-color: transparent;
-  color: #009de6;
-  text-decoration: underline;
-}
-
-.loading-post-line {
-  background-color: whitesmoke;
-  background: linear-gradient(to right, rgb(230, 230, 230) 20%, rgb(245, 245, 245) 50%);
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: all .5s ease-out;
-  animation-name: loading;
-  animation-duration: 0.8s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  border-radius: 20px;
-  padding: 5px
-}
-
-.loading-post-circle {
-  background-color: rgb(226, 226, 226);
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-}
-
-.loading-content {
-  margin-bottom: 80px;
-}
-
-.post-create-down {
-  animation-name: animate-post-down;
-  animation-duration: 0.3s;
-}
-
-.post-remove-up {
-  animation-name: animate-post-up;
-  animation-duration: 0.2s;
-}
-
-.shake-content {
-  animation-name: animate-shake;
-  animation-duration: 0.2s;
-}
-
-@keyframes down {
-  0% {top: 0}
-  100% {top: 48px}
-}
-
-@keyframes loading {
-  from {
-     background-position: right bottom;
-  }
-  to {
-     background-position: left bottom;
-  }
-}
-
-@keyframes animate-post-down {
-  from {
-    margin-top: -100px;
-    opacity: 0;
-  }
-  to {
-    margin-top: 0.5;
-    opacity: 1;
-  }
-}
-
-@keyframes animate-post-up {
-  from {
-    margin-top: 0.5;
-    opacity: 1;
-  }
-  to {
-    margin-top: -100px;
-    opacity: 0;
-  }
-}
-
-@keyframes animate-shake {
-  0%, 100%{
-    margin-left: 0;
-  }
-
-  10% {
-    margin-left: 5px;
-  }
-
-  30% {
-    margin-left: 10px;
-  }
-
-  45% {
-    margin-left: 15px;
-  }
-
-  60% {
-    margin-left: 10px;
-  }
-
-  70% {
-    margin-left: 5px;
-  }
-
-  80% {
-    margin-left: 0;
-  }
-
-  90% {
-    margin-left: 5px;
-  }
 }
 
 .avt-header {
@@ -5661,6 +5536,70 @@ tbody {
   left: 20px;
 }
 
+.loading-post {
+  width: 100%;
+  background-color: white;
+  padding: 20px 50px;
+  margin-bottom: 10px;
+  border-radius: 0;
+  box-shadow: 0 0 5px 1px rgb(230, 233, 235);
+  text-align: center;
+  margin-top: 10px;
+}
+
+.loading-post .create-post-but {
+  border: none;
+  background-color: transparent;
+  color: #009de6;
+  text-decoration: underline;
+}
+
+.loading-post-line {
+  background-color: whitesmoke;
+  background: linear-gradient(to right, rgb(230, 230, 230) 20%, rgb(245, 245, 245) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all .5s ease-out;
+  animation-name: loading;
+  animation-duration: 0.8s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  border-radius: 20px;
+  padding: 5px
+}
+
+.loading-post-circle {
+  background-color: rgb(226, 226, 226);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+.loading-content {
+  margin-bottom: 80px;
+}
+
+.post-create-down {
+  animation-name: animate-post-down;
+  animation-duration: 0.3s;
+}
+
+.post-remove-up {
+  animation-name: animate-post-up;
+  animation-duration: 0.5s;
+}
+
+.shake-content {
+  animation-name: animate-shake;
+  animation-duration: 0.2s;
+}
+
+.modal-remove-down {
+  animation-name: animate-modal-down;
+  animation-duration: 0.3s;
+  transition: margin-top 0.3s;
+}
+
 @media screen and (min-width: 1824px) {
   .header {
     height: 55px;
@@ -6066,7 +6005,7 @@ tbody {
   }
 
   .comment-textarea, .comment-emoji {
-    background-color: white;
+    background-color: rgb(250, 250, 250);
   }
 
   .dropdown-icon {
@@ -6347,5 +6286,85 @@ tbody {
 @media screen and (max-width: 500px) {
   .final-reward .top-reward-frame:first-child {
     width: 51%;
+  }
+}
+
+@keyframes down {
+  0% {top: 0}
+  100% {top: 48px}
+}
+
+@keyframes animate-modal-up {
+  0% {top: 100%}
+  100% {top: 0%}
+}
+
+@keyframes animate-modal-down {
+  0% {top: 0%; opacity: 0;}
+  100% {top: 100%; opacity: 1;}
+}
+
+@keyframes loading {
+  from {
+     background-position: right bottom;
+  }
+  to {
+     background-position: left bottom;
+  }
+}
+
+@keyframes animate-post-down {
+  from {
+    margin-top: -100px;
+    opacity: 0;
+  }
+  to {
+    margin-top: 0.5;
+    opacity: 1;
+  }
+}
+
+@keyframes animate-post-up {
+  from {
+    margin-top: 0.5;
+    opacity: 1;
+  }
+  to {
+    margin-top: -100px;
+    opacity: 0;
+  }
+}
+
+@keyframes animate-shake {
+  0%, 100%{
+    margin-left: 0;
+  }
+
+  10% {
+    margin-left: 5px;
+  }
+
+  30% {
+    margin-left: 10px;
+  }
+
+  45% {
+    margin-left: 15px;
+  }
+
+  60% {
+    margin-left: 10px;
+  }
+
+  70% {
+    margin-left: 5px;
+  }
+
+  80% {
+    margin-left: 0;
+  }
+
+  90% {
+    margin-left: 5px;
   }
 }

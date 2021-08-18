@@ -1746,7 +1746,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 if (!Array.isArray(files)) {
                     files = [files]
                 }
-                if (files){
+                if (f.file){
                     for (let i = 0; i < files.length; i++){
                         if (files[i].type.includes("video") && files.length > 1) {fileValid = false}
                         const reg = /image\/jpeg|image\/jpg|image\/png|image\/gif|video\/mp4|video\/webm|video\/flv|video\/mov|video\/wmv|video\/avi/gi;
@@ -1769,7 +1769,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     userId: req.user.userId
                                 }
                             }).then(function(profile){
-                                if ((competition && f.file.type.includes("video")) || (cateList.includes(category) && f.file.type.includes("video")) || !cateList.includes(category)){
+                                if ((competition && f.file && f.file.type.includes("video")) || (!competition && !cateList.includes(category) && !f.file)){
                                     if (rank == "primary" || rank == "intermediate" || rank == "highgrade" || rank == ''){
                                         if (cateList.includes(category) || category == ''){
                                             if ((category != '' && rank != '') || category == ''){

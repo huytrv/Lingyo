@@ -349,11 +349,8 @@ function handleMobileResponse() {
         if (creatorMobile && !document.querySelector(".mobile-creator")){
             document.querySelector(".mobile-creator-frame").innerHTML = creatorMobile
         }
-        handleCreatePost()
-        handleNavigation()
-        handleRankHeader()
-        handleToggle()
         document.querySelector(".main").style.paddingBottom = "55px"
+        document.querySelector(".category-frame").style.height = "0px"
         document.querySelectorAll("input[data-plyr='volume']").forEach(function(e){
             e.remove()
         })
@@ -380,6 +377,11 @@ function handleMobileResponse() {
             }
         }
 
+        handleCreatePost()
+        handleNavigation()
+        handleRankHeader()
+        handleToggle()
+
         for (let i = 0; i < cateList.length; i++){
             if (cateLinkTitle == cateList[i] && (navLink == "competition" || cateList.includes(window.location.pathname.replace('/', '')))){
                 if (roundType == "final"){
@@ -391,33 +393,11 @@ function handleMobileResponse() {
             }
         }
         if(!document.querySelector(".category-slidebar")){
-            // if (document.querySelector(".header")){
-            //     document.querySelector(".header").innerHTML = headerContentText
-            // }
             if (document.querySelector(".category")){
                 document.querySelector(".category").remove()
-                document.querySelector(".category-frame").style.height = "0"
             }
-            else {
-                // document.querySelector(".main-inner").style.marginTop = "5px"
-            }
-            // document.querySelector(".main").style.paddingTop = "-48px"
-        } else {
-            // document.querySelector(".main-inner").style.marginTop = "0"
-            // document.querySelector(".main").style.paddingTop = "0"
-            // document.querySelector(".category").style.top = "0"
-            // if (!document.querySelector(".category")){
-            //     document.querySelector(".category").innerHTML = categoryContentText
-            // }
-            // if (document.querySelector(".header")){
-            //     document.querySelector(".header").remove()
-            // }
-            // if (!document.querySelector(".bg-music")){
-            //     document.querySelector(".category").insertAdjacentHTML('afterbegin', '<div class="return-but"><span class="iconify" data-icon="heroicons-outline:arrow-left" data-inline="false"></span></div>')
-            // }
-            // document.querySelector(".main").style.paddingTop = "0"
-            
         }
+        
         // let prevScrollpos = window.pageYOffset
         // window.addEventListener('scroll', function() {
         //     let currentScrollPos = window.pageYOffset
@@ -471,7 +451,10 @@ function handleMobileResponse() {
 
         if (document.querySelector(".return-but") && !document.querySelector(".return-but").classList.contains("close-view-post-modal")){
             document.querySelector(".return-but").onclick = function(){
-                window.history.back()
+                this.parentNode.parentNode.classList.add("modal-remove-down")
+                this.parentNode.parentNode.onanimationend = function () {
+                    window.history.back()
+                }
             }
         }
     }
@@ -500,6 +483,7 @@ function handleMobileResponse() {
         if (categoryInfo != '' && document.querySelector(".category-frame") && !document.querySelector(".category")){
             document.querySelector(".category-frame").innerHTML = categoryInfo
         }
+        document.querySelector(".category-frame").style.height = "45px"
     }
 
     if(!document.querySelector(".category")){
@@ -694,7 +678,10 @@ function starRedirect(c, pushState){
 
             document.querySelector(".submit-card").onclick = function(){
                 if (document.querySelector(".bank-name").value != '' && document.querySelector(".card-number").value != ''){
-                    window.history.back()
+                    this.parentNode.parentNode.classList.add("modal-remove-down")
+                    this.parentNode.parentNode.onanimationend = function () {
+                        window.history.back()
+                    }
                     let xhttp
                     if (window.XMLHttpRequest) {
                         xhttp = new XMLHttpRequest()
@@ -735,12 +722,18 @@ function starRedirect(c, pushState){
 
             const modal = document.querySelector(".payment-modal")
             document.querySelector(".close-edit-modal").onclick = function(){
-                window.history.back()
+                this.parentNode.parentNode.classList.add("modal-remove-down")
+                this.parentNode.parentNode.onanimationend = function () {
+                    window.history.back()
+                }
             }
 
             window.onclick = function(e){
                 if (e.target == modal){
-                    window.history.back()
+                    this.parentNode.parentNode.classList.add("modal-remove-down")
+                    this.parentNode.parentNode.onanimationend = function () {
+                        window.history.back()
+                    }                
                 }
             }
         }
@@ -799,12 +792,18 @@ function paymentRedirect(c, pushState){
 
     const modal = document.querySelector(".payment-modal")
     document.querySelector(".close-edit-modal").onclick = function(){
-        window.history.back()
+        this.parentNode.parentNode.classList.add("modal-remove-down")
+        this.parentNode.parentNode.onanimationend = function () {
+            window.history.back()
+        }
     }
 
     window.onclick = function(e){
         if (e.target == modal){
-            window.history.back()
+            this.parentNode.parentNode.classList.add("modal-remove-down")
+            this.parentNode.parentNode.onanimationend = function () {
+                window.history.back()
+            }
         }
     }
 }
@@ -1928,7 +1927,7 @@ function createPostRedirect(c, pushState){
     if (window.innerWidth <= 662){
         isMobile = true
     }
-    document.querySelector(".create-post-handler").innerHTML = `<div class='modal create-post-modal'>
+    document.querySelectorAll(".create-post-handler")[document.querySelectorAll(".create-post-handler").length - 1].innerHTML = `<div class='modal create-post-modal'>
         <form action='/' method='POST' enctype='multipart/form-data' class='modal-content create-post-modal-content'>
             <div class='group-title d-flex border-b'>
             ${(()=>{if (c.getAttribute("data-create-but") == "layout") {return '<span>Tạo bài viết</span>'} else {if (cateLink == '') {return `<span>Tạo bài viết</span>`} else {return `<span>Tạo ${cateName}</span>`}}})()}
@@ -2016,19 +2015,22 @@ function createPostRedirect(c, pushState){
     }
     const modal = document.querySelector(".create-post-modal")
     document.querySelector(".close-post-modal").onclick = function(){
-        window.history.back()
-        if (document.querySelector(".left-nav")){
-            document.querySelector(".left-nav").style.zIndex = 1000
-        }
-        if (document.querySelector(".header")){
-            document.querySelector(".header").style.zIndex = 2000
-        }
         cateLinkPost = rankLinkPost = ''
         document.querySelectorAll(".create-post-category-but").forEach(function(e){
             if (e.classList.contains("create-post-category-but-active")){
                 e.classList.remove("create-post-category-but-active")
             }
         })
+        this.parentNode.parentNode.classList.add("modal-remove-down")
+        this.parentNode.parentNode.onanimationend = function () {
+            window.history.back()
+            if (document.querySelector(".left-nav")){
+                document.querySelector(".left-nav").style.zIndex = 1000
+            }
+            if (document.querySelector(".header")){
+                document.querySelector(".header").style.zIndex = 2000
+            }
+        }
     }
 
     const createPostCateBut = document.querySelectorAll(".create-post-category-but")
@@ -2257,7 +2259,7 @@ function createPostRedirect(c, pushState){
                                         }
                                         fileCate = fileCounter = 0
                                         arrayFile = []
-                                        document.querySelector(".create-post-content").style.height = "16rem"
+                                        document.querySelector(".create-post-content").style.height = "12rem"
                                     }
                                 }
                             }
@@ -2302,7 +2304,7 @@ function createPostRedirect(c, pushState){
                         document.querySelector(".thumb-content").classList.remove("thumb-3-files")
                         document.querySelector(".thumb-content").classList.remove("thumb-4-files")
                         document.querySelector(".file-upload").value = null
-                        document.querySelector(".create-post-content").style.height = "16rem"
+                        document.querySelector(".create-post-content").style.height = "12rem"
                         fileCate = fileValid = fileCounter = 0
                         arrayFile = []
                     }
@@ -2315,18 +2317,24 @@ function createPostRedirect(c, pushState){
     if (document.querySelectorAll(".submit-but").length != 0){
         document.querySelector(".submit-but").onclick = function(){
             const postiton = document.querySelector(".submit-but").getAttribute("data-submit-but")
-            if (document.querySelector(".left-nav")){
-                document.querySelector(".left-nav").style.zIndex = 1000
-            }
-            if (document.querySelector(".header")){
-                document.querySelector(".header").style.zIndex = 2000
-            }
             const description = document.querySelector(".create-post-textarea").value.trim()
-            window.history.back()
+            this.parentNode.parentNode.classList.add("modal-remove-down")
+            this.parentNode.parentNode.onanimationend = function () {
+                window.history.back()
+                if (document.querySelector(".left-nav")){
+                    document.querySelector(".left-nav").style.zIndex = 1000
+                }
+                if (document.querySelector(".header")){
+                    document.querySelector(".header").style.zIndex = 2000
+                }
+            }
             if ((description == '' || description.length > 1000) && arrayFile.length == 0) {
-                showAlert("Hãy nhập nội dung bài viết!")
+                showAlert("Hãy nhập nội dung ngắn cho bài viết!")
             } 
-            else if (arrayFile.length != 0 && !arrayFile[0].type.includes("video") && cateLink != 'competition'){
+            else if (arrayFile.length == 0 && cateLink != 'community'){
+                showAlert("Hãy chọn một video cho Thể loại!")
+            }
+            else if (arrayFile.length != 0 && !arrayFile[0].type.includes("video") && cateLink != 'community'){
                 showAlert("Hãy chọn một video cho Thể loại!")
             }
             else {
@@ -3112,7 +3120,10 @@ function viewPostRedirect(t, post, pushState){
         slideMedia()
         
         document.querySelector(".close-view-post-modal").onclick = function(){  
-            window.history.back()
+            this.parentNode.parentNode.classList.add("modal-remove-down")
+                this.parentNode.parentNode.onanimationend = function () {
+                    window.history.back()
+                }
         }
         function expandPost(){
             if (document.querySelector(".expand-view-post-modal")){
@@ -4178,6 +4189,7 @@ function handleNavigation(){
         }
         if (document.querySelector(".mobile-creator")){
             document.querySelector(".mobile-creator").style.display = "flex"
+            handleCreatePost()
         }
         if (interval){clearInterval(interval)}
         if (document.querySelector(".title-content")){
@@ -4759,7 +4771,10 @@ function editProfileRedirect(editBut, pushState){
             if (document.querySelector(".mobile-creator")){
                 document.querySelector(".mobile-creator").style.zIndex = "1000"
             }
-            window.history.back()
+            this.parentNode.parentNode.classList.add("modal-remove-down")
+                this.parentNode.parentNode.onanimationend = function () {
+                    window.history.back()
+                }
         }
         if (document.querySelector(".change-profile")){
             document.querySelector(".save-edit-profile").onclick = function(){
@@ -4776,7 +4791,10 @@ function editProfileRedirect(editBut, pushState){
                 else {
                     birthday = null
                 }
-                window.history.back()
+                this.parentNode.parentNode.classList.add("modal-remove-down")
+                this.parentNode.parentNode.onanimationend = function () {
+                    window.history.back()
+                }
                 let xhttp
                 if (window.XMLHttpRequest) {
                     xhttp = new XMLHttpRequest()
@@ -5000,7 +5018,10 @@ function editProfileRedirect(editBut, pushState){
     
                             document.querySelector(".save-edit-avt").onclick = function(){
                                 document.querySelector(".avt-crop-modal").remove()
-                                window.history.back()
+                                this.parentNode.parentNode.classList.add("modal-remove-down")
+                                this.parentNode.parentNode.onanimationend = function () {
+                                    window.history.back()
+                                }
                                 let xhttp
                                 if (window.XMLHttpRequest) {
                                     xhttp = new XMLHttpRequest()
@@ -5232,7 +5253,10 @@ function editProfileRedirect(editBut, pushState){
                             }
                             document.querySelector(".save-edit-avt").onclick = function(){
                                 document.querySelector(".avt-crop-modal").remove()
-                                window.history.back()
+                                this.parentNode.parentNode.classList.add("modal-remove-down")
+                                this.parentNode.parentNode.onanimationend = function () {
+                                    window.history.back()
+                                }
                                 let xhttp
                                 if (window.XMLHttpRequest) {
                                     xhttp = new XMLHttpRequest()
@@ -5429,7 +5453,10 @@ function viewMediaRedirect(e, media, pushState){
     }
 
     document.querySelector(".close-view-post-modal").onclick = function(){  
-        window.history.back()
+        this.parentNode.parentNode.classList.add("modal-remove-down")
+        this.parentNode.parentNode.onanimationend = function () {
+            window.history.back()
+        }
     }
 }
 
