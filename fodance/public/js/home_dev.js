@@ -297,6 +297,7 @@ function handleCategoryScroll() {
                         for(let i = 0; i > walk; i--){
                             count ++
                             document.querySelector(".category-frame").style.top = count + "px"
+                            console.log(document.querySelector(".category-frame").style.top)
                         }
                     }
                 }
@@ -305,6 +306,7 @@ function handleCategoryScroll() {
                         for(let i = 0; i < walk; i++){
                             count ++
                             document.querySelector(".category-frame").style.top = 50 - count + "px"
+                            console.log(document.querySelector(".category-frame").style.top)
                         }
                     }
                 }

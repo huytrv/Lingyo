@@ -2675,7 +2675,7 @@ input:checked + .slider:before {
   height: 45px;
   /* border-bottom: 1px solid rgb(235, 235, 235); */
   margin-bottom: 10px;
-  box-shadow: 0 2px 3px 1px rgb(230, 230, 230);
+  box-shadow: 0 2px 3px 1px rgb(235, 235, 235);
   transition: 0.3s;
 }
 
