@@ -287,18 +287,25 @@ function handleCategoryScroll() {
             if(!isDown) return 
             const y = e.touches[0].clientY
             walk = Math.round((startY - y) * 1)
+            let count = 0
             if (walk > 50) {walk = 50}
             else if (walk < -50){walk = -50}
             document.querySelector(".category-frame").style.scrollBehavior = 'smooth'
             if (trueTouch){
                 if (walk < 0){
                     if (document.querySelector(".category-frame").style.top != "50px"){
-                        document.querySelector(".category-frame").style.top = -walk + "px"
+                        for(let i = 0; i > walk; i--){
+                            count ++
+                            document.querySelector(".category-frame").style.top = count + "px"
+                        }
                     }
                 }
                 else {
                     if (document.querySelector(".category-frame").style.top != "0px"){
-                        document.querySelector(".category-frame").style.top = 50 - walk + "px"
+                        for(let i = 0; i < walk; i++){
+                            count ++
+                            document.querySelector(".category-frame").style.top = 50 - count + "px"
+                        }
                     }
                 }
             }
@@ -4483,7 +4490,6 @@ function handleNavigation(){
                             handleMainFrame()
                             handleNavigation()
                             handleRankPostCount()
-                            // handleCategoryScroll()
                         }    
                     }
                     xhttp.open("GET", '/competition' + '?rank=' + rankLink, true)
@@ -4582,7 +4588,6 @@ function handleNavigation(){
                     handleMainFrame()
                     handleNavigation()
                     handleRankPostCount()
-                    // handleCategoryScroll()
                 }
             }
         }
