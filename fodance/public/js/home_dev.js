@@ -383,6 +383,8 @@ function handleMobileResponse() {
         handleNavigation()
         handleRankHeader()
         handleToggle()
+        handlePayment()
+        handleStars()
 
         for (let i = 0; i < cateList.length; i++){
             if (cateLinkTitle == cateList[i] && (navLink == "competition" || cateList.includes(window.location.pathname.replace('/', '')))){
@@ -541,6 +543,8 @@ function handleMobileResponse() {
     handleCreatePost()
     handleToggle()
     handleSetting()
+    handlePayment()
+    handleStars()
 }
 handleMobileResponse()
 
@@ -724,16 +728,16 @@ function starRedirect(c, pushState){
 
             const modal = document.querySelector(".payment-modal")
             document.querySelector(".close-edit-modal").onclick = function(){
-                this.parentNode.parentNode.classList.add("modal-remove-down")
-                this.parentNode.parentNode.onanimationend = function () {
+                modal.querySelector(".modal-content").classList.add("modal-remove-down")
+                modal.querySelector(".modal-content").onanimationend = function () {
                     window.history.back()
                 }
             }
 
             window.onclick = function(e){
                 if (e.target == modal){
-                    this.parentNode.parentNode.classList.add("modal-remove-down")
-                    this.parentNode.parentNode.onanimationend = function () {
+                    modal.querySelector(".modal-content").classList.add("modal-remove-down")
+                    modal.querySelector(".modal-content").onanimationend = function () {
                         window.history.back()
                     }                
                 }
@@ -794,16 +798,16 @@ function paymentRedirect(c, pushState){
 
     const modal = document.querySelector(".payment-modal")
     document.querySelector(".close-edit-modal").onclick = function(){
-        this.parentNode.parentNode.classList.add("modal-remove-down")
-        this.parentNode.parentNode.onanimationend = function () {
+        modal.querySelector(".modal-content").classList.add("modal-remove-down")
+        modal.querySelector(".modal-content").onanimationend = function () {
             window.history.back()
         }
     }
 
     window.onclick = function(e){
         if (e.target == modal){
-            this.parentNode.parentNode.classList.add("modal-remove-down")
-            this.parentNode.parentNode.onanimationend = function () {
+            modal.querySelector(".modal-content").classList.add("modal-remove-down")
+            modal.querySelector(".modal-content").onanimationend = function () {
                 window.history.back()
             }
         }

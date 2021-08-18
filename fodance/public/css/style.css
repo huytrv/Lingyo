@@ -2607,7 +2607,7 @@ input:checked + .slider:before {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f1f2f5;
+  background-color: white;
   color: black;
   border: 1px solid #93bcc5;
   background-repeat: no-repeat; 
@@ -5899,6 +5899,10 @@ tbody {
     background-color: transparent;
     color: white;
   } */
+
+  .ticket-but {
+    background-color: #f1f2f5;
+  }
 
   .header-inner {
     display: flex;
