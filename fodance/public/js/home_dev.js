@@ -286,9 +286,10 @@ function handleCategoryScroll() {
         document.addEventListener('touchmove', (e) => {
             if(!isDown) return 
             const y = e.touches[0].clientY
-            walk = Math.round((startY - y) * 0.8)
+            walk = Math.round((startY - y) * 1)
             if (walk > 50) {walk = 50}
             else if (walk < -50){walk = -50}
+            document.querySelector(".category-frame").style.scrollBehavior = 'smooth'
             if (trueTouch){
                 if (walk < 0){
                     if (document.querySelector(".category-frame").style.top != "50px"){
