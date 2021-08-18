@@ -346,22 +346,24 @@ function handleMobileResponse() {
             // document.querySelector(".main").style.paddingTop = "0"
             
         }
-        // let prevScrollpos = window.pageYOffset
-        // window.addEventListener('scroll', function() {
-        //     let currentScrollPos = window.pageYOffset
-        //     if (document.querySelector(".bg-music")){
-        //         if (prevScrollpos > currentScrollPos) {
-        //             document.querySelector(".header").style.top = "0"
-        //             document.querySelector(".category").style.top = "48px"
-        //             document.querySelector(".main").style.paddingTop = "48px"
-        //         } else {
-        //             document.querySelector(".header").style.top = "-48px"
-        //             document.querySelector(".category").style.top = "0"
-        //             document.querySelector(".main").style.paddingTop = "0"
-        //         }
-        //     }
-        //     prevScrollpos = currentScrollPos
-        // })
+        let prevScrollpos = window.pageYOffset
+        window.addEventListener('scroll', function() {
+            let currentScrollPos = window.pageYOffset
+            // if (document.querySelector(".bg-music")){
+                if (prevScrollpos > currentScrollPos) {
+                    // document.querySelector(".header").style.top = "0"
+                    document.querySelector(".main").style.paddingTop = "48px"
+                    document.querySelector(".category-frame").style.top = "48px"
+                    document.querySelector(".category").style.top = "48px"
+                } else {
+                    // document.querySelector(".header").style.top = "-48px"
+                    document.querySelector(".main").style.paddingTop = "0"
+                    document.querySelector(".category-frame").style.top = "0"
+                    document.querySelector(".category").style.top = "0"
+                }
+            // }
+            prevScrollpos = currentScrollPos
+        })
         if (document.querySelector(".sidenav")){
             document.querySelector(".sidenav").style.width = "0";
             document.querySelector(".sidenav-frame").style.position = "relative"
@@ -3160,11 +3162,17 @@ function handleMainFrame(){
                     if (document.querySelector(".header")){
                         document.querySelector(".header").style.zIndex = "1000"
                     }
-                    if (document.querySelector(".category")){
-                        document.querySelector(".category").style.zIndex = "1000"
+                    if (document.querySelector(".category-frame")){
+                        document.querySelector(".category-frame").style.zIndex = "1000"
                     }
                     if (document.querySelector(".mobile-creator")){
                         document.querySelector(".mobile-creator").style.zIndex = "1000"
+                    }
+                    if (document.querySelector(".left-nav")){
+                        document.querySelector(".left-nav").style.zIndex = "1000"
+                    }
+                    if (document.querySelector(".main-frame-post-sort")){
+                        document.querySelector(".main-frame-post-sort").style.zIndex = "1000"
                     }
                 }
                 else {
@@ -3177,11 +3185,17 @@ function handleMainFrame(){
                     if (document.querySelector(".header")){
                         document.querySelector(".header").style.zIndex = "0"
                     }
-                    if (document.querySelector(".category")){
-                        document.querySelector(".category").style.zIndex = "0"
+                    if (document.querySelector(".category-frame")){
+                        document.querySelector(".category-frame").style.zIndex = "0"
                     }
                     if (document.querySelector(".mobile-creator")){
                         document.querySelector(".mobile-creator").style.zIndex = "0"
+                    }
+                    if (document.querySelector(".left-nav")){
+                        document.querySelector(".left-nav").style.zIndex = "0"
+                    }
+                    if (document.querySelector(".main-frame-post-sort")){
+                        document.querySelector(".main-frame-post-sort").style.zIndex = "0"
                     }
                 }
             }
