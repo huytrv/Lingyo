@@ -350,7 +350,9 @@ function handleMobileResponse() {
             document.querySelector(".mobile-creator-frame").innerHTML = creatorMobile
         }
         document.querySelector(".main").style.paddingBottom = "55px"
-        document.querySelector(".category-frame").style.height = "0px"
+        if (!document.querySelector(".category-slidebar")){
+            document.querySelector(".category-frame").style.height = "0px"
+        }
         document.querySelectorAll("input[data-plyr='volume']").forEach(function(e){
             e.remove()
         })
@@ -2024,12 +2026,6 @@ function createPostRedirect(c, pushState){
         this.parentNode.parentNode.classList.add("modal-remove-down")
         this.parentNode.parentNode.onanimationend = function () {
             window.history.back()
-            if (document.querySelector(".left-nav")){
-                document.querySelector(".left-nav").style.zIndex = 1000
-            }
-            if (document.querySelector(".header")){
-                document.querySelector(".header").style.zIndex = 2000
-            }
         }
     }
 
@@ -2321,12 +2317,6 @@ function createPostRedirect(c, pushState){
             this.parentNode.parentNode.classList.add("modal-remove-down")
             this.parentNode.parentNode.onanimationend = function () {
                 window.history.back()
-                if (document.querySelector(".left-nav")){
-                    document.querySelector(".left-nav").style.zIndex = 1000
-                }
-                if (document.querySelector(".header")){
-                    document.querySelector(".header").style.zIndex = 2000
-                }
             }
             if ((description == '' || description.length > 1000) && arrayFile.length == 0) {
                 showAlert("Hãy nhập nội dung ngắn cho bài viết!")
@@ -4684,6 +4674,12 @@ function handleNavigation(){
                 }
             }
             document.querySelector(".modal").remove()
+            if (document.querySelector(".left-nav")){
+                document.querySelector(".left-nav").style.zIndex = 1000
+            }
+            if (document.querySelector(".header")){
+                document.querySelector(".header").style.zIndex = 2000
+            }
         }
         else {
             if (e.state !== null){
@@ -4747,7 +4743,7 @@ function editProfileRedirect(editBut, pushState){
         document.querySelector(".mobile-creator").style.zIndex = "1000"
     }
     if (document.querySelectorAll(".edit-profile").length == 0){
-        document.querySelector(".avatar-frame").insertAdjacentHTML('beforeend', `<div class="edit-profile modal"><div class="edit-profile-modal"><div class="modal-content edit-profile-modal-content"><div class="group-title d-flex">${(()=>{if (window.innerWidth <= 662){return `
+        document.querySelector(".avatar-frame").insertAdjacentHTML('beforeend', `<div class="edit-profile modal"><div class="modal edit-profile-modal"><div class="modal-content edit-profile-modal-content"><div class="group-title d-flex">${(()=>{if (window.innerWidth <= 662){return `
         <span class="font-size-lg-2">Chỉnh sửa hồ sơ</span>
         <div class="close-edit-modal return-but"><span class="iconify" data-icon="heroicons-outline:arrow-left" data-inline="false"></span></div>
     `}
@@ -4865,8 +4861,11 @@ function editProfileRedirect(editBut, pushState){
                             document.querySelector(".edit-profile").insertAdjacentHTML('beforeend', `<div class="modal avt-crop-modal"><div class="modal-content avt-crop-modal-content"><div class="group-title d-flex"><span>Ảnh hồ sơ</span><button class="close close-edit-avt-modal" type="button"><span class="iconify dropdown-icon" data-icon="feather:x" data-inline="false"></span></button><button class="next-but save-edit-avt" type="button">Áp dụng</button></div><div class="gradient-line"></div><div class="avt-preview"><div class="avt-frame"><div class="pos-avt"><div class="avt-canvas"></div></div><div class="crop-circle"></div></div></div><div class="d-flex mg-t-lg"><input type="range" min="0", max="100", value="0" class="input-zoom"><div class="output-zoom mg-l-sm">0</div></div><div>`)
                         }
                         document.querySelector(".close-edit-avt-modal").onclick = function(){
-                            document.querySelector(".avt-crop-modal").remove()
-                            document.querySelector(".avt-upload").value = null
+                            this.parentNode.parentNode.classList.add("modal-remove-down")
+                            this.parentNode.parentNode.onanimationend = function () {
+                                document.querySelector(".avt-crop-modal").remove()
+                                document.querySelector(".avt-upload").value = null
+                            }
                         }
                         const img = new Image()
                         const objectUrl = URL.createObjectURL(file)
@@ -5101,8 +5100,11 @@ function editProfileRedirect(editBut, pushState){
                             document.querySelector(".edit-profile").insertAdjacentHTML('beforeend', '<div class="modal avt-crop-modal"><div class="modal-content cover-crop-modal-content"><div class="group-title d-flex"><span>Cập nhật ảnh hồ sơ</span><button class="close close-edit-avt-modal" type="button"><span class="iconify dropdown-icon" data-icon="feather:x" data-inline="false"></span></button><button class="next-but save-edit-avt" type="button">Áp dụng</button></div><div class="gradient-line"></div><div class="avt-preview"><div class="avt-frame"><div class="pos-cover"><div class="avt-canvas"></div></div><div class="crop-frame"></div></div></div><div class="d-flex mg-t-lg"><input type="range" min="0", max="100", value="0" class="input-zoom"><div class="output-zoom mg-l-sm">0</div></div><div>')
                         }
                         document.querySelector(".close-edit-avt-modal").onclick = function(){
-                            document.querySelector(".avt-crop-modal").remove()
-                            document.querySelector(".cover-upload").value = null
+                            this.parentNode.parentNode.classList.add("modal-remove-down")
+                            this.parentNode.parentNode.onanimationend = function () {
+                                document.querySelector(".avt-crop-modal").remove()
+                                document.querySelector(".cover-upload").value = null
+                            }
                         }
                         const img = new Image()
                         const objectUrl = URL.createObjectURL(file)

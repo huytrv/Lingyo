@@ -5592,12 +5592,13 @@ tbody {
 .shake-content {
   animation-name: animate-shake;
   animation-duration: 0.2s;
+  animation-fill-mode: forwards;
 }
 
 .modal-remove-down {
   animation-name: animate-modal-down;
   animation-duration: 0.3s;
-  transition: margin-top 0.3s;
+  animation-fill-mode: forwards;
 }
 
 @media screen and (min-width: 1824px) {

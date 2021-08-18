@@ -100,7 +100,10 @@ const signupHandle = function(){
     document.querySelector('title').textContent = "Fodance - Mạng xã hội bình chọn"
     if (document.querySelectorAll(".login-redirect").length != 0){
         document.querySelector(".login-redirect").onclick = function(){
-            document.querySelector(".signup-container").innerHTML = ""
+            document.querySelector(".modal-content").classList.add("modal-remove-down")
+            document.querySelector(".modal-content").onanimationend = function () {
+                document.querySelector(".signup-container").innerHTML = ""
+            }
             history.pushState({
                 id: 'login'
             }, 'Fodance - Mạng xã hội bình chọn', 'https://fodance.com/login')
