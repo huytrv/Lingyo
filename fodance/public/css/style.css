@@ -3454,7 +3454,6 @@ img.thumb {
   background-color: white;
   border-radius: 20px;
   padding: 8px 10px;
-  font-weight: 500;
   justify-content: flex-start;
   color: rgb(70, 70, 70);
   cursor: pointer;
@@ -3482,7 +3481,7 @@ img.thumb {
 }
 
 .interactive-but span {
-  font-weight: normal;
+  font-weight: 500;
   font-size: 0.9rem;
   color: rgb(66, 66, 66);
 }
