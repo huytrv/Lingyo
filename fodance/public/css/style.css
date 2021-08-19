@@ -832,6 +832,10 @@ video {
   border-top: 1px solid rgb(236, 236, 236);
 }
 
+.main-forgot .main-inner {
+  margin-top: 0px;
+}
+
 .main-wrapper {
   display: flex;
   justify-content: center;
@@ -3581,7 +3585,6 @@ img.thumb {
   width: 100%;
   position: relative;
   padding: 20px 30px;
-  margin-top: 30px;
 }
 
 .login-model .logo {
