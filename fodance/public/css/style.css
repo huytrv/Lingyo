@@ -2072,7 +2072,7 @@ input:checked + .slider:before {
 }
 
 .seemore-follow, .seemore-media, .seemore-result {
-  font-weight: 500;
+  font-weight: normal;
   padding: 10px;
   cursor: pointer;
   color: rgb(56, 56, 56);
@@ -3481,8 +3481,8 @@ img.thumb {
 }
 
 .interactive-but span {
-  font-weight: normal;
-  font-size: 1rem;
+  font-weight: 500;
+  font-size: 13px;
   color: rgb(66, 66, 66);
 }
 
