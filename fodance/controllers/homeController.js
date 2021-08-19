@@ -3269,66 +3269,75 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         if (req.isAuthenticated()){
             req.session.tryTime = 0
             req.session.blockLogin = false
-            postLikes.findAll({
+            postLikes.findOne({
                 raw: true,
                 where: {
-                    postId: req.body.dataPostDf
+                    postId: req.body.dataPostDf,
+                    userId: req.user.userId
                 }
-            }).then(function(p){
-                let liked = false
-                for (let i = 0; i < p.length; i++){
-                    if (p[i].userId == req.user.userId) liked = true
-                }
-                if (req.body.liked) {
-                    if (!liked){
-                        postLikes.create({
-                            userId: req.user.userId,
-                            postId: req.body.dataPostDf
-                        })
-                        posts.increment('like', {by: 1, where: {postId: req.body.dataPostDf}}).then(function(){
-                            posts.findOne({
+            }).then(function(pLiked){
+                if (req.body.liked === true || req.body.liked === false){
+                    if (req.body.liked) {
+                        if (!pLiked){
+                            postLikes.create({
+                                userId: req.user.userId,
+                                postId: req.body.dataPostDf
+                            }).then(function () {
+                                posts.increment('like', {by: 1, where: {postId: req.body.dataPostDf}}).then(function(){
+                                    posts.findOne({
+                                        where: {
+                                            postId: req.body.dataPostDf,
+                                            auth: true
+                                        }
+                                    }).then(function(t){
+                                        const data = {
+                                            total: t.like,
+                                            postId: t.postId
+                                        }
+                                        res.json({
+                                            data: data
+                                        })
+                                    })
+                                })    
+                            })
+                        }
+                        else {
+                            res.end()
+                        }
+                    }
+                    else {
+                        if (pLiked){
+                            postLikes.destroy({
                                 where: {
-                                    postId: req.body.dataPostDf,
-                                    auth: true
+                                    userId: req.user.userId,
+                                    postId: req.body.dataPostDf
                                 }
-                            }).then(function(t){
-                                const data = {
-                                    total: t.like,
-                                    postId: t.postId
-                                }
-                                res.json({
-                                    data: data
+                            }).then(function () {
+                                posts.increment('like', {by: -1, where: {postId: req.body.dataPostDf}}).then(function(){
+                                    posts.findOne({
+                                        where: {
+                                            postId: req.body.dataPostDf,
+                                            auth: true
+                                        }
+                                    }).then(function(t){
+                                        const data = {
+                                            total: t.like,
+                                            postId: t.postId
+                                        }
+                                        res.json({
+                                            data: data
+                                        })
+                                    })
                                 })
                             })
-                        })
-                        
+                        }
+                        else {
+                            res.end()
+                        }
                     }
                 }
                 else {
-                    if (liked){
-                        postLikes.destroy({
-                            where: {
-                                userId: req.user.userId,
-                                postId: req.body.dataPostDf
-                            }
-                        })
-                        posts.increment('like', {by: -1, where: {postId: req.body.dataPostDf}}).then(function(){
-                            posts.findOne({
-                                where: {
-                                    postId: req.body.dataPostDf,
-                                    auth: true
-                                }
-                            }).then(function(t){
-                                const data = {
-                                    total: t.like,
-                                    postId: t.postId
-                                }
-                                res.json({
-                                    data: data
-                                })
-                            })
-                        })
-                    }
+                    res.end()
                 }
             })
         }
@@ -3748,6 +3757,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                         const data = {
                                                             user: req.user.userId,
                                                             cmts: cmts,
+                                                            likeTotal: cl.length,
                                                             cmtUsernames: cmtUsernames,
                                                             cmtNicknames: cmtNicknames,
                                                             cmtLiked: cmtLiked,
@@ -3845,6 +3855,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                 const data = {
                                                                     user: req.user.userId,
                                                                     cmts: cmts,
+                                                                    likeTotal: cl.length,
                                                                     cmtUsernames: cmtUsernames,
                                                                     cmtNicknames: cmtNicknames,
                                                                     cmtLiked: cmtLiked,
@@ -3873,21 +3884,28 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                             auth: true
                                                         }
                                                     }).then(function(p){
-                                                        const data = {
-                                                            user: req.user.userId,
-                                                            cmts: cmts,
-                                                            cmtUsernames: cmtUsernames,
-                                                            cmtNicknames: cmtNicknames,
-                                                            cmtLiked: cmtLiked,
-                                                            cmtAvts: cmtAvts,
-                                                            cmtTags: cmtTags,
-                                                            cmtTagNickname: cmtTagNickname,
-                                                            total: total,
-                                                            postUser: p.userId,
-                                                        }
-                                                        res.json({
-                                                            status: 'done',
-                                                            data: data
+                                                        commentLikes.findAll({
+                                                            where: {
+                                                                cmtId: cmts[i].cmtId
+                                                            }
+                                                        }).then(function(cl){
+                                                            const data = {
+                                                                user: req.user.userId,
+                                                                cmts: cmts,
+                                                                likeTotal: cl.length,
+                                                                cmtUsernames: cmtUsernames,
+                                                                cmtNicknames: cmtNicknames,
+                                                                cmtLiked: cmtLiked,
+                                                                cmtAvts: cmtAvts,
+                                                                cmtTags: cmtTags,
+                                                                cmtTagNickname: cmtTagNickname,
+                                                                total: total,
+                                                                postUser: p.userId,
+                                                            }
+                                                            res.json({
+                                                                status: 'done',
+                                                                data: data
+                                                            })
                                                         })
                                                     })
                                                 } 
@@ -3955,61 +3973,62 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         if (req.isAuthenticated()){
             req.session.tryTime = 0
             req.session.blockLogin = false
-            commentLikes.findAll({
-                raw: true,
-                where: {
-                    cmtId: req.body.dataCmtDf
-                }
-            }).then(function(cmt){
-                let liked = false
-                for (let i = 0; i < cmt.length; i++){
-                    if (cmt[i].userId == req.user.userId) liked = true
-                }
-                if (req.body.liked) {
-                    if (!liked){
-                        commentLikes.create({
-                            userId: req.user.userId,
-                            cmtId: req.body.dataCmtDf
-                        })
-                        comments.increment('like', {by: 1, where: {cmtId: req.body.dataCmtDf}}).then(function(){
-                            comments.findOne({
-                                where: {
-                                    cmtId: req.body.dataCmtDf
-                                }
-                            }).then(function(c){
-                                const data = {
-                                    total: c.like
-                                }
-                                res.json({
-                                    data: data
+            commentLikes.findOne({where: {
+                cmtId: req.body.dataCmtDf,
+                userId: req.user.userId
+            }}).then(function(like){
+                if (req.body.liked === true || req.body.liked === false){
+                    if (req.body.liked) {
+                        if (!like){
+                            commentLikes.create({
+                                userId: req.user.userId,
+                                cmtId: req.body.dataCmtDf
+                            }).then(function () {
+                                comments.increment('like', {by: 1, where: {cmtId: req.body.dataCmtDf}}).then(function(){
+                                    commentLikes.count({where: {cmtId: req.body.dataCmtDf}}).then(function(total){
+                                        console.log(total)
+                                        const data = {
+                                            total: total
+                                        }
+                                        res.json({
+                                            data: data
+                                        })
+                                    })
                                 })
                             })
-                        })
+                        }
+                        else {
+                            res.end()
+                        }
+                    }
+                    else {
+                        if (like){
+                            commentLikes.destroy({
+                                where: {
+                                    userId: req.user.userId,
+                                    cmtId: req.body.dataCmtDf
+                                }
+                            }).then(function () {
+                                comments.increment('like', {by: -1, where: {cmtId: req.body.dataCmtDf}}).then(function(){
+                                    commentLikes.count({where: {cmtId: req.body.dataCmtDf}}).then(function(total){
+                                        const data = {
+                                            total: total
+                                        }
+                                        console.log(total)
+                                        res.json({
+                                            data: data
+                                        })
+                                    })
+                                })
+                            })
+                        }
+                        else {
+                            res.end()
+                        }
                     }
                 }
                 else {
-                    if (liked){
-                        commentLikes.destroy({
-                            where: {
-                                userId: req.user.userId,
-                                cmtId: req.body.dataCmtDf
-                            }
-                        })
-                        comments.increment('like', {by: -1, where: {cmtId: req.body.dataCmtDf}}).then(function(){
-                            comments.findOne({
-                                where: {
-                                    cmtId: req.body.dataCmtDf
-                                }
-                            }).then(function(c){
-                                const data = {
-                                    total: c.like
-                                }
-                                res.json({
-                                    data: data
-                                })
-                            })
-                        })
-                    }
+                    res.end()
                 }
             })
         }
