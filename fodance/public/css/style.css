@@ -2350,6 +2350,7 @@ input:checked + .slider:before {
 
 .comment-interactive {
   margin: 5px 0;
+  font-weight: 500;
 }
 
 .like-cmt-but, .rep-comment-but {
@@ -3453,6 +3454,7 @@ img.thumb {
   background-color: white;
   border-radius: 20px;
   padding: 8px 10px;
+  font-weight: 500;
   justify-content: flex-start;
   color: rgb(70, 70, 70);
   cursor: pointer;
