@@ -5481,6 +5481,17 @@ tbody {
   font-size: 15px;
 }
 
+.alert-cate-rank {
+  position: fixed;
+  top: 45%;
+  left: 25%;
+  background-color: #d6f1ffb2;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 10000;
+  font-size: 15px;
+}
+
 .tooltip {
   position: relative;
 }

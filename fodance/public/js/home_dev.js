@@ -551,7 +551,9 @@ handleMobileResponse()
 
 const showAlert = function(text){
     if (document.querySelectorAll(".alert").length != 0){
-        document.querySelector(".alert").remove()
+        document.querySelectorAll(".alert").forEach(function(e){
+            e.remove()
+        })
     }
     let alert = document.createElement("div")
     alert.classList.add("alert")
@@ -565,9 +567,31 @@ const showAlert = function(text){
     }, 3000)
 }
 
+const showAlertCateRank = function(text){
+    if (document.querySelectorAll(".alert-cate-rank").length != 0){
+        document.querySelectorAll(".alert-cate-rank").forEach(function (e) {
+            e.remove()
+        })
+    }
+    let alert = document.createElement("div")
+    alert.classList.add("alert-cate-rank")
+    let textAlert = document.createTextNode(text)
+    alert.appendChild(textAlert)
+    document.querySelector(".global").appendChild(alert)
+    setTimeout(function() {
+        if (document.querySelectorAll(".alert-cate-rank").length != 0){
+            document.querySelector(".alert-cate-rank").remove()
+        }
+    }, 3000)
+}
+
 const showAlertWithLink = function(link){
     if (document.querySelectorAll(".alert").length != 0){
-        document.querySelector(".alert").remove()
+        if (document.querySelectorAll(".alert").length != 0){
+            document.querySelectorAll(".alert").forEach(function(e){
+                e.remove()
+            })
+        }
     }
     let alert = document.createElement("div")
     alert.classList.add("alert-link")
@@ -577,7 +601,7 @@ const showAlertWithLink = function(link){
         if (document.querySelectorAll(".alert-link").length != 0){
             document.querySelector(".alert-link").remove()
         }
-    }, 5000)
+    }, 8000)
 }
 
 const showSuccessAlert = function(text) {
@@ -1033,6 +1057,9 @@ function rankRedirect(rankBut, pushState){
     const rankAgent = rankBut.outerHTML
     rankLink = rankBut.getAttribute("rank-data")
     rankName = rankBut.querySelector(".header-rank-but-name").textContent
+    if(window.innerWidth <= 662){
+        showAlertCateRank("Đã chọn phòng " + rankName)
+    }
     const rankHeader = document.querySelectorAll(".header-rank-but")
     for (let i = 0; i < rankHeader.length; i++){
         rankHeader[i].classList.remove("header-rank-but-active")
@@ -3757,6 +3784,13 @@ function handleMainFrame(){
                 rankName: rankName
             }
             cateSort = item.getAttribute("sort-data")
+            if(window.innerWidth <= 662){
+                if (cateSort == "rank-sort-content"){sortType = "Thứ hạng"}
+                if (cateSort == "latest-sort-content"){sortType = "Mới nhất"}
+                if (cateSort == "random-sort-content"){sortType = "Ngẫu nhiên"}
+                if (cateSort == "follow-sort-content"){sortType = "Theo dõi"}
+                showAlertCateRank("Xem theo " + sortType)
+            }
             document.querySelector(".post-frame").innerHTML = '<div class="loading-post"><div class="d-flex-start loading-content"><div class="loading-post-circle mg-r"></div><div class="d-flex-col-start-content width-80"><div class="loading-post-line width-30 mg-b-sm"></div><div class="loading-post-line width-20"></div></div></div><div class="loading-post-line width-90 mg-b-sm"></div></div></div>'
             xhttp.onreadystatechange = function() {    
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
