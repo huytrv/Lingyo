@@ -2712,6 +2712,10 @@ input:checked + .slider:before {
   display: flex;
 }
 
+.plyr:hover .plyr__controls{
+  display: flex;
+}
+
 .plyr__control svg {
   width: 15px;
   height: 15px;
@@ -3957,6 +3961,7 @@ input[type=radio] {
 .edit-profile-modal-content {
   height: 100vh !important;
   margin: 0 !important;
+  overflow-y: scroll;
 }
 
 .report-cmt-modal-content {
@@ -3969,7 +3974,6 @@ input[type=radio] {
 
 .edit-profile-frame {
   height: 100%; 
-  overflow-y: scroll; 
   position: relative;
 }
 
@@ -6102,6 +6106,7 @@ tbody {
   .edit-profile-modal-content {
     height: 570px !important;
     margin: 4% auto !important;
+    overflow-y: hidden;
   }
 
   .avt-crop-modal-content {
@@ -6249,6 +6254,11 @@ tbody {
 
   .edit-profile-frame {
     height: 510px;
+    overflow-y: scroll;
+  }
+
+  .edit-cover, .edit-avt-frame {
+    margin: 0 10px;
   }
 
   .mobile-creator {
