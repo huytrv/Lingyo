@@ -4715,13 +4715,12 @@ function handleNavigation(){
         }
         else if (fullscreen){
             fullscreen = !fullscreen
+            document.querySelector(".main-frame").innerHTML = competitionContentText
             document.querySelectorAll("video").forEach(function (e) {
-                // e.style.maxHeight = "500px"
-                // e.style.zIndex = "-1"
-                // e.style.objectFit = "cover"
-                e.remove()
+                e.style.maxHeight = "500px"
+                e.style.zIndex = "-1"
+                e.style.objectFit = "cover"
             })
-            
             if (document.querySelector(".nav-bar-mobile")){
                 document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
             }
@@ -4740,8 +4739,6 @@ function handleNavigation(){
             if (document.querySelector(".main-frame-post-sort")){
                 document.querySelector(".main-frame-post-sort").style.zIndex = "1000"
             }
-
-            document.querySelector(".main-frame").innerHTML = competitionContentText
             handleMainFrame()
             handleNavigation()
             handleRankPostCount()
