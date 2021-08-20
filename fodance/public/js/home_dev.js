@@ -439,13 +439,7 @@ function handleMobileResponse() {
             }
 
             document.querySelector(".sidenav-frame").onclick = function(e) {
-                if (e.target == document.querySelector(".search-but") || e.target.parentNode == document.querySelector(".search-but")|| e.target.parentNode.parentNode == document.querySelector(".search-but")){
-    
-                }
-                else if (e.target == document.querySelector(".filter-but") || e.target.parentNode == document.querySelector(".filter-but") || e.target.parentNode.parentNode == document.querySelector(".filter-but")){
-    
-                }
-                else {
+                if (e.target != document.querySelector(".search-but") && e.target.parentNode != document.querySelector(".search-but") && e.target.parentNode.parentNode != document.querySelector(".search-but")){
                     document.querySelector(".sidenav").style.width = "0";
                     document.querySelector(".sidenav-frame").style.position = "relative"
                     document.querySelector(".mobile-creator").style.zIndex = "5000"
@@ -4721,6 +4715,27 @@ function handleNavigation(){
             }
             if (document.querySelector(".header")){
                 document.querySelector(".header").style.zIndex = 2000
+            }
+        }
+        else if (document.querySelector("[data-plyr='fullscreen']")){
+            fullscreen = false
+            if (document.querySelector(".nav-bar-mobile")){
+                document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
+            }
+            if (document.querySelector(".header")){
+                document.querySelector(".header").style.zIndex = "1000"
+            }
+            if (document.querySelector(".category-frame")){
+                document.querySelector(".category-frame").style.zIndex = "1000"
+            }
+            if (document.querySelector(".mobile-creator")){
+                document.querySelector(".mobile-creator").style.zIndex = "1000"
+            }
+            if (document.querySelector(".left-nav")){
+                document.querySelector(".left-nav").style.zIndex = "1000"
+            }
+            if (document.querySelector(".main-frame-post-sort")){
+                document.querySelector(".main-frame-post-sort").style.zIndex = "1000"
             }
         }
         else {
