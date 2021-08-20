@@ -3246,8 +3246,8 @@ function handleMainFrame(){
             e.onclick = function(){
                 fullscreen = !fullscreen
                 console.log(fullscreen)
+                
                 if (!fullscreen){
-                    document.querySelector(".main-frame").innerHTML = competitionContentText
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
                     e.parentElement.parentElement.querySelector("video").style.zIndex = "0"
                     e.parentElement.parentElement.querySelector("video").style.objectFit = "cover"
@@ -3269,10 +3269,11 @@ function handleMainFrame(){
                     if (document.querySelector(".main-frame-post-sort")){
                         document.querySelector(".main-frame-post-sort").style.zIndex = "1000"
                     }
+                    handleMainFrame()
+                    handleNavigation()
+                    handleRankPostCount()
                 }
                 else {
-                    const url = window.location.href
-                    console.log(url)
                     history.pushState({
                     }, '', window.location.href)
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "100%"
@@ -3295,6 +3296,9 @@ function handleMainFrame(){
                     }
                     if (document.querySelector(".main-frame-post-sort")){
                         document.querySelector(".main-frame-post-sort").style.zIndex = "0"
+                    }
+                    e.onclick = function () {
+                        window.history.back()
                     }
                 }
             }
