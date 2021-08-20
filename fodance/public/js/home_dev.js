@@ -47,7 +47,6 @@ function pretreatment(){
     }
     if (document.querySelector(".main-frame-post-sort-rounder") && document.querySelector(".main-frame-post-sort-rounder") != ''){
         frameSort = document.querySelector(".main-frame-post-sort-rounder").innerHTML
-        console.log(document.querySelector(".left-nav"))
     }
     if (document.querySelector(".highlights-mobile") && document.querySelector(".highlights-mobile").innerHTML != ''){
         highLightMobile = document.querySelector(".highlights-mobile-frame").innerHTML
@@ -263,7 +262,6 @@ function handleCategoryScroll() {
             }
             isDown = true
             startY = e.touches[0].clientY
-            console.log(trueTouch)
         })
         document.addEventListener('touchcancel', () => {
             isDown = false
@@ -302,7 +300,6 @@ function handleCategoryScroll() {
                         // for(let i = oldWalk; i > walk; i--){
                         //     count --
                         //     document.querySelector(".category-frame").style.top = -count + "px"
-                        //     console.log(document.querySelector(".category-frame").style.top)
                         // }
                         document.querySelector(".category-frame").style.top =  "50px"
                     }
@@ -312,7 +309,6 @@ function handleCategoryScroll() {
                         // for(let i = oldWalk; i < walk; i++){
                         //     count ++
                         //     document.querySelector(".category-frame").style.top = 50 - count + "px"
-                        //     console.log(document.querySelector(".category-frame").style.top)
                         // }
                         document.querySelector(".category-frame").style.top =  "0px"
                     }
@@ -2863,7 +2859,6 @@ function commentPostHandle(viewPost, viewWithCmt){
                 xhttp.onreadystatechange = function(){
                     if (xhttp.readyState == 4 && xhttp.status == 200){
                         const res = JSON.parse(xhttp.responseText)
-                        console.log(res.data.total)
                         if (res.data.total > 0){
                             likeCmt.querySelector(".comment-total").textContent = `(${res.data.total})`
                         } else {
@@ -2871,7 +2866,6 @@ function commentPostHandle(viewPost, viewWithCmt){
                         }
                     }
                 }
-                console.log(data.liked)
                 xhttp.open("POST", "/like-cmt-post", true)
                 xhttp.setRequestHeader('Content-Type', 'application/json')
                 xhttp.send(JSON.stringify(data))
@@ -3257,7 +3251,9 @@ function handleMainFrame(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
             e.onclick = function(){
                 fullscreen = !fullscreen
+                console.log(fullscreen)
                 if (!fullscreen){
+                    window.history.back()
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
                     e.parentElement.parentElement.querySelector("video").style.zIndex = "initial"
                     e.parentElement.parentElement.querySelector("video").style.objectFit = "cover"
@@ -3281,6 +3277,10 @@ function handleMainFrame(){
                     }
                 }
                 else {
+                    const url = window.location.href
+                    console.log(url)
+                    history.pushState({
+                    }, '', window.location.href)
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "100%"
                     e.parentElement.parentElement.querySelector("video").style.zIndex = "10000"
                     e.parentElement.parentElement.querySelector("video").style.objectFit = "contain"
@@ -4056,7 +4056,6 @@ function handleMainFrame(){
     if (document.querySelectorAll(".post-section").length != 0 && document.querySelectorAll(".post-section .post").length < 5 && document.querySelector(".loading-post")) {
         if (window.location.pathname != "/saved"){
             const cateTitle = window.location.pathname.replace('/', '')
-            console.log(cateTitle)
             if (cateTitle == 'competition'){cname = "Tất cả"}
             if (navLink == '' && !cateList.includes(cateTitle) && cateTitle != 'competition') {cname = ''}else {cname = cateName}
             if (roundType == "final") {
@@ -4717,27 +4716,6 @@ function handleNavigation(){
                 document.querySelector(".header").style.zIndex = 2000
             }
         }
-        else if (document.querySelector("[data-plyr='fullscreen']")){
-            fullscreen = false
-            if (document.querySelector(".nav-bar-mobile")){
-                document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
-            }
-            if (document.querySelector(".header")){
-                document.querySelector(".header").style.zIndex = "1000"
-            }
-            if (document.querySelector(".category-frame")){
-                document.querySelector(".category-frame").style.zIndex = "1000"
-            }
-            if (document.querySelector(".mobile-creator")){
-                document.querySelector(".mobile-creator").style.zIndex = "1000"
-            }
-            if (document.querySelector(".left-nav")){
-                document.querySelector(".left-nav").style.zIndex = "1000"
-            }
-            if (document.querySelector(".main-frame-post-sort")){
-                document.querySelector(".main-frame-post-sort").style.zIndex = "1000"
-            }
-        }
         else {
             if (e.state !== null){
                 if (e.state.agent) {
@@ -4780,6 +4758,28 @@ function handleNavigation(){
                 redirect(document.querySelector(`.nav-red[nav-data='']`), false)
             }
         }
+        if (fullscreen){
+            fullscreen = !fullscreen
+            if (document.querySelector(".nav-bar-mobile")){
+                document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
+            }
+            if (document.querySelector(".header")){
+                document.querySelector(".header").style.zIndex = "1000"
+            }
+            if (document.querySelector(".category-frame")){
+                document.querySelector(".category-frame").style.zIndex = "1000"
+            }
+            if (document.querySelector(".mobile-creator")){
+                document.querySelector(".mobile-creator").style.zIndex = "1000"
+            }
+            if (document.querySelector(".left-nav")){
+                document.querySelector(".left-nav").style.zIndex = "1000"
+            }
+            if (document.querySelector(".main-frame-post-sort")){
+                document.querySelector(".main-frame-post-sort").style.zIndex = "1000"
+            }
+        }
+        
         // history.replaceState({agent: null}, 'Fodance', 'https://fodance.com/')
     }
 
@@ -4895,7 +4895,6 @@ function editProfileRedirect(editBut, pushState){
                     for(let i = 0; i < arr.length; i++) {
                         header += arr[i].toString(16);
                     }
-                    console.log(header)
                     switch (header) {
                         case "89504e47":
                             type = "image/png";
