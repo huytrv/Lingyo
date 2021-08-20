@@ -3245,8 +3245,7 @@ function handleMainFrame(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
             e.onclick = function(){
                 fullscreen = !fullscreen
-                console.log(fullscreen)
-                
+                competitionContentText = document.querySelector(".main-frame").innerHTML
                 if (!fullscreen){
                     window.history.replaceState(fullscreen, '', window.location.href)
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
@@ -4715,8 +4714,7 @@ function handleNavigation(){
         }
         else if (fullscreen){
             fullscreen = !fullscreen
-            document.querySelector("[data-plyr='fullscreen']").parentNode.parentNode.remove()
-            document.querySelector(".main-frame").innerHTML = competitionContentText
+            document.querySelector("[data-plyr='fullscreen']").parentNode.parentNode.parentNode.parentNode.remove()
             if (document.querySelector(".nav-bar-mobile")){
                 document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
             }
@@ -4735,6 +4733,8 @@ function handleNavigation(){
             if (document.querySelector(".main-frame-post-sort")){
                 document.querySelector(".main-frame-post-sort").style.zIndex = "1000"
             }
+            document.querySelector(".main-frame").innerHTML = competitionContentText
+            window.scrollTo(0, scrollPage)
             handleMainFrame()
             handleNavigation()
             handleRankPostCount()
