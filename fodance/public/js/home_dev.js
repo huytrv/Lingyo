@@ -416,23 +416,23 @@ function handleMobileResponse() {
             document.querySelector(".sidenav-frame").style.position = "relative"
 
             document.querySelector(".open-nav").onclick = function() {
-                document.querySelector(".header").style.zIndex = "2000";
+                document.querySelector(".header").style.zIndex = 2000;
                 document.querySelector(".sidenav").style.width = "75%";
                 document.querySelector(".sidenav-frame").style.position = "fixed";
-                document.querySelector(".mobile-creator").style.zIndex = "1000"
+                document.querySelector(".mobile-creator").style.zIndex = 1000
             }
               
             document.querySelector(".close-nav").onclick = function() {
                 document.querySelector(".sidenav").style.width = "0";
                 document.querySelector(".sidenav-frame").style.position = "relative"
-                document.querySelector(".mobile-creator").style.zIndex = "5000"
+                document.querySelector(".mobile-creator").style.zIndex = 5000
             }
 
             document.querySelector(".sidenav-frame").onclick = function(e) {
                 if (e.target != document.querySelector(".search-but") && e.target.parentNode != document.querySelector(".search-but") && e.target.parentNode.parentNode != document.querySelector(".search-but")){
                     document.querySelector(".sidenav").style.width = "0";
                     document.querySelector(".sidenav-frame").style.position = "relative"
-                    document.querySelector(".mobile-creator").style.zIndex = "5000"
+                    document.querySelector(".mobile-creator").style.zIndex = 5000
                 }
             }
         }
@@ -3246,56 +3246,62 @@ function handleMainFrame(){
             e.onclick = function(){
                 fullscreen = !fullscreen
                 if (!fullscreen){
-                    window.history.replaceState(fullscreen, '', window.location.href)
+                    // window.history.replaceState(fullscreen, '', null)
+                    // window.history.back()
+                    // document.querySelector(".main-frame").innerHTML = competitionContentText
+                    // window.scrollTo(0, scrollPage)
+                    // handleMainFrame()
+                    // handleNavigation()
+                    // handleRankPostCount()
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
-                    e.parentElement.parentElement.querySelector("video").style.zIndex = "0"
+                    e.parentElement.parentElement.querySelector("video").style.zIndex = 0
                     e.parentElement.parentElement.querySelector("video").style.objectFit = "cover"
                     if (document.querySelector(".nav-bar-mobile")){
-                        document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
+                        document.querySelector(".nav-bar-mobile").style.zIndex = 1000
                     }
                     if (document.querySelector(".header")){
-                        document.querySelector(".header").style.zIndex = "2000"
+                        document.querySelector(".header").style.zIndex = 2000
                     }
                     if (document.querySelector(".category-frame")){
-                        document.querySelector(".category-frame").style.zIndex = "1000"
+                        document.querySelector(".category-frame").style.zIndex = 1000
                     }
                     if (document.querySelector(".mobile-creator")){
-                        document.querySelector(".mobile-creator").style.zIndex = "1000"
+                        document.querySelector(".mobile-creator").style.zIndex = 1000
                     }
                     if (document.querySelector(".left-nav")){
-                        document.querySelector(".left-nav").style.zIndex = "1000"
+                        document.querySelector(".left-nav").style.zIndex = 1000
                     }
                     if (document.querySelector(".main-frame-post-sort")){
-                        document.querySelector(".main-frame-post-sort").style.zIndex = "1000"
+                        document.querySelector(".main-frame-post-sort").style.zIndex = 1000
                     }
                     handleMainFrame()
                     handleNavigation()
                     handleRankPostCount()
                 }
                 else {
-                    history.pushState({
-                        fullscreen: true
-                    }, '', window.location.href)
+                    // history.pushState({
+                    //     fullscreen: true
+                    // }, '', window.location.href)
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "100%"
-                    e.parentElement.parentElement.querySelector("video").style.zIndex = "10000"
+                    e.parentElement.parentElement.querySelector("video").style.zIndex = 10000
                     e.parentElement.parentElement.querySelector("video").style.objectFit = "contain"
                     if (document.querySelector(".nav-bar-mobile")){
-                        document.querySelector(".nav-bar-mobile").style.zIndex = "0"
+                        document.querySelector(".nav-bar-mobile").style.zIndex = 0
                     }
                     if (document.querySelector(".header")){
-                        document.querySelector(".header").style.zIndex = "0"
+                        document.querySelector(".header").style.zIndex = 0
                     }
                     if (document.querySelector(".category-frame")){
-                        document.querySelector(".category-frame").style.zIndex = "0"
+                        document.querySelector(".category-frame").style.zIndex = 0
                     }
                     if (document.querySelector(".mobile-creator")){
-                        document.querySelector(".mobile-creator").style.zIndex = "0"
+                        document.querySelector(".mobile-creator").style.zIndex = 0
                     }
                     if (document.querySelector(".left-nav")){
-                        document.querySelector(".left-nav").style.zIndex = "0"
+                        document.querySelector(".left-nav").style.zIndex = 0
                     }
                     if (document.querySelector(".main-frame-post-sort")){
-                        document.querySelector(".main-frame-post-sort").style.zIndex = "0"
+                        document.querySelector(".main-frame-post-sort").style.zIndex = 0
                     }
                 }
             }
@@ -3305,11 +3311,11 @@ function handleMainFrame(){
             e.ondblclick = function(){
                 if(e.querySelector("video").offsetWidth < window.innerWidth){
                     e.querySelector("video").style.maxHeight = "100%"
-                    e.querySelector("video").style.zIndex = "10000"
+                    e.querySelector("video").style.zIndex = 10000
                 }
                 else {
                     e.querySelector("video").style.maxHeight = "500px"
-                    e.querySelector("video").style.zIndex = "500px"
+                    e.querySelector("video").style.zIndex = 500
                 }
             }
         }) 
@@ -4684,6 +4690,7 @@ function handleNavigation(){
             statusRedirect = navLink
         }
     }
+    const url = window.location.href
     window.onpopstate = function(e){
         const parser = new DOMParser()
         if (document.querySelector(".modal")){
@@ -4693,7 +4700,7 @@ function handleNavigation(){
                     const post = document.querySelector(`.post[data-post-df="${postId}"]`)
                     post.querySelector(".post-interactive").innerHTML = document.querySelector(".post-viewer").querySelector(".post-interactive").innerHTML
                     post.querySelector(".interactive-but-total").innerHTML = document.querySelector(".post-viewer").querySelector(".interactive-but-total").innerHTML
-                    document.querySelector(".main").zIndex = "1000"
+                    document.querySelector(".main").zIndex = 1000
                     if(window.innerWidth >= 662){
                         document.querySelectorAll(".interactive-but").forEach(function(e){
                             e.style.padding = "8px 30px"
@@ -4713,21 +4720,23 @@ function handleNavigation(){
         }
         else if (fullscreen){
             fullscreen = !fullscreen
-            document.querySelector("[data-plyr='fullscreen']").parentNode.parentNode.parentNode.parentNode.remove()
+            window.scrollTo(0, scrollPage)
+            // document.querySelector("[data-plyr='fullscreen']").parentNode.parentNode.parentNode.parentNode.remove()
             if (document.querySelector(".nav-bar-mobile")){
-                document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
+                document.querySelector(".nav-bar-mobile").style.zIndex = 1000
             }
             if (document.querySelector(".header")){
-                document.querySelector(".header").style.zIndex = "2000"
+                document.querySelector(".header").style.zIndex = 2000
             }
             if (document.querySelector(".mobile-creator")){
-                document.querySelector(".mobile-creator").style.zIndex = "1000"
+                document.querySelector(".mobile-creator").style.zIndex = 1000
             }
             if (document.querySelector(".left-nav")){
-                document.querySelector(".left-nav").style.zIndex = "1000"
+                document.querySelector(".left-nav").style.zIndex = 1000
             }
             document.querySelector(".main-frame").innerHTML = competitionContentText
-            window.scrollTo(0, scrollPage)
+            history.pushState({
+            }, '', url)
             handleMainFrame()
             handleNavigation()
             handleRankPostCount()
@@ -4792,7 +4801,7 @@ handleNavigation()
 function editProfileRedirect(editBut, pushState){
     const url = window.location.href
     if (document.querySelector(".mobile-creator")){
-        document.querySelector(".mobile-creator").style.zIndex = "1000"
+        document.querySelector(".mobile-creator").style.zIndex = 1000
     }
     if (document.querySelectorAll(".edit-profile").length == 0){
         document.querySelector(".avatar-frame").insertAdjacentHTML('beforeend', `<div class="edit-profile modal"><div class="modal edit-profile-modal"><div class="modal-content edit-profile-modal-content"><div class="group-title d-flex">${(()=>{if (window.innerWidth <= 662){return `
@@ -4817,7 +4826,7 @@ function editProfileRedirect(editBut, pushState){
         const editModal = document.querySelector(".edit-profile-modal")
         document.querySelector(".close-edit-modal").onclick = function(){
             if (document.querySelector(".mobile-creator")){
-                document.querySelector(".mobile-creator").style.zIndex = "1000"
+                document.querySelector(".mobile-creator").style.zIndex = 1000
             }
             modal.querySelector(".modal-content").classList.add("modal-remove-down")
             modal.querySelector(".modal-content").onanimationend = function () {
