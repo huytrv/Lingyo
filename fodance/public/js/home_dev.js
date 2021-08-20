@@ -3245,7 +3245,6 @@ function handleMainFrame(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
             e.onclick = function(){
                 fullscreen = !fullscreen
-                competitionContentText = document.querySelector(".main-frame").innerHTML
                 if (!fullscreen){
                     window.history.replaceState(fullscreen, '', window.location.href)
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
