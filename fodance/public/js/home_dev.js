@@ -254,36 +254,30 @@ function handleCategoryScroll() {
     if (document.querySelector(".category-frame")){
         let isDown = false
         let startY = 0, walk = 0
-        let trueTouch = true
         document.addEventListener('touchstart', (e) => {
             startY = 0, walk = 0
-            if (e.target.querySelector(".category-slidebar") || e.target.querySelector(".category-but") || e.target.querySelector(".category-item-name")){
-                trueTouch = false
-            }
             isDown = true
             startY = e.touches[0].clientY
         })
         document.addEventListener('touchcancel', () => {
             isDown = false
-            if (walk < -25 && trueTouch){
+            if (walk < -25){
                 document.querySelector(".category-frame").style.top = "50px"
             }
-            else if (walk > 25 && trueTouch){
+            else if (walk > 25){
                 document.querySelector(".category-frame").style.top = "0px"
             }
             walk = 0
-            trueTouch = true
         })
         document.addEventListener('touchend', (e) => {
             isDown = false
-            if (walk < -25 && trueTouch){
+            if (walk < -25){
                 document.querySelector(".category-frame").style.top = "50px"
             }
-            else if (walk > 25 && trueTouch){
+            else if (walk > 25){
                 document.querySelector(".category-frame").style.top = "0px"
             }
             walk = 0
-            trueTouch = true
         })
         document.addEventListener('touchmove', (e) => {
             if(!isDown) return 
@@ -294,7 +288,7 @@ function handleCategoryScroll() {
             if (walk > 50) {walk = 50}
             else if (walk < -50){walk = -50}
             document.querySelector(".category-frame").style.scrollBehavior = 'smooth'
-            if (trueTouch && oldWalk != walk){
+            if (oldWalk != walk){
                 if (walk < 0){
                     if (document.querySelector(".category-frame").style.top != "50px"){
                         // for(let i = oldWalk; i > walk; i--){
