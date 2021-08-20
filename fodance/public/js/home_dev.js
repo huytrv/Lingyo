@@ -3261,7 +3261,7 @@ function handleMainFrame(){
                         document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
                     }
                     if (document.querySelector(".header")){
-                        document.querySelector(".header").style.zIndex = "1000"
+                        document.querySelector(".header").style.zIndex = "2000"
                     }
                     if (document.querySelector(".category-frame")){
                         document.querySelector(".category-frame").style.zIndex = "1000"
@@ -4716,6 +4716,38 @@ function handleNavigation(){
                 document.querySelector(".header").style.zIndex = 2000
             }
         }
+        else if (fullscreen){
+            fullscreen = !fullscreen
+            document.querySelectorAll("video").forEach(function (e) {
+                e.style.maxHeight = "500px"
+                e.style.zIndex = "initial"
+                e.style.objectFit = "cover"
+            })
+            
+            if (document.querySelector(".nav-bar-mobile")){
+                document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
+            }
+            if (document.querySelector(".header")){
+                document.querySelector(".header").style.zIndex = "2000"
+            }
+            if (document.querySelector(".category-frame")){
+                document.querySelector(".category-frame").style.zIndex = "1000"
+            }
+            if (document.querySelector(".mobile-creator")){
+                document.querySelector(".mobile-creator").style.zIndex = "1000"
+            }
+            if (document.querySelector(".left-nav")){
+                document.querySelector(".left-nav").style.zIndex = "1000"
+            }
+            if (document.querySelector(".main-frame-post-sort")){
+                document.querySelector(".main-frame-post-sort").style.zIndex = "1000"
+            }
+
+            document.querySelector(".main-frame").innerHTML = competitionContentText
+            handleMainFrame()
+            handleNavigation()
+            handleRankPostCount()
+        }
         else {
             if (e.state !== null){
                 if (e.state.agent) {
@@ -4756,27 +4788,6 @@ function handleNavigation(){
             }
             else {
                 redirect(document.querySelector(`.nav-red[nav-data='']`), false)
-            }
-        }
-        if (fullscreen){
-            fullscreen = !fullscreen
-            if (document.querySelector(".nav-bar-mobile")){
-                document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
-            }
-            if (document.querySelector(".header")){
-                document.querySelector(".header").style.zIndex = "1000"
-            }
-            if (document.querySelector(".category-frame")){
-                document.querySelector(".category-frame").style.zIndex = "1000"
-            }
-            if (document.querySelector(".mobile-creator")){
-                document.querySelector(".mobile-creator").style.zIndex = "1000"
-            }
-            if (document.querySelector(".left-nav")){
-                document.querySelector(".left-nav").style.zIndex = "1000"
-            }
-            if (document.querySelector(".main-frame-post-sort")){
-                document.querySelector(".main-frame-post-sort").style.zIndex = "1000"
             }
         }
         
