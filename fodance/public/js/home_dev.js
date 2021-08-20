@@ -4716,9 +4716,10 @@ function handleNavigation(){
         else if (fullscreen){
             fullscreen = !fullscreen
             document.querySelectorAll("video").forEach(function (e) {
-                e.style.maxHeight = "500px"
-                e.style.zIndex = "-1"
-                e.style.objectFit = "cover"
+                // e.style.maxHeight = "500px"
+                // e.style.zIndex = "-1"
+                // e.style.objectFit = "cover"
+                e.remove()
             })
             
             if (document.querySelector(".nav-bar-mobile")){
