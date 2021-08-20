@@ -4720,19 +4720,13 @@ function handleNavigation(){
             if (document.querySelector(".header")){
                 document.querySelector(".header").style.zIndex = "2000"
             }
-            if (document.querySelector(".category-frame")){
-                document.querySelector(".category-frame").style.zIndex = "1000"
-            }
             if (document.querySelector(".mobile-creator")){
                 document.querySelector(".mobile-creator").style.zIndex = "1000"
             }
             if (document.querySelector(".left-nav")){
                 document.querySelector(".left-nav").style.zIndex = "1000"
             }
-            if (document.querySelector(".main-frame-post-sort")){
-                document.querySelector(".main-frame-post-sort").style.zIndex = "1000"
-            }
-            // document.querySelector(".main-frame").innerHTML = competitionContentText
+            document.querySelector(".main-frame").innerHTML = competitionContentText
             window.scrollTo(0, scrollPage)
             handleMainFrame()
             handleNavigation()

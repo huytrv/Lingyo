@@ -456,8 +456,6 @@ img {
   flex-direction: column;
   width: 100%;
   height: 100vh;
-  /* background-color: #f5f5f5; */
-  z-index: 0;
 }
 
 .global-lg {
