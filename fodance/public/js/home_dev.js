@@ -3253,7 +3253,7 @@ function handleMainFrame(){
                 fullscreen = !fullscreen
                 console.log(fullscreen)
                 if (!fullscreen){
-                    window.history.back()
+                    document.querySelector(".main-frame").innerHTML = competitionContentText
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "500px"
                     e.parentElement.parentElement.querySelector("video").style.zIndex = "0"
                     e.parentElement.parentElement.querySelector("video").style.objectFit = "cover"
@@ -4720,12 +4720,12 @@ function handleNavigation(){
             fullscreen = !fullscreen
             document.querySelectorAll("video").forEach(function (e) {
                 e.style.maxHeight = "500px"
-                e.style.zIndex = "0"
+                e.style.zIndex = "-1"
                 e.style.objectFit = "cover"
             })
             
             if (document.querySelector(".nav-bar-mobile")){
-                document.querySelector(".nav-bar-mobile").style.zIndex = "in"
+                document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
             }
             if (document.querySelector(".header")){
                 document.querySelector(".header").style.zIndex = "2000"
