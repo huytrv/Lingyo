@@ -4732,7 +4732,7 @@ function handleNavigation(){
             if (document.querySelector(".main-frame-post-sort")){
                 document.querySelector(".main-frame-post-sort").style.zIndex = "1000"
             }
-            document.querySelector(".main-frame").innerHTML = competitionContentText
+            // document.querySelector(".main-frame").innerHTML = competitionContentText
             window.scrollTo(0, scrollPage)
             handleMainFrame()
             handleNavigation()
