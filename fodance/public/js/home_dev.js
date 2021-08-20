@@ -4715,12 +4715,8 @@ function handleNavigation(){
         }
         else if (fullscreen){
             fullscreen = !fullscreen
+            document.querySelector("[data-plyr='fullscreen']").parentNode.parentNode.remove()
             document.querySelector(".main-frame").innerHTML = competitionContentText
-            document.querySelectorAll("video").forEach(function (e) {
-                e.style.maxHeight = "500px"
-                e.style.zIndex = "-1"
-                e.style.objectFit = "cover"
-            })
             if (document.querySelector(".nav-bar-mobile")){
                 document.querySelector(".nav-bar-mobile").style.zIndex = "1000"
             }
