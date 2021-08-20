@@ -4734,7 +4734,7 @@ function handleNavigation(){
             if (document.querySelector(".left-nav")){
                 document.querySelector(".left-nav").style.zIndex = 1000
             }
-            document.querySelector(".main-frame").innerHTML = competitionContentText
+            document.exitFullscreen()
             history.pushState({
             }, '', url)
             handleMainFrame()
