@@ -4055,6 +4055,9 @@ function handleMainFrame(){
     handleVideoScroll()
 
     if (document.querySelectorAll(".post-section").length != 0 && document.querySelectorAll(".post-section .post").length < 5 && document.querySelector(".loading-post")) {
+        if (!document.querySelector(".post-section .post")){
+            document.querySelector(".loading-post").style.marginTop = "0px"
+        }
         if (window.location.pathname != "/saved"){
             const cateTitle = window.location.pathname.replace('/', '')
             if (cateTitle == 'competition'){cname = "Tất cả"}

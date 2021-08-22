@@ -924,7 +924,6 @@ video {
 
 .post-section {
   width: 100%;
-  margin-bottom: 10px;
 }
 
 .main-frame-setting-inner {
@@ -1038,7 +1037,7 @@ video {
 
 .list-box {
   position: relative;
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   padding-bottom: 0;
@@ -1076,7 +1075,7 @@ video {
 
 .create-post-but {
   width: 100%;
-  padding: 12px;
+  padding: 12px 10px;
   background-color: #009de6;
   color: white;
   border: none;
@@ -1368,7 +1367,7 @@ input:checked + .slider:before {
   color: #009de6;
   border: 1px solid #009de6;
   border-radius: 20px;
-  padding: 8px 20px;
+  padding: 10px 20px;
   font-weight: 600;
   cursor: pointer;
 }
@@ -1606,7 +1605,7 @@ input:checked + .slider:before {
 
 .follow-content .follow-but {
   background-color: white;
-  padding: 7px 16px;
+  padding: 10px 16px;
 }
 
 .media-content {
@@ -2056,7 +2055,7 @@ input:checked + .slider:before {
   color: #009de6;
   border: 1px solid #009de6;
   border-radius: 20px;
-  padding: 7px 15px;
+  padding: 10px 15px;
   font-weight: 600;
   cursor: pointer;
 }
@@ -2453,7 +2452,7 @@ input:checked + .slider:before {
   background-color: white;
   border: 1px solid #6a78b5;
   border-radius: 20px;
-  padding: 9px 5px;
+  padding: 10px 5px;
   margin: 3px;
   cursor: pointer;
   color: black;
@@ -2470,7 +2469,7 @@ input:checked + .slider:before {
   border: 1px solid #0075e2;
   background-color: white;
   border-radius: 20px;
-  padding: 5px;
+  padding: 8px 5px;
   margin: 3px;
   cursor: pointer;
   color: black;
@@ -4177,7 +4176,7 @@ input[type=radio] {
 
 .df-but {
   border: none;
-  padding: 9px 25px;
+  padding: 12px 25px;
   border-radius: 20px;
   cursor: pointer;
 }
@@ -4683,7 +4682,7 @@ input[type='range']::-ms-fill-lower {
 }
 
 .avt-but {
-  padding: 3px 15px;
+  padding: 5px 15px;
   background-color: white;
   border-radius: 20px;
   border: none;
@@ -5572,6 +5571,7 @@ tbody {
   border-radius: 0;
   box-shadow: 0 0 5px 1px rgb(230, 233, 235);
   text-align: center;
+  margin-top: 10px;
 }
 
 .loading-post .create-post-but {
