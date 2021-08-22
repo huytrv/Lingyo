@@ -660,7 +660,7 @@ video {
   top: 160px !important;
 }
 
-.nav-bar-mobile {
+.nav-bar-mobile-frame, .nav-bar-mobile {
   position: fixed;
   bottom: 0;
   left: 0;
