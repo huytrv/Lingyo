@@ -924,6 +924,7 @@ video {
 
 .post-section {
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .main-frame-setting-inner {
@@ -1075,7 +1076,7 @@ video {
 
 .create-post-but {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background-color: #009de6;
   color: white;
   border: none;
@@ -5571,7 +5572,6 @@ tbody {
   border-radius: 0;
   box-shadow: 0 0 5px 1px rgb(230, 233, 235);
   text-align: center;
-  margin-top: 10px;
 }
 
 .loading-post .create-post-but {
