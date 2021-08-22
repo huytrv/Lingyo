@@ -429,7 +429,7 @@ function handleMobileResponse() {
             }
 
             document.querySelector(".sidenav-frame").onclick = function(e) {
-                if (e.target != document.querySelector(".search-but") && e.target.parentNode != document.querySelector(".search-but") && e.target.parentNode.parentNode != document.querySelector(".search-but")){
+                if (e.target != document.querySelector(".home-input")){
                     document.querySelector(".sidenav").style.width = "0";
                     document.querySelector(".sidenav-frame").style.position = "relative"
                     document.querySelector(".mobile-creator").style.zIndex = 5000
