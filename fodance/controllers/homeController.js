@@ -45,9 +45,9 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     let currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
     let roundType
     if (new Date().getDay() >= 1 && new Date().getDay() <= 5) {roundType = "group-stage"}else {roundType = "final"}
-    if (roundType == "final"){currentTimeline = currentTimeline + 5*24*60*60*1000}
+    // if (roundType == "final"){currentTimeline = currentTimeline + 5*24*60*60*1000}
+    console.log(new Date(currentTimeline))
     //handleVoteChampion
-    console.log(roundType)
     setInterval(function(){ 
         const newRound = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
         if (newRound > round) {
