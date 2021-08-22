@@ -412,8 +412,8 @@ function handleMobileResponse() {
         // })
 
         if (document.querySelector(".sidenav")){
-            document.querySelector(".sidenav").style.width = "0";
-            document.querySelector(".sidenav-frame").style.position = "relative"
+            // document.querySelector(".sidenav").style.width = "0";
+            // document.querySelector(".sidenav-frame").style.position = "relative"
 
             document.querySelector(".open-nav").onclick = function() {
                 document.querySelector(".header").style.zIndex = 2000;
@@ -428,13 +428,13 @@ function handleMobileResponse() {
                 document.querySelector(".mobile-creator").style.zIndex = 5000
             }
 
-            // document.querySelector(".sidenav-frame").onclick = function(e) {
-            //     if (e.target != document.querySelector(".home-input")){
-            //         document.querySelector(".sidenav").style.width = "0";
-            //         document.querySelector(".sidenav-frame").style.position = "relative"
-            //         document.querySelector(".mobile-creator").style.zIndex = 5000
-            //     }
-            // }
+            document.querySelector(".sidenav-frame").onclick = function(e) {
+                if (e.target != document.querySelector(".home-input")){
+                    document.querySelector(".sidenav").style.width = "0";
+                    document.querySelector(".sidenav-frame").style.position = "relative"
+                    document.querySelector(".mobile-creator").style.zIndex = 5000
+                }
+            }
         }
 
         if (document.querySelector(".return-but") && !document.querySelector(".return-but").classList.contains("close-view-post-modal")){
