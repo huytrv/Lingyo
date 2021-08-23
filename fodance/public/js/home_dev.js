@@ -4713,41 +4713,26 @@ function handleNavigation(){
                     lottie()
                 }
             }
-            document.querySelector(".modal-content").classList.add("modal-remove-down")
-            document.querySelector(".modal-content").onanimationend = function () {
+            if (document.querySelector(".modal-remove-down")){
                 document.querySelector(".modal").remove()
             }
-            if (document.querySelector(".left-nav")){
-                document.querySelector(".left-nav").style.zIndex = 1000
-            }
-            if (document.querySelector(".header")){
-                document.querySelector(".header").style.zIndex = 2000
+            else {
+                document.querySelector(".modal-content").classList.add("modal-remove-down")
+                document.querySelector(".modal-content").onanimationend = function () {
+                    document.querySelector(".modal").remove()
+                    if (document.querySelector(".left-nav")){
+                        document.querySelector(".left-nav").style.zIndex = 1000
+                    }
+                    if (document.querySelector(".header")){
+                        document.querySelector(".header").style.zIndex = 2000
+                    }
+                }
             }
         }
         else if (fullscreen){
             document.querySelector("[data-plyr='fullscreen']").click()
-            // fullscreen = !fullscreen
-            // document.exitFullscreen()
-            // window.scrollTo(0, scrollPage)
-            // // document.querySelector("[data-plyr='fullscreen']").parentNode.parentNode.parentNode.parentNode.remove()
-            // if (document.querySelector(".nav-bar-mobile")){
-            //     document.querySelector(".nav-bar-mobile").style.zIndex = 1000
-            // }
-            // if (document.querySelector(".header")){
-            //     document.querySelector(".header").style.zIndex = 2000
-            // }
-            // if (document.querySelector(".mobile-creator")){
-            //     document.querySelector(".mobile-creator").style.zIndex = 1000
-            // }
-            // if (document.querySelector(".left-nav")){
-            //     document.querySelector(".left-nav").style.zIndex = 1000
-            // }
-            // document.querySelector(".main-frame").innerHTML = competitionContentText
             history.pushState({
             }, '', url)
-            // handleMainFrame()
-            // handleNavigation()
-            // handleRankPostCount()
         }
         else {
             if (e.state !== null){
