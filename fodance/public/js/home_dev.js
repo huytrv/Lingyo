@@ -4713,7 +4713,10 @@ function handleNavigation(){
                     lottie()
                 }
             }
-            document.querySelector(".modal").remove()
+            document.querySelector(".modal-content").classList.add("modal-remove-down")
+            document.querySelector(".modal-content").onanimationend = function () {
+                document.querySelector(".modal").remove()
+            }
             if (document.querySelector(".left-nav")){
                 document.querySelector(".left-nav").style.zIndex = 1000
             }
