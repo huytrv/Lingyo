@@ -775,7 +775,7 @@ video {
 }
 
 .header-rank-but svg {
-  font-size: 40px;
+  font-size: 45px;
 }
 
 .header-rank-but-active {
@@ -915,7 +915,6 @@ video {
 
 .main-frame-post-inner {
   width: 100%;
-  margin-top: 10px;
 }
 
 .main-frame-post-inner-personal {
@@ -2262,6 +2261,7 @@ input:checked + .slider:before {
   border-radius: 0;
   box-shadow: 0 1px 3px 1px rgb(231, 231, 231);
   resize: none;
+  margin-top: 10px;
 }
 
 .end-post {
@@ -5884,6 +5884,17 @@ tbody {
     border-bottom: 1px solid rgb(243, 243, 243);
   }
 
+  .fame-title th:nth-child(3) {
+    justify-content: center;
+  }
+  .fame-title th:nth-child(4) {
+    justify-content: center;
+  }
+  .fame-title th:nth-child(5) {
+    margin-right: 15px;
+    justify-content: center;
+  }
+
   .avt-but {
     background-color: transparent;
   }
@@ -5985,10 +5996,6 @@ tbody {
     min-width: 480px;
     max-width: 600px;
     margin-top: 0;
-  }
-
-  .main-frame-post {
-    margin-top: 10px;
   }
 
   .main-frame-post-inner-personal {
