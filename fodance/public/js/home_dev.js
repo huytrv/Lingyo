@@ -3273,7 +3273,7 @@ function handleMainFrame(){
                     if (document.querySelector(".main-frame-post-sort")){
                         document.querySelector(".main-frame-post-sort").style.zIndex = 1000
                     }
-                    window.onscroll = null
+                    window.scrollTo(0, Math.round(scrollPage))
                     // handleMainFrame()
                     // handleNavigation()
                     // handleRankPostCount()

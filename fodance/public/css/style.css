@@ -2811,7 +2811,7 @@ input:checked + .slider:before {
   color: white;
   border-radius: 20px;
   margin-left: 5px;
-  font-size: 11px;
+  font-size: 10px;
 }
 
 .rank-post-count {
@@ -2822,7 +2822,7 @@ input:checked + .slider:before {
   color: white;
   border-radius: 20px;
   margin-left: 5px;
-  font-size: 11px;
+  font-size: 10px;
 }
 
 .cate-post-count-pd {
@@ -6037,6 +6037,10 @@ tbody {
 
   .post {
     background-color: #f0f2f6;
+  }
+
+  .post-description {
+    color: black;
   }
 
   .post-file video {
