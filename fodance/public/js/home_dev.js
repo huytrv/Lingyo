@@ -1,7 +1,7 @@
 window.onresize = toggleHeader;
 window.onload = toggleHeader;
 
-let scrollRange = scrollPage = stopScrollPage = round = 0
+let scrollRange = scrollPage = stopScrollPage = scrollPosition = round = 0
 let rankIndex = 5, cateSort = "rank-sort-content", rankLink = rankLinkPost = "primary", rankName = "Sơ cấp", filter = "current"
 let cateLink = competitionContentText = "competition"
 let roundType = navLink = statusRedirect = infoContentText = homeContentText = personalPostText = categoryContentText = postContentText = cateName = avtUpdate = usernameUpdate = nicknameUpdate = nicknameBeforeUpdate = cateLinkPost = filter = searchQuery = ''
@@ -3241,7 +3241,6 @@ function handleMainFrame(){
 
     function handleFullscreen(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
-            let scrollPosition = 0
             e.onclick = function(){
                 fullscreen = !fullscreen
                 if (!fullscreen){
