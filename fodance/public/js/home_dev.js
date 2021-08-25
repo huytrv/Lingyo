@@ -3244,7 +3244,6 @@ function handleMainFrame(){
             e.onclick = function(){
                 fullscreen = !fullscreen
                 if (!fullscreen){
-                    window.scrollTo(0, scrollPage)
                     if(window.innerWidth <= 662){
                         e.parentNode.parentNode.querySelector("video").style.maxHeight = "380px"
                         e.parentNode.parentNode.querySelector("video").style.objectFit = "cover"
@@ -3278,6 +3277,7 @@ function handleMainFrame(){
                     handleMainFrame()
                     handleNavigation()
                     handleRankPostCount()
+                    window.scrollTo(0, scrollPage)
                 }
                 else {
                     e.parentNode.parentNode.querySelector("video").style.maxHeight = "100%"
