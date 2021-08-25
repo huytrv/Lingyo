@@ -201,8 +201,6 @@ function pretreatment(){
         document.body.scrollLeft = scroll.left
     }
     removeFacebookAppendedHash()
-
-    window.scrollTo(0, 0)
 }
 pretreatment()
 
