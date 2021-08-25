@@ -3252,17 +3252,17 @@ function handleMainFrame(){
                     // handleNavigation()
                     // handleRankPostCount()
                     if(window.innerWidth <= 662){
-                        e.parentElement.parentElement.querySelector("video").style.maxHeight = "380px"
-                        e.parentElement.parentElement.querySelector("video").style.objectFit = "cover"
+                        e.parentNode.parentNode.querySelector("video").style.maxHeight = "380px"
+                        e.parentNode.parentNode.querySelector("video").style.objectFit = "cover"
                     }
                     else {
-                        e.parentElement.parentElement.querySelector("video").style.maxHeight = "320px"
-                        e.parentElement.parentElement.querySelector("video").style.objectFit = "contain"
+                        e.parentNode.parentNode.querySelector("video").style.maxHeight = "320px"
+                        e.parentNode.parentNode.querySelector("video").style.objectFit = "contain"
                     }
                     document.querySelectorAll("video").forEach(function (el) {
                         el.style.zIndex = 0
                     })
-                    e.parentElement.parentElement.querySelector("video").style.zIndex = 0
+                    e.parentNode.parentNode.querySelector("video").style.zIndex = 0
                     if (document.querySelector(".nav-bar-mobile")){
                         document.querySelector(".nav-bar-mobile").style.zIndex = 1000
                     }
@@ -3289,12 +3289,12 @@ function handleMainFrame(){
                     // history.pushState({
                     //     fullscreen: true
                     // }, '', window.location.href)
-                    e.parentElement.parentElement.querySelector("video").style.maxHeight = "100%"
+                    e.parentNode.parentNode.querySelector("video").style.maxHeight = "100%"
                     document.querySelectorAll("video").forEach(function (el) {
                         el.style.zIndex = "-1px"
                     })
-                    e.parentElement.parentElement.querySelector("video").style.zIndex = 5000
-                    e.parentElement.parentElement.querySelector("video").style.objectFit = "contain"
+                    e.parentNode.parentNode.querySelector("video").style.zIndex = 5000
+                    e.parentNode.parentNode.querySelector("video").style.objectFit = "contain"
                     if (document.querySelector(".nav-bar-mobile")){
                         document.querySelector(".nav-bar-mobile").style.zIndex = 0
                     }
