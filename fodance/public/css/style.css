@@ -2770,7 +2770,7 @@ input:checked + .slider:before {
 }
 
 .category-but:hover {
-  background-color: #f3f3f3;
+  background-color: #f5f5f5;
   /* color: white; */
   /* border: none; */
   border: 1px solid #009de6;
@@ -2780,7 +2780,7 @@ input:checked + .slider:before {
 
 .category .active {
   /* background-image: linear-gradient(to right, #009de6, #009de6); */
-  background-color: #f3f3f3;
+  background-color: #f5f5f5;
   /* color: white; */
   /* border: none; */
   border: 1px solid #009de6;
@@ -2788,7 +2788,7 @@ input:checked + .slider:before {
 }
 
 .category .active:hover {
-  background-color: #f3f3f3;
+  background-color: #f5f5f5;
   /* color: white; */
   /* border: none; */
   border: 1px solid #009de6;
