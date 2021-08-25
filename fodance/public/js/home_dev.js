@@ -3274,10 +3274,10 @@ function handleMainFrame(){
                     if (document.querySelector(".main-frame-post-sort")){
                         document.querySelector(".main-frame-post-sort").style.zIndex = 1000
                     }
+                    window.scrollTo(0, 1000)
                     handleMainFrame()
                     handleNavigation()
                     handleRankPostCount()
-                    window.scrollTo(0, scrollPage)
                 }
                 else {
                     e.parentNode.parentNode.querySelector("video").style.maxHeight = "100%"
