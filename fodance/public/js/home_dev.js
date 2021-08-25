@@ -4123,11 +4123,11 @@ function handleScroll(){
         let main = document.querySelector(".main")
         window.addEventListener('scroll', function(el){
             if (navLink == 'competition' || window.location.pathname.replace('/', '') == "competition" || cateList.includes(window.location.pathname.replace('/', ''))){
-                if (window.pageYOffset != undefined) {
-                    scrollPage = window.pageYOffset
+                if (window.innerWidth <= 662){
+                    scrollPage = document.documentElement.scrollTop
                 }
                 else {
-                    scrollPage = document.scrollTop
+                    scrollPage = window.pageYOffset
                 }
             }
             let contentHeight = main.offsetHeight
