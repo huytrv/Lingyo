@@ -3260,7 +3260,9 @@ function handleMainFrame(){
                         e.parentNode.parentNode.querySelector("video").style.maxHeight = "320px"
                         e.parentNode.parentNode.querySelector("video").style.objectFit = "contain"
                     }
-
+                    document.querySelectorAll("video").forEach(function (el) {
+                        el.style.zIndex = 0
+                    })
                     e.parentNode.parentNode.querySelector("video").style.zIndex = 0
                     if (document.querySelector(".nav-bar-mobile")){
                         document.querySelector(".nav-bar-mobile").style.zIndex = 1000
@@ -3289,9 +3291,9 @@ function handleMainFrame(){
                     //     fullscreen: true
                     // }, '', window.location.href)
                     e.parentNode.parentNode.querySelector("video").style.maxHeight = "100%"
-                    // document.querySelectorAll("video").forEach(function (el) {
-                    //     el.style.zIndex = -1
-                    // })
+                    document.querySelectorAll("video").forEach(function (el) {
+                        el.style.zIndex = -1000
+                    })
                     e.parentNode.parentNode.querySelector("video").style.zIndex = 100000
                     e.parentNode.parentNode.querySelector("video").style.objectFit = "contain"
                     if (document.querySelector(".nav-bar-mobile")){
@@ -3299,9 +3301,6 @@ function handleMainFrame(){
                     }
                     if (document.querySelector(".header")){
                         document.querySelector(".header").style.zIndex = 0
-                    }
-                    if (document.querySelector(".main")){
-                        document.querySelector(".main").style.zIndex = 0
                     }
                     if (document.querySelector(".category-frame")){
                         document.querySelector(".category-frame").style.zIndex = 0
