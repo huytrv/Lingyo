@@ -3243,7 +3243,8 @@ function handleMainFrame(){
             e.onclick = function(){
                 fullscreen = !fullscreen
                 if (!fullscreen){
-                    window.scrollTo(0, scrollPage)
+                    window.scrollTo(0, y)
+                    console.log(y)
                     if(window.innerWidth <= 662){
                         e.parentNode.parentNode.querySelector("video").style.maxHeight = "380px"
                         e.parentNode.parentNode.querySelector("video").style.objectFit = "cover"
@@ -3279,7 +3280,7 @@ function handleMainFrame(){
                     // handleRankPostCount()
                 }
                 else {
-                    disableScrolling()
+                    y = window.scrollY
                     e.parentNode.parentNode.querySelector("video").style.maxHeight = "100%"
                     document.querySelectorAll(".post").forEach(function (el) {
                         if (el != e.parentNode.parentNode.parentNode.parentNode.parentNode){
