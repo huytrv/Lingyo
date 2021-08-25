@@ -201,6 +201,8 @@ function pretreatment(){
         document.body.scrollLeft = scroll.left
     }
     removeFacebookAppendedHash()
+
+    window.scrollTo(0, 0)
 }
 pretreatment()
 
@@ -310,7 +312,7 @@ function handleCategoryScroll() {
     }
 
 }
-handleCategoryScroll()
+// handleCategoryScroll()
 
 function handleMobileResponse() {
     if(window.innerWidth <= 662){
@@ -1144,7 +1146,6 @@ function rankRedirect(rankBut, pushState){
         } else {
             xhttp = new ActiveXObject("Microsoft.XMLHTTP")
         }
-        window.scrollTo(0, 0)
         document.querySelector(".main-frame").innerHTML = '<div class="loading-frame d-flex"><span class="iconify spin loading-icon" data-icon="ant-design:loading-3-quarters-outlined" data-inline="false"></span></div>'
         xhttp.onreadystatechange = function() {    
             if (xhttp.readyState == 4 && xhttp.status == 200) {
