@@ -3300,6 +3300,9 @@ function handleMainFrame(){
                     if (document.querySelector(".header")){
                         document.querySelector(".header").style.zIndex = 0
                     }
+                    if (document.querySelector(".main")){
+                        document.querySelector(".main").style.zIndex = 0
+                    }
                     if (document.querySelector(".category-frame")){
                         document.querySelector(".category-frame").style.zIndex = 0
                     }
