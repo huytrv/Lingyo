@@ -1,7 +1,7 @@
 window.onresize = toggleHeader;
 window.onload = toggleHeader;
 
-let scrollRange = scrollPage = stopScrollPage = scrollPosition = round = 0
+let scrollRange = scrollPage = stopScrollPage = round = 0
 let rankIndex = 5, cateSort = "rank-sort-content", rankLink = rankLinkPost = "primary", rankName = "Sơ cấp", filter = "current"
 let cateLink = competitionContentText = "competition"
 let roundType = navLink = statusRedirect = infoContentText = homeContentText = personalPostText = categoryContentText = postContentText = cateName = avtUpdate = usernameUpdate = nicknameUpdate = nicknameBeforeUpdate = cateLinkPost = filter = searchQuery = ''
@@ -3274,14 +3274,12 @@ function handleMainFrame(){
                     if (document.querySelector(".main-frame-post-sort")){
                         document.querySelector(".main-frame-post-sort").style.zIndex = 1000
                     }
-                    window.scrollTo(0, scrollPosition)
-                    e.parentNode.parentNode.parentNode.parentNode.parentNode.innerHTML = scrollPosition
+                    window.scrollTo(0, scrollPage)
                     handleMainFrame()
                     handleNavigation()
                     handleRankPostCount()
                 }
                 else {
-                    scrollPosition = window.scrollY
                     e.parentNode.parentNode.querySelector("video").style.maxHeight = "100%"
                     document.querySelectorAll(".post").forEach(function (el) {
                         if (el != e.parentNode.parentNode.parentNode.parentNode.parentNode){
@@ -4124,12 +4122,7 @@ function handleScroll(){
         let main = document.querySelector(".main")
         window.addEventListener('scroll', function(el){
             if (navLink == 'competition' || window.location.pathname.replace('/', '') == "competition" || cateList.includes(window.location.pathname.replace('/', ''))){
-                if (window.pageYOffset > 0){
-                    scrollPage = window.pageYOffset
-                }
-                else {
-                    scrollPage = document.documentElement.scrollTop
-                }
+                scrollPage = window.pageYOffset || document.documentElement.scrollTop
             }
             let contentHeight = main.offsetHeight
             let y = Math.ceil(window.pageYOffset) + window.innerHeight
