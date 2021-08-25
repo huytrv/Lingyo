@@ -312,7 +312,7 @@ function handleCategoryScroll() {
     }
 
 }
-// handleCategoryScroll()
+handleCategoryScroll()
 
 function handleMobileResponse() {
     if(window.innerWidth <= 662){
@@ -3274,9 +3274,9 @@ function handleMainFrame(){
                         document.querySelector(".main-frame-post-sort").style.zIndex = 1000
                     }
                     window.scrollTo(0, scrollPage)
-                    handleMainFrame()
-                    handleNavigation()
-                    handleRankPostCount()
+                    // handleMainFrame()
+                    // handleNavigation()
+                    // handleRankPostCount()
                 }
                 else {
                     e.parentNode.parentNode.querySelector("video").style.maxHeight = "100%"
@@ -4119,7 +4119,7 @@ function handleScroll(){
         let ajaxCall = false
         let savedView = false
         let main = document.querySelector(".main")
-        window.addEventListener('scroll', function(el){
+        window.addEventListener('scroll', function(){
             if (navLink == 'competition' || window.location.pathname.replace('/', '') == "competition" || cateList.includes(window.location.pathname.replace('/', ''))){
                 scrollPage = window.pageYOffset || document.documentElement.scrollTop
                 showAlert(scrollPage)

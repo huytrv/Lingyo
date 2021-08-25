@@ -2770,23 +2770,29 @@ input:checked + .slider:before {
 }
 
 .category-but:hover {
-  background-color: #009de6;
-  color: white;
-  border: none;
+  background-color: #f3f3f3;
+  /* color: white; */
+  /* border: none; */
+  border: 1px solid #009de6;
+  box-shadow: 0 0 5px 1px rgb(233, 233, 233)
 }
 
 
 .category .active {
   /* background-image: linear-gradient(to right, #009de6, #009de6); */
-  background-color: #009de6;
-  color: white;
-  border: none;
-  /* border: 1px solid #009de6; */
+  background-color: #f3f3f3;
+  /* color: white; */
+  /* border: none; */
+  border: 1px solid #009de6;
+  box-shadow: 0 0 5px 1px rgb(233, 233, 233)
 }
 
 .category .active:hover {
-  background-color: #009de6;
-  color: white;
+  background-color: #f3f3f3;
+  /* color: white; */
+  /* border: none; */
+  border: 1px solid #009de6;
+  box-shadow: 0 0 5px 1px rgb(233, 233, 233)
 }
 
 .category-but svg {
@@ -2900,7 +2906,7 @@ input:checked + .slider:before {
 }
 
 .arrow-icon {
-  font-size: 38px;
+  font-size: 30px;
   color: #818181;
 }
 
