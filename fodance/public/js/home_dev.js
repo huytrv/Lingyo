@@ -202,7 +202,7 @@ function pretreatment(){
     }
     removeFacebookAppendedHash()
 
-    window.scrollTo(0, 0)
+    //window.scrollTo(0, 0)
 }
 pretreatment()
 
@@ -915,7 +915,7 @@ function searchRedirect(text, pushState){
             searchText: text,
             searchDisplayedList: searchDisplayedList
         }
-        window.scrollTo(0, 0)
+        //window.scrollTo(0, 0)
         navLink = "search"
         // document.querySelector(".category").innerHTML = `<div class="d-flex group-title"><span class="mg-l-lg font-size-lg-2 none-deco none-mg">Kết quả tìm kiếm cho "${text}"</div>`
         if (document.querySelector(".post-frame")){
@@ -1037,7 +1037,7 @@ handleSearch()
 
 
 function rankRedirect(rankBut, pushState){
-    window.scrollTo(0, 0)
+    //window.scrollTo(0, 0)
     const rankAgent = rankBut.outerHTML
     rankLink = rankBut.getAttribute("rank-data")
     rankName = rankBut.querySelector(".header-rank-but-name").textContent
@@ -1847,7 +1847,7 @@ function categoryRedirect(cate, pushState){
             rankButs[i].classList.remove("header-rank-but-active")
         }
     }
-    window.scrollTo(0, 0)
+    //window.scrollTo(0, 0)
     if (document.querySelectorAll(".post-frame").length != 0){
         document.querySelector(".post-frame").innerHTML = '<div class="loading-post"><div class="d-flex-start loading-content"><div class="loading-post-circle mg-r"></div><div class="d-flex-col-start-content width-80"><div class="loading-post-line width-30 mg-b-sm"></div><div class="loading-post-line width-20"></div></div></div><div class="loading-post-line width-90 mg-b-sm"></div></div></div>'
     }
@@ -3785,7 +3785,7 @@ function handleMainFrame(){
             } else {
                 xhttp = new ActiveXObject("Microsoft.XMLHTTP")
             }
-            window.scrollTo(0, 0)
+            //window.scrollTo(0, 0)
             stopScrollPage = 0
             rankIndex = 5
             const data = {
@@ -4274,7 +4274,7 @@ function handleNavigation(){
                     } else {
                         xhttp = new ActiveXObject("Microsoft.XMLHTTP")
                     }
-                    window.scrollTo(0, 0)
+                    //window.scrollTo(0, 0)
                     if (document.querySelector(".main-frame")){
                         document.querySelector(".main-frame").innerHTML = '<div class="loading-frame d-flex"><span class="iconify spin loading-icon" data-icon="ant-design:loading-3-quarters-outlined" data-inline="false"></span></div>'
                     }
@@ -4464,7 +4464,7 @@ function handleNavigation(){
                     } else {
                         xhttp = new ActiveXObject("Microsoft.XMLHTTP")
                     }
-                    window.scrollTo(0, 0)
+                    //window.scrollTo(0, 0)
                     if (document.querySelectorAll(".post-frame").length != 0){
                         document.querySelector(".post-frame").innerHTML = '<div class="loading-post"><div class="d-flex-start loading-content"><div class="loading-post-circle mg-r"></div><div class="d-flex-col-start-content width-80"><div class="loading-post-line width-30 mg-b-sm"></div><div class="loading-post-line width-20"></div></div></div><div class="loading-post-line width-90 mg-b-sm"></div></div></div>'
                     }
@@ -4663,7 +4663,7 @@ function handleNavigation(){
             } else {
                 xhttp = new ActiveXObject("Microsoft.XMLHTTP")
             }
-            window.scrollTo(0, 0)
+            //window.scrollTo(0, 0)
             document.querySelector(".main-frame").innerHTML = '<div class="loading-frame d-flex"><span class="iconify spin loading-icon" data-icon="ant-design:loading-3-quarters-outlined" data-inline="false"></span></div>'
             const rankHeader = document.querySelectorAll(".header-rank-but")
             for (let i = 0; i < rankHeader.length; i++){
