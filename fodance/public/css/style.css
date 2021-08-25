@@ -272,7 +272,7 @@ button {
 }
 
 .bg-white {
-  background-color: #f1f2f5 !important;
+  background-color: #f0f2f6 !important;
 }
 
 .fa-2x {
@@ -468,7 +468,7 @@ img {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
 }
 
 .bg-container {
@@ -492,7 +492,7 @@ img {
 }
 
 .bg-color {
-  background-color: #f1f2f5 !important;
+  background-color: #f0f2f6 !important;
 }
 
 .theme-bg {
@@ -1101,7 +1101,7 @@ video {
 
 .language-button {
   width: 100%;
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
   color: rgb(100, 100, 100);
   display: flex;
   align-items: center;
@@ -1113,7 +1113,7 @@ video {
 }
 
 .topic-but {
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
   color: rgb(100, 100, 100);
   display: flex;
   align-items: center;
@@ -2051,7 +2051,7 @@ input:checked + .slider:before {
 
 .follow-but {
   /* background-color: #F6F7FA; */
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
   color: #009de6;
   border: 1px solid #009de6;
   border-radius: 20px;
@@ -2090,7 +2090,7 @@ input:checked + .slider:before {
   border-radius: 10px;
   box-shadow: none;
   border: none;
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
   margin-bottom: 0;
 }
 
@@ -2114,7 +2114,7 @@ input:checked + .slider:before {
 }
 
 .nav-item:hover {
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
 }
 
 .nav-item:active {
@@ -2133,7 +2133,7 @@ input:checked + .slider:before {
 .nav-ele {
   position: relative;
   border: none;
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
   padding: 6px 20px;
   border-radius: 20px;
   cursor: pointer;
@@ -2303,7 +2303,7 @@ input:checked + .slider:before {
 }
 
 .comment-wrapper {
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
   padding: 10px 15px;
   border-radius: 20px;
   width: auto;
@@ -2324,7 +2324,7 @@ input:checked + .slider:before {
 }
 
 .comment-textarea {
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
   width: 100%;
   max-height: 200px;
   height: 36px;
@@ -2369,7 +2369,7 @@ input:checked + .slider:before {
   position: absolute;
   right: 15px;
   font-size: 18px;
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
   color: rgb(83, 83, 83);
   border: none;
   cursor: pointer;
@@ -2691,7 +2691,7 @@ input:checked + .slider:before {
   height: 45px;
   /* border-bottom: 1px solid rgb(235, 235, 235); */
   margin-bottom: 10px;
-  box-shadow: 0 2px 3px 1px rgb(235, 235, 235);
+  box-shadow: 0 2px 2px 1px rgb(236, 236, 236);
   transition: 0.3s;
 }
 
@@ -2760,7 +2760,7 @@ input:checked + .slider:before {
   background-size: 100% auto;
   width: auto;
   min-width: 90px;
-  height: 34px;
+  height: 36px;
   padding: 0 13px;
   border-radius: 20px;
   margin-right: 10px;
@@ -2826,7 +2826,7 @@ input:checked + .slider:before {
 }
 
 .sort-content-but, .for-you {
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
   padding: 20px 0;
   cursor: pointer;
   width: 45px;
@@ -2837,7 +2837,7 @@ input:checked + .slider:before {
 
 .sort-content-but:hover, .for-you:hover, .sort-content-but-active {
   color: #009de6;
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
 }
 
 .sort-content-but svg, .for-you svg {
@@ -3127,7 +3127,7 @@ img.thumb {
 }
 
 .modal ::-webkit-scrollbar-track, .main-frame-post ::-webkit-scrollbar-track {
-  background: #f1f2f5; 
+  background: #f0f2f6; 
   border-radius: 4px;
 }
  
@@ -3283,6 +3283,7 @@ img.thumb {
 }
 
 .post-file video {
+  background-color: rgba(95, 95, 95, 0.568);
   /* background-image: linear-gradient(to right, rgba(82, 82, 82, 0.329), rgba(192, 192, 192, 0.479),rgba(82, 82, 82, 0.329)); */
   width: 100%;
   height: 100%;
@@ -4088,7 +4089,7 @@ input[type=radio] {
 }
 
 .post-details .comment-textarea, .comment-emoji {
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
 }
 
 .save-edit-profile, .save-edit-avt {
@@ -4154,7 +4155,7 @@ input[type=radio] {
 }
 
 .player-holder-modal-content {
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
   position: relative;
   border-radius: 10px !important;
   width: 520px !important;
@@ -5213,7 +5214,7 @@ input[type='range']::-ms-fill-lower {
 }
 
 /* .home-frame {
-  background-color: #f1f2f5;
+  background-color: #f0f2f6;
 } */
 
 .top-reward-inner {
@@ -5733,7 +5734,7 @@ tbody {
   }
 
   .main-frame-post-sort {
-    margin-right: 20px;
+    margin-right: 30px;
   }
 
   .nav-ele:nth-child(7), .nav-ele:nth-child(6), .nav-ele:nth-child(5) {
@@ -5940,7 +5941,7 @@ tbody {
   } */
 
   .ticket-but {
-    background-color: #f1f2f5;
+    background-color: #f0f2f6;
   }
 
   .header-inner {
@@ -5967,7 +5968,7 @@ tbody {
   } */
 
   .modal-content {
-    background-color: #f1f2f5f3;
+    background-color: #f0f2f6f3;
   }
 
   .close-thumb {
@@ -5988,7 +5989,7 @@ tbody {
 
   .main-inner {
     padding-top: 48px;
-    background-color: #f1f2f5;
+    background-color: #f0f2f6;
   }
 
   .main-frame-post-inner {
@@ -5999,8 +6000,9 @@ tbody {
   }
 
   .main-frame-post-inner-personal {
-    width: 75%;
+    width: 73%;
     max-width: 650px;
+    margin-top: 10px;
   }
 
   .main-frame-post-tool, .main-frame-post-sort {
@@ -6025,7 +6027,12 @@ tbody {
   }
 
   .post {
-    background-color: #f1f2f5;
+    background-color: #f0f2f6;
+  }
+
+  .post-file video {
+    max-height: 320px;
+    object-fit: contain;
   }
 
   .create-post-textarea, .create-post-custom-but {
@@ -6033,7 +6040,7 @@ tbody {
   }
 
   .create-post-category-but, .create-post-rank-but {
-    background-color: #f1f2f5;
+    background-color: #f0f2f6;
   }
 
   .create-post-category-but-active, .create-post-rank-but-active {
@@ -6041,7 +6048,7 @@ tbody {
   }
 
   .comment-section {
-    background-color: #f1f2f5;
+    background-color: #f0f2f6;
   }
 
   .comment-textarea, .comment-emoji {
@@ -6053,11 +6060,11 @@ tbody {
   }
 
   .loading-post, .follow-content .follow-but, .avt-cover-info {
-    background-color: #f1f2f5;
+    background-color: #f0f2f6;
   }
 
   .add-info-but, .nav-info-but, .avatar-frame .follow-but {
-    background-color: #f1f2f5;
+    background-color: #f0f2f6;
   }
 
   .avatar-name {
@@ -6105,7 +6112,7 @@ tbody {
   }
 
   .main-frame {
-    width: 60%;
+    width: 65%;
     max-width: 900px;
     min-width: 600px;
   }
@@ -6256,7 +6263,7 @@ tbody {
 
   .interactive-but {
     padding: 8px 30px;
-    background-color: #f1f2f5;
+    background-color: #f0f2f6;
   }
 
   .interactive-but:hover {
@@ -6285,7 +6292,7 @@ tbody {
   }
 
   .search-item .follow-but {
-    background-color: #f1f2f5;
+    background-color: #f0f2f6;
   }
 
   .edit-profile-frame {

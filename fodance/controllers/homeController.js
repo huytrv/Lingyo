@@ -391,6 +391,9 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     limit: 5,
                     where: {
                         rank: rank,
+                        category: {
+                            [Op.in]: cateList
+                        },
                         auth: true,
                         time: {
                             [Op.gte]: currentTimeline
@@ -1208,7 +1211,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         if (req.isAuthenticated()){
             req.session.tryTime = 0
             req.session.blockLogin = false
-            if (req.body.category != '') {postCategory = cateList} else {postCategory = [req.body.category]}
+            if (req.body.category == '') {postCategory = cateList} else {postCategory = [req.body.category]}
             // if (req.body.category != '' && req.body.filter == "current"){
                 userProfile.findOne({
                     raw: true,
@@ -1310,7 +1313,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         if (req.isAuthenticated()){
             req.session.tryTime = 0
             req.session.blockLogin = false
-            if (req.body.category != '') {postCategory = cateList} else {postCategory = [req.body.category]}
+            if (req.body.category == '') {postCategory = cateList} else {postCategory = [req.body.category]}
             // if (req.body.category != ''){
                 let timeFilter
                 if (req.body.filter == "current"){timeFilter = currentTimeline}
@@ -1414,7 +1417,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         if (req.isAuthenticated()){
             req.session.tryTime = 0
             req.session.blockLogin = false
-            if (req.body.category != '') {postCategory = cateList} else {postCategory = [req.body.category]}
+            if (req.body.category == '') {postCategory = cateList} else {postCategory = [req.body.category]}
             // if (req.body.category != ''){
                 let timeFilter
                 if (req.body.filter == "current"){timeFilter = currentTimeline}
@@ -1518,7 +1521,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         if (req.isAuthenticated()){
             req.session.tryTime = 0
             req.session.blockLogin = false
-            if (req.body.category != '') {postCategory = cateList} else {postCategory = [req.body.category]}
+            if (req.body.category == '') {postCategory = cateList} else {postCategory = [req.body.category]}
             // if (req.body.category != ''){
                 let timeFilter
                 if (req.body.filter == "current"){timeFilter = currentTimeline}
@@ -2256,6 +2259,9 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 posts.count({
                     where: {
                         rank: rankList[j],
+                        category: {
+                            [Op.in]: cateList
+                        },
                         time: {
                             [Op.gte]: currentTimeline
                         },
