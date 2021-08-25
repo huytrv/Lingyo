@@ -3243,8 +3243,6 @@ function handleMainFrame(){
             e.onclick = function(){
                 fullscreen = !fullscreen
                 if (!fullscreen){
-                    window.scrollTo(0, y)
-                    console.log(y)
                     if(window.innerWidth <= 662){
                         e.parentNode.parentNode.querySelector("video").style.maxHeight = "380px"
                         e.parentNode.parentNode.querySelector("video").style.objectFit = "cover"
@@ -3253,9 +3251,9 @@ function handleMainFrame(){
                         e.parentNode.parentNode.querySelector("video").style.maxHeight = "320px"
                         e.parentNode.parentNode.querySelector("video").style.objectFit = "contain"
                     }
-                    document.querySelectorAll(".post").forEach(function (el) {
-                        el.style.zIndex = 0
-                    })
+                    // document.querySelectorAll(".post").forEach(function (el) {
+                    //     el.style.zIndex = 0
+                    // })
                     e.parentNode.parentNode.querySelector("video").style.zIndex = 0
                     if (document.querySelector(".nav-bar-mobile")){
                         document.querySelector(".nav-bar-mobile").style.zIndex = 1000
@@ -3280,16 +3278,15 @@ function handleMainFrame(){
                     // handleRankPostCount()
                 }
                 else {
-                    y = window.scrollY
                     e.parentNode.parentNode.querySelector("video").style.maxHeight = "100%"
-                    document.querySelectorAll(".post").forEach(function (el) {
-                        if (el != e.parentNode.parentNode.parentNode.parentNode.parentNode){
-                            el.style.zIndex = -1
-                        }
-                        else {
-                            el.style.zIndex = 100000
-                        }
-                    })
+                    // document.querySelectorAll(".post").forEach(function (el) {
+                    //     if (el != e.parentNode.parentNode.parentNode.parentNode.parentNode){
+                    //         el.style.zIndex = -1
+                    //     }
+                    //     else {
+                    //         el.style.zIndex = 100000
+                    //     }
+                    // })
                     e.parentNode.parentNode.querySelector("video").style.zIndex = 100000
                     e.parentNode.parentNode.querySelector("video").style.objectFit = "contain"
                     if (document.querySelector(".nav-bar-mobile")){
