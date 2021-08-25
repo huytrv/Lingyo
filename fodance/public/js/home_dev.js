@@ -3251,6 +3251,7 @@ function handleMainFrame(){
                     // handleMainFrame()
                     // handleNavigation()
                     // handleRankPostCount()
+                    window.scrollTo(0, scrollPage)
                     if(window.innerWidth <= 662){
                         e.parentNode.parentNode.querySelector("video").style.maxHeight = "380px"
                         e.parentNode.parentNode.querySelector("video").style.objectFit = "cover"
