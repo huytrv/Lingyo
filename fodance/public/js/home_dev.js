@@ -3248,7 +3248,7 @@ function handleMainFrame(){
                     // window.history.replaceState(fullscreen, '', null)
                     // window.history.back()
                     // document.querySelector(".main-frame").innerHTML = competitionContentText
-                    // window.scrollTo(0, scrollPage)
+                    window.scrollTo(0, scrollPage)
                     // handleMainFrame()
                     // handleNavigation()
                     // handleRankPostCount()
