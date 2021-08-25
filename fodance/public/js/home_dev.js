@@ -3274,12 +3274,13 @@ function handleMainFrame(){
                     if (document.querySelector(".main-frame-post-sort")){
                         document.querySelector(".main-frame-post-sort").style.zIndex = 1000
                     }
-                    // window.scrollTo(0, scrollPage)
+                    window.scrollTo(0, scrollPage)
                     handleMainFrame()
                     handleNavigation()
                     handleRankPostCount()
                 }
                 else {
+                    scrollPage = e.parentNode.parentNode.querySelector("video").pageYOffset
                     e.parentNode.parentNode.querySelector("video").style.maxHeight = "100%"
                     document.querySelectorAll(".post").forEach(function (el) {
                         if (el != e.parentNode.parentNode.parentNode.parentNode.parentNode){
