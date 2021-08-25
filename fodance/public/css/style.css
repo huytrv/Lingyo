@@ -5231,6 +5231,7 @@ input[type='range']::-ms-fill-lower {
   font-weight: normal;
   height: auto;
   padding: 10px;
+  border: none;
 }
 
 .rw-text {
