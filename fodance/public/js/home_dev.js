@@ -4123,6 +4123,7 @@ function handleScroll(){
         window.addEventListener('scroll', function(el){
             if (navLink == 'competition' || window.location.pathname.replace('/', '') == "competition" || cateList.includes(window.location.pathname.replace('/', ''))){
                 scrollPage = window.pageYOffset || document.documentElement.scrollTop
+                showAlert(scrollPage)
             }
             let contentHeight = main.offsetHeight
             let y = Math.ceil(window.pageYOffset) + window.innerHeight
