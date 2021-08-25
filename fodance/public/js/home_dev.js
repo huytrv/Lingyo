@@ -3242,6 +3242,15 @@ function handleMainFrame(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
             e.onclick = function(){
                 fullscreen = !fullscreen
+                if (e.parentNode.parentNode.querySelector("video").paused){
+                    const playPromise = e.parentNode.parentNode.querySelector("video").play()
+                    if (playPromise !== undefined) {
+                        playPromise.then(_ => {
+                        })
+                        .catch(error => {
+                        })
+                    }
+                }
                 if (!fullscreen){
                     window.scrollTo(0, scrollPage)
                     if(window.innerWidth <= 662){
@@ -4122,7 +4131,6 @@ function handleScroll(){
             if (navLink == 'competition' || window.location.pathname.replace('/', '') == "competition" || cateList.includes(window.location.pathname.replace('/', ''))){
                 if (Math.round(window.pageYOffset) > 0 || Math.round(document.documentElement.scrollTop) > 0){
                     scrollPage = Math.round(window.pageYOffset) || Math.round(document.documentElement.scrollTop)
-                    showAlert(scrollPage)
                 }
             }
             let contentHeight = main.offsetHeight
