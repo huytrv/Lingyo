@@ -2770,7 +2770,8 @@ input:checked + .slider:before {
 }
 
 .category-but:hover {
-  background-image: linear-gradient(to right, #bebebe, #cccccc);
+  background-color: #000000b6;
+  color: white;
   border: none;
 }
 
