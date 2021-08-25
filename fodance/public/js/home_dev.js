@@ -3251,7 +3251,7 @@ function handleMainFrame(){
                 }
                 fullscreen = !fullscreen
                 if (!fullscreen){
-                    enableScrolling()
+                    disableScrolling()
                     // window.scrollTo(0, scrollPage)
                     if(window.innerWidth <= 662){
                         e.parentNode.parentNode.querySelector("video").style.maxHeight = "380px"
