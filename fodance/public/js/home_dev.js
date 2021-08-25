@@ -3281,7 +3281,7 @@ function handleMainFrame(){
                     handleRankPostCount()
                 }
                 else {
-                    scrollPosition = document.documentElement.scrollTop
+                    scrollPosition = window.scrollY
                     e.parentNode.parentNode.querySelector("video").style.maxHeight = "100%"
                     document.querySelectorAll(".post").forEach(function (el) {
                         if (el != e.parentNode.parentNode.parentNode.parentNode.parentNode){
