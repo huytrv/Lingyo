@@ -2689,7 +2689,7 @@ input:checked + .slider:before {
   background-color: white;
   z-index: 1000;
   height: 45px;
-  /* border-bottom: 1px solid rgb(235, 235, 235); */
+  border-bottom: 1px solid rgb(235, 235, 235);
   margin-bottom: 10px;
   transition: 0.3s;
 }
@@ -5236,7 +5236,6 @@ input[type='range']::-ms-fill-lower {
 
 .rw-text {
   text-align: center;
-  display: none !important;
 }
 
 .rw-color {
