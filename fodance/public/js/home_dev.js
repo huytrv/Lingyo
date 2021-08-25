@@ -3241,18 +3241,10 @@ function handleMainFrame(){
     function handleFullscreen(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
             e.onclick = function(){
-                function disableScrolling(){
-                    var x=window.scrollX;
-                    var y=window.scrollY;
-                    window.onscroll=function(){window.scrollTo(x, y);};
-                }
-                function enableScrolling(){
-                    window.onscroll=function(){};
-                }
+                let y = window.scrollY;
                 fullscreen = !fullscreen
                 if (!fullscreen){
-                    disableScrolling()
-                    // window.scrollTo(0, scrollPage)
+                    window.scrollTo(0, y)
                     if(window.innerWidth <= 662){
                         e.parentNode.parentNode.querySelector("video").style.maxHeight = "380px"
                         e.parentNode.parentNode.querySelector("video").style.objectFit = "cover"
