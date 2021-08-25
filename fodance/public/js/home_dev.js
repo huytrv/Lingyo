@@ -3242,6 +3242,7 @@ function handleMainFrame(){
     function handleFullscreen(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
             e.onclick = function(){
+                console.log(e)
                 fullscreen = !fullscreen
                 if (!fullscreen){
                     // window.history.replaceState(fullscreen, '', null)
@@ -3251,7 +3252,7 @@ function handleMainFrame(){
                     // handleMainFrame()
                     // handleNavigation()
                     // handleRankPostCount()
-                    window.scrollTo(0, scrollPage)
+                    console.log(1)
                     if(window.innerWidth <= 662){
                         e.parentNode.parentNode.querySelector("video").style.maxHeight = "380px"
                         e.parentNode.parentNode.querySelector("video").style.objectFit = "cover"
@@ -3287,11 +3288,11 @@ function handleMainFrame(){
                     handleRankPostCount()
                 }
                 else {
+                    console.log(2)
                     // history.pushState({
                     //     fullscreen: true
                     // }, '', window.location.href)
                     e.parentNode.parentNode.querySelector("video").style.maxHeight = "100%"
-                    console.log(e.parentNode.parentNode.parentNode.parentNode)
                     document.querySelectorAll(".post").forEach(function (el) {
                         if (el != e.parentNode.parentNode.parentNode.parentNode.parentNode){
                             el.style.zIndex = -1
@@ -3300,6 +3301,7 @@ function handleMainFrame(){
                             el.style.zIndex = 100000
                         }
                     })
+                    e.parentNode.parentNode.parentNode.parentNode.style.zIndex = 100000
                     e.parentNode.parentNode.querySelector("video").style.zIndex = 100000
                     e.parentNode.parentNode.querySelector("video").style.objectFit = "contain"
                     if (document.querySelector(".nav-bar-mobile")){
@@ -4755,9 +4757,13 @@ function handleNavigation(){
             }
         }
         else if (fullscreen){
-            document.querySelector("[data-plyr='fullscreen']").click()
-            history.pushState({
-            }, '', url)
+            document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
+                if (e.classList.contains("plyr__control--pressed")){
+                    e.click()
+                    history.pushState({
+                    }, '', url)
+                }
+            })
         }
         else {
             if (e.state !== null){
