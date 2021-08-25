@@ -5236,6 +5236,7 @@ input[type='range']::-ms-fill-lower {
 
 .rw-text {
   text-align: center;
+  display: none !important;
 }
 
 .rw-color {
