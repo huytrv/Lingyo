@@ -3743,11 +3743,12 @@ function handleMainFrame(){
         for (let i = 0; i < shareBut.length; i++){
             shareBut[i].onclick = function(){
                 const postLink = "https://fodance.com/post/" + shareBut[i].parentNode.parentNode.getAttribute("data-post-df")
+                const content = shareBut[i].parentNode.parentNode.querySelector(".post-description").textContent
                 if (!this.querySelector(".social-share")){
                     this.insertAdjacentHTML("beforeend", `
                     <div class="social-share d-flex-col-start pd-t pd-b">
                         <div class="fb-share-button social-share-item pd" data-href="${postLink}" data-layout="button" data-size="large">
-                            <a class="d-flex-start" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffodance.com%2Fpost%2F${shareBut[i].parentNode.parentNode.getAttribute("data-post-df")}" class="fb-xfbml-parse-ignore"><span class="iconify share-icon share-fb-icon mg-r" data-icon="fa-brands:facebook" data-inline="false"></span>Chia sẻ với Facebook
+                            <a class="d-flex-start" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffodance.com%2Fpost%2F${shareBut[i].parentNode.parentNode.getAttribute("data-post-df")}" aria-label="${content}" class="fb-xfbml-parse-ignore"><span class="iconify share-icon share-fb-icon mg-r" data-icon="fa-brands:facebook" data-inline="false"></span>Chia sẻ với Facebook
                             </a>
                         </div>
                         <div class="social-share-item pd">
