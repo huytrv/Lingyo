@@ -3242,6 +3242,7 @@ function handleMainFrame(){
     function handleFullscreen(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
             e.onclick = function(){
+                console.log(e)
                 fullscreen = !fullscreen
                 if (!fullscreen){
                     // window.history.replaceState(fullscreen, '', null)
@@ -3259,9 +3260,7 @@ function handleMainFrame(){
                         e.parentNode.parentNode.querySelector("video").style.maxHeight = "320px"
                         e.parentNode.parentNode.querySelector("video").style.objectFit = "contain"
                     }
-                    document.querySelectorAll(".post-file").forEach(function (el) {
-                        el.style.zIndex = 0
-                    })
+
                     e.parentNode.parentNode.querySelector("video").style.zIndex = 0
                     if (document.querySelector(".nav-bar-mobile")){
                         document.querySelector(".nav-bar-mobile").style.zIndex = 1000
@@ -3290,11 +3289,10 @@ function handleMainFrame(){
                     //     fullscreen: true
                     // }, '', window.location.href)
                     e.parentNode.parentNode.querySelector("video").style.maxHeight = "100%"
-                    document.querySelectorAll(".post-file").forEach(function (el) {
-                        el.style.zIndex = -1
-                    })
-                    e.parentNode.parentNode.parentNode.style.zIndex = 0
-                    e.parentNode.parentNode.querySelector("video").style.zIndex = 5000
+                    // document.querySelectorAll("video").forEach(function (el) {
+                    //     el.style.zIndex = -1
+                    // })
+                    e.parentNode.parentNode.querySelector("video").style.zIndex = 100000
                     e.parentNode.parentNode.querySelector("video").style.objectFit = "contain"
                     if (document.querySelector(".nav-bar-mobile")){
                         document.querySelector(".nav-bar-mobile").style.zIndex = 0
