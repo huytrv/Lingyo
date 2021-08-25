@@ -3242,13 +3242,13 @@ function handleMainFrame(){
     function handleFullscreen(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
             e.onclick = function(){
-                console.log(e)
                 fullscreen = !fullscreen
+                window.scrollTo(0, scrollPage)
+                console.log(navLink)
                 if (!fullscreen){
                     // window.history.replaceState(fullscreen, '', null)
                     // window.history.back()
                     // document.querySelector(".main-frame").innerHTML = competitionContentText
-                    window.scrollTo(0, scrollPage)
                     // handleMainFrame()
                     // handleNavigation()
                     // handleRankPostCount()
@@ -4133,7 +4133,7 @@ function handleScroll(){
         let savedView = false
         let main = document.querySelector(".main")
         window.addEventListener('scroll', function(){
-            if (navLink == 'competition'){
+            if (navLink == 'competition' || window.location.pathname.replace('/', '') == "competition" || cateList.includes(window.location.pathname.replace('/', ''))){
                 scrollPage = window.pageYOffset
             }
             let contentHeight = main.offsetHeight
