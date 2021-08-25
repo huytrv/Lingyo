@@ -3241,9 +3241,18 @@ function handleMainFrame(){
     function handleFullscreen(){
         document.querySelectorAll("[data-plyr='fullscreen']").forEach(function(e){
             e.onclick = function(){
+                function disableScrolling(){
+                    var x=window.scrollX;
+                    var y=window.scrollY;
+                    window.onscroll=function(){window.scrollTo(x, y);};
+                }
+                function enableScrolling(){
+                    window.onscroll=function(){};
+                }
                 fullscreen = !fullscreen
                 if (!fullscreen){
-                    window.scrollTo(0, scrollPage)
+                    enableScrolling()
+                    // window.scrollTo(0, scrollPage)
                     if(window.innerWidth <= 662){
                         e.parentNode.parentNode.querySelector("video").style.maxHeight = "380px"
                         e.parentNode.parentNode.querySelector("video").style.objectFit = "cover"
@@ -3279,6 +3288,7 @@ function handleMainFrame(){
                     // handleRankPostCount()
                 }
                 else {
+                    disableScrolling()
                     e.parentNode.parentNode.querySelector("video").style.maxHeight = "100%"
                     document.querySelectorAll(".post").forEach(function (el) {
                         if (el != e.parentNode.parentNode.parentNode.parentNode.parentNode){
