@@ -2771,19 +2771,19 @@ input:checked + .slider:before {
 }
 
 .category-but:hover {
-  background-image: linear-gradient(to right, #b1ceee, #c8dbf8);
+  background-image: linear-gradient(to right, #b8b8b8, #e0e0e0);
 }
 
 
 .category .active {
   /* background-image: linear-gradient(to right, #009de6, #009de6); */
-  background-color: #009de6;
+  background-color: #6b6b6b;
   color: white;
   /* border: 1px solid #009de6; */
 }
 
 .category .active:hover {
-  background-image: linear-gradient(to right, #00a3d4, #07b0e4);
+  background-image: linear-gradient(to right, #b8b8b8, #e0e0e0);
   color: white;
 }
 
