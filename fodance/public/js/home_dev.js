@@ -3259,7 +3259,7 @@ function handleMainFrame(){
                         e.parentElement.parentElement.querySelector("video").style.maxHeight = "320px"
                         e.parentElement.parentElement.querySelector("video").style.objectFit = "contain"
                     }
-                    document.querySelectorAll(".post").forEach(function (el) {
+                    document.querySelectorAll("video").forEach(function (el) {
                         el.style.zIndex = 0
                     })
                     e.parentElement.parentElement.querySelector("video").style.zIndex = 0
@@ -3290,8 +3290,8 @@ function handleMainFrame(){
                     //     fullscreen: true
                     // }, '', window.location.href)
                     e.parentElement.parentElement.querySelector("video").style.maxHeight = "100%"
-                    document.querySelectorAll(".post").forEach(function (el) {
-                        el.style.zIndex = -1
+                    document.querySelectorAll("video").forEach(function (el) {
+                        el.style.zIndex = "-1px"
                     })
                     e.parentElement.parentElement.querySelector("video").style.zIndex = 5000
                     e.parentElement.parentElement.querySelector("video").style.objectFit = "contain"
