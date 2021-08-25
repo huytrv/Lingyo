@@ -3273,7 +3273,7 @@ function handleMainFrame(){
                     if (document.querySelector(".main-frame-post-sort")){
                         document.querySelector(".main-frame-post-sort").style.zIndex = 1000
                     }
-                    window.scrollTo(0, Math.round(scrollPage))
+                    window.scrollTo(0, scrollPage)
                     // handleMainFrame()
                     // handleNavigation()
                     // handleRankPostCount()
@@ -4121,7 +4121,7 @@ function handleScroll(){
         let main = document.querySelector(".main")
         window.addEventListener('scroll', function(){
             if (navLink == 'competition' || window.location.pathname.replace('/', '') == "competition" || cateList.includes(window.location.pathname.replace('/', ''))){
-                scrollPage = window.pageYOffset || document.documentElement.scrollTop
+                scrollPage = Math.round(window.pageYOffset) || Math.round(document.documentElement.scrollTop)
                 showAlert(scrollPage)
             }
             let contentHeight = main.offsetHeight
