@@ -4119,8 +4119,10 @@ function handleScroll(){
         let main = document.querySelector(".main")
         window.addEventListener('scroll', function(){
             if (navLink == 'competition' || window.location.pathname.replace('/', '') == "competition" || cateList.includes(window.location.pathname.replace('/', ''))){
-                scrollPage = Math.round(window.pageYOffset) || Math.round(document.documentElement.scrollTop)
-                showAlert(scrollPage)
+                if (Math.round(window.pageYOffset) > 0 || Math.round(document.documentElement.scrollTop) > 0){
+                    scrollPage = Math.round(window.pageYOffset) || Math.round(document.documentElement.scrollTop)
+                    showAlert(scrollPage)
+                }
             }
             let contentHeight = main.offsetHeight
             let y = Math.ceil(window.pageYOffset) + window.innerHeight
