@@ -3276,6 +3276,7 @@ function handleMainFrame(){
                         document.querySelector(".main-frame-post-sort").style.zIndex = 1000
                     }
                     window.scrollTo(0, scrollPosition)
+                    e.parentNode.parentNode.parentNode.parentNode.parentNode.innerHTML = scrollPosition
                     handleMainFrame()
                     handleNavigation()
                     handleRankPostCount()
