@@ -5218,11 +5218,11 @@ input[type='range']::-ms-fill-lower {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  padding: 2px;
+  padding: 0px;
   border-radius: 20px;
   background-color: transparent;
   color: black;
-  margin: 5px 3px;
+  margin: 3px;
   z-index: 1;
 }
 
@@ -5379,7 +5379,7 @@ input[type='range']::-ms-fill-lower {
   top: 1px;
   width: calc(100% - 2px);
   height: calc(100% - 2px);
-  background-image: linear-gradient(to right, #fddee6, rgb(254, 240, 255));;
+  background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));;
   border-radius: 20px;
 }
 
