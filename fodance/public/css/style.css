@@ -5363,7 +5363,7 @@ input[type='range']::-ms-fill-lower {
   z-index: -2;
   width: 400%;
   height: 400%;
-  background-color: #d5b0ff;
+  background-color: white;
   background-repeat: no-repeat;
   background-size: 50% 50%, 50% 50%;
   background-position: 0 0, 100% 0, 100% 100%, 0 100%;
@@ -5379,7 +5379,7 @@ input[type='range']::-ms-fill-lower {
   top: 1px;
   width: calc(100% - 2px);
   height: calc(100% - 2px);
-  background: white;
+  background-image: linear-gradient(to right, #fddee6, rgb(254, 240, 255));;
   border-radius: 20px;
 }
 
@@ -6404,13 +6404,6 @@ tbody {
   .interactive-but:active {
     background-color: rgb(241, 251, 255);
   }
-
-  .rainbow::before {
-    background-color: white;
-  }
-  .rainbow::after {
-    background-image: linear-gradient(to right, #fddee6, rgb(254, 240, 255));;
-  }
 }
 
 @media screen and (device-aspect-ratio: 40/71) {
@@ -6425,7 +6418,7 @@ tbody {
 
 @media screen and (max-width: 500px) {
   .final-reward .top-reward-frame:first-child {
-    width: 51%;
+    width: 52%;
   }
 }
 
