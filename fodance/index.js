@@ -454,7 +454,7 @@ const server = https.createServer(op, app).listen(443, function(){
 
 const io = socketio(server)
 
-// signupController(app, users, userProfile, emailRegister, phoneRegister)
+signupController(app, users, userProfile, emailRegister, phoneRegister)
 loginController(app, users)
 forgotController(app, users, forgotPasswordToken, forgotPasswordCode)
 updateController(app, users)

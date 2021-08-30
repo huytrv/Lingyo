@@ -1525,6 +1525,7 @@ function handleRoundTimerBar(){
             if (i == 0) {
                 i = 1;
                 const elem = document.querySelector(".timer-bar");
+                const walking = document.querySelector(".walking-lottie");
                 const valueText = document.querySelector(".timer-bar-value");
                 elem.innerHTML = `
                 <div class="fire-ele"></div>
@@ -1545,6 +1546,7 @@ function handleRoundTimerBar(){
                     } else {
                         const percentTimeLeft = Math.floor(((roundLeft*24*60*60 - timeLeft)/(roundLeft*24*60*60)) * 100)
                         elem.style.width = percentTimeLeft + "%";
+                        walking.style.marginLeft = percentTimeLeft + "%";
                         fires.forEach(function(e){
                             e.style.marginLeft = elem.clientWidth + "px"
                         })
@@ -3183,6 +3185,13 @@ function lottie() {
         loop: true,
         autoplay: true,
         path: 'https://assets2.lottiefiles.com/packages/lf20_6aYlBl.json'
+    })
+    bodymovin.loadAnimation({
+        container: document.querySelector('.walking-lottie'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'https://assets3.lottiefiles.com/packages/lf20_h4mjsyjz.json'
     })
     if (document.querySelectorAll(".no-post-lottie").length == 1){
         bodymovin.loadAnimation({
