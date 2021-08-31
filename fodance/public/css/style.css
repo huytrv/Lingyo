@@ -691,11 +691,11 @@ video {
 }
 
 .mobile-creator .create-post-topic {
-  padding: 20px 15px;
+  padding: 15px;
 }
 
 .create-post-topic {
-  padding: 20px;
+  padding: 15px;
 }
 
 .mobile-creator .create-post-rank-but {
@@ -5381,7 +5381,7 @@ input[type='range']::-ms-fill-lower {
   background-repeat: no-repeat;
   background-size: 50% 50%, 50% 50%;
   background-position: 0 0, 100% 0, 100% 100%, 0 100%;
-  background-image: linear-gradient(#f7ce48, #f7ce48), linear-gradient(#fff1b0, #fff1b0);
+  background-image: linear-gradient(#f7eb48, #f7eb48), linear-gradient(#fff1b0, #fff1b0);
   animation: rotate 4s linear infinite;
 }
 
