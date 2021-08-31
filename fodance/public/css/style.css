@@ -5357,7 +5357,7 @@ input[type='range']::-ms-fill-lower {
 	overflow: hidden;
 }
 
-.rainbow::before {
+.rw1 .rainbow::before {
   content: '';
   position: absolute;
   z-index: -2;
@@ -5368,6 +5368,34 @@ input[type='range']::-ms-fill-lower {
   background-size: 50% 50%, 50% 50%;
   background-position: 0 0, 100% 0, 100% 100%, 0 100%;
   background-image: linear-gradient(#f7487c, #f7487c), linear-gradient(#ffb0fb, #ffb0fb);
+  animation: rotate 4s linear infinite;
+}
+
+.rw2 .rainbow::before {
+  content: '';
+  position: absolute;
+  z-index: -2;
+  width: 400%;
+  height: 400%;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-size: 50% 50%, 50% 50%;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  background-image: linear-gradient(#f7ce48, #f7ce48), linear-gradient(#fff1b0, #fff1b0);
+  animation: rotate 4s linear infinite;
+}
+
+.rw3 .rainbow::before {
+  content: '';
+  position: absolute;
+  z-index: -2;
+  width: 400%;
+  height: 400%;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-size: 50% 50%, 50% 50%;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  background-image: linear-gradient(#4871f7, #4871f7), linear-gradient(#b0d0ff, #b0d0ff);
   animation: rotate 4s linear infinite;
 }
 	
