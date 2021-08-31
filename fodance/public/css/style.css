@@ -2176,6 +2176,10 @@ input:checked + .slider:before {
   border-radius: 0;
 }
 
+.notifications-content .loading-post {
+  margin-top: 0;
+}
+
 .unread-notifications {
   position: absolute;
   left: 30px;
