@@ -261,7 +261,7 @@ function handleCategoryScroll() {
         })
         document.addEventListener('touchcancel', () => {
             isDown = false
-            if (pageLoad < -200){
+            if (pageLoad < -150){
                 let xhttp
                 if (window.XMLHttpRequest) {
                     xhttp = new XMLHttpRequest()
@@ -296,7 +296,7 @@ function handleCategoryScroll() {
         document.addEventListener('touchend', (e) => {
             isDown = false
             console.log(walk)
-            if (pageLoad < -200){
+            if (pageLoad < -150){
                 let xhttp
                 if (window.XMLHttpRequest) {
                     xhttp = new XMLHttpRequest()
@@ -334,7 +334,7 @@ function handleCategoryScroll() {
             const oldWalk = walk
             let count = oldWalk
             walk = Math.round((startY - y) * 1)
-            if (walk < -200 && !document.querySelector(".loading-frame")) {
+            if (walk < -150 && !document.querySelector(".loading-frame")) {
                 console.log(window.location.href.replace("https://fodance.com", ''))
                 if (window.pageYOffset == 0) {
                     document.querySelector(".main-frame").insertAdjacentHTML("afterend", `<div class="loading-frame d-flex"><span class="iconify spin loading-icon" data-icon="ant-design:loading-3-quarters-outlined" data-inline="false"></span></div>`)
