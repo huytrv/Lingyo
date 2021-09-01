@@ -276,6 +276,7 @@ function handleCategoryScroll() {
                             document.querySelector(".loading-frame").remove()
                         }
                         document.querySelector(".main-frame").innerHTML = page.querySelector(".main-frame").innerHTML
+                        pageLoad = 0
                         handleMobileResponse()
                         handleMainFrame()
                         handleNavigation()
@@ -311,6 +312,7 @@ function handleCategoryScroll() {
                             document.querySelector(".loading-frame").remove()
                         }
                         document.querySelector(".main-frame").innerHTML = page.querySelector(".main-frame").innerHTML
+                        pageLoad = 0
                         handleMobileResponse()
                         handleMainFrame()
                         handleNavigation()
