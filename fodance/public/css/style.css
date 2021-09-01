@@ -4971,6 +4971,7 @@ input[type='range']::-ms-fill-lower {
 
 .walking-lottie {
   width: 30px;
+  display: flex;
 }
 
 .home-round-timer {
