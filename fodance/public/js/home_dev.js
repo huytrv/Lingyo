@@ -253,7 +253,7 @@ toggleHeader()
 function handleCategoryScroll() {
     if (document.querySelector(".category-frame")){
         let isDown = false
-        let startY = 0, walk = 0
+        let startY = 0, walk = 0, pageLoad = 0
         document.addEventListener('touchstart', (e) => {
             startY = 0, walk = 0
             isDown = true
@@ -261,6 +261,30 @@ function handleCategoryScroll() {
         })
         document.addEventListener('touchcancel', () => {
             isDown = false
+            if (pageLoad < -200){
+                let xhttp
+                if (window.XMLHttpRequest) {
+                    xhttp = new XMLHttpRequest()
+                } else {
+                    xhttp = new ActiveXObject("Microsoft.XMLHTTP")
+                }
+                xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        const parser = new DOMParser()
+                        const page = parser.parseFromString(xhttp.responseText, 'text/html')
+                        if (document.querySelector(".loading-frame")){
+                            document.querySelector(".loading-frame").remove()
+                        }
+                        document.querySelector(".main-frame").innerHTML = page.querySelector(".main-frame").innerHTML
+                        handleMobileResponse()
+                        handleMainFrame()
+                        handleNavigation()
+                    }
+                }
+                xhttp.open("GET", window.location.href.replace("https://fodance.com", ''), true)
+                xhttp.setRequestHeader('Content-Type', 'application/json')
+                xhttp.send()
+            }
             if (walk < -25){
                 document.querySelector(".category-frame").style.top = "50px"
             }
@@ -271,6 +295,31 @@ function handleCategoryScroll() {
         })
         document.addEventListener('touchend', (e) => {
             isDown = false
+            console.log(walk)
+            if (pageLoad < -200){
+                let xhttp
+                if (window.XMLHttpRequest) {
+                    xhttp = new XMLHttpRequest()
+                } else {
+                    xhttp = new ActiveXObject("Microsoft.XMLHTTP")
+                }
+                xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        const parser = new DOMParser()
+                        const page = parser.parseFromString(xhttp.responseText, 'text/html')
+                        if (document.querySelector(".loading-frame")){
+                            document.querySelector(".loading-frame").remove()
+                        }
+                        document.querySelector(".main-frame").innerHTML = page.querySelector(".main-frame").innerHTML
+                        handleMobileResponse()
+                        handleMainFrame()
+                        handleNavigation()
+                    }
+                }
+                xhttp.open("GET", window.location.href.replace("https://fodance.com", ''), true)
+                xhttp.setRequestHeader('Content-Type', 'application/json')
+                xhttp.send()
+            }
             if (walk < -25){
                 document.querySelector(".category-frame").style.top = "50px"
             }
@@ -285,30 +334,11 @@ function handleCategoryScroll() {
             const oldWalk = walk
             let count = oldWalk
             walk = Math.round((startY - y) * 1)
-            if (walk < -100 && !document.querySelector(".loading-frame")) {
+            if (walk < -200 && !document.querySelector(".loading-frame")) {
                 console.log(window.location.href.replace("https://fodance.com", ''))
                 if (window.pageYOffset == 0) {
                     document.querySelector(".main-frame").insertAdjacentHTML("afterend", `<div class="loading-frame d-flex"><span class="iconify spin loading-icon" data-icon="ant-design:loading-3-quarters-outlined" data-inline="false"></span></div>`)
-                    let xhttp
-                    if (window.XMLHttpRequest) {
-                        xhttp = new XMLHttpRequest()
-                    } else {
-                        xhttp = new ActiveXObject("Microsoft.XMLHTTP")
-                    }
-                    xhttp.onreadystatechange = function() {
-                        if (xhttp.readyState == 4 && xhttp.status == 200) {
-                            const parser = new DOMParser()
-                            const page = parser.parseFromString(xhttp.responseText, 'text/html')
-                            document.querySelector(".loading-frame").remove()
-                            document.querySelector(".main-frame").innerHTML = page.querySelector(".main-frame").innerHTML
-                            handleMobileResponse()
-                            handleMainFrame()
-                            handleNavigation()
-                        }
-                    }
-                    xhttp.open("GET", window.location.href.replace("https://fodance.com", ''), true)
-                    xhttp.setRequestHeader('Content-Type', 'application/json')
-                    xhttp.send()
+                    pageLoad = walk
                 }
             }
             if (walk > 50) {walk = 50}
