@@ -4806,6 +4806,12 @@ function handleNavigation(){
             }
             if (document.querySelector(".modal-remove-down")){
                 document.querySelector(".modal").remove()
+                if (document.querySelector(".left-nav")){
+                    document.querySelector(".left-nav").style.zIndex = 1000
+                }
+                if (document.querySelector(".header")){
+                    document.querySelector(".header").style.zIndex = 2000
+                }
             }
             else {
                 document.querySelector(".modal-content").classList.add("modal-remove-down")

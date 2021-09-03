@@ -3190,7 +3190,7 @@ img.thumb {
   border-top: none;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  font-size: 25px;
+  font-size: 28px;
 }
 
 .ranking span {
@@ -4652,7 +4652,7 @@ input[type='range']::-ms-fill-lower {
 .avt-username {
   font-size: 15px !important;
   font-weight: 700;
-  color: rgb(59, 59, 59);
+  color: rgb(51, 51, 51);
   white-space: nowrap;
 }
 
@@ -6157,6 +6157,10 @@ tbody {
     background-color: #f0f2f6;
   }
 
+  .comment-wrapper {
+    color: black;
+  }
+
   .comment-textarea, .comment-emoji {
     background-color: rgb(250, 250, 250);
   }
@@ -6327,11 +6331,11 @@ tbody {
 
   .post {
     border-radius: 8px;
-    box-shadow: 0 1px 3px 1px rgb(231, 231, 231);
+    box-shadow: 0 1px 5px 3px rgb(231, 231, 231);
     margin-top: 10px;
   }
 
-  /* .create-post-but span {
+  /* .create-post-but span {  
     margin-left: 15px;
   } */
 
