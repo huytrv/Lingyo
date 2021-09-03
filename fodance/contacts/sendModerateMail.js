@@ -20,7 +20,7 @@ module.exports = function(email, code){
     });
 
     let mailOptions= ({
-        from: '"Fodance" <fodancemailer@gmail.com>',
+        from: '"Lingyo" <fodancemailer@gmail.com>',
         to: email,
         subject: `Kiểm duyệt`,
         html: output

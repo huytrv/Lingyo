@@ -161,7 +161,7 @@ if(document.querySelectorAll(".submit").length != 0){
                                                                         if (xhttp.readyState == 4 && xhttp.status == 200) {
                                                                             const res = JSON.parse(xhttp.responseText)
                                                                             if (res.status == "server-send-reset-code-done") {
-                                                                                document.querySelector(".forgot-password").innerHTML = "<div class='d-flex-start'><h2 class='login-title'>Đặt lại mật khẩu thành công!</h2></div><div class='d-flex-col-start'><p class='reset-info-text'>Bạn đã hoàn tất quá trình thiết lập mật khẩu, hãy ghi nhớ mật khẩu cho những lần sử dụng kế tiếp</p></div><div class='signup-choice'><a href='/' class='font-size-lg-1'>Tiếp tục với Fodance</a></div>"
+                                                                                document.querySelector(".forgot-password").innerHTML = "<div class='d-flex-start'><h2 class='login-title'>Đặt lại mật khẩu thành công!</h2></div><div class='d-flex-col-start'><p class='reset-info-text'>Bạn đã hoàn tất quá trình thiết lập mật khẩu, hãy ghi nhớ mật khẩu cho những lần sử dụng kế tiếp</p></div><div class='signup-choice'><a href='/' class='font-size-lg-1'>Tiếp tục với Lingyo</a></div>"
                                                                             }
                                                                             if (res.status == "server-send-reset-code-err") {
                                                                                 countSubmitResetReq ++
@@ -314,7 +314,7 @@ if (document.querySelectorAll(".submit-token-password").length !=0 ){
                 if (res.status == "server-send-reset-done") {
                     document.querySelector(".login-title").innerHTML = "Đặt lại mật khẩu thành công!"
                     document.querySelector(".reset-info-text").innerHTML = "Bạn đã hoàn tất quá trình thiết lập mật khẩu, hãy ghi nhớ mật khẩu cho những lần sử dụng kế tiếp"
-                    document.querySelector(".confirm-reset-model").innerHTML = "<div class='signup-choice'><a href='/' class='font-size-lg-1'>Tiếp tục với Fodance</a></div>"
+                    document.querySelector(".confirm-reset-model").innerHTML = "<div class='signup-choice'><a href='/' class='font-size-lg-1'>Tiếp tục với Lingyo</a></div>"
                 }
             }
         }

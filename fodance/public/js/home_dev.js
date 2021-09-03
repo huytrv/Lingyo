@@ -843,7 +843,7 @@ function paymentRedirect(c, pushState){
             <span class='iconify dropdown-icon' data-icon='feather:x' data-inline='false'></span>
         </button>
         `
-    }})()}</div><div class="border-b"></div><div class="payment-content-frame"><div class="d-flex mg-t pd"><span class="font-size-lg-1 bold-font">Bạn có thể mua vé để tham gia bình chọn trên Fodance tại cấp Trung cấp và Cao cấp</span></div><div class="d-flex-start pd-t pd-l mg-l-lg"><span>Chọn số lượng vé:</span></div><div class="ticket-frame mg-t-lg"><button class="ticket-but" data-tickets="5"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>5</button><button class="ticket-but" data-tickets="10"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>10</button><button class="ticket-but" data-tickets="20"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>20</button><button class="ticket-but" data-tickets="50"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>50</button><button class="ticket-but" data-tickets="70"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>70</button><button class="ticket-but" data-tickets="100"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>100</button><button class="ticket-but" data-tickets="150"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>150</button><button class="ticket-but" data-tickets="200"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>200</button></div><div class="d-flex-col-start pd mg-t"><span class="font-size-lg-1 bold-font">Chọn hình thức thanh toán</span><div class="paypal-payment mg-t"><div><input type="radio" name="paypay-radio" value="paypal" checked><span class="font-size-lg-1 mg-l bold-font">Paypal</span></div><div><img src="/public/images/paypal.png"></div></div></div><div class="pd"><span class="font-size-lg-2 bold-font">Tổng tiền:</span><span class="payment-total font-size-lg-2 mg-l bold-font mg-l">0 $</span></div><div class="pd"><form action="payment" method="post"><input class="payment-amount" name="totalAmount"><input class="payment-value" name="totalCost"><button class="submit-but submit-payment" disabled>Xác nhận</button></form></div></div></div></div></div>`)
+    }})()}</div><div class="border-b"></div><div class="payment-content-frame"><div class="d-flex mg-t pd"><span class="font-size-lg-1 bold-font">Bạn có thể mua vé để tham gia bình chọn trên Lingyo tại cấp Trung cấp và Cao cấp</span></div><div class="d-flex-start pd-t pd-l mg-l-lg"><span>Chọn số lượng vé:</span></div><div class="ticket-frame mg-t-lg"><button class="ticket-but" data-tickets="5"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>5</button><button class="ticket-but" data-tickets="10"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>10</button><button class="ticket-but" data-tickets="20"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>20</button><button class="ticket-but" data-tickets="50"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>50</button><button class="ticket-but" data-tickets="70"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>70</button><button class="ticket-but" data-tickets="100"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>100</button><button class="ticket-but" data-tickets="150"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>150</button><button class="ticket-but" data-tickets="200"><span class="iconify font-icon mg-r-sm red-color" data-icon="foundation:ticket" data-inline="false"></span>200</button></div><div class="d-flex-col-start pd mg-t"><span class="font-size-lg-1 bold-font">Chọn hình thức thanh toán</span><div class="paypal-payment mg-t"><div><input type="radio" name="paypay-radio" value="paypal" checked><span class="font-size-lg-1 mg-l bold-font">Paypal</span></div><div><img src="/public/images/paypal.png"></div></div></div><div class="pd"><span class="font-size-lg-2 bold-font">Tổng tiền:</span><span class="payment-total font-size-lg-2 mg-l bold-font mg-l">0 $</span></div><div class="pd"><form action="payment" method="post"><input class="payment-amount" name="totalAmount"><input class="payment-value" name="totalCost"><button class="submit-but submit-payment" disabled>Xác nhận</button></form></div></div></div></div></div>`)
 
     document.querySelectorAll(".ticket-but").forEach(function(e){
         e.onclick = function(){
@@ -1052,7 +1052,7 @@ function searchRedirect(text, pushState){
             history.pushState({
                 searchAgent: textUrl
             }, '', 'https://fodance.com/search?q=' + textUrl)
-            document.querySelector('title').textContent = 'Fodance | ' + text + ' - ' + "Tìm kiếm"
+            document.querySelector('title').textContent = 'Lingyo | ' + text + ' - ' + "Tìm kiếm"
         }
     }
     else {
@@ -1189,7 +1189,7 @@ function rankRedirect(rankBut, pushState){
                     history.pushState({
                         rankAgent: rankAgent
                     }, '', 'https://fodance.com/' + cateLink + "?rank=" + rankLink)
-                    document.querySelector('title').textContent = 'Fodance | ' + cateName + ' - ' + rankName
+                    document.querySelector('title').textContent = 'Lingyo | ' + cateName + ' - ' + rankName
                 }
             }    
         }
@@ -1226,7 +1226,7 @@ function rankRedirect(rankBut, pushState){
                 rankAgent: rankAgent
             }, '', 'https://fodance.com' + "?rank=" + rankLink)
         }
-        document.querySelector('title').textContent = 'Fodance | ' + rankName
+        document.querySelector('title').textContent = 'Lingyo | ' + rankName
         statusRedirect = navLink
     }
 }
@@ -1978,13 +1978,13 @@ function categoryRedirect(cate, pushState){
             history.pushState({
                 cateAgent: cateAgent,
             }, '', 'https://fodance.com/' + cateLink + '?rank=' + rankLink )
-            document.querySelector('title').textContent = 'Fodance | ' + cateName + ' - ' + rankName
+            document.querySelector('title').textContent = 'Lingyo | ' + cateName + ' - ' + rankName
         // }
         // else {
         //     history.pushState({
         //         cateAgent: cateAgent,
         //     }, '', 'https://fodance.com/competition')
-        //     document.querySelector('title').textContent = 'Fodance | Vòng đấu'
+        //     document.querySelector('title').textContent = 'Lingyo | Vòng đấu'
         // }
     }
     xhttp.open("GET", '/' + cateLink + '?rank=' + rankLink , true)
@@ -3829,12 +3829,12 @@ function handleMainFrame(){
                             </a>
                         </div>
                         <div class="social-share-item pd">
-                            <a class="twitter-share-button d-flex-start" href="https://twitter.com/intent/tweet?text=${postLink} Tôi đang tham gia Vòng đấu trên Fodance, hãy bình chọn cho tôi nhé!">
+                            <a class="twitter-share-button d-flex-start" href="https://twitter.com/intent/tweet?text=${postLink} Tôi đang tham gia Vòng đấu trên Lingyo, hãy bình chọn cho tôi nhé!">
                                 <span class="iconify share-icon share-twitter-icon mg-r" data-icon="entypo-social:twitter-with-circle" data-inline="false"></span>Chia sẻ với Twitter
                             </a>
                         </div>
                         <div class="social-share-item pd">
-                            <a class="d-flex-start" href="https://api.whatsapp.com/send?phone&text=${postLink} Tôi đang tham gia Vòng đấu trên Fodance, hãy bình chọn cho tôi nhé!" target="_blank">
+                            <a class="d-flex-start" href="https://api.whatsapp.com/send?phone&text=${postLink} Tôi đang tham gia Vòng đấu trên Lingyo, hãy bình chọn cho tôi nhé!" target="_blank">
                                 <span class="iconify share-icon share-whatsapp-icon mg-r" data-icon="whh:whatsapp" data-inline="false"></span>Chia sẻ với Whatsapp                                 
                             </a> 
                         </div>
@@ -4322,7 +4322,7 @@ function handleNavigation(){
                 if (document.querySelector(".setting-content")){
                     const settingType = agent.getAttribute("setting-data")
                     if (settingType == "feedback"){
-                        document.querySelector(".setting-content").innerHTML = '<div class="group-title"><span class="font-size-lg-2 none-deco pd-l feedback-setting-content">Đóng góp ý kiến</span></div><div class="border-b"></div><div class="setting-handle"><textarea class="opinion-textarea" placeholder="Thêm ý kiến của bạn" name="opinion" maxlength="1000"></textarea><div class="mg-t d-flex-mg-start"><span>Hãy cho chúng tôi biết nếu bạn có ý tưởng cái thiện Fodance hoặc nếu phát hiện bất kì lỗi nào nhé!</span><button class="next-but submit-feedback mg-t">Gửi</button>'
+                        document.querySelector(".setting-content").innerHTML = '<div class="group-title"><span class="font-size-lg-2 none-deco pd-l feedback-setting-content">Đóng góp ý kiến</span></div><div class="border-b"></div><div class="setting-handle"><textarea class="opinion-textarea" placeholder="Thêm ý kiến của bạn" name="opinion" maxlength="1000"></textarea><div class="mg-t d-flex-mg-start"><span>Hãy cho chúng tôi biết nếu bạn có ý tưởng cái thiện Lingyo hoặc nếu phát hiện bất kì lỗi nào nhé!</span><button class="next-but submit-feedback mg-t">Gửi</button>'
                     }
                     else if (settingType == "normal"){
                         let xhttp
@@ -4387,7 +4387,7 @@ function handleNavigation(){
                                                 agent: agentText,
                                             }, '', `https://fodance.com/post/${postLink}`)
                                         }
-                                        document.querySelector('title').textContent = `Fodance | Bài viết`
+                                        document.querySelector('title').textContent = `Lingyo | Bài viết`
                                     }
                                     else {
                                         showAlert("Bài viết này đã bị xóa bởi chủ sở hữu!")
@@ -4436,7 +4436,7 @@ function handleNavigation(){
                                             document.querySelector(".main-info").innerHTML = mainInfoText
                                         }
                                         if (settingType == "feedback"){
-                                            document.querySelector(".setting-content").innerHTML = '<div class="group-title"><span class="font-size-lg-2 none-deco pd-l feedback-setting-content">Đóng góp ý kiến</span></div><div class="border-b"></div><div class="setting-handle"><textarea class="opinion-textarea" placeholder="Thêm ý kiến của bạn" name="opinion" maxlength="1000"></textarea><div class="mg-t d-flex-col-start"><span>Hãy cho chúng tôi biết nếu bạn có ý tưởng cái thiện Fodance hoặc nếu phát hiện bất kì lỗi nào nhé!</span><button class="next-but submit-feedback mg-t">Gửi</button>'
+                                            document.querySelector(".setting-content").innerHTML = '<div class="group-title"><span class="font-size-lg-2 none-deco pd-l feedback-setting-content">Đóng góp ý kiến</span></div><div class="border-b"></div><div class="setting-handle"><textarea class="opinion-textarea" placeholder="Thêm ý kiến của bạn" name="opinion" maxlength="1000"></textarea><div class="mg-t d-flex-col-start"><span>Hãy cho chúng tôi biết nếu bạn có ý tưởng cái thiện Lingyo hoặc nếu phát hiện bất kì lỗi nào nhé!</span><button class="next-but submit-feedback mg-t">Gửi</button>'
                                         }
                                         handleSetting(settingType)
                                     }
@@ -4463,7 +4463,7 @@ function handleNavigation(){
                                     agent: agentText,
                                 }, '', `https://fodance.com/${navLink}`)
                             }
-                            document.querySelector('title').textContent = `Fodance | ${navName}`
+                            document.querySelector('title').textContent = `Lingyo | ${navName}`
                             statusRedirect = navLink
                             xhttp.open("GET", '/' + navLink, true)
                             xhttp.setRequestHeader('Content-Type', 'application/json')
@@ -4507,7 +4507,7 @@ function handleNavigation(){
                                         handleFollow(follow[i], follow[i].parentNode.parentNode, follow[i].parentNode.parentNode.querySelector(".avatar-username").textContent)
                                     }
                                 }
-                                document.querySelector('title').textContent = `Fodance | ${document.querySelector(".category-username").textContent}`
+                                document.querySelector('title').textContent = `Lingyo | ${document.querySelector(".category-username").textContent}`
                                 rankIndex = 5
                                 stopScrollPage = 0
                                 videoAjaxSend = []
@@ -4641,7 +4641,7 @@ function handleNavigation(){
                             agent: agentText,
                         }, '', 'https://fodance.com/competition' + '?rank=' + rankLink)
                     }
-                    document.querySelector('title').textContent = 'Fodance | Tất cả - ' + rankName
+                    document.querySelector('title').textContent = 'Lingyo | Tất cả - ' + rankName
                 }
                 else {
                     document.querySelector(".main-frame").innerHTML = competitionContentText
@@ -4716,7 +4716,7 @@ function handleNavigation(){
                                 agent: agentText,
                             }, '', 'https://fodance.com/' + cateLink + "?rank=" + rankLink)
                         }
-                        document.querySelector('title').textContent = 'Fodance | ' + cateName + ' - ' + rankName
+                        document.querySelector('title').textContent = 'Lingyo | ' + cateName + ' - ' + rankName
                     // }
                     // else {
                     //     if (pushState){
@@ -4724,7 +4724,7 @@ function handleNavigation(){
                     //             agent: agentText,
                     //         }, '', 'https://fodance.com/competition')
                     //     }
-                    //     document.querySelector('title').textContent = 'Fodance | Vòng đấu'
+                    //     document.querySelector('title').textContent = 'Lingyo | Vòng đấu'
                     // }
                     handleMainFrame()
                     handleNavigation()
@@ -4780,7 +4780,7 @@ function handleNavigation(){
                     agent: agentText,
                 }, '', 'https://fodance.com' + "?rank=" + rankLink)
             }
-            document.querySelector('title').textContent = 'Fodance | ' + rankName
+            document.querySelector('title').textContent = 'Lingyo | ' + rankName
             statusRedirect = navLink
         }
     }
@@ -4878,7 +4878,7 @@ function handleNavigation(){
             }
         }
         
-        // history.replaceState({agent: null}, 'Fodance', 'https://fodance.com/')
+        // history.replaceState({agent: null}, 'Lingyo', 'https://fodance.com/')
     }
 
     const navRed = document.querySelectorAll('.nav-red')
@@ -4888,7 +4888,7 @@ function handleNavigation(){
         }
     }
 
-    // history.replaceState({agent: null}, 'Fodance', 'https://fodance.com/')
+    // history.replaceState({agent: null}, 'Lingyo', 'https://fodance.com/')
 }
 handleNavigation()
 
@@ -5991,7 +5991,7 @@ function handleSetting(type){
         }
 
         function handleFeedback(){
-            document.querySelector(".setting-content").innerHTML = '<div class="group-title"><span class="font-size-lg-2 none-deco pd-l feedback-setting-content">Đóng góp ý kiến</span></div><div class="border-b"></div><div class="setting-handle"><textarea class="opinion-textarea" placeholder="Thêm ý kiến của bạn" name="opinion" maxlength="1000"></textarea><div class="mg-t"><span>Hãy cho chúng tôi biết nếu bạn có ý tưởng cái thiện Fodance hoặc nếu phát hiện bất kì lỗi nào nhé!</span></div><button class="next-but submit-feedback mg-t">Gửi</button>'
+            document.querySelector(".setting-content").innerHTML = '<div class="group-title"><span class="font-size-lg-2 none-deco pd-l feedback-setting-content">Đóng góp ý kiến</span></div><div class="border-b"></div><div class="setting-handle"><textarea class="opinion-textarea" placeholder="Thêm ý kiến của bạn" name="opinion" maxlength="1000"></textarea><div class="mg-t"><span>Hãy cho chúng tôi biết nếu bạn có ý tưởng cái thiện Lingyo hoặc nếu phát hiện bất kì lỗi nào nhé!</span></div><button class="next-but submit-feedback mg-t">Gửi</button>'
             if (document.querySelector(".category")){
                 document.querySelector(".category").innerHTML = '<div class="d-flex group-title"><span class="mg-l-lg font-size-lg-2 none-deco none-mg">Ý kiến và phản hồi</span></div>'
             }

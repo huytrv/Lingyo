@@ -702,7 +702,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             "transactions": [{
                 "item_list": {
                     "items": [{
-                        "name": "Vé Fodance",
+                        "name": "Vé Lingyo",
                         "sku": "001",
                         "price": "1",
                         "currency": "USD",
@@ -713,7 +713,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     "currency": "USD",
                     "total": req.body.totalCost
                 },
-                "description": "Vé tham gia bình chọn Fodance"
+                "description": "Vé tham gia bình chọn Lingyo"
             }]
         }
     

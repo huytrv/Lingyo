@@ -23,7 +23,7 @@ module.exports = function(email, code){
     <td height="24" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px"> &nbsp; </td>
     </tr>
     <tr>
-    <td align="center" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px;font-size:0px;line-height:100%;padding:0px"> <a href="https://fodance.com" style="text-decoration:none;border-style:none;border:0px;padding:0px;margin:0px;color:#FFF6F6;text-decoration:none" target="_blank" data-saferedirecturl=""> <img src="https://cdn.fodance.com/fd-media/logo1.png" width="50px" height="50px" alt="Fodance" title="Fodance" style="margin:0px;padding:0px;display:inline-block;border:none;outline:none" class="CToWUd"> </a> </td>
+    <td align="center" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px;font-size:0px;line-height:100%;padding:0px"> <a href="https://fodance.com" style="text-decoration:none;border-style:none;border:0px;padding:0px;margin:0px;color:#FFF6F6;text-decoration:none" target="_blank" data-saferedirecturl=""> <img src="https://cdn.fodance.com/fd-media/logo1.png" width="50px" height="50px" alt="Lingyo" title="Lingyo" style="margin:0px;padding:0px;display:inline-block;border:none;outline:none" class="CToWUd"> </a> </td>
     </tr>
     <tr>
     <td height="24" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px"> &nbsp; </td>
@@ -36,14 +36,14 @@ module.exports = function(email, code){
     <td height="24" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px"> &nbsp; </td>
     </tr>
     <tr>
-    <td align="left" dir="ltr" style="padding:0px;margin:0px auto;font-family:'Helvetica Neue Light',Helvetica,Arial,sans-serif;font-size:16px;padding:0px;margin:0px;font-weight:normal;line-height:20px;font-family:'Helvetica Neue Light',Helvetica,Arial,sans-serif;font-size:16px;padding:0px;margin:0px;font-weight:normal;line-height:22px"> Chào mừng bạn đến với Fodance. Trước khi bắt đầu, bạn cần đảm bảo đây là địa chỉ email chính xác để sử dụng cho tài khoản mới của bạn.
+    <td align="left" dir="ltr" style="padding:0px;margin:0px auto;font-family:'Helvetica Neue Light',Helvetica,Arial,sans-serif;font-size:16px;padding:0px;margin:0px;font-weight:normal;line-height:20px;font-family:'Helvetica Neue Light',Helvetica,Arial,sans-serif;font-size:16px;padding:0px;margin:0px;font-weight:normal;line-height:22px"> Chào mừng bạn đến với Lingyo. Trước khi bắt đầu, bạn cần đảm bảo đây là địa chỉ email chính xác để sử dụng cho tài khoản mới của bạn.
     </td>
     </tr>
     <tr>
     <td height="24" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px"> &nbsp; </td>
     </tr>
     <tr>
-    <td align="left" dir="ltr" style="padding:0px;margin:0px auto;font-family:'Helvetica Neue Light',Helvetica,Arial,sans-serif;font-size:16px;padding:0px;margin:0px;font-weight:normal;line-height:20px;font-family:'Helvetica Neue Light',Helvetica,Arial,sans-serif;font-size:16px;padding:0px;margin:0px;font-weight:normal;line-height:22px"> Vui lòng nhập mã xác minh này để bắt đầu trên Fodance: </td>
+    <td align="left" dir="ltr" style="padding:0px;margin:0px auto;font-family:'Helvetica Neue Light',Helvetica,Arial,sans-serif;font-size:16px;padding:0px;margin:0px;font-weight:normal;line-height:20px;font-family:'Helvetica Neue Light',Helvetica,Arial,sans-serif;font-size:16px;padding:0px;margin:0px;font-weight:normal;line-height:22px"> Vui lòng nhập mã xác minh này để bắt đầu trên Lingyo: </td>
     </tr>
     <tr>
     <td style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px"> &nbsp; </td>
@@ -62,7 +62,7 @@ module.exports = function(email, code){
     <td height="24" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px"> &nbsp; </td>
     </tr>
     <tr>
-    <td align="left" dir="ltr" style="padding:0px;margin:0px auto;font-family:'Helvetica Neue Light',Helvetica,Arial,sans-serif;font-size:16px;padding:0px;margin:0px;font-weight:normal;line-height:20px;font-family:'Helvetica Neue Light',Helvetica,Arial,sans-serif;font-size:16px;padding:0px;margin:0px;font-weight:normal;line-height:22px"> Cảm ơn,<br> Fodance </td>
+    <td align="left" dir="ltr" style="padding:0px;margin:0px auto;font-family:'Helvetica Neue Light',Helvetica,Arial,sans-serif;font-size:16px;padding:0px;margin:0px;font-weight:normal;line-height:20px;font-family:'Helvetica Neue Light',Helvetica,Arial,sans-serif;font-size:16px;padding:0px;margin:0px;font-weight:normal;line-height:22px"> Cảm ơn,<br> Lingyo </td>
     </tr>
     <tr>
     <td height="32" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px"> &nbsp; </td>
@@ -87,7 +87,7 @@ module.exports = function(email, code){
     <td height="12" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px"> &nbsp; </td>
     </tr>
     <tr>
-    <td align="center" style="padding:0px;margin:0px auto;font-family:'Helvetica Neue Light',Helvetica,Arial,sans-serif;font-size:12px;padding:0px;margin:0px;font-weight:normal;line-height:16px;text-align:center;margin:auto;color:#8899a6"> <span class="m_-8068505498448462036addressLink">Fodance 2020</span> </td>
+    <td align="center" style="padding:0px;margin:0px auto;font-family:'Helvetica Neue Light',Helvetica,Arial,sans-serif;font-size:12px;padding:0px;margin:0px;font-weight:normal;line-height:16px;text-align:center;margin:auto;color:#8899a6"> <span class="m_-8068505498448462036addressLink">Lingyo 2020</span> </td>
     </tr>
     <tr>
     <td height="50" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px"> &nbsp; </td>
@@ -141,9 +141,9 @@ module.exports = function(email, code){
     });
 
     let mailOptions= ({
-        from: '"Fodance" <fodancemailer@gmail.com>',
+        from: '"Lingyo" <fodancemailer@gmail.com>',
         to: email,
-        subject: `${code} là mã xác nhận Fodance của bạn`,
+        subject: `${code} là mã xác nhận Lingyo của bạn`,
         html: output
     })
 

@@ -1,6 +1,6 @@
 module.exports = function(number, code){
     console.log(code)
-    let text = `Mã xác nhận Fodance của bạn là ${code}`
+    let text = `Mã xác nhận Lingyo của bạn là ${code}`
     const accountSid = process.env.ACCOUNT_SID;
     const authToken = process.env.AUTH_TOKEN;
     const client = require('twilio')(accountSid, authToken);
