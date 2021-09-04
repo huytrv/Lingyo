@@ -926,7 +926,7 @@ video {
   width: 100%;
 }
 
-.post-section .post {
+/* .post-section .post {
   background-color: rgba(0, 0, 0, 0.877);
   color: white;
 }
@@ -937,7 +937,7 @@ video {
 
 .post-section .post-description, .post-section .avt-username, .post-section .post-time, .post-section .video-views, .post-section .interactive-but span, .post-section .interactive-but svg {
   color: white;
-}
+} */
 
 .main-frame-setting-inner {
   width: 100%;
