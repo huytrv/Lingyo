@@ -4817,7 +4817,18 @@ function handleNavigation(){
                 if (!document.querySelector(".create-post-modal-content")){
                     document.querySelector(".modal-content").classList.add("modal-remove-down")
                 }
-                document.querySelector(".modal-content").onanimationend = function () {
+                if (document.querySelector(".modal-content").querySelector(".modal-remove-down")){
+                    document.querySelector(".modal-content").onanimationend = function (){
+                        document.querySelector(".modal").remove()
+                        if (document.querySelector(".left-nav")){
+                            document.querySelector(".left-nav").style.zIndex = 1000
+                        }
+                        if (document.querySelector(".header")){
+                            document.querySelector(".header").style.zIndex = 2000
+                        }
+                    }
+                }
+                else {
                     document.querySelector(".modal").remove()
                     if (document.querySelector(".left-nav")){
                         document.querySelector(".left-nav").style.zIndex = 1000
