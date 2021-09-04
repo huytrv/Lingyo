@@ -3271,7 +3271,7 @@ img.thumb {
   font-size: 15px;
   white-space: pre-wrap;
   word-wrap: break-word;
-  color: rgb(59, 59, 59);
+  color: rgb(39, 39, 39);
 }
 
 .post-description-mobile {
@@ -4706,7 +4706,7 @@ input[type='range']::-ms-fill-lower {
 
 .post-time {
   font-size: 0.8rem;
-  color: #3a3a3a;
+  color: #313131;
 }
 
 .avt-but {
