@@ -2258,7 +2258,7 @@ input:checked + .slider:before {
 
 .post {
   position: relative;
-  background-color: #f0f2f6;
+  background-color: white;
   display: block;
   margin-bottom: 10px;
   padding-top: 5px;
@@ -3462,7 +3462,7 @@ img.thumb {
   display: flex;
   align-items: center;
   border: none;
-  background-color: #f0f2f6;
+  background-color: white;
   border-radius: 20px;
   padding: 8px 10px;
   justify-content: flex-start;
