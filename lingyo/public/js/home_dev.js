@@ -409,7 +409,7 @@ function handleMobileResponse() {
         for (let i = 0; i < navList.length; i++){
             if (navLinkTitle == navList[i]){
                 if (roundType == "final" && navLinkTitle == "competition"){
-                    document.querySelector(".title-content").innerHTML = '<span class="red-color">Chung kết</span>'
+                    document.querySelector(".title-content").textContent = "Chung kết"
                 }
                 else {
                     document.querySelector(".title-content").textContent = navName[i]
