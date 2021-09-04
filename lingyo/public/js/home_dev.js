@@ -4656,7 +4656,7 @@ function handleNavigation(){
                     if (avtUpdate != '') {
                         if (document.querySelectorAll(".user-avt")){
                             document.querySelectorAll(".user-avt").forEach(function(e){
-                                if (e.parentNode.getAttribute("data-user-df") == document.querySelector(".avt-header").getAttribute("data-user-df")){
+                                if (e.parentNode.getAttribute("data-user-df") == document.querySelector(".header-nickname").getAttribute("data-user-df")){
                                     e.setAttribute("src", "https://cdn.fodance.com/fd-media/" + avtUpdate)
                                 }
                             })
