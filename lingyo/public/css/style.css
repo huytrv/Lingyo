@@ -3462,7 +3462,7 @@ img.thumb {
   display: flex;
   align-items: center;
   border: none;
-  background-color: white;
+  background-color: #f0f2f6;
   border-radius: 20px;
   padding: 8px 10px;
   justify-content: flex-start;
