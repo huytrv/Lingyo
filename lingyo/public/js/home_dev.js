@@ -993,6 +993,7 @@ function searchRedirect(text, pushState){
                 if (!document.querySelector(".search-content")){
                     document.querySelector(".main-frame-post").innerHTML = '<div class="response-frame"><div class="search-content"></div><div class="seemore-frame pd-l-lg pd-r-lg pd-t pd-b"><span class="seemore-result">Hiển thị thêm</span></div></div>'
                 }
+                console.log(res.end)
                 if (!res.end){
                     for (let i = 0; i < res.result.length; i++){
                         searchDisplayedList.push(res.result[i][0])
@@ -1040,6 +1041,9 @@ function searchRedirect(text, pushState){
                 else {
                     if (document.querySelector(".seemore-result")){
                         document.querySelector(".seemore-result").remove()
+                        document.querySelector(".search-content").insertAdjacentHTML('beforeend', '<div class="pd mg no-result d-flex"><span class="">Không còn kết quả tìm kiếm!</span></div>')
+                    }
+                    else {
                         document.querySelector(".search-content").insertAdjacentHTML('beforeend', '<div class="pd mg no-result d-flex"><span class="">Không còn kết quả tìm kiếm!</span></div>')
                     }
                 }
