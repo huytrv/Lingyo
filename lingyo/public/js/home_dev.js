@@ -975,9 +975,14 @@ function searchRedirect(text, pushState){
         }
         window.scrollTo(0, 0)
         navLink = "search"
-        // document.querySelector(".category").innerHTML = `<div class="d-flex group-title"><span class="mg-l-lg font-size-lg-2 none-deco none-mg">Kết quả tìm kiếm cho "${text}"</div>`
+        if (document.querySelector(".category") && ! document.querySelector(".category-slidebar")){
+            document.querySelector(".category").innerHTML = `<div class="d-flex group-title"><span class="mg-l-lg font-size-lg-2 none-deco none-mg">Kết quả tìm kiếm cho "${text}"</div>`
+        }
         if (document.querySelector(".post-frame")){
             document.querySelector(".post-frame").innerHTML = '<div class="loading-post"><div class="d-flex-start loading-content"><div class="loading-post-circle mg-r"></div><div class="d-flex-col-start-content width-80"><div class="loading-post-line width-30 mg-b-sm"></div><div class="loading-post-line width-20"></div></div></div><div class="loading-post-line width-90 mg-b-sm"></div></div></div>'
+        }
+        if (document.querySelector(".title-content")){
+            document.querySelector(".title-content").textContent = "Tìm kiếm"
         }
         xhttp.onreadystatechange = function() {    
             if (xhttp.readyState == 4 && xhttp.status == 200) {
