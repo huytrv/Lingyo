@@ -5501,7 +5501,6 @@ input[type='range']::-ms-fill-lower {
   padding: 10px 0;
   position: sticky;
   top: 0;
-  background-color: #f0f2f6;
 }
 
 .fame-title th {
@@ -6469,6 +6468,10 @@ tbody {
 
   .interactive-but:active {
     background-color: rgb(241, 251, 255);
+  }
+
+  .fame-title {
+    background-color: #f0f2f6;
   }
 }
 
