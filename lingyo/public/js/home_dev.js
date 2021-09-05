@@ -1101,6 +1101,12 @@ function rankRedirect(rankBut, pushState){
     rankName = rankBut.querySelector(".header-rank-but-name").textContent
     if(window.innerWidth <= 662){
         showAlertCateRank("Đã chọn phòng " + rankName)
+        if (roundType == "group-stage"){
+            document.querySelector(".title-content").textContent = "Vòng đấu"
+        }
+        else {
+            document.querySelector(".title-content").textContent = "Chung kết"
+        }
     }
     const rankHeader = document.querySelectorAll(".header-rank-but")
     for (let i = 0; i < rankHeader.length; i++){
@@ -1182,9 +1188,18 @@ function rankRedirect(rankBut, pushState){
                 }
                 rankIndex = 5
                 stopScrollPage = 0
+                statusRedirect = "competition"
                 handleMainFrame()
                 handleNavigation()
                 handleRankPostCount()
+                if(window.innerWidth <= 662){
+                    if (roundType == "group-stage"){
+                        document.querySelector(".title-content").textContent = "Vòng đấu"
+                    }
+                    else {
+                        document.querySelector(".title-content").textContent = "Chung kết"
+                    }
+                }
                 if (pushState){
                     history.pushState({
                         rankAgent: rankAgent
@@ -1216,6 +1231,14 @@ function rankRedirect(rankBut, pushState){
                 handleNavigation()
                 handleMainFrame()
                 lottie()
+                if(window.innerWidth <= 662){
+                    if (roundType == "group-stage"){
+                        document.querySelector(".title-content").textContent = "Vòng đấu"
+                    }
+                    else {
+                        document.querySelector(".title-content").textContent = "Chung kết"
+                    }
+                }
             }    
         }
         xhttp.open("GET", "/?rank=" + rankLink, true)
