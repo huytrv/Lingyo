@@ -2705,7 +2705,7 @@ input:checked + .slider:before {
   /* background-color: rgba(255, 255, 255, 0.699); */
   background-color: white;
   z-index: 1000;
-  height: 45px;
+  height: 42px;
   /* border-bottom: 1px solid rgb(235, 235, 235); */
   margin-bottom: 10px;
   transition: 0.3s;
@@ -2776,7 +2776,7 @@ input:checked + .slider:before {
   background-size: 100% auto;
   width: auto;
   min-width: 90px;
-  height: 35px;
+  height: 34px;
   padding: 0 10px;
   border-radius: 20px;
   margin-right: 10px;
@@ -3246,7 +3246,6 @@ img.thumb {
 .post-user {
   padding: 0 12px;
   display: flex;
-  justify-content: center;
 }
 
 .post-timer {
@@ -3274,7 +3273,6 @@ img.thumb {
   white-space: pre-wrap;
   word-wrap: break-word;
   color: rgb(39, 39, 39);
-  text-align: center;
 }
 
 .post-description-mobile {
@@ -6153,7 +6151,7 @@ tbody {
   }
 
   .post-file video {
-    max-height: 320px;
+    max-height: 300px;
     object-fit: contain;
   }
 
