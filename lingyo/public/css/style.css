@@ -3245,6 +3245,8 @@ img.thumb {
 
 .post-user {
   padding: 0 12px;
+  display: flex;
+  justify-content: center;
 }
 
 .post-timer {
@@ -3272,6 +3274,7 @@ img.thumb {
   white-space: pre-wrap;
   word-wrap: break-word;
   color: rgb(39, 39, 39);
+  text-align: center;
 }
 
 .post-description-mobile {
@@ -6108,14 +6111,14 @@ tbody {
   }
 
   .main-frame-post-inner {
-    width: 73%;
+    width: 75%;
     min-width: 480px;
     max-width: 600px;
     margin-top: 0;
   }
 
   .main-frame-post-inner-personal {
-    width: 73%;
+    width: 75%;
     max-width: 650px;
     margin-top: 10px;
   }
