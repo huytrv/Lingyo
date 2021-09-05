@@ -19,6 +19,7 @@
     "animate.css": "^4.1.0",
     "async": "^3.2.0",
     "aws-sdk": "^2.967.0",
+    "axios": "^0.21.3",
     "bcrypt": "^4.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",

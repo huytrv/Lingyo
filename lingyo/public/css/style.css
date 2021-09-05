@@ -481,7 +481,7 @@ img {
 }
 
 .bg-image {
-  background: url("/public/images/default-cover.png") no-repeat center center fixed;
+  background: url("/public/images/loginbanner.png") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -2209,6 +2209,10 @@ input:checked + .slider:before {
   transition: background-color 1s;
 }
 
+.notifications-inner {
+  margin-top: 10px !important;
+}
+
 .notification-item {
   display: flex;
   flex-direction: column;
@@ -3695,20 +3699,24 @@ img.thumb {
 }
 
 .cn-fb-but {
-  background-color: #1877F2;
+  border: 1px solid #1877F2;
   margin-right: 10px;
+  color: black;
 }
 
 .cn-fb-but:hover {
   background-color: rgb(94, 154, 233);
+  border: 1px solid rgb(94, 154, 233);
 }
 
 .cn-gg-but {
-  background-color: #d8523d;
+  border: 1px solid #d8523d;
+  color: black;
 }
 
 .cn-gg-but:hover {
   background-color: #e6897b;
+  border: 1px solid #e6897b;
 }
 
 .contact {
@@ -5486,10 +5494,14 @@ input[type='range']::-ms-fill-lower {
   overflow-x: hidden;
   padding: 0 10px;
   border-collapse: collapse;
+  position: relative;
 }
 
 .fame-title {
   padding: 10px 0;
+  position: sticky;
+  top: 0;
+  background-color: #f0f2f6;
 }
 
 .fame-title th {
@@ -5878,11 +5890,11 @@ tbody {
     width: 710px;
     height: auto;
     position: absolute;
-    top: 12%;
+    top: 10%;
     left: 0;
     right: 0;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgb(134, 134, 134);
+    box-shadow: 0 0 5px 1px rgb(211, 211, 211);
     margin-top: 0;
     background-color: rgb(255, 255, 255, 0.8);
   }
@@ -6009,7 +6021,10 @@ tbody {
     justify-content: center;
   }
   .fame-title th:nth-child(5) {
-    margin-right: 15px;
+    justify-content: center;
+  }
+  .fame-title th:nth-child(6) {
+    margin-right: 12px;
     justify-content: center;
   }
 
@@ -6197,7 +6212,7 @@ tbody {
 
   .fame-content {
     padding: 0 20px !important;
-    height: 400px;
+    height: 380px;
     overflow-y: scroll;
   }
 
@@ -6345,7 +6360,7 @@ tbody {
 
   .post {
     border-radius: 8px;
-    box-shadow: 0 1px 5px 3px rgb(231, 231, 231);
+    box-shadow: 0 1px 5px 3px rgb(255, 255, 255);
     margin-top: 10px;
   }
 
