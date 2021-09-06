@@ -3314,7 +3314,7 @@ function handleMainFrame(){
             setTimeout(function(){
                 clearInterval(animationTimer)
                 rewardMoney[i].textContent = staticMoney.toFixed(2)
-            }, 500)
+            }, 800)
         }
     }
     runningReward()
