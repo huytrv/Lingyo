@@ -317,13 +317,14 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 }).then(function(profile){
                     const enjoyList = [], finalRewardList = [], cateRewardList = []
                     let count = sum = 0
+                    if (stageTime = currentTimeline){TimeRange = [currentTimeline, currentTimeline + 5*24*60*60*1000]} else {TimeRange = [stageTime, currentTimeline]}
                     for (let i = 0; i < cateList.length; i++){
                         posts.count({
                             where: {
                                 category: cateList[i],
                                 rank: rank,
                                 time: {
-                                    [Op.between]: [stageTime, currentTimeline]
+                                    [Op.between]: TimeRange
                                 },
                                 auth: true
                             }
