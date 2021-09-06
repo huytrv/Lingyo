@@ -5257,6 +5257,19 @@ input[type='range']::-ms-fill-lower {
   background-color: #f0f2f6;
 } */
 
+.final-reward {
+  background-color: #e9f0ff;
+  border-radius: 10px;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.cate-reward {
+  /* border: 1px solid #6ad7ff; */
+  border-radius: 10px;
+  padding: 10px 0;
+}
+
 .top-reward-inner {
   display: flex;
   /* flex-direction: column; */
@@ -5434,7 +5447,8 @@ input[type='range']::-ms-fill-lower {
   top: 1px;
   width: calc(100% - 2px);
   height: calc(100% - 2px);
-  background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));;
+  /* background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));; */
+  background-color: white;
   border-radius: 20px;
 }
 .rw2 .rainbow::after {
@@ -5445,7 +5459,8 @@ input[type='range']::-ms-fill-lower {
   top: 1px;
   width: calc(100% - 2px);
   height: calc(100% - 2px);
-  background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));;
+  /* background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));; */
+  background-color: white;
   border-radius: 20px;
 }
 .rw3 .rainbow::after {
@@ -5456,7 +5471,8 @@ input[type='range']::-ms-fill-lower {
   top: 1px;
   width: calc(100% - 2px);
   height: calc(100% - 2px);
-  background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));;
+  /* background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));; */
+  background-color: white;
   border-radius: 20px;
 }
 
