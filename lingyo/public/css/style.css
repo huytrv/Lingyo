@@ -704,6 +704,7 @@ video {
 
 .mobile-creator .create-post-category {
   padding: 0 10px;
+  margin-bottom: 20px;
 }
 
 .mobile-creator .create-post-category-but {
@@ -2663,7 +2664,7 @@ input:checked + .slider:before {
 }
 
 .ticket-but:active, .ticket-but:focus, .ticket-but-active {
-  background-color: #1AA1C2;
+  background-color: #009be6;
   border: none;
   color: white;
 }
