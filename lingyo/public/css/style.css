@@ -5445,7 +5445,7 @@ input[type='range']::-ms-fill-lower {
   top: 1px;
   width: calc(100% - 2px);
   height: calc(100% - 2px);
-  background-image: linear-gradient(to right, #fffccb, rgb(255, 255, 248));;
+  background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));;
   border-radius: 20px;
 }
 .rw3 .rainbow::after {
@@ -5456,7 +5456,7 @@ input[type='range']::-ms-fill-lower {
   top: 1px;
   width: calc(100% - 2px);
   height: calc(100% - 2px);
-  background-image: linear-gradient(to right, #dee4fd, rgb(248, 252, 255));;
+  background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));;
   border-radius: 20px;
 }
 
