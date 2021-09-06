@@ -2365,7 +2365,7 @@ function createPostRedirect(c, pushState){
                                         }
                                         fileCate = fileCounter = 0
                                         arrayFile = []
-                                        document.querySelector(".create-post-content").style.height = "12rem"
+                                        document.querySelector(".create-post-content").style.height = "14rem"
                                     }
                                 }
                             }
@@ -2410,7 +2410,7 @@ function createPostRedirect(c, pushState){
                         document.querySelector(".thumb-content").classList.remove("thumb-3-files")
                         document.querySelector(".thumb-content").classList.remove("thumb-4-files")
                         document.querySelector(".file-upload").value = null
-                        document.querySelector(".create-post-content").style.height = "12rem"
+                        document.querySelector(".create-post-content").style.height = "14rem"
                         fileCate = fileValid = fileCounter = 0
                         arrayFile = []
                     }

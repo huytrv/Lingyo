@@ -691,7 +691,7 @@ video {
 }
 
 .mobile-creator .create-post-topic {
-  padding: 15px;
+  padding: 10px 15px;
 }
 
 .create-post-topic {
@@ -704,7 +704,6 @@ video {
 
 .mobile-creator .create-post-category {
   padding: 0 10px;
-  margin-bottom: 20px;
 }
 
 .mobile-creator .create-post-category-but {
@@ -2981,7 +2980,7 @@ input:checked + .slider:before {
 }
 
 .create-post-content {
-  height: 12rem;
+  height: 14rem;
 }
 
 .create-post-content textarea {
@@ -6315,7 +6314,7 @@ tbody {
   .create-post-modal-content {
     width: 90%;
     height: auto;
-    margin: 3% auto !important;
+    margin: 1% auto !important;
     border: 1px solid #888;
   }
 
