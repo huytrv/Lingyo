@@ -316,6 +316,7 @@ function handleCategoryScroll() {
                         handleMobileResponse()
                         handleMainFrame()
                         handleNavigation()
+                        handleRankPostCount()
                     }
                 }
                 xhttp.open("GET", window.location.href.replace("https://fodance.com", ''), true)

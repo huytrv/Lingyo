@@ -5265,7 +5265,7 @@ input[type='range']::-ms-fill-lower {
   text-align: center;
   background-image: linear-gradient(to right, #ffd5e0, rgb(251, 228, 252));
   border-radius: 20px;
-  padding: 10px 8px;
+  padding: 15px 8px;
 }
 
 .cate-reward .category-but {
@@ -5426,7 +5426,7 @@ input[type='range']::-ms-fill-lower {
   animation: rotate 4s linear infinite;
 }
 	
-.rainbow::after {
+.rw1 .rainbow::after {
   content: '';
   position: absolute;
   z-index: -1;
@@ -5435,6 +5435,28 @@ input[type='range']::-ms-fill-lower {
   width: calc(100% - 2px);
   height: calc(100% - 2px);
   background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));;
+  border-radius: 20px;
+}
+.rw2 .rainbow::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 1px;
+  top: 1px;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  background-image: linear-gradient(to right, #fffccb, rgb(255, 255, 248));;
+  border-radius: 20px;
+}
+.rw3 .rainbow::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 1px;
+  top: 1px;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  background-image: linear-gradient(to right, #dee4fd, rgb(248, 252, 255));;
   border-radius: 20px;
 }
 
@@ -5457,10 +5479,10 @@ input[type='range']::-ms-fill-lower {
   background: rgb(255, 255, 255);
   background: linear-gradient(
     to right, 
-    rgba(255, 255, 255, 0.13) 0%,
-    rgba(219, 107, 126, 0.315) 77%,
-    rgba(196, 66, 66, 0.295) 92%,
-    rgba(180, 43, 43, 0.329) 100%
+    rgba(255, 255, 255, 0.733) 0%,
+    rgba(247, 208, 218, 0.733) 77%,
+    rgba(212, 143, 143, 0.897) 92%,
+    rgba(230, 116, 169, 0.829) 100%
   );
 }
 
