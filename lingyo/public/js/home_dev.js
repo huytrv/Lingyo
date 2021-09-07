@@ -3305,7 +3305,8 @@ function handleMainFrame(){
     handlePayment()
 
     function runningReward() {
-        let rewardMoney = document.querySelectorAll(".rw-color")
+        let rewardMoney = document.querySelectorAll(".usd-rw")
+        let rewardFP = document.querySelectorAll(".fp-rw")
         for (let i = 0; i < rewardMoney.length; i++){
             const staticMoney = parseFloat(rewardMoney[i].textContent)
             let animationTimer = setInterval(function() {
@@ -3314,6 +3315,16 @@ function handleMainFrame(){
             setTimeout(function(){
                 clearInterval(animationTimer)
                 rewardMoney[i].textContent = staticMoney.toFixed(2)
+            }, 800)
+        }
+        for (let i = 0; i < rewardFP.length; i++){
+            const staticFP = parseFloat(rewardFP[i].textContent)
+            let animationTimer = setInterval(function() {
+                rewardFP[i].textContent = Math.round((Math.random() * (staticFP - 0) + 0))
+            }, 50)
+            setTimeout(function(){
+                clearInterval(animationTimer)
+                rewardFP[i].textContent = staticFP
             }, 800)
         }
     }

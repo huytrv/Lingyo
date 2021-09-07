@@ -315,7 +315,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         userId: req.user.userId
                     }
                 }).then(function(profile){
-                    const enjoyList = [], finalRewardList = [], cateRewardList = []
+                    const enjoyList = [], finalRewardList = [], cateRewardList = [], finalFPList = [], cateFPList = []
                     let count = sum = 0
                     if (stageTime = currentTimeline){TimeRange = [currentTimeline, currentTimeline + 5*24*60*60*1000]} else {TimeRange = [stageTime, currentTimeline]}
                     for (let i = 0; i < cateList.length; i++){
@@ -340,13 +340,20 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 finalRewardList[0] = (Math.round((sum * buf1) * 100) / 100).toFixed(2)
                                 finalRewardList[1] = (Math.round((sum * buf2) * 100) / 100).toFixed(2)
                                 finalRewardList[2] = (Math.round((sum * buf3) * 100) / 100).toFixed(2)
+                                finalFPList[0] = Math.round(sum * buf1 * 416)
+                                finalFPList[1] = Math.round(sum * buf2 * 416)
+                                finalFPList[2] = Math.round(sum * buf3 * 416)
                                 for (let j = 0; j < enjoyList.length; j++){
                                     if (sum > 0){
                                         cateRewardList[j] = (Math.round(((enjoyList[j]/sum) * buf4) * 100) / 100).toFixed(2)
+                                        cateFPList[j] = Math.round((enjoyList[j]/sum) * buf4 * 416)
                                     }
-                                    else {cateRewardList[j] = '0.00'}
+                                    else {
+                                        cateRewardList[j] = 0.00
+                                        cateFPList[j] = 0
+                                    }
                                 }
-                                res.render("home", {username: req.user.username, userId: req.user.userId, profile: profile, active: "home", cateActive: '', cateName: '', nameList: cateName, cateList: cateList, finalRewardList: finalRewardList, cateRewardList: cateRewardList, rankLink: '', rankName: homeRank, modal: false})
+                                res.render("home", {username: req.user.username, userId: req.user.userId, profile: profile, active: "home", cateActive: '', cateName: '', nameList: cateName, cateList: cateList, finalRewardList: finalRewardList, cateRewardList: cateRewardList, finalFPList: finalFPList, cateFPList: cateFPList, rankLink: '', rankName: homeRank, modal: false})
                             }
                         })
                     }
