@@ -5258,10 +5258,12 @@ input[type='range']::-ms-fill-lower {
 } */
 
 .final-reward {
-  background-color: #e9f0ff;
+  background-color: #e9f1ff;
   border-radius: 10px;
   padding: 10px 0;
   width: 100%;
+  font-weight: 500;
+  color: #505050;
 }
 
 .cate-reward {
