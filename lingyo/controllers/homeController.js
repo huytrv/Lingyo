@@ -340,13 +340,13 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 finalRewardList[0] = (Math.round((sum * buf1) * 100) / 100).toFixed(2)
                                 finalRewardList[1] = (Math.round((sum * buf2) * 100) / 100).toFixed(2)
                                 finalRewardList[2] = (Math.round((sum * buf3) * 100) / 100).toFixed(2)
-                                finalFPList[0] = Math.round(sum * buf1 * 416)
-                                finalFPList[1] = Math.round(sum * buf2 * 416)
-                                finalFPList[2] = Math.round(sum * buf3 * 416)
+                                finalFPList[0] = Math.round(sum * 3)
+                                finalFPList[1] = Math.round(sum * 2)
+                                finalFPList[2] = Math.round(sum * 1)
                                 for (let j = 0; j < enjoyList.length; j++){
                                     if (sum > 0){
                                         cateRewardList[j] = (Math.round(((enjoyList[j]/sum) * buf4) * 100) / 100).toFixed(2)
-                                        cateFPList[j] = Math.round((enjoyList[j]/sum) * buf4 * 416)
+                                        cateFPList[j] = Math.round((enjoyList[j]/sum) * 1)
                                     }
                                     else {
                                         cateRewardList[j] = 0.00
