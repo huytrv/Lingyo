@@ -5283,7 +5283,7 @@ input[type='range']::-ms-fill-lower {
   text-align: center;
   background-image: linear-gradient(to right, #ffd5e0, rgb(251, 228, 252));
   border-radius: 20px;
-  padding: 12px 15px;
+  padding: 10px;
   min-width: 137px;
 }
 
