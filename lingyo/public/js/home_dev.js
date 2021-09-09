@@ -1644,7 +1644,7 @@ function handleRoundTimerBar(){
                     } else {
                         const percentTimeLeft = Math.floor(((roundLeft*24*60*60 - timeLeft)/(roundLeft*24*60*60)) * 100)
                         elem.style.width = percentTimeLeft + "%";
-                        walking.style.marginLeft = percentTimeLeft + "%";
+                        walking.style.marginLeft = percentTimeLeft-1.5 + "%";
                         fires.forEach(function(e){
                             e.style.marginLeft = elem.clientWidth + "px"
                         })
