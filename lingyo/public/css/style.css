@@ -1174,6 +1174,10 @@ video {
   border-bottom: 1px solid rgb(211, 211, 211);
 }
 
+.contact a {
+  color: rgb(94, 93, 93);
+}
+
 .contact-info {
   display: block;
   padding: 10px 0;
