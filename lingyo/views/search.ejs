@@ -8,7 +8,7 @@
     <div class="response-frame">
         <div class="search-content">
             <% for (let i = 0; i < result.length; i++){ %>
-                <div class="search-item border-b mg-b pd nav-red d-flex-col-start" nav-data='personal' data-user-df="<%- result[i][2] -%>" data-user-id="<%- result[i][0] -%>">
+                <div class="search-item border-b nav-red" nav-data='personal' data-user-df="<%- result[i][2] -%>" data-user-id="<%- result[i][0] -%>">
                     <div class="d-flex-sb">
                         <div class="d-flex">
                             <% if (result[i][3].includes("http")) { %>
@@ -35,7 +35,7 @@
                             <% } %>
                         </div>
                     </div>
-                    <div class="mg-t"><%- result[i][4] -%></div>
+                    <div><%- result[i][4] -%></div>
                 </div>
             <% } %>
         </div>

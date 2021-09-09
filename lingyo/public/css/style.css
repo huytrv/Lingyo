@@ -885,7 +885,7 @@ video {
 .main-frame-post-sort-rounder {
   height: auto; 
   position: sticky; 
-  top: 115px; 
+  top: 90px; 
   left: 0; 
 }
 
@@ -3847,6 +3847,14 @@ input[type=password]:focus .username-label{
 
 .search-content {
   border-radius: 0;
+}
+
+.search-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 10px;
 }
 
 .search-item .follow-but {

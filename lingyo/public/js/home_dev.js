@@ -999,14 +999,14 @@ function searchRedirect(text, pushState){
                     document.querySelector(".loading-post").remove()
                 }
                 if (!document.querySelector(".search-content")){
-                    document.querySelector(".main-frame-post").innerHTML = '<div class="response-frame"><div class="search-content"></div><div class="seemore-frame pd-l-lg pd-r-lg pd-t pd-b"><span class="seemore-result">Hiển thị thêm</span></div></div>'
+                    document.querySelector(".main-frame").innerHTML = '<div class="response-frame mg-t"><div class="search-content"></div><div class="seemore-frame pd-l-lg pd-r-lg pd-t pd-b"><span class="seemore-result">Hiển thị thêm</span></div></div>'
                 }
                 console.log(res.end)
                 if (!res.end){
                     for (let i = 0; i < res.result.length; i++){
                         searchDisplayedList.push(res.result[i][0])
                         document.querySelector(".search-content").insertAdjacentHTML('beforeend', `
-                        <div class="search-item border-b mg-b pd nav-red d-flex-col-start" nav-data='personal' data-user-df="${res.result[i][2]}" data-user-id="${res.result[i][0]}">
+                        <div class="search-item border-b nav-red" nav-data='personal' data-user-df="${res.result[i][2]}" data-user-id="${res.result[i][0]}">
                             <div class="d-flex-sb">
                                 <div class="d-flex">
                                     ${(()=>{if (res.result[i][3].includes("http")) {return `
@@ -1036,7 +1036,7 @@ function searchRedirect(text, pushState){
                                     })()}
                                 </div>
                             </div>
-                            <div class="mg-t"><span>${res.result[i][4]}</span></div>
+                            <div><span>${res.result[i][4]}</span></div>
                         </div>
                         `)
                     }
