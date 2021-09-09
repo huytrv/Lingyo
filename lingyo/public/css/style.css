@@ -5258,10 +5258,15 @@ input[type='range']::-ms-fill-lower {
 } */
 
 .final-reward {
-  background-color: #e9f5ff;
+  background-color: #313f52;
   border-radius: 10px;
   padding: 15px 0;
   width: 100%;
+  color: white;
+}
+
+.final-reward h3 {
+  color: white;
 }
 
 .cate-reward {
@@ -5401,6 +5406,7 @@ input[type='range']::-ms-fill-lower {
 	height: 100%;
 	border-radius: 20px;
 	overflow: hidden;
+  color: white;
 }
 
 .rw1 .rainbow::before {
@@ -5454,7 +5460,7 @@ input[type='range']::-ms-fill-lower {
   width: calc(100% - 2px);
   height: calc(100% - 2px);
   /* background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));; */
-  background-color: #fefefe;
+  background-color: #252525;
   border-radius: 20px;
 }
 .rw2 .rainbow::after {
@@ -5466,7 +5472,7 @@ input[type='range']::-ms-fill-lower {
   width: calc(100% - 2px);
   height: calc(100% - 2px);
   /* background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));; */
-  background-color: #fefefe;
+  background-color: #252525;
   border-radius: 20px;
 }
 .rw3 .rainbow::after {
@@ -5478,7 +5484,7 @@ input[type='range']::-ms-fill-lower {
   width: calc(100% - 2px);
   height: calc(100% - 2px);
   /* background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));; */
-  background-color: #fefefe;
+  background-color: #252525;
   border-radius: 20px;
 }
 
@@ -6403,7 +6409,7 @@ tbody {
 
   .post {
     border-radius: 8px;
-    box-shadow: 0 1px 5px 3px rgb(231, 231, 231);
+    box-shadow: 0 1px 5px 3px rgb(236, 236, 236);
     margin-top: 10px;
   }
 
