@@ -21,29 +21,31 @@ module.exports = function(app, users){
                 message = "Đăng nhập thất bại"
                 return res.render("login", {message})
             }
-            if (!user) {
-                message = info.error
-                username = req.body.username
-                req.session.tryTime ++
-                if(req.session.tryTime == 9) {
-                    req.session.blockLogin = true
-                    req.session.cookie.expires = 60000
+            if (typeof(req.body.username) === "string"){
+                if (!user) {
+                    message = info.error
+                    username = req.body.username
+                    req.session.tryTime ++
+                    if(req.session.tryTime == 9) {
+                        req.session.blockLogin = true
+                        req.session.cookie.expires = 60000
+                    }
+                    process.setMaxListeners(0)
+                    if(!req.session.blockLogin) {
+                        return res.render("login", {message, username})
+                    }
+                    else {
+                        return res.render("blockLogin")
+                    }
                 }
-                process.setMaxListeners(0)
-                if(!req.session.blockLogin) {
-                    return res.render("login", {message, username})
-                }
-                else {
-                    return res.render("blockLogin")
-                }
+                req.logIn(user, function(err){
+                    if (err){
+                        message = "Đăng nhập thất bại, hãy thử lại"
+                        return res.render("login", {message})
+                    }
+                    return res.redirect("/")
+                })
             }
-            req.logIn(user, function(err){
-                if (err){
-                    message = "Đăng nhập thất bại, hãy thử lại"
-                    return res.render("login", {message})
-                }
-                return res.redirect("/")
-            })
         })(req, res, next)
     })
 

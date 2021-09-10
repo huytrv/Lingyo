@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize")
-const { Op, where } = require("sequelize")
+const { Op, where, INTEGER, BOOLEAN } = require("sequelize")
 const randomize = require("randomatic")
 const formidable = require('formidable')
 const sharp = require('sharp')
@@ -245,13 +245,15 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             }
                                         }
                                     }
-        
-                                    voteWinners.create({
-                                        round: round + 1,
-                                        rank: rank,
-                                        category: cateList[c],
-                                        userId: p[i].userId
-                                    })
+                                    
+                                    if (typeof(round) === "number" && typeof(rank), typeof(cateList[c]) === "string" && typeof(p[i].userId) === "number"){
+                                        voteWinners.create({
+                                            round: round + 1,
+                                            rank: rank,
+                                            category: cateList[c],
+                                            userId: p[i].userId
+                                        })
+                                    }                                  
                                 }
                             }
                             if (buf == cateList.length * rankList.length) {
@@ -660,7 +662,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     userId: req.user.userId
                 }
             }).then(function(card){
-                if (!card){
+                if (!card && typeof(req.body.cardNumber) === "string" && typeof(req.user.userId) === "number" && typeof(req.body.bankName) === "string"){
                     cardNumber.create({
                         card: req.body.cardNumber,
                         name: req.body.bankName,
@@ -686,15 +688,17 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     })
 
     app.post("/update-star-status", function(req, res) {
-        userProfile.update({
-            starStatus: req.body.status
-        }, {
-            where: {
-                userId: req.user.userId
-            }
-        }).then(function(){
-            res.end()
-        })
+        if (typeof(req.body.status) === "boolean"){
+            userProfile.update({
+                starStatus: req.body.status
+            }, {
+                where: {
+                    userId: req.user.userId
+                }
+            }).then(function(){
+                res.end()
+            })
+        }
     })
 
     app.post("/payment", function(req, res){
@@ -1798,85 +1802,88 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                         }).then(function(p){
                                                             if (!p){
                                                                 function createPosts(){
-                                                                    posts.create({ 
-                                                                        postId: id,
-                                                                        description: description,
-                                                                        file: file,
-                                                                        time: new Date(),
-                                                                        like: 0,
-                                                                        comment: 0,
-                                                                        share: 0,
-                                                                        category: category,
-                                                                        rank: rank,
-                                                                        competition: competition,
-                                                                        videoViews: 0,
-                                                                        auth: false,
-                                                                        userId: req.user.userId
-                                                                    }).then(function(newPost){
-                                                                        function PostCreated() {
-                                                                            if (rank == "intermediate"){
-                                                                                userProfile.increment('tickets', {by: -1, where: {userId: req.user.userId}})
+                                                                    if (typeof(id) === "number" && typeof(description) === "string" && typeof(category) === "string" && typeof(rank) === "string" && typeof(competition) === "string" && typeof(req.user.userId) === "number"){
+                                                                        posts.create({ 
+                                                                            postId: id,
+                                                                            description: description,
+                                                                            file: file,
+                                                                            time: new Date(),
+                                                                            like: 0,
+                                                                            comment: 0,
+                                                                            share: 0,
+                                                                            category: category,
+                                                                            rank: rank,
+                                                                            competition: competition,
+                                                                            videoViews: 0,
+                                                                            auth: false,
+                                                                            userId: req.user.userId
+                                                                        }).then(function(newPost){
+                                                                            function PostCreated() {
+                                                                                if (rank == "intermediate"){
+                                                                                    userProfile.increment('tickets', {by: -1, where: {userId: req.user.userId}})
+                                                                                }
+                                                                                else if (rank == "highgrade"){
+                                                                                    userProfile.increment('tickets', {by: -3, where: {userId: req.user.userId}})
+                                                                                }
+                                                                                let cateNamePost = false, rankNamePost = false
+                                                                                for (let c = 0; c < cateList.length; c++){
+                                                                                    if (cateList[c] == category){cateNamePost = cateName[c]}
+                                                                                }
+                                                                                for (let r = 0; r < rankList.length; r++){
+                                                                                    if (rankList[r] == rank){rankNamePost = rankName[r]}
+                                                                                }
+                                                                                const data = {
+                                                                                    username: req.user.username,
+                                                                                    userId: req.user.userId,
+                                                                                    profile: profile,
+                                                                                    post: newPost,
+                                                                                    category: category,
+                                                                                    rank: rank,
+                                                                                    cateNamePost: cateNamePost,
+                                                                                    rankNamePost: rankNamePost
+                                                                                }
+                                                                                res.json({
+                                                                                    status: "post-created",
+                                                                                    data: data
+                                                                                })
                                                                             }
-                                                                            else if (rank == "highgrade"){
-                                                                                userProfile.increment('tickets', {by: -3, where: {userId: req.user.userId}})
+                                                                            if (f.file){
+                                                                                sendModerateMail("fodancemoderator@gmail.com", id)
+                                                                                const interv = setInterval(function(){
+                                                                                    posts.findOne({
+                                                                                        where: {
+                                                                                            postId: id
+                                                                                        }
+                                                                                    }).then(function(postAuth){
+                                                                                        if (postAuth){
+                                                                                            if (postAuth.auth){
+                                                                                                clearInterval(interv)
+                                                                                                PostCreated()
+                                                                                            }
+                                                                                        }                                                                              
+                                                                                        else {
+                                                                                            clearInterval(interv)
+                                                                                            res.json({
+                                                                                                status: "post-invalid",
+                                                                                            })
+                                                                                        }
+                                                                                    })
+                                                                                }, 5000)
                                                                             }
-                                                                            let cateNamePost = false, rankNamePost = false
-                                                                            for (let c = 0; c < cateList.length; c++){
-                                                                                if (cateList[c] == category){cateNamePost = cateName[c]}
-                                                                            }
-                                                                            for (let r = 0; r < rankList.length; r++){
-                                                                                if (rankList[r] == rank){rankNamePost = rankName[r]}
-                                                                            }
-                                                                            const data = {
-                                                                                username: req.user.username,
-                                                                                userId: req.user.userId,
-                                                                                profile: profile,
-                                                                                post: newPost,
-                                                                                category: category,
-                                                                                rank: rank,
-                                                                                cateNamePost: cateNamePost,
-                                                                                rankNamePost: rankNamePost
-                                                                            }
-                                                                            res.json({
-                                                                                status: "post-created",
-                                                                                data: data
-                                                                            })
-                                                                        }
-                                                                        if (f.file){
-                                                                            sendModerateMail("fodancemoderator@gmail.com", id)
-                                                                            const interv = setInterval(function(){
-                                                                                posts.findOne({
+                                                                            else {
+                                                                                posts.update({
+                                                                                    auth: true
+                                                                                }, {
                                                                                     where: {
                                                                                         postId: id
                                                                                     }
-                                                                                }).then(function(postAuth){
-                                                                                    if (postAuth){
-                                                                                        if (postAuth.auth){
-                                                                                            clearInterval(interv)
-                                                                                            PostCreated()
-                                                                                        }
-                                                                                    }                                                                              
-                                                                                    else {
-                                                                                        clearInterval(interv)
-                                                                                        res.json({
-                                                                                            status: "post-invalid",
-                                                                                        })
-                                                                                    }
+                                                                                }).then(function(){
+                                                                                    PostCreated()
                                                                                 })
-                                                                            }, 5000)
-                                                                        }
-                                                                        else {
-                                                                            posts.update({
-                                                                                auth: true
-                                                                            }, {
-                                                                                where: {
-                                                                                    postId: id
-                                                                                }
-                                                                            }).then(function(){
-                                                                                PostCreated()
-                                                                            })
-                                                                        }
-                                                                    })
+                                                                            }
+                                                                        })
+                                                                    }
+                                                                    
                                                                 }
                                                                 createPosts()
                                                             }
@@ -3292,7 +3299,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             }).then(function(pLiked){
                 if (req.body.liked === true || req.body.liked === false){
                     if (req.body.liked) {
-                        if (!pLiked){
+                        if (!pLiked && typeof(req.body.dataPostDf) === "string" && typeof(req.user.userId) === "number"){
                             postLikes.create({
                                 userId: req.user.userId,
                                 postId: req.body.dataPostDf
@@ -3371,7 +3378,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     userId: req.user.userId,
                 }
             }).then(function(saved){
-                if (!saved) {
+                if (!saved && typeof(postId) === "string" && typeof(req.user.userId) === "number") {
                     postSaved.create({
                         postId: postId,
                         userId: req.user.userId,
@@ -3568,41 +3575,44 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 }).then(function(c){
                                     if (!c){
                                         function createWithoutTag(){
-                                            comments.create({ 
-                                                cmtId: id,
-                                                user: req.user.userId,
-                                                tag: null,
-                                                content: req.body.content.trim(),
-                                                like: 0,
-                                                time: new Date(),
-                                                reply: req.body.cmtId,
-                                                postId: postId,
-                                            }).then(function(cmt){
-                                                if (!req.body.cmtId){posts.increment('comment', {by: 1, where: {postId: postId}})}
-                                                userProfile.findOne({
-                                                    raw: true,
-                                                    where: {
-                                                        userId: req.user.userId
-                                                    }
-                                                }).then(function(profile){  
-                                                    const cmtAvt = profile.avatar
-                                                    const nickname = profile.nickname
-                                                    const data = {
-                                                        postId: p.postId,
-                                                        cmtId: cmt.cmtId,
-                                                        user: req.user.userId,
-                                                        username: req.user.username,
-                                                        nickname: nickname,
-                                                        avt: cmtAvt,
-                                                        reply: cmt.reply,
-                                                        total: total
-                                                    }
-                                                    res.json({
-                                                        status: 'done',
-                                                        data: data
+                                            if (typeof(id) === "number" && typeof(req.body.cmtId) === "object" && typeof(req.user.userId) == "number" && typeof(req.body.content) === "string"){
+                                                comments.create({ 
+                                                    cmtId: id,
+                                                    user: req.user.userId,
+                                                    tag: null,
+                                                    content: req.body.content.trim(),
+                                                    like: 0,
+                                                    time: new Date(),
+                                                    reply: req.body.cmtId,
+                                                    postId: postId,
+                                                }).then(function(cmt){
+                                                    if (!req.body.cmtId){posts.increment('comment', {by: 1, where: {postId: postId}})}
+                                                    userProfile.findOne({
+                                                        raw: true,
+                                                        where: {
+                                                            userId: req.user.userId
+                                                        }
+                                                    }).then(function(profile){  
+                                                        const cmtAvt = profile.avatar
+                                                        const nickname = profile.nickname
+                                                        const data = {
+                                                            postId: p.postId,
+                                                            cmtId: cmt.cmtId,
+                                                            user: req.user.userId,
+                                                            username: req.user.username,
+                                                            nickname: nickname,
+                                                            avt: cmtAvt,
+                                                            reply: cmt.reply,
+                                                            total: total
+                                                        }
+                                                        res.json({
+                                                            status: 'done',
+                                                            data: data
+                                                        })
                                                     })
                                                 })
-                                            })
+                                            }
+                                            
                                         }
                                         if (req.body.tag){
                                             userProfile.findOne({
@@ -3611,41 +3621,43 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                 }
                                             }).then(function(u){
                                                 if (u){
-                                                    comments.create({ 
-                                                        cmtId: id,
-                                                        user: req.user.userId,
-                                                        tag: u.userId,
-                                                        content: req.body.content.trim(),
-                                                        like: 0,
-                                                        time: new Date(),
-                                                        reply: req.body.cmtId,
-                                                        postId: postId,
-                                                    }).then(function(cmt){
-                                                        if (!req.body.cmtId){posts.increment('comment', {by: 1, where: {postId: postId}})}
-                                                        userProfile.findOne({
-                                                            raw: true,
-                                                            where: {
-                                                                userId: req.user.userId
-                                                            }
-                                                        }).then(function(profile){  
-                                                            const cmtAvt = profile.avatar
-                                                            const nickname = profile.nickname
-                                                            const data = {
-                                                                postId: p.postId,
-                                                                cmtId: cmt.cmtId,
-                                                                user: req.user.userId,
-                                                                username: req.user.username,
-                                                                nickname: nickname,
-                                                                avt: cmtAvt,
-                                                                reply: cmt.reply,
-                                                                total: total
-                                                            }
-                                                            res.json({
-                                                                status: 'done',
-                                                                data: data
+                                                    if (typeof(id) === "number" && typeof(req.body.cmtId) === "object" && typeof(req.user.userId) == "number" && typeof(req.body.content) === "string"){
+                                                        comments.create({ 
+                                                            cmtId: id,
+                                                            user: req.user.userId,
+                                                            tag: u.userId,
+                                                            content: req.body.content.trim(),
+                                                            like: 0,
+                                                            time: new Date(),
+                                                            reply: req.body.cmtId,
+                                                            postId: postId,
+                                                        }).then(function(cmt){
+                                                            if (!req.body.cmtId){posts.increment('comment', {by: 1, where: {postId: postId}})}
+                                                            userProfile.findOne({
+                                                                raw: true,
+                                                                where: {
+                                                                    userId: req.user.userId
+                                                                }
+                                                            }).then(function(profile){  
+                                                                const cmtAvt = profile.avatar
+                                                                const nickname = profile.nickname
+                                                                const data = {
+                                                                    postId: p.postId,
+                                                                    cmtId: cmt.cmtId,
+                                                                    user: req.user.userId,
+                                                                    username: req.user.username,
+                                                                    nickname: nickname,
+                                                                    avt: cmtAvt,
+                                                                    reply: cmt.reply,
+                                                                    total: total
+                                                                }
+                                                                res.json({
+                                                                    status: 'done',
+                                                                    data: data
+                                                                })
                                                             })
                                                         })
-                                                    })
+                                                    }
                                                 }    
                                                 else {
                                                     createWithoutTag()
@@ -3993,7 +4005,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             }}).then(function(like){
                 if (req.body.liked === true || req.body.liked === false){
                     if (req.body.liked) {
-                        if (!like){
+                        if (!like && typeof(req.user.userId) === "number" && typeof(req.body.dataCmtDf) === "string"){
                             commentLikes.create({
                                 userId: req.user.userId,
                                 cmtId: req.body.dataCmtDf
@@ -4052,7 +4064,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     })
 
     app.post("/comment-issue", function(req, res){
-        if (req.body.content.trim().length > 0){
+        if (req.body.content.trim().length > 0 && typeof(req.user.userId) === "number" && typeof(req.body.content) === "string" && typeof(req.body.obj) === "string" && typeof(req.body.type) === "string"){
             report.create({
                 obj: req.body.obj,
                 content: req.body.content,
@@ -4080,7 +4092,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     userId: req.user.userId
                 }
             }).then(function(total){
-                if (total < 5){
+                if (total < 5 && typeof(req.body.topic) === "string" && typeof(req.user.userId) === "number"){
                     addTopic.create({
                         topic: req.body.topic,
                         userId: req.user.userId
@@ -4144,38 +4156,43 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         if (req.isAuthenticated()){
             req.session.tryTime = 0
             req.session.blockLogin = false
-            if (req.body.checkboxData == "follow-notification-checkbox"){
-                userProfile.update({
-                    followNotification: req.body.checkboxValue
-                },{
-                    where: {
-                        userId: req.user.userId
-                    }
-                }).then(function(){
-                    res.end()
-                })
+            if (typeof(req.body.checkboxValue) === "boolean" && typeof(req.body.checkboxData) === "string"){
+                if (req.body.checkboxData == "follow-notification-checkbox"){
+                    userProfile.update({
+                        followNotification: req.body.checkboxValue
+                    },{
+                        where: {
+                            userId: req.user.userId
+                        }
+                    }).then(function(){
+                        res.end()
+                    })
+                }
+                else if (req.body.checkboxData == "vote-follow-notification-checkbox"){
+                    userProfile.update({
+                        voteFollowNotification: req.body.checkboxValue
+                    },{
+                        where: {
+                            userId: req.user.userId
+                        }
+                    }).then(function(){
+                        res.end()
+                    })
+                }
+                else if (req.body.checkboxData == "post-follow-notification-checkbox"){
+                    userProfile.update({
+                        postFollowNotification: req.body.checkboxValue
+                    },{
+                        where: {
+                            userId: req.user.userId
+                        }
+                    }).then(function(){
+                        res.end()
+                    })
+                }
             }
-            else if (req.body.checkboxData == "vote-follow-notification-checkbox"){
-                userProfile.update({
-                    voteFollowNotification: req.body.checkboxValue
-                },{
-                    where: {
-                        userId: req.user.userId
-                    }
-                }).then(function(){
-                    res.end()
-                })
-            }
-            else if (req.body.checkboxData == "post-follow-notification-checkbox"){
-                userProfile.update({
-                    postFollowNotification: req.body.checkboxValue
-                },{
-                    where: {
-                        userId: req.user.userId
-                    }
-                }).then(function(){
-                    res.end()
-                })
+            else {
+                res.end()
             }
         }
         else {
@@ -4238,7 +4255,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             req.session.tryTime = 0
             req.session.blockLogin = false
             const special = /[^a-zA-Z0-9_]/
-            if (!special.test(req.body.nickname) && (req.body.nickname.length >= 4 && req.body.nickname.length <= 15)){
+            if (!special.test(req.body.nickname) && (req.body.nickname.length >= 4 && req.body.nickname.length <= 15) && typeof(req.body.nickname) === "string"){
                 userProfile.update({
                     nickname: req.body.nickname
                 },{
@@ -4314,7 +4331,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         status: "sms-sent",
                     })
                     app.post("/code-submit", function(req, res){
-                        if (req.body.code == code){
+                        if (req.body.code == code && typeof(req.body.code) === "number" && typeof(phone) === "number"){
                             users.update({
                                 phone: phone
                             },{
@@ -4363,7 +4380,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         status: "sms-sent",
                     })
                     app.post("/code-submit", function(req, res){
-                        if (req.body.code == code){
+                        if (req.body.code == code && typeof(req.body.code) == "number" && typeof(email) === "string"){
                             users.update({
                                 email: email
                             },{
@@ -4411,17 +4428,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 const saltRounds = 10
                                 const salt = bcrypt.genSaltSync(saltRounds);
                                 const password = bcrypt.hashSync(req.body.newPassword, salt)
-                                users.update({
-                                    password: password
-                                },{
-                                    where: {
-                                        userId: req.user.userId
-                                    }
-                                }).then(function(){
-                                    res.json({
-                                        status: 'done'
+                                if (typeof(password) === "string"){
+                                    users.update({
+                                        password: password
+                                    },{
+                                        where: {
+                                            userId: req.user.userId
+                                        }
+                                    }).then(function(){
+                                        res.json({
+                                            status: 'done'
+                                        })
                                     })
-                                })
+                                }
+                                else {
+                                    res.end()
+                                }
                             }
                             else {
                                 res.json({
@@ -4458,7 +4480,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             req.session.tryTime = 0
             req.session.blockLogin = false
             feedback.count().then(function(total){
-                if (total <= 100000){
+                if (total <= 100000 && typeof(req.body.feedback) === "string" && typeof(req.user.userId) === "number"){
                     feedback.create({
                         feedback: req.body.feedback,
                         userId: req.user.userId
@@ -4667,26 +4689,31 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         if (req.isAuthenticated()){
             req.session.tryTime = 0
             req.session.blockLogin = false
-            users.update({
-                username: req.body.username,
-            }, {
-                where: {
-                    userId: req.user.userId
-                }
-            })
-            userProfile.update({
-                nickname: req.body.nickname,
-                description: req.body.introduce,
-                birthday: req.body.birthday,
-                location: req.body.location,
-            },{
-                where: {
-                    userId: req.user.userId
-                }
-            })
-            res.json({
-                status: 'done'
-            })
+            if (typeof(req.body.username) === "string"){
+                users.update({
+                    username: req.body.username,
+                }, {
+                    where: {
+                        userId: req.user.userId
+                    }
+                })
+                userProfile.update({
+                    nickname: req.body.nickname,
+                    description: req.body.introduce,
+                    birthday: req.body.birthday,
+                    location: req.body.location,
+                },{
+                    where: {
+                        userId: req.user.userId
+                    }
+                })
+                res.json({
+                    status: 'done'
+                })
+            }
+            else {
+                res.end()
+            }
         }
         else {
             res.redirect('/login')
@@ -4791,17 +4818,19 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     userId: user.userId
                                 }
                             }).then(function(n){
-                                if (!n){
-                                    notifications.create({
-                                        sourceUser: req.user.userId,
-                                        post: null,
-                                        type: req.body.type,
-                                        read: false,
-                                        time: Date.now(),
-                                        userId: user.userId
-                                    }).then(function(){
-                                        res.end()
-                                    })
+                                if (typeof(req.user.userId) === "number" && typeof(req.body.type) === "string" && typeof(user.userId) === "number"){
+                                    if (!n){
+                                        notifications.create({
+                                            sourceUser: req.user.userId,
+                                            post: null,
+                                            type: req.body.type,
+                                            read: false,
+                                            time: Date.now(),
+                                            userId: user.userId
+                                        }).then(function(){
+                                            res.end()
+                                        })
+                                    }                   
                                 }
                                 else {
                                     res.end()
@@ -4816,6 +4845,21 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         res.end()
                     }
                 })
+            }
+            else if (req.body.type == "post-done"){
+                console.log(123)
+                if (typeof(req.user.userId) === "number" && typeof(req.body.source) === "object" && typeof(req.body.type) === "string"){
+                    notifications.create({
+                        sourceUser: req.user.userId,
+                        postInfo: req.body.source,
+                        type: req.body.type,
+                        read: false,
+                        time: Date.now(),
+                        userId: req.user.userId
+                    }).then(function(){
+                        res.end()
+                    })
+                }
             }
             else if (req.body.type == "post"){
                 userProfile.findOne({
@@ -4837,27 +4881,30 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         userId: u[i].user1
                                     }
                                 }).then(function(p){
-                                    if (p.postFollowNotification){
-                                        notifications.create({
-                                            sourceUser: req.user.userId,
-                                            postInfo: req.body.source,
-                                            type: req.body.type,
-                                            read: false,
-                                            time: Date.now(),
-                                            userId: p.userId
-                                        }).then(function(){
+                                    if(typeof(req.user.userId) === "number" && typeof(req.body.source) === "object" && typeof(req.body.type) === "string" && typeof(p.userId) === "number"){
+                                        if (p.postFollowNotification){
+                                            notifications.create({
+                                                sourceUser: req.user.userId,
+                                                postInfo: req.body.source,
+                                                type: req.body.type,
+                                                read: false,
+                                                time: Date.now(),
+                                                userId: p.userId
+                                            }).then(function(){
+                                                count ++
+                                                if (count == u.length){
+                                                    res.end()
+                                                }
+                                            })
+                                        }
+                                        else {
                                             count ++
                                             if (count == u.length){
                                                 res.end()
                                             }
-                                        })
-                                    }
-                                    else {
-                                        count ++
-                                        if (count == u.length){
-                                            res.end()
                                         }
                                     }
+                                    
                                 })
                             }
                         }
@@ -4907,38 +4954,45 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         }).then(function(noti){
                                             if (profiles[i].voteFollowNotification){
                                                 if (noti){
-                                                    notifications.update({
-                                                        postInfo: req.body.source,
-                                                        read: false
-                                                    },{
-                                                        where: {
-                                                            postInfo: {
-                                                                [Op.like]: [postId + '%']
-                                                            },
-                                                            type: req.body.type,
-                                                            userId: post.userId
-                                                        }
-                                                    }).then(function(){
-                                                        count ++
-                                                        if (count == profiles.length){
-                                                            res.end()
-                                                        }
-                                                    })
+                                                    if (typeof(req.body.source === "object")){
+                                                        notifications.update({
+                                                            postInfo: req.body.source,
+                                                            read: false
+                                                        },{
+                                                            where: {
+                                                                postInfo: {
+                                                                    [Op.like]: [postId + '%']
+                                                                },
+                                                                type: req.body.type,
+                                                                userId: post.userId
+                                                            }
+                                                        }).then(function(){
+                                                            count ++
+                                                            if (count == profiles.length){
+                                                                res.end()
+                                                            }
+                                                        })
+                                                    }
+                                                    else {
+                                                        res.end()
+                                                    }
                                                 }
                                                 else {
-                                                    notifications.create({
-                                                        sourceUser: u.userId,
-                                                        postInfo: req.body.source,
-                                                        type: req.body.type,
-                                                        read: false,
-                                                        time: Date.now(),
-                                                        userId: profiles[i].userId
-                                                    }).then(function(){
-                                                        count ++
-                                                        if (count == profiles.length){
-                                                            res.end()
-                                                        }
-                                                    })
+                                                    if (typeof(u.userId) === "number" && typeof(profiles[i].userId) === "number" && typeof(req.body.source) === "object" && typeof(req.body.type) === "string"){
+                                                        notifications.create({
+                                                            sourceUser: u.userId,
+                                                            postInfo: req.body.source,
+                                                            type: req.body.type,
+                                                            read: false,
+                                                            time: Date.now(),
+                                                            userId: profiles[i].userId
+                                                        }).then(function(){
+                                                            count ++
+                                                            if (count == profiles.length){
+                                                                res.end()
+                                                            }
+                                                        })
+                                                    }
                                                 }
                                             }
                                             else {
@@ -4985,39 +5039,41 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             for (let r = 0; r < rankList.length; r++){
                                 if (rankList[r] == post.rank){postInfo[3] = rankName[r]}
                             }
-                            if (!n){
-                                notifications.create({
-                                    sourceUser: req.user.userId,
-                                    postInfo: postInfo,
-                                    type: req.body.type,
-                                    read: false,
-                                    time: Date.now(),
-                                    userId: post.userId
-                                }).then(function(){
-                                    res.end()
-                                })
-                            }
-                            else {
-                                if (n.sourceUser != req.user.userId){
-                                    notifications.update({
+                            if (typeof(req.user.userId) === "number" && typeof(postInfo) === "object" && typeof(req.body.type) === "string" && typeof(post.userId) === "number"){
+                                if (!n){
+                                    notifications.create({
                                         sourceUser: req.user.userId,
                                         postInfo: postInfo,
+                                        type: req.body.type,
                                         read: false,
                                         time: Date.now(),
-                                    },{
-                                        where: {
-                                            postInfo: {
-                                                [Op.like]: [postId + '%']
-                                            },
-                                            type: req.body.type,
-                                            userId: post.userId
-                                        }
+                                        userId: post.userId
                                     }).then(function(){
                                         res.end()
                                     })
                                 }
                                 else {
-                                    res.end()
+                                    if (n.sourceUser != req.user.userId){
+                                        notifications.update({
+                                            sourceUser: req.user.userId,
+                                            postInfo: postInfo,
+                                            read: false,
+                                            time: Date.now(),
+                                        },{
+                                            where: {
+                                                postInfo: {
+                                                    [Op.like]: [postId + '%']
+                                                },
+                                                type: req.body.type,
+                                                userId: post.userId
+                                            }
+                                        }).then(function(){
+                                            res.end()
+                                        })
+                                    }
+                                    else {
+                                        res.end()
+                                    }
                                 }
                             }
                         })
@@ -5062,37 +5118,63 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     [Sequelize.fn('DISTINCT', Sequelize.col('user')) ,'user'],
                                 ],
                             }).then(function(total){
-                                postInfo[4] = (total.length - 1).toString()
-                                if (!n){
-                                    notifications.create({
-                                        sourceUser: req.user.userId,
-                                        postInfo: postInfo,
+                                notifications.findAll({
+                                    raw: true,
+                                    where: {
+                                        postInfo: {
+                                            [Op.like]: [postId + '%']
+                                        },
                                         type: req.body.type,
-                                        read: false,
-                                        time: Date.now(),
                                         userId: post.userId
-                                    }).then(function(){
-                                        res.end()
-                                    })
-                                }
-                                else {
-                                    notifications.update({
-                                        sourceUser: req.user.userId,
-                                        postInfo: postInfo,
-                                        read: false,
-                                        time: Date.now(),
-                                    },{
-                                        where: {
-                                            postInfo: {
-                                                [Op.like]: [postId + '%']
-                                            },
+                                    }
+                                }).then(function(e){
+                                    console.log(e)
+                                    if (e.length > 1){
+                                        notifications.destroy({
+                                            where: {
+                                                postInfo: {
+                                                    [Op.like]: [postId + '%']
+                                                },
+                                                type: req.body.type,
+                                                userId: post.userId
+                                            }
+                                        })
+                                    }
+                                })
+                                postInfo[4] = (total.length - 1).toString()
+                                if (typeof(req.user.userId) === "number" && typeof(postInfo) === "object" && typeof(req.body.type) === "string" && typeof(post.userId) === "number"){
+                                    if (!n){
+                                        notifications.create({
+                                            sourceUser: req.user.userId,
+                                            postInfo: postInfo,
                                             type: req.body.type,
+                                            read: false,
+                                            time: Date.now(),
                                             userId: post.userId
-                                        }
-                                    }).then(function(){
-                                        res.end()
-                                    })
+                                        }).then(function(){
+                                            res.end()
+                                        })
+                                    }
+                                    else {
+                                        notifications.update({
+                                            sourceUser: req.user.userId,
+                                            postInfo: postInfo,
+                                            read: false,
+                                            time: Date.now(),
+                                        },{
+                                            where: {
+                                                postInfo: {
+                                                    [Op.like]: [postId + '%']
+                                                },
+                                                type: req.body.type,
+                                                userId: post.userId
+                                            }
+                                        }).then(function(){
+                                            res.end()
+                                        })
+                                    }
                                 }
+                                
                             })
                         })
                     }
@@ -5129,7 +5211,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     user2: isUser.userId
                                 }
                             }).then(function(f){
-                                if (!f){
+                                if (!f && typeof(profile.userId) === "number" && typeof(isUser.userId) === "number"){
                                     follow.create({
                                         user1: profile.userId,
                                         user2: isUser.userId

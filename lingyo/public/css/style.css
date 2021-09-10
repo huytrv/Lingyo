@@ -851,6 +851,10 @@ video {
   padding: 20px 0 !important;
 }
 
+.forgot-model .logo {
+  padding: 0 !important;
+}
+
 .main-forgot {
   padding-top: 48px !important;
 }
@@ -2239,7 +2243,8 @@ input:checked + .slider:before {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  min-width: 130px;
+  min-width: 110px;
+  margin-top: 10px;
 }
 
 .nav-item img {
@@ -3512,7 +3517,7 @@ img.thumb {
 .interactive-but span {
   font-weight: 500;
   font-size: 13px;
-  color: rgb(80, 80, 80);
+  color: rgb(51, 51, 51);
 }
 
 .interactive-but-liked {
@@ -5955,7 +5960,7 @@ tbody {
   .content-fg {
     width: 420px;
     top: 10%;
-    min-height: 550px;
+    min-height: 500px;
   }
 
   .highlights-mobile {
@@ -6265,7 +6270,7 @@ tbody {
 
   .fame-content {
     padding: 0 20px !important;
-    height: 380px;
+    height: 350px;
     overflow-y: scroll;
   }
 
@@ -6308,10 +6313,6 @@ tbody {
     width: 65%;
     max-width: 900px;
     min-width: 600px;
-  }
-
-  .follow-user-info-mobile {
-    display: none;
   }
 
   .home-input {
@@ -6413,7 +6414,7 @@ tbody {
 
   .post {
     border-radius: 8px;
-    box-shadow: 0 1px 5px 3px rgb(236, 236, 236);
+    box-shadow: 0 1px 5px 3px rgb(235, 235, 235);
     margin-top: 10px;
   }
 

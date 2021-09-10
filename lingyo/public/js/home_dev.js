@@ -1490,11 +1490,11 @@ function handleRefreshTask(){
                                                     </a>
                                                 </div>
                                             </div>
-                                            ${(()=>{if (res.notifications[i].postInfo[1]) {return `<div class="mg-l-lg"><span>đã đăng một bài viết mới vào Thể loại <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[1]}</span> cấp <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[2]}</span></span></div>`}
-                                                else {return `<div class="mg-l-lg"><span>đã đăng một bài viết mới</span></div>`}
+                                            ${(()=>{if (res.notifications[i].postInfo[1]) {return `<div class="mg-l-lg"><span>đã đăng một video mới vào Thể loại <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[1]}</span> cấp <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[2]}</span></span></div>`}
+                                                else {return `<div class="mg-l-lg"><span>đã đăng một video mới</span></div>`}
                                             })()}
                                         </div>
-                                        <div class="mg-t"><span>Click để xem bài viết và bình chọn</span></div>
+                                        <div class="mg-t"><span>Click để xem video và bình chọn</span></div>
                                     </div>
                                     <div class="time-noti">
                                     ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
@@ -1523,7 +1523,7 @@ function handleRefreshTask(){
                                             </span>
                                         </a>
                                     </div>
-                                        <span class="mg-l">đã có bài viết đạt <span class="theme-color"> ${res.notifications[i].postInfo[1]}</span> lượt bình chọn</span>
+                                        <span class="mg-l">đã có video đạt <span class="theme-color"> ${res.notifications[i].postInfo[1]}</span> lượt bình chọn</span>
                                     </div>
                                     <div class="time-noti">
                                     ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
@@ -1544,7 +1544,7 @@ function handleRefreshTask(){
                                         })()}
                                         </a>
                                         <div class="d-flex-col-start">
-                                            ${(()=>{if (res.notifications[i].postInfo[1] == '1' && res.notifications[i].postInfo[2] != '') {return `<div><b>${res.notificationName}</b> đã bình chọn bài viết của bạn tại Thể loại ${res.notifications[i].postInfo[2]} cấp ${res.notifications[i].postInfo[3]}</div>`} else if (res.notifications[i].postInfo[1] == '1' && !res.notifications[i].postInfo[2] == '') {return `<div><b>${res.notificationName}</b> đã bình chọn bài viết của bạn</div>`} else if (res.notifications[i].postInfo[1] != '1' && res.notifications[i].postInfo[2] != '') {return `<div><b>${res.notificationName}</b> và ${res.notifications[i].postInfo[1] - 1} người khác đã bình chọn bài viết của bạn tại Thể loại ${res.notifications[i].postInfo[2]} cấp ${res.notifications[i].postInfo[3]}</div>`} else if (res.notifications[i].postInfo[1] != '1' && res.notifications[i].postInfo[2] == '') {return `<div><b>${res.notificationName}</b> và ${res.notifications[i].postInfo[1] - 1} người khác đã bình chọn bài viết của bạn</div>`}})()}
+                                            ${(()=>{if (res.notifications[i].postInfo[1] == '1' && res.notifications[i].postInfo[2] != '') {return `<div><b>${res.notificationName}</b> đã bình chọn video của bạn tại Thể loại ${res.notifications[i].postInfo[2]} cấp ${res.notifications[i].postInfo[3]}</div>`} else if (res.notifications[i].postInfo[1] == '1' && !res.notifications[i].postInfo[2] == '') {return `<div><b>${res.notificationName}</b> đã bình chọn video của bạn</div>`} else if (res.notifications[i].postInfo[1] != '1' && res.notifications[i].postInfo[2] != '') {return `<div><b>${res.notificationName}</b> và ${res.notifications[i].postInfo[1] - 1} người khác đã bình chọn video của bạn tại Thể loại ${res.notifications[i].postInfo[2]} cấp ${res.notifications[i].postInfo[3]}</div>`} else if (res.notifications[i].postInfo[1] != '1' && res.notifications[i].postInfo[2] == '') {return `<div><b>${res.notificationName}</b> và ${res.notifications[i].postInfo[1] - 1} người khác đã bình chọn video của bạn</div>`}})()}
                                         </div>
                                     </div>
                                     <div class="time-noti">
@@ -1566,7 +1566,7 @@ function handleRefreshTask(){
                                         })()}
                                         </a>
                                         <div class="d-flex-col-start">
-                                            ${(()=>{if (res.notifications[i].postInfo[4] == '0' && res.notifications[i].postInfo[2] != '') {return `<div><b>${res.notificationName}</b> đã bình luận về bài viết của bạn tại Thể loại ${res.notifications[i].postInfo[2]} cấp ${res.notifications[i].postInfo[3]}</div>`} else if (res.notifications[i].postInfo[4] == '0' && !res.notifications[i].postInfo[2] == '') {return `<div><b>${res.notificationName}</b> đã bình luận về bài viết của bạn</div>`} else if (res.notifications[i].postInfo[4] != '0' && res.notifications[i].postInfo[2] != '') {return `<div><b>${res.notificationName}</b> và ${res.notifications[i].postInfo[4]} người khác đã bình luận về bài viết của bạn tại Thể loại ${res.notifications[i].postInfo[2]} cấp ${res.notifications[i].postInfo[3]}</div>`} else if (res.notifications[i].postInfo[4] != '0' && res.notifications[i].postInfo[2] == '') {return `<div><b>${res.notificationName}</b> và ${res.notifications[i].postInfo[4]} người khác đã bình luận về bài viết của bạn</div>`}})()}
+                                            ${(()=>{if (res.notifications[i].postInfo[4] == '0' && res.notifications[i].postInfo[2] != '') {return `<div><b>${res.notificationName}</b> đã bình luận về video của bạn tại Thể loại ${res.notifications[i].postInfo[2]} cấp ${res.notifications[i].postInfo[3]}</div>`} else if (res.notifications[i].postInfo[4] == '0' && !res.notifications[i].postInfo[2] == '') {return `<div><b>${res.notificationName}</b> đã bình luận về video của bạn</div>`} else if (res.notifications[i].postInfo[4] != '0' && res.notifications[i].postInfo[2] != '') {return `<div><b>${res.notificationName}</b> và ${res.notifications[i].postInfo[4]} người khác đã bình luận về video của bạn tại Thể loại ${res.notifications[i].postInfo[2]} cấp ${res.notifications[i].postInfo[3]}</div>`} else if (res.notifications[i].postInfo[4] != '0' && res.notifications[i].postInfo[2] == '') {return `<div><b>${res.notificationName}</b> và ${res.notifications[i].postInfo[4]} người khác đã bình luận về video của bạn</div>`}})()}
                                         </div>
                                     </div>
                                     <div class="time-noti">
@@ -2046,7 +2046,7 @@ function createPostRedirect(c, pushState){
     document.querySelectorAll(".create-post-handler")[document.querySelectorAll(".create-post-handler").length - 1].innerHTML = `<div class='modal create-post-modal'>
         <form action='/' method='POST' enctype='multipart/form-data' class='modal-content create-post-modal-content'>
             <div class='group-title d-flex border-b'>
-            ${(()=>{if (c.getAttribute("data-create-but") == "layout") {return '<span>Tạo bài viết</span>'} else {if (cateLink == '') {return `<span>Tạo bài viết</span>`} else {return `<span>Tạo ${cateName}</span>`}}})()}
+            ${(()=>{if (c.getAttribute("data-create-but") == "layout") {return '<span>Tạo bài viết</span>'} else {if (cateLink == '') {return `<span>Tạo video</span>`} else {return `<span>Tạo ${cateName}</span>`}}})()}
             ${(()=>{if (isMobile){return `
                 <div class="close-post-modal return-but"><span class="iconify" data-icon="heroicons-outline:arrow-left" data-inline="false"></span></div>
             `}
@@ -2433,7 +2433,7 @@ function createPostRedirect(c, pushState){
             const description = document.querySelector(".create-post-textarea").value.trim()
             window.history.back()
             if ((description == '' || description.length > 1000) && arrayFile.length == 0) {
-                showAlert("Hãy nhập nội dung ngắn cho bài viết!")
+                showAlert("Hãy nhập nội dung ngắn cho video!")
             } 
             else if (arrayFile.length == 0 && cateLink != 'community'){
                 showAlert("Hãy chọn một video cho Thể loại!")
@@ -2454,7 +2454,7 @@ function createPostRedirect(c, pushState){
                         xhttp = new ActiveXObject("Microsoft.XMLHTTP")
                     }
                     fileCate = fileCounter = 0
-                    showAlert("Bài viết của bạn đang được xử lý!")
+                    showAlert("Video của bạn đang được xử lý!")
                     let formData = new FormData()
                     function createFormData(removePostBuffer){
                         formData.append("fileValid", fileValid)
@@ -2499,10 +2499,11 @@ function createPostRedirect(c, pushState){
                                         }
                                         }
                                     }
+                                    console.log(124)
                                     handleNotification("post", [res.data.post.postId, res.data.cateNamePost, res.data.rankNamePost])
                                     postDisplayedList.push(res.data.post.postId)
                                     Plyr.setup('video.player')
-                                    showAlertWithLink(`Bài viết của bạn đã được xử lý thành công! <span class="nav-red underline-deco" nav-data="view-post" data-post-df="${res.data.post.postId}">Xem bài viết?<span class="avt-username"></span></span>`)
+                                    showAlertWithLink(`Video của bạn đã được xử lý thành công! <span class="nav-red underline-deco" nav-data="view-post" data-post-df="${res.data.post.postId}">Xem video?<span class="avt-username"></span></span>`)
                                     handleRankPostCount()
                                     if (rankLink == "intermediate"){document.querySelector(".ticket-total").textContent = ticket - 1}
                                     if (rankLink == "highgrade"){document.querySelector(".ticket-total").textContent = ticket - 3}
@@ -2532,7 +2533,7 @@ function createPostRedirect(c, pushState){
                                 }
                                 else {
                                     clearInterval(interv)
-                                    showAlert("Tạo bài viết không thành công, hãy thử lại!")
+                                    showAlert("Tạo video không thành công, hãy thử lại!")
                                 }
                             }, 3000)
                             
@@ -2803,6 +2804,7 @@ function commentPostHandle(viewPost, viewWithCmt){
                                     cmtTextarea.style.height = '35px'
                                     cmtTextarea.style.overflowY = "hidden"
                                     if (!res.data.reply){
+                                        console.log(123)
                                         handleNotification("comment", [`${res.data.postId}`, `${res.data.cmtId}`])
                                     }
                                     if (!cmtId){
@@ -3606,7 +3608,7 @@ function handleMainFrame(){
             delPost[i].onclick = function(){
                 if (document.querySelectorAll(".del-post-modal").length == 0) {
                     const post = delPost[i].parentNode.parentNode.parentNode
-                    post.insertAdjacentHTML("afterbegin", "<div class='modal del-post-modal'><div class='modal-content del-post-modal-content d-flex-col'><div class='mg-b-lg'><h2 class='d-flex'>Xóa bài viết</h2><span>Bạn có chắc muốn xóa bài viết này không? Điều này sẽ không thể hoàn tác và mọi người sẽ không còn thấy bài viết này nữa.</span></div><div class='d-flex-sb'><button class='df-but bold-font width-40 destroy-but'>Hủy</button><button class='df-but bold-font danger-color white-color width-40 confirm-but'>Xóa</button></div></div></div>")
+                    post.insertAdjacentHTML("afterbegin", "<div class='modal del-post-modal'><div class='modal-content del-post-modal-content d-flex-col'><div class='mg-b-lg'><h2 class='d-flex'>Xóa video</h2><span>Bạn có chắc muốn xóa video này không? Điều này sẽ không thể hoàn tác và mọi người sẽ không còn thấy video này nữa.</span></div><div class='d-flex-sb'><button class='df-but bold-font width-40 destroy-but'>Hủy</button><button class='df-but bold-font danger-color white-color width-40 confirm-but'>Xóa</button></div></div></div>")
                     post.querySelector(".destroy-but").onclick = function(){
                         post.querySelector(".del-post-modal").remove()
                     }
@@ -3832,7 +3834,7 @@ function handleMainFrame(){
                         if (navLink == 'saved'){
                             document.querySelector(`.post[data-post-df='${data.post}']`).remove()
                         }
-                        showAlert("Đã bỏ lưu bài viết!")
+                        showAlert("Đã bỏ lưu video!")
                     }
                     else {
                         saveBut.classList.remove("save-post")
@@ -3842,7 +3844,7 @@ function handleMainFrame(){
                         if (document.querySelector(".frame-post-home")){
                             competitionContentText = document.querySelector(".main-frame").innerHTML
                         }
-                        showAlert("Đã lưu bài viết!")
+                        showAlert("Đã lưu video!")
                     }
                 } 
             }
@@ -4212,11 +4214,11 @@ function handleMainFrame(){
             }
         }
         else {
-            document.querySelector(".loading-post").innerHTML = '<div class="no-post-text">Oops! Bạn không còn bài viết nào đang lưu!</div><div class="no-post-lottie"></div>'
+            document.querySelector(".loading-post").innerHTML = '<div class="no-post-text">Oops! Bạn không còn video nào đang lưu!</div><div class="no-post-lottie"></div>'
             lottie()
         }
         if (document.querySelector(".info-personal")) {
-            document.querySelector(".loading-post").innerHTML = `<div class="no-post-text">Oops! Không còn bài viết nào!${cateName}!</div><div class="no-post-lottie"></div><button class="create-post-but" data-create-but="layout">Be The First!</button>`
+            document.querySelector(".loading-post").innerHTML = `<div class="no-post-text">Oops! Không còn video nào!${cateName}!</div><div class="no-post-lottie"></div><button class="create-post-but" data-create-but="layout">Be The First!</button>`
             lottie()
         }
         stopScrollPage = 1
@@ -4438,10 +4440,11 @@ function handleNavigation(){
                                                 agent: agentText,
                                             }, '', `https://fodance.com/post/${postLink}`)
                                         }
-                                        document.querySelector('title').textContent = `Lingyo | Bài viết`
+                                        document.querySelector('title').textContent = `Lingyo | Video`
                                     }
                                     else {
-                                        showAlert("Bài viết này đã bị xóa bởi chủ sở hữu!")
+                                        showAlert("Video này đã bị xóa bởi chủ sở hữu!")
+                                        document.querySelector(".home-but").click()
                                     }
                                     // if (page.querySelector(".main-info")){
                                     //     const mainInfoText = page.querySelector(".main-info").innerHTML
@@ -5564,7 +5567,7 @@ function handleFollow(followBut, parent, username){
                 }
             }
             else {
-                document.querySelector(".main").insertAdjacentHTML("afterbegin", `<div class='modal unfollow-modal'><div class='modal-content unfollow-modal-content d-flex-col'><div class='mg-b-lg'><h2 class='d-flex'>Bỏ theo dõi ${username} ?</h2><span>Các bài viết của họ sẽ không còn xuất hiện trên dòng thời gian cũng như xem người theo dõi trong Thể loại. Bạn sẽ không còn nhận thông báo về họ nhưng vẫn có thể thấy hồ sơ của họ.</span></div><div class='d-flex-sb'><button class='df-but bold-font width-40 destroy-but'>Hủy</button><button class='df-but bold-font theme-bg white-color confirm-but'>Bỏ theo dõi</button></div></div></div>`)
+                document.querySelector(".main").insertAdjacentHTML("afterbegin", `<div class='modal unfollow-modal'><div class='modal-content unfollow-modal-content d-flex-col'><div class='mg-b-lg'><h2 class='d-flex'>Bỏ theo dõi ${username} ?</h2><span>Các video của họ sẽ không còn xuất hiện trên dòng thời gian cũng như xem người theo dõi trong Thể loại. Bạn sẽ không còn nhận thông báo về họ nhưng vẫn có thể thấy hồ sơ của họ.</span></div><div class='d-flex-sb'><button class='df-but bold-font width-40 destroy-but'>Hủy</button><button class='df-but bold-font theme-bg white-color confirm-but'>Bỏ theo dõi</button></div></div></div>`)
                 if (document.querySelector(".main-frame-post-sort")){
                     document.querySelector(".main-frame-post-sort").style.zIndex = 0
                 }

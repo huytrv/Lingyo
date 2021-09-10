@@ -1,5 +1,10 @@
 const socket = io("https://fodance.com")
 
+const rankList = ["primary", "intermediate", "highgrade"]
+const rankName = ["Sơ cấp", "Trung cấp", "Cao cấp"]
+const cateList = ["freestyle", "hiphop", "rap", "contemporary", "ballroom", "modern", "ballet", "shuffle", "jazz", "sexy", "flashmob", "other"]
+const cateName = ["Nhảy tự do", "Hiphop", "Rap", "Múa đương đại", "Khiêu vũ", "Nhảy hiện đại", "Múa ba lê", "Shuffle", "Jazz", "Sexy", "Fashmob", "Khác"]
+
 if (document.querySelector("video")){
     document.querySelector("video").play()
 }
@@ -95,7 +100,7 @@ socket.on("post need moderate", function(posts){
                 `}
                 })()}
                 `}})()}
-                <div class="pre-post-cate">${posts[i].category}</div>
+                <div class="pre-post-cate">${posts[i].category} - ${posts[i].rank}</div>
             </div>
             <div class="d-flex pd width-100">
                 <button class="submit-but validate-video" data-valid="true">Chấp nhận</button>
@@ -103,7 +108,7 @@ socket.on("post need moderate", function(posts){
             </div>
         </div>`)  
             viewImage()
-            validateMedia()
+            validateMedia(posts[i])
         }
     }
 })
@@ -111,7 +116,23 @@ socket.on("post need moderate", function(posts){
 socket.off("post need moderate", function(){
 })
 
-function validateMedia(){
+function handleNotification(type, source){
+    let xhttp
+    if (window.XMLHttpRequest) {
+        xhttp = new XMLHttpRequest()
+    } else {
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP")
+    }
+    const data = {
+        type: type,
+        source: source
+    }
+    xhttp.open("POST", "/notification", true)
+    xhttp.setRequestHeader('Content-Type', 'application/json')
+    xhttp.send(JSON.stringify(data))
+}
+
+function validateMedia(post){
     const validateBut = document.querySelectorAll(".validate-video")
     for (let i = 0; i < validateBut.length; i++){
         validateBut[i].onclick = function(){
@@ -136,6 +157,14 @@ function validateMedia(){
             // xhttp.setRequestHeader('Content-Type', 'application/json')
             // xhttp.send(JSON.stringify(data))
             socket.emit("/validate-video", data)
+            let cate, rank
+            for(let i = 0; i < cateList.length; i++){
+                if (post.category == cateList[i]){cate = cateName[i]}
+            }
+            for(let i = 0; i < rankList.length; i++){
+                if (post.rank == rankList[i]){rank = rankName[i]}
+            }
+            handleNotification("post-done", [post.postId, cate, rank])
             validateBut[i].parentNode.parentNode.remove()
         }
     }
