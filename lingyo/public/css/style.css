@@ -6105,6 +6105,7 @@ tbody {
   .top-reward-inner {
     flex-direction: row;
     text-align: start;
+    padding: 12px 10px;
   }
 
   .top-reward .d-flex {
@@ -6550,7 +6551,8 @@ tbody {
 
 @media screen and (max-width: 500px) {
   .final-reward .top-reward-frame:first-child {
-    width: 55%;
+    width: 50%;
+    margin: 0 30px;
   }
 }
 
