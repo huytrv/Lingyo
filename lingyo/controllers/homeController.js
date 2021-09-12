@@ -41,11 +41,12 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     const navList = ["fame", "notifications", "saved", "honors", "add-topic", "setting"]
     const navName = ["Xếp hạng", "Thông báo", "Đã lưu", "Vinh danh", "Thêm thể loại", "Cài đặt"]
     const startTimeline = new Date("Mon Dec 28 2020 00:00:00")
-    let round, currentTimeline, roundType, stageTime
+    let round, currentTimeline, roundType, stageTime, TimeRange
     //handleVoteChampion
     setInterval(function(){ 
         round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
         currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
+        TimeRange = [stageTime, stageTime + 5*24*60*60*1000]
         if (new Date().getDay() >= 1 && new Date().getDay() <= 5) {roundType = "group-stage"}else {roundType = "final"}
         if (roundType == "final"){stageTime = currentTimeline, currentTimeline= currentTimeline + 5*24*60*60*1000}
         const newRound = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
@@ -319,7 +320,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 }).then(function(profile){
                     const enjoyList = [], finalRewardList = [], cateRewardList = [], finalFPList = [], cateFPList = []
                     let count = sum = 0
-                    if (stageTime = currentTimeline){TimeRange = [currentTimeline, currentTimeline + 5*24*60*60*1000]} else {TimeRange = [stageTime, currentTimeline]}
                     for (let i = 0; i < cateList.length; i++){
                         posts.count({
                             where: {
