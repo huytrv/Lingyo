@@ -51,6 +51,8 @@
                         <div class="avt-info">
                             <div class="d-flex">
                                 <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile.nickname -%>"><span class="avt-username <% if (post.userId == userId) { %>user-username<% } %><% if (post.userId != userId) { %><% } %>"><%- postViewUser -%></span></a>
+                                <% if (postProfile[i].auth) { %><span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span><%}%>
+                                    <div class="mark-icon">
                                 <div class="mark-icon">
                                 </div>
                                 <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile.nickname -%>">

@@ -203,11 +203,20 @@
                                             <% if (user.username.length <= 15) { %>
                                             <div class="avatar-name-frame">
                                                 <div class="avatar-name">
-                                                    <span class="nav-red" data-user-df="<%- profile.nickname -%>">
-                                                        <span class="user-username avatar-username ">
-                                                            <%- user.username -%>
+                                                    <div class="d-flex">
+                                                        <span class="nav-red" data-user-df="<%- profile.nickname -%>">
+                                                            <span class="user-username avatar-username ">
+                                                                <%- user.username -%>
+                                                            </span>
                                                         </span>
-                                                    </span>
+                                                        <% if (profile.auth) { %><span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span><%}%>
+                                                        <% if (!profile.auth) { %>
+                                                            <% if (currentProfile.nickname == profile.nickname){ %>
+                                                                <a class="contact-item theme-color mg-l-sm mg-t-sm user-auth">Xác thực?</a>
+                                                            <% } %>                                        
+                                                        <%}%>
+                                                    </div>
+                                                    
                                                     <span class="avatar-nickname">
                                                         @<%- profile.nickname -%>
                                                     </span>
@@ -236,11 +245,20 @@
                                     <% if (user.username.length > 15) { %>
                                     <div class="avatar-name-frame">
                                         <div class="avatar-name avatar-name-mg">
-                                            <span class="nav-red" data-user-df="<%- profile.nickname -%>">
-                                                <span class="user-username avatar-username ">
-                                                    <%- user.username -%>
+                                            <div class="d-flex">
+                                                <span class="nav-red" data-user-df="<%- profile.nickname -%>">
+                                                    <span class="user-username avatar-username ">
+                                                        <%- user.username -%>
+                                                    </span>
                                                 </span>
-                                            </span>
+                                                <% if (profile.auth) { %><span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span><%}%>
+                                                <% if (!profile.auth) { %>
+                                                    <% if (currentProfile.nickname == profile.nickname){ %>
+                                                        <a class="contact-item theme-color mg-l-sm mg-t-sm user-auth">Xác thực?</a>
+                                                    <% } %>                                        
+                                                <%}%>
+                                            </div>
+                                            
                                             <span class="avatar-nickname">
                                                 @<%- profile.nickname -%>
                                             </span>
@@ -249,11 +267,19 @@
                                     <% } %>    
                                     <div class="avatar-name-mobile-frame">
                                         <div class="avatar-name-mobile avatar-name-mg">
-                                            <span class="nav-red" data-user-df="<%- profile.nickname -%>">
-                                                <span class="user-username avatar-username ">
-                                                    <%- user.username -%>
+                                            <div class="d-flex">
+                                                <span class="nav-red" data-user-df="<%- profile.nickname -%>">
+                                                    <span class="user-username avatar-username ">
+                                                        <%- user.username -%>
+                                                    </span>
                                                 </span>
-                                            </span>
+                                                <% if (profile.auth) { %><span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span><%}%>
+                                                <% if (!profile.auth) { %>
+                                                    <% if (currentProfile.nickname == profile.nickname){ %>
+                                                        <a class="contact-item theme-color mg-l-sm mg-t-sm user-auth">Xác thực?</a>
+                                                    <% } %>                                        
+                                                <%}%>
+                                            </div>
                                             <span class="avatar-nickname">
                                                 @<%- profile.nickname -%>
                                             </span>
@@ -392,6 +418,7 @@
                                                                 <div class="avt-info">
                                                                     <div class="d-flex">
                                                                         <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile[i].nickname -%>"><span class="avt-username <% if (posts[i]['currentUserId'] == currentUserId) { %>user-username<% } %><% if (posts[i]['currentUserId'] != currentUserId) { %><% } %>"><%- posts[i]['user.username'] -%></span></a>
+                                                                        <% if (postProfile[i].auth) { %><span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span><%}%>
                                                                         <div class="mark-icon">
                                                                         </div>
                                                                         <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile[i].nickname -%>">

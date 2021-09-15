@@ -33,7 +33,7 @@ const s3 = new S3({
 })
 
 
-module.exports = function(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber){
+module.exports = function(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber, userAuth){
     const rankList = ["primary", "intermediate", "highgrade"]
     const rankName = ["Sơ cấp", "Trung cấp", "Cao cấp"]
     const cateList = ["freestyle", "hiphop", "rap", "contemporary", "ballroom", "modern", "ballet", "shuffle", "jazz", "sexy", "flashmob", "other"]
@@ -506,9 +506,12 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     }
 
     io.on("connection", function(socket){
-        let postList = []
-        socket.on("displayed post", function(postDisplayed){
+        let postList = [], userList = []
+        socket.on("displayed-post", function(postDisplayed){
             postList = postDisplayed
+        })
+        socket.on("displayed-user", function(userDisplayed){
+            userList = userDisplayed
         })
 
         socket.on("/validate-video", function(data){
@@ -565,6 +568,51 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             })
         })
 
+        socket.on("/validate-user", function(data){
+            userAuth.findOne({
+                where: {
+                    userId: data.user
+                }
+            }).then(function(u){
+                if (u){
+                    if (data.validData == "true"){
+                        userAuth.update({
+                            auth: true
+                        }, {
+                            where: {
+                                userId: data.user
+                            }
+                        }).then(function(){
+                            userProfile.update({
+                                auth: true
+                            }, {
+                                where: {
+                                    userId: data.user
+                                }
+                            }).then(function(){
+                                io.sockets.emit("user-validated", data.user)
+                            })
+                        })
+                    }
+                    else {
+                        removeFile(u.face)
+                        removeFile(u.file)
+                        
+                        userAuth.destroy({
+                            where: {
+                                userId: data.user
+                            }
+                        }).then(function(){
+                            io.sockets.emit("user-validated", data.user)
+                        })
+                    }
+                }
+                else {
+                    res.end()
+                }
+            })
+        })
+
         setInterval(function(){
             posts.findAll({
                 where: {
@@ -575,8 +623,54 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 }
             }).then(function(p){
                 if (p.length != 0){
-                    postList.push(p.postId)
-                    socket.emit("post need moderate", p)
+                    for (let i = 0; i < p.length; p ++){
+                        postList.push(p[i].postId)
+                        if (i == p.length){
+                            socket.emit("post-need-moderate", p)
+                        }
+                    }
+                }
+            })
+            userAuth.findAll({
+                where: {
+                    auth: false,
+                    userId: {
+                        [Op.notIn]: userList
+                    }
+                }
+            }).then(function(authList){
+                if (authList.length != 0){
+                    const profileList = []
+                    let count = 0, username = birthday = location = []
+                    for (let i = 0; i < authList.length; i++){
+                        userList.push(authList[i].userId)
+                        userProfile.findOne({
+                            where: {
+                                userId: authList[i].userId
+                            }
+                        }).then(function(p){
+                            birthday[i] = p.birthday
+                            location[i] = p.location
+                            users.findOne({
+                                where: {
+                                    userId: authList[i].userId
+                                }
+                            }).then(function(u){
+                                count ++
+                                username[i] = u.username
+                                if (count == authList.length){
+                                    const data = {
+                                        authList,
+                                        username: username,
+                                        birthday: birthday,
+                                        location: location
+                                    }
+                                    socket.emit("user-need-verify", data)
+                                }
+                            })
+                        })
+                    }
+
                 }
             })
         }, 1000)
@@ -4855,6 +4949,34 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     }
                 })
             }
+            else if (req.body.type == "verify-user"){
+                if (typeof(req.body.source) === "object" && typeof(req.body.type) === "string"){
+                    notifications.findOne({
+                        where: {
+                            sourceUser: req.body.source[0],
+                            postInfo: req.body.source,
+                            type: req.body.type,
+                            userId: req.body.source[0]
+                        }
+                    }).then(function(p){
+                        if (!p){
+                            notifications.create({
+                                sourceUser: req.body.source[0],
+                                postInfo: req.body.source,
+                                type: req.body.type,
+                                read: false,
+                                time: Date.now(),
+                                userId: req.body.source[0]
+                            }).then(function(){
+                                res.end()
+                            })
+                        }
+                        else {
+                            res.end()
+                        }
+                    })
+                }
+            }
             else if (req.body.type == "post-done"){
                 console.log(123)
                 if (typeof(req.user.userId) === "number" && typeof(req.body.source) === "object" && typeof(req.body.type) === "string"){
@@ -5652,6 +5774,127 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
         else {
             res.redirect('/login')
+        }
+    })
+
+    app.post("/user-auth", function(req, res){
+        if (req.isAuthenticated()){
+            req.session.tryTime = 0
+            req.session.blockLogin = false
+            userAuth.findOne({
+                where: {
+                    userId: req.user.userId
+                }
+            }).then(function(a){
+                if (!a){
+                    console.log(1)
+                    const form = formidable()
+                    form.parse(req, (err, fields, f) => {
+                        const reg = /image\/jpeg|image\/jpg|image\/png/gi;
+                        (async () => {
+                            const mineType = await FileType.fromFile(f.file.path)
+                            if (mineType.mime.match(reg)){
+                                console.log(2)
+                                uploadFile(f.file.path, f.file.name, f.file.type).then(function (err) {
+                                    if (err){console.log('1 ', err)}
+                                    const data = fields.image.replace(/^data:image\/\w+;base64,/, "");
+                                    const buf = Buffer.from(data, "base64");
+                                    const root =  __dirname.replace('\controllers', '')
+                                    const filePath = path.join(root, `uploads\\auth_image_${req.user.userId}.png`)
+                                    console.log(buf)
+                                    console.log(filePath)
+                                    fs.writeFile(filePath, buf, () => {
+                                        uploadFile(filePath, `auth_image_${req.user.userId}.png`, 'png').then(function (err) {
+                                            if (err){console.log('1 ', err)}
+                                            console.log(3)
+                                            userAuth.create({
+                                                face: `auth_image_${req.user.userId}.png`,
+                                                file: f.file.name,
+                                                userId: req.user.userId,
+                                                auth: false
+                                            }).then(function(){
+                                                fs.unlinkSync(filePath)
+                                                res.json({
+                                                    status: 'done',
+                                                })
+                                            })
+                                        })
+                                    })
+                                })
+                            }
+                            else {
+                                console.log("err")
+                                res.json({
+                                    status: "err"
+                                })
+                            }
+                        })()
+                    })
+                }
+                else {
+                    res.end()
+                }
+            })
+        }
+        else {
+            res.redirect("/login")
+        }
+    })
+
+    app.get("/verify-center", function(req, res){
+        if (req.isAuthenticated()){
+            users.findOne({
+                where: {
+                    userId: req.user.userId
+                }
+            }).then(function(user){
+                if (user.role == "moderator"){
+                    req.session.tryTime = 0
+                    req.session.blockLogin = false
+                    userAuth.findAll({
+                        where: {
+                            auth: false
+                        }
+                    }).then(function(u){
+                        const userList = []
+                        const name = [], birthday = [], location = []
+                        if (u.length != 0){
+                            let count = 0
+                            for (let i = 0; i < u.length; i++){
+                                userProfile.findOne({
+                                    where: {
+                                        userId: u[i].userId
+                                    }
+                                }).then(function(p){
+                                    birthday[i] = p.birthday
+                                    location[i] = p.location
+                                    userList[i] = u[i]
+                                    users.findOne({
+                                        where: {
+                                            userId: u[i].userId
+                                        }
+                                    }).then(function(user){
+                                        count ++
+                                        name[i] = user.username
+                                        if (count == u.length){
+                                            res.render("userAuth", {userList: userList, name: name, birthday: birthday, location: location})
+                                        }
+                                    })
+                                })
+                            }
+                        }
+                        else {
+                            res.render("userAuth", {userList: userList, name: name, birthday: birthday, location: location})
+                        }
+                    })
+                }
+                else {
+                    res.render("notfound")
+                }
+            })
+        }
+        else {
+            res.redirect("/login")
         }
     })
 

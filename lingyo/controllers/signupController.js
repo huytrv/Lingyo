@@ -515,7 +515,9 @@ module.exports = function(app, users, userProfile, emailRegister, phoneRegister)
                                                 followNotification: true,
                                                 voteFollowNotification: true,
                                                 postFollowNotification: true,
-                                                starstatus: false
+                                                starstatus: false,
+                                                new: true,
+                                                auth: false
                                             })
                                         }
                                         else {

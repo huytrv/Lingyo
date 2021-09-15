@@ -287,7 +287,8 @@ const userProfile = mysqlDB.define("userProfile", {
     voteFollowNotification: sequelize.BOOLEAN,
     postFollowNotification: sequelize.BOOLEAN,
     starStatus: sequelize.BOOLEAN,
-    new: sequelize.BOOLEAN
+    new: sequelize.BOOLEAN,
+    auth: sequelize.BOOLEAN
 })
 
 const follow = mysqlDB.define("follow",{
@@ -373,6 +374,12 @@ const cardNumber = mysqlDB.define("cardnumber", {
     name: sequelize.STRING,
 })
 
+const userAuth = mysqlDB.define("userauth", {
+    face: sequelize.STRING,
+    file: sequelize.STRING,
+    auth: sequelize.BOOLEAN
+})
+
 users.hasOne(userProfile, {foreignKey: 'userId'});
 userProfile.belongsTo(users, {foreignKey: 'userId'})
 users.hasMany(posts, {foreignKey: 'userId'})
@@ -395,6 +402,8 @@ users.hasMany(postSaved, {foreignKey: 'userId'});
 postSaved.belongsTo(users, {foreignKey: 'userId'})
 users.hasMany(cardNumber, {foreignKey: 'userId'});
 cardNumber.belongsTo(users, {foreignKey: 'userId'})
+users.hasMany(userAuth, {foreignKey: 'userId'});
+userAuth.belongsTo(users, {foreignKey: 'userId'})
 
 mysqlDB.sync()
 
@@ -415,6 +424,7 @@ app.set("views", "./views")
 //midleware
 app.use('/public', express.static(__dirname + "/public"))
 app.use('/uploads', express.static(__dirname + "/uploads"))
+app.use('/models', express.static(__dirname + "/models"))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true }))
 app.use(session({
@@ -467,4 +477,4 @@ const io = socketio(server)
 loginController(app, users)
 forgotController(app, users, forgotPasswordToken, forgotPasswordCode)
 updateController(app, users)
-homeController(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber)
+homeController(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber, userAuth)

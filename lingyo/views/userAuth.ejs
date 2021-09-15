@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kiểm duyệt</title>
+    <%- include('header') -%>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="main main-login font-size-lg-1">
+        <div class="d-flex-col">
+            <div class="d-flex pd">
+                <h2 class="mg-t-lg pd-t">Chào mừng tới trang xác thực người dùng!</h2>
+                <button class="logout-moderate"><a href="/login">Đăng xuất</a></button>
+                <button class="moderate-vibrate-but">Nhận thông báo</button>
+            </div>
+            <div class="d-flex moderate-content">
+                <% for (i = 0; i < userList.length; i++){ %>
+                    <div class="d-flex-col user-verify" user="<%- userList[i].userId %>">
+                        <div class="d-flex">
+                            <div class="d-flex-col-start">
+                                <span><%- name[i] %></span>
+                                <span><%- birthday[i] %></span>
+                                <span><%- location[i] %></span>
+                            </div>
+                            <img src="https://cdn.fodance.com/fd-media/<%- userList[i].face %>">
+                            <img src="https://cdn.fodance.com/fd-media/<%- userList[i].file %>">
+                        </div>
+                        <div class="d-flex pd width-100">
+                            <button class="submit-but validate-user" data-valid="true">Chấp nhận</button>
+                            <button class="submit-but danger-color validate-user" data-valid="false">Không hợp lệ</button>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <script src="/public/js/moderate_dev.js" async></script>
+</body>
+</html>

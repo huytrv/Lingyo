@@ -3357,6 +3357,17 @@ img.thumb {
   margin-right: 10px;
 }
 
+.moderate-content {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+}
+
+.moderate-content img {
+  width: 200px;
+  height: 150px;
+}
+
 .pre-post-media {
   position: relative;
 }
@@ -4202,6 +4213,10 @@ input[type=radio] {
   background-color: #008db1;
 }
 
+.user-auth-modal .unfollow-modal-content {
+  padding: 0 !important;
+}
+
 .player-holder-modal-content {
   background-color: #f0f2f6;
   position: relative;
@@ -4344,6 +4359,53 @@ input[type=radio] {
   overflow: hidden; 
   z-index: 0; 
   cursor: move; 
+  border: none;
+}
+
+.user-auth {
+  cursor: pointer;
+}
+
+.user-auth:hover {
+  text-decoration: underline;
+}
+
+.auth-video {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-verify {
+  border: 1px solid gray;
+  padding: 10px;
+  margin-right: 20px;
+}
+
+.auth-video video {
+  width: 100%;
+  height: 100%;
+}
+
+.auth-file-name {
+  overflow-wrap: break-word;
+}
+
+canvas {
+  position: absolute;
+}
+
+.pos-avt {
+  height: 300px; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  position: absolute; 
+  z-index: 0; 
   border: none;
 }
 
@@ -6537,6 +6599,13 @@ tbody {
 
   .notifications-inner {
     margin-top: 10px !important;
+    height: 350px;
+  }
+
+  .avatar-frame .unfollow-modal-content {
+    width: 400px !important;
+    height: auto !important;
+    max-height: 400px;
   }
 }
 

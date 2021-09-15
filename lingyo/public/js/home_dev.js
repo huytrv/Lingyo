@@ -1466,6 +1466,39 @@ function handleRefreshTask(){
                                 </div>
                             `)
                             }
+                            else if (res.notifications[i].type == "verify-user"){
+                                document.querySelector(".notifications-inner").insertAdjacentHTML("afterbegin", `
+                                <div class="notification-item nav-red <% if (!read[i]) { %>unread-notification-bg<% } %> <% if (i < notifications.length - 1) { %>border-b<% } %>" nav-data="personal" data-user-df="${res.notificationProfile[i].nickname}">
+                                <div class="d-flex-col-start">
+                                    <div class="d-flex-start">
+                                        <div class="d-flex">
+                                            <a class="avt">
+                                            ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
+                                            <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                            `}
+                                            else {return `
+                                            <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                            `}
+                                            })()}
+                                        </a>
+                                        </div>
+                                        <div class="d-flex-col-start">
+                                            ${(()=>{if (res.notifications[i].postInfo[1] == "false") {return `
+                                            <div class="noselect"><span>Xác thực tài khoản không thành công! Hãy thử lại và đảm bảo thông tin bạn gửi đi là chính xác và trùng khớp.</span></div>
+                                            `}
+                                            else {return `
+                                            <div class="noselect"><span>Bạn đã xác thực tài khoản thành công! Bạn sẽ nhận được 1 huy hiệu xác nhận bên cạnh tên của bạn, cảm ơn bạn đã tham gia xác thực tài khoản.</span>
+                                                </div>
+                                            `}
+                                            })()}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="time-noti">
+                                    ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
+                                </div>
+                            </div>`)
+                            }
                             else if (res.notifications[i].type == "post"){
                                 document.querySelector(".notifications-inner").insertAdjacentHTML("afterbegin", `
                                 <div class="notification-item unread-notification-bg border-b nav-red" nav-data='personal' data-user-df="${res.notifications[i].postInfo[0]}>
@@ -2489,7 +2522,9 @@ function createPostRedirect(c, pushState){
                                         if ( document.querySelector(".post-section")){
                                         document.querySelector(".post-section").insertAdjacentHTML("afterbegin", `<div class='post post-create-down' data-post-df=${res.data.post.postId}><div class='post-util'><button class='avt-but header-but dropdown-but util-dropdown-but'><span class='iconify dropdown-icon bg-white' data-icon='vaadin:ellipsis-dots-h' data-inline='false'></span></button><div class='util-dropdown-content dropdown-content'><a class='nav-item save-post'><span class='iconify' data-icon='bi:bookmark-plus' data-inline='false'></span>Lưu bài viết</a><a class="nav-item post-notice"><span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn</a><a class="nav-item copy-link-post"><span class="iconify" data-icon="clarity:copy-line" data-inline="false"></span>Sao chép liên kết</a><a class='nav-item del-post'><span class='iconify' data-icon='bx:bx-hide' data-inline='false'></span>Xóa bài viết</a></div></div><div class='post-user'><div class='post-info'><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}">${(()=>{if (res.data.profile.avatar.includes("http")) {return `<img src="${res.data.profile.avatar}" class='user-avt'>`}else {return `<img src="https://cdn.fodance.com/fd-media/${res.data.profile.avatar}" class='user-avt'>`}})()}</a>
                                         <div class='avt-info'>
-                                        <div class="d-flex"><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}"><span class='avt-username user-username'>${res.data.username}</span></a><div class='mark-icon'></div>
+                                        <div class="d-flex"><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}"><span class='avt-username user-username'>${res.data.username}</span></a>
+                                        ${(()=>{if(res.data.profile.auth){return '<span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span>'}})()}<div class='mark-icon'>
+                                        </div>
                                         <a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}"><span class='post-time nickname-content'>${(() => {if(res.data.profile && res.data.profile.nickname) {return `@${res.data.profile.nickname}`}else {return `@${res.data.username}`}})()}</span></a>
                                         <div class='mg-l d-flex'><span class='contact-item'></span><a class='avt'><span class='post-time theme-color'>Vừa xong</span></a></div></div>
                                         <div class='post-description'>${res.data.post.description} - đã tham gia #${res.data.post.category}</div>
@@ -2648,7 +2683,7 @@ function commentPostHandle(viewPost, viewWithCmt){
                             }
                             for(let i = 0; i < res.data.cmts.length; i++) {
                                 function showCmt(cmtFrame, data, reply, i){
-                                    cmtFrame.insertAdjacentHTML('beforeend', `<div class="comment-item d-flex-start-top" data-cmt-df="${data.cmts[i].cmtId}"><div class="comment-content"><a class="avt nav-red mg-t ${(()=>{if (reply) {return 'rep-avt-small'} else {return ''}})()}" nav-data="personal" data-user-df="${data.cmtNicknames[i]}"><img src="${(()=>{if (data.cmtAvts[i].includes("https")) {return `${data.cmtAvts[i]}`} else {return `https://cdn.fodance.com/fd-media/${data.cmtAvts[i]}`}})()}"></a><div class="comment-inner d-flex-col-start mg-l-sm"><div class="comment-wrapper d-flex-col-start"><div class="d-flex"><div class="d-flex"><a class="avt nav-red username" nav-data="personal" data-user-df="${data.cmtNicknames[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="avt-username user-username cmt-username">'} else {return '<span class="avt-username cmt-username">'}})()}${data.cmtUsernames[i]}</span></a><div class="mark-icon"></div></div><a class="avt nav-red d-flex mg-l-sm" nav-data="personal" data-user-df="${data.cmtNicknames[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="post-time nickname-content">'} else {return '<span class="post-time nickname-content">'}})()}@${data.cmtNicknames[i]}</span></a></div><div>${(()=>{if (data.cmts[i].tag){return`<a class="nav-red username mg-r-sm" nav-data="personal" data-user-df="${data.cmtTagNickname[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="avt-username user-username cmt-username">'} else {return '<span class="avt-username cmt-username">'}})()}${data.cmtTags[i]}</span></a>`} else {return ''}})()}${data.cmts[i].content}</div></div><div class="d-flex"><div class="comment-interactive d-flex-start">${(() => {if (data.cmtLiked[i]) {return '<a class="like-cmt-but interactive-but-liked d-flex-start mg-r noselect" data-cmt-liked="true">'} else {return '<a class="like-cmt-but d-flex-start noselect" data-cmt-liked="false">'}})()}<span class="iconify mg-r-sm" data-icon="simple-line-icons:like" data-inline="false"></span><span>Thích </span><span class="comment-total mg-r-sm">${(() => {if (data.likeTotal != 0) {return `(${data.likeTotal})`} else {return ''}})()}</span></a><a class="rep-comment-but ${(()=>{if (reply) {return 'rep-with-tag'} else {return ''}})()} d-flex-start noselect"><span class="iconify mg-r-sm" data-icon="bi:chat-square" data-inline="false"></span><span>Trả lời</span></a></div><div class="d-flex mg-l"><span class="contact-item"></span><a class="avt"><span class='post-time'>${(() => {if ((Date.now() - Date.parse(data.cmts[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(data.cmts[i].time))/1000 > 5 && (Date.now() - Date.parse(data.cmts[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000)} giây</span>`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/60)} phút</span>`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/3600)} giờ`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24)} ngày`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 >= 8) {return `${new Date(data.cmts[i].time).getDate() + " tháng " + (new Date(data.cmts[i].time).getMonth() + 1) + " lúc " + new Date(data.cmts[i].time).getHours() + ':' + new Date(data.cmts[i].time).getMinutes()}`}})()}</span></a></div></div></div><div class="comment-util noselect"><button class="avt-but header-but dropdown-but util-dropdown-but"><span class="iconify dropdown-icon bg-white" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span></button><div class="comment-util-dropdown-content dropdown-content">${(()=> {if (data.user == data.cmts[i].user || data.postUser == data.user) {return '<a class="nav-item del-cmt"><span class="iconify" data-icon="bx:bx-hide" data-inline="false"></span>Xóa bình luận</a>'} else {return '<a class="nav-item report-cmt"><span class="iconify" data-icon="octicon:issue-opened" data-inline="false"></span>Báo cáo bình luận</a>'}})()}</div></div></div></div>`)
+                                    cmtFrame.insertAdjacentHTML('beforeend', `<div class="comment-item d-flex-start-top" data-cmt-df="${data.cmts[i].cmtId}"><div class="comment-content"><a class="avt nav-red mg-t ${(()=>{if (reply) {return 'rep-avt-small'} else {return ''}})()}" nav-data="personal" data-user-df="${data.cmtNicknames[i]}"><img src="${(()=>{if (data.cmtAvts[i].includes("https")) {return `${data.cmtAvts[i]}`} else {return `https://cdn.fodance.com/fd-media/${data.cmtAvts[i]}`}})()}"></a><div class="comment-inner d-flex-col-start mg-l-sm"><div class="comment-wrapper d-flex-col-start"><div class="d-flex"><div class="d-flex"><a class="avt nav-red username" nav-data="personal" data-user-df="${data.cmtNicknames[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="avt-username user-username cmt-username">'} else {return '<span class="avt-username cmt-username">'}})()}${data.cmtUsernames[i]}</span></a>${(()=>{if(data.cmtAuth[i]){return '<span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span>'}})()}<div class="mark-icon"></div></div><a class="avt nav-red d-flex mg-l-sm" nav-data="personal" data-user-df="${data.cmtNicknames[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="post-time nickname-content">'} else {return '<span class="post-time nickname-content">'}})()}@${data.cmtNicknames[i]}</span></a></div><div>${(()=>{if (data.cmts[i].tag){return`<a class="nav-red username mg-r-sm" nav-data="personal" data-user-df="${data.cmtTagNickname[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="avt-username user-username cmt-username">'} else {return '<span class="avt-username cmt-username">'}})()}${data.cmtTags[i]}</span></a>`} else {return ''}})()}${data.cmts[i].content}</div></div><div class="d-flex"><div class="comment-interactive d-flex-start">${(() => {if (data.cmtLiked[i]) {return '<a class="like-cmt-but interactive-but-liked d-flex-start mg-r noselect" data-cmt-liked="true">'} else {return '<a class="like-cmt-but d-flex-start noselect" data-cmt-liked="false">'}})()}<span class="iconify mg-r-sm" data-icon="simple-line-icons:like" data-inline="false"></span><span>Thích </span><span class="comment-total mg-r-sm">${(() => {if (data.likeTotal != 0) {return `(${data.likeTotal})`} else {return ''}})()}</span></a><a class="rep-comment-but ${(()=>{if (reply) {return 'rep-with-tag'} else {return ''}})()} d-flex-start noselect"><span class="iconify mg-r-sm" data-icon="bi:chat-square" data-inline="false"></span><span>Trả lời</span></a></div><div class="d-flex mg-l"><span class="contact-item"></span><a class="avt"><span class='post-time'>${(() => {if ((Date.now() - Date.parse(data.cmts[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(data.cmts[i].time))/1000 > 5 && (Date.now() - Date.parse(data.cmts[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000)} giây</span>`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/60)} phút</span>`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/3600)} giờ`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24)} ngày`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 >= 8) {return `${new Date(data.cmts[i].time).getDate() + " tháng " + (new Date(data.cmts[i].time).getMonth() + 1) + " lúc " + new Date(data.cmts[i].time).getHours() + ':' + new Date(data.cmts[i].time).getMinutes()}`}})()}</span></a></div></div></div><div class="comment-util noselect"><button class="avt-but header-but dropdown-but util-dropdown-but"><span class="iconify dropdown-icon bg-white" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span></button><div class="comment-util-dropdown-content dropdown-content">${(()=> {if (data.user == data.cmts[i].user || data.postUser == data.user) {return '<a class="nav-item del-cmt"><span class="iconify" data-icon="bx:bx-hide" data-inline="false"></span>Xóa bình luận</a>'} else {return '<a class="nav-item report-cmt"><span class="iconify" data-icon="octicon:issue-opened" data-inline="false"></span>Báo cáo bình luận</a>'}})()}</div></div></div></div>`)
                                     handleToggle()
                                     handleNavigation()
                                     replaceLinkName()
@@ -2805,7 +2840,7 @@ function commentPostHandle(viewPost, viewWithCmt){
                             if (xhttp.readyState == 4 && xhttp.status == 200) {
                                 const res = JSON.parse(xhttp.responseText)
                                 if (res.status == 'done'){
-                                    commented.insertAdjacentHTML(pos, `<div class="comment-item d-flex-start-top" data-cmt-df="${res.data.cmtId}"><div class="comment-content"><a class="avt mg-t nav-red ${(()=>{if (cmtId) {return 'rep-avt-small'} else {return ''}})()}" nav-data="personal" data-user-df="${res.data.nickname}"><img src="${(()=>{if (res.data.avt.includes("https")) {return `${res.data.avt}`} else {return `https://cdn.fodance.com/fd-media/${res.data.avt}`}})()}"></a><div class="comment-inner d-flex-col-start mg-l-sm"><div class="comment-wrapper d-flex-col-start"><div class="d-flex"><a class="nav-red username" nav-data="personal" data-user-df="${res.data.nickname}"><span class="avt-username user-username cmt-username">${res.data.username}</span></a><div class="mark-icon"></div><a class="avt d-flex mg-l-sm"><span class="post-time nickname-content">@${res.data.nickname}</span></a></div><div>${(() => {if (data.tag){return `<a class="nav-red" nav-data="personal" data-user-df="${data.tag}"><span class="avt-username cmt-username">${tagUsername}</span></a>`} else {return ""}})()}${data.content}</div></div><div class="d-flex"><div class="comment-interactive d-flex-start"><a class="like-cmt-but d-flex-start noselect" data-cmt-liked="false"><span class="iconify mg-r-sm" data-icon="simple-line-icons:like" data-inline="false"></span><span>Thích </span><span class="comment-total mg-r-sm"></span></a><a class="rep-comment-but d-flex-start noselect"><span class="iconify mg-r-sm" data-icon="bi:chat-square" data-inline="false"></span><span>Trả lời</span></a></div><div class="mg-l d-flex"><span class="contact-item"></span><a class="avt"><span class="post-time"><span class="theme-color">Vừa xong</span></a></div></div></div><div class="comment-util noselect"><button class="avt-but header-but dropdown-but util-dropdown-but"><span class="iconify dropdown-icon bg-white" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span></button><div class="comment-util-dropdown-content dropdown-content"><a class="nav-item del-cmt"><span class="iconify" data-icon="bx:bx-hide" data-inline="false"></span>Xóa bình luận</a></div></div><div></div>`)
+                                    commented.insertAdjacentHTML(pos, `<div class="comment-item d-flex-start-top" data-cmt-df="${res.data.cmtId}"><div class="comment-content"><a class="avt mg-t nav-red ${(()=>{if (cmtId) {return 'rep-avt-small'} else {return ''}})()}" nav-data="personal" data-user-df="${res.data.nickname}"><img src="${(()=>{if (res.data.avt.includes("https")) {return `${res.data.avt}`} else {return `https://cdn.fodance.com/fd-media/${res.data.avt}`}})()}"></a><div class="comment-inner d-flex-col-start mg-l-sm"><div class="comment-wrapper d-flex-col-start"><div class="d-flex"><a class="nav-red username" nav-data="personal" data-user-df="${res.data.nickname}"><span class="avt-username user-username cmt-username">${res.data.username}</span></a>${(()=>{if(res.data.auth){return '<span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span>'}})()}<div class="mark-icon"></div><a class="avt d-flex mg-l-sm"><span class="post-time nickname-content">@${res.data.nickname}</span></a></div><div>${(() => {if (data.tag){return `<a class="nav-red" nav-data="personal" data-user-df="${data.tag}"><span class="avt-username cmt-username">${tagUsername}</span></a>`} else {return ""}})()}${data.content}</div></div><div class="d-flex"><div class="comment-interactive d-flex-start"><a class="like-cmt-but d-flex-start noselect" data-cmt-liked="false"><span class="iconify mg-r-sm" data-icon="simple-line-icons:like" data-inline="false"></span><span>Thích </span><span class="comment-total mg-r-sm"></span></a><a class="rep-comment-but d-flex-start noselect"><span class="iconify mg-r-sm" data-icon="bi:chat-square" data-inline="false"></span><span>Trả lời</span></a></div><div class="mg-l d-flex"><span class="contact-item"></span><a class="avt"><span class="post-time"><span class="theme-color">Vừa xong</span></a></div></div></div><div class="comment-util noselect"><button class="avt-but header-but dropdown-but util-dropdown-but"><span class="iconify dropdown-icon bg-white" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span></button><div class="comment-util-dropdown-content dropdown-content"><a class="nav-item del-cmt"><span class="iconify" data-icon="bx:bx-hide" data-inline="false"></span>Xóa bình luận</a></div></div><div></div>`)
                                     cmtTextarea.value = null
                                     cmtTextarea.style.height = '35px'
                                     cmtTextarea.style.overflowY = "hidden"
@@ -4297,7 +4332,9 @@ function handleScroll(){
                                         document.querySelector(".post-section").insertAdjacentHTML("beforeend", `
                                         <div class='post' data-post-df='${res.data.posts[i].postId}'>
                                         ${(()=>{if(res.data.rank){if (rankIndex > 3 && rankIndex <= 10){return `<div class="ranking"><span>${rankIndex}th</span></div>`} else{return ''}} else{return ''}})()}
-                                        <div class='post-util'><button class='avt-but header-but dropdown-but util-dropdown-but'><span class='iconify dropdown-icon bg-white' data-icon='vaadin:ellipsis-dots-h' data-inline='false'></span></button><div class='util-dropdown-content dropdown-content'>${(() => {if(!res.data.saved[i]) {return "<a class='nav-item save-post'><span class='iconify' data-icon='bi:bookmark-plus' data-inline='false'></span>Lưu bài viết</a>"} else {return '<a class="nav-item remove-save-post"><span class="iconify" data-icon="bi:bookmark-dash" data-inline="false"></span>Bỏ lưu bài viết</a>'}})()}${(() => {if(!res.data.notice[i]) {return '<a class="nav-item post-notice"><span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn</a>'} else {return '<a class="nav-item remove-post-notice"><span class="iconify" data-icon="ph:bell-simple-slash" data-inline="false"></span>Tắt thông báo bình chọn</a>'}})()}<a class="nav-item copy-link-post"><span class="iconify" data-icon="clarity:copy-line" data-inline="false"></span>Sao chép liên kết</a>${(() => {if(res.data.userId != res.data.posts[i].userId) {if (!res.data.followed[i]){return `<a class="nav-item follow-post-user" data-following="false"><span class="iconify" data-icon="simple-line-icons:user-following" data-inline="false"></span><span class="follow-text mg-r-sm">Theo dõi</span> ${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</a>`} else {return `<a class="nav-item follow-post-user" data-following="true"><span class="iconify" data-icon="simple-line-icons:user-following" data-inline="false"></span><span class="follow-text mg-r-sm">Bỏ theo dõi</span> ${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</a>`}}else {return "<a class='nav-item del-post'><span class='iconify' data-icon='bx:bx-hide' data-inline='false'></span>Xóa bài viết</a>"}})()}</div></div><div class='post-user'><div class='post-info'><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}"> ${(()=>{if (res.data.postProfile[i].avatar.includes("http")) {return `<img src="${res.data.postProfile[i].avatar}" class="user-avt" username="${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}">`}else {return `<img src="https://cdn.fodance.com/fd-media/${res.data.postProfile[i].avatar}" class="user-avt" username="${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}">`}})()}</a><div class='avt-info'><div class="d-flex"><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}">${(() => {if(res.data.userId == res.data.posts[i].userId) {return "<span class='avt-username user-username'>"}else {return "<span class='avt-username'>"}})()}${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</span></a><div class='mark-icon'></div>
+                                        <div class='post-util'><button class='avt-but header-but dropdown-but util-dropdown-but'><span class='iconify dropdown-icon bg-white' data-icon='vaadin:ellipsis-dots-h' data-inline='false'></span></button><div class='util-dropdown-content dropdown-content'>${(() => {if(!res.data.saved[i]) {return "<a class='nav-item save-post'><span class='iconify' data-icon='bi:bookmark-plus' data-inline='false'></span>Lưu bài viết</a>"} else {return '<a class="nav-item remove-save-post"><span class="iconify" data-icon="bi:bookmark-dash" data-inline="false"></span>Bỏ lưu bài viết</a>'}})()}${(() => {if(!res.data.notice[i]) {return '<a class="nav-item post-notice"><span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn</a>'} else {return '<a class="nav-item remove-post-notice"><span class="iconify" data-icon="ph:bell-simple-slash" data-inline="false"></span>Tắt thông báo bình chọn</a>'}})()}<a class="nav-item copy-link-post"><span class="iconify" data-icon="clarity:copy-line" data-inline="false"></span>Sao chép liên kết</a>${(() => {if(res.data.userId != res.data.posts[i].userId) {if (!res.data.followed[i]){return `<a class="nav-item follow-post-user" data-following="false"><span class="iconify" data-icon="simple-line-icons:user-following" data-inline="false"></span><span class="follow-text mg-r-sm">Theo dõi</span> ${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</a>`} else {return `<a class="nav-item follow-post-user" data-following="true"><span class="iconify" data-icon="simple-line-icons:user-following" data-inline="false"></span><span class="follow-text mg-r-sm">Bỏ theo dõi</span> ${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</a>`}}else {return "<a class='nav-item del-post'><span class='iconify' data-icon='bx:bx-hide' data-inline='false'></span>Xóa bài viết</a>"}})()}</div></div><div class='post-user'><div class='post-info'><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}"> ${(()=>{if (res.data.postProfile[i].avatar.includes("http")) {return `<img src="${res.data.postProfile[i].avatar}" class="user-avt" username="${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}">`}else {return `<img src="https://cdn.fodance.com/fd-media/${res.data.postProfile[i].avatar}" class="user-avt" username="${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}">`}})()}</a><div class='avt-info'><div class="d-flex"><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}">${(() => {if(res.data.userId == res.data.posts[i].userId) {return "<span class='avt-username user-username'>"}else {return "<span class='avt-username'>"}})()}${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</span></a>
+                                        ${(()=>{if(res.data.postPtofile[i].auth){return '<span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span>'}})()}
+                                        <div class='mark-icon'></div>
                                         <a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}">${(() => {if(res.data.userId == res.data.posts[i].userId) {return "<span class='post-time nickname-content'>"}else {return "<span class='post-time'>"}})()}@${res.data.postProfile[i].nickname}</span></a>
                                         <div class='mg-l d-flex'><span class='contact-item'></span><a class='avt'><span class='post-time'>${(() => {if ((Date.now() - Date.parse(res.data.posts[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.data.posts[i].time))/1000 > 5 && (Date.now() - Date.parse(res.data.posts[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000)} giây</span>`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.data.posts[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000/60)} phút</span>`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.data.posts[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600)} giờ`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24)} ngày`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24 >= 8) {return `${new Date(res.data.posts[i].time).getDate() + " tháng " + (new Date(res.data.posts[i].time).getMonth() + 1) + " lúc " + new Date(res.data.posts[i].time).getHours() + ':' + new Date(res.data.posts[i].time).getMinutes()}`}})()}</span></a></div></div>
                                         <div class='post-description'>${res.data.posts[i].description} - đã tham gia #${res.data.posts[i].category}</div>
@@ -5552,6 +5589,253 @@ function handleUpdateProfile(){
         }
         document.querySelector(".add-info-but").onclick = function(){
             editProfileRedirect(this, true)
+        }
+    }
+    if (document.querySelector(".user-auth")){
+        let track, faceItv, dataURL
+        let faceValid, faceValid1, faceValid2, faceValid3, faceValid4 = false
+        document.querySelector(".user-auth").onclick = function(){
+            if (document.querySelectorAll(".user-auth-modal").length == 0){
+                const url = window.location.href
+                history.pushState({
+                }, '', url)
+            
+                document.querySelector(".avatar-frame").insertAdjacentHTML("afterbegin", `<div class='modal unfollow-modal'><div class='modal-content unfollow-modal-content d-flex-col'><div class='mg-b-lg'><h2 class='d-flex'>Xác thực tài khoản</h2><span>1.Bạn cần xác thực tài khoản của mình để có thể đăng video tham dự lên Lingyo, việc xác thực sẽ giúp chúng tôi xác nhận người tham gia trong video là bạn.</span><br><span>2.Bạn vẫn có thể tích điểm FP để tăng hạng dựa trên việc bình chọn video nếu không xác thực, tuy nhiên điểm cộng sẽ không nhiều!</span><br><span>3.Bạn cần điền đầy đủ thông tin trong phần cập nhật hồ sơ trước khi tiến hành xác thực</span></div><div class='d-flex-sb'><button class='df-but bold-font width-40 destroy-but'>Hủy</button><button class='df-but bold-font theme-bg white-color confirm-but'>Xác thực</button></div></div></div>`)
+                document.querySelector(".confirm-but").onclick = function(){
+                    document.querySelector(".unfollow-modal").remove()
+                    document.querySelector(".avatar-frame").insertAdjacentHTML('beforeend', `<div class="modal unfollow-modal"><div class="user-auth-modal"><div class="modal-content unfollow-modal-content"><div class="group-title d-flex">
+                    ${(()=>{if (window.innerWidth <= 662){return `
+                        <span class="font-size-lg-2">Xác thực khuôn mặt</span>
+                        <div class="close-auth-modal return-but"><span class="iconify" data-icon="heroicons-outline:arrow-left" data-inline="false"></span></div>
+                    `}
+                    else {
+                        return `
+                        <span class="font-size-lg-4">Xác thực khuôn mặt</span>
+                        <button class='close close-auth-modal' type="button">
+                            <span class='iconify dropdown-icon' data-icon='feather:x' data-inline='false'></span>
+                        </button>
+                        `
+                    }
+                    })()}</div><div class="border-b"></div><div class="edit-profile-frame">
+                    <div class="pd d-flex">Trước tiên hãy xác thực khuôn mặt, hình ảnh xác thực này ở chế độ riêng tư trong bản ghi của Lingyo.</div>
+                    <div class="auth-video">
+                    <video autoplay muted></video>
+                    </div>
+                    <div class="d-flex"><h3 class="face-request pd">Chờ một chút trong khi chúng tôi nhận dạng khuôn mặt bạn!</h3></div>
+                    </div></div></div>`)
+                    const video = document.querySelector('.auth-video video')
+                    Promise.all([
+                    faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+                    faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+                    faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
+                    faceapi.nets.faceExpressionNet.loadFromUri('/models')
+                    ]).then(startVideo)
+
+                    function startVideo() {
+                        navigator.getUserMedia(
+                            { video: {} },
+                            stream => video.srcObject = track = stream,
+                            err =>  err = err,
+                        )
+                    }
+
+                    const faceReq = document.querySelector(".face-request")
+
+                    video.addEventListener('playing', () => {
+                    const canvas = faceapi.createCanvasFromMedia(video)
+                    document.querySelector(".auth-video").append(canvas)
+                    const displaySize = { width: video.offsetWidth, height: video.offsetHeight }
+                    faceapi.matchDimensions(canvas, displaySize)
+                    faceItv = setInterval(async () => {
+                        const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
+                        const resizedDetections = faceapi.resizeResults(detections, displaySize)
+                        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+                        faceapi.draw.drawDetections(canvas, resizedDetections)
+                        faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
+                        faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
+                        if (detections[0]){
+                            if (!detections[0].expressions){faceValid = false}
+                            else {
+                                faceValid = true
+                                if (!faceValid1){
+                                    faceReq.textContent = "1.Bạn hãy cười lên!"
+                                    if (detections[0].expressions.happy > 0.9){faceValid1 = true}
+                                }
+                                if (faceValid1 && !faceValid2){
+                                    faceReq.textContent = "2.Bạn hãy làm mặt buồn cái nào!"
+                                    if (detections[0].expressions.sad > 0.5){faceValid2 = true}
+                                }
+                                if (faceValid1 && faceValid2 && !faceValid3){
+                                    faceReq.textContent = "3.Bạn hãy tỏ vẻ ngạc nhiên nào!"
+                                    if (detections[0].expressions.surprised > 0.2){faceValid3 = true}
+                                }    
+                                if (faceValid1 && faceValid2 && faceValid3 && !faceValid4){  
+                                    faceReq.textContent = "4.Hãy để mặt tự nhiên nhất..."
+                                    console.log(detections[0].expressions.neutral)
+                                    if (detections[0].expressions.neutral >= 0.99){
+                                        faceValid4 = true
+                                        const f = document.createElement("CANVAS")
+                                        f.width = video.offsetWidth
+                                        f.height = video.offsetHeight
+                                        f.getContext('2d').drawImage(video, 0, 0, f.width, f.height);
+                                        dataURL = f.toDataURL()                          
+                                    }   
+                                }                 
+                            }
+                            if (faceValid && faceValid1 && faceValid2 && faceValid3 && faceValid4) {
+                                clearInterval(faceItv)
+                                track.getTracks().forEach(function(e) {
+                                    e.stop();
+                                });
+                                faceReq.innerHTML = '<span class="theme-color">Đã hoàn tất xác thực khuôn mặt!</span>'
+                                
+                                setTimeout(function(){
+                                    document.querySelectorAll(".modal").forEach(function(e){
+                                        e.remove()
+                                    })
+                                    document.querySelector(".avatar-frame").insertAdjacentHTML('beforeend', `<div class="modal unfollow-modal"><div class="user-auth-modal"><div class="modal-content unfollow-modal-content"><div class="group-title d-flex">
+                                    ${(()=>{if (window.innerWidth <= 662){return `
+                                        <span class="font-size-lg-2">Xác minh tài liệu</span>
+                                        <div class="close-auth-modal return-but"><span class="iconify" data-icon="heroicons-outline:arrow-left" data-inline="false"></span></div>
+                                    `}
+                                    else {
+                                        return `
+                                        <span class="font-size-lg-4">Xác minh tài liệu</span>
+                                        <button class='close close-auth-modal' type="button">
+                                            <span class='iconify dropdown-icon' data-icon='feather:x' data-inline='false'></span>
+                                        </button>
+                                        `
+                                    }
+                                    })()}</div><div class="border-b"></div><div class="edit-profile-frame">
+                                    <div class="pd d-flex">Gửi lên giấy tờ tùy thân của bạn (như CMT, Thẻ căn cước..).</div>
+                                    <div class="pd d-flex">Tài liệu cần rõ ràng, không bị mờ hay khuất góc.</div>
+                                    <div class="d-flex">
+                                    <label class="create-post-custom-but upload-label noselect width-40 pd">
+                                        <input accept="image/jpeg,image/jpg,image/png" type='file' name='auth-files' class="auth-file-upload">
+                                        <span class='iconify create-post-icon' data-icon='bi:card-image' data-inline='false'></span><span>Tải lên</span>
+                                    </label>
+                                    </div>
+                                    <div class="pd auth-file-name"></div>
+                                    <div class="pd">
+                                        <button class="submit-but submit-auth">Gửi</button>
+                                    </div>
+                                    </div>
+                                    </div></div></div>`)
+        
+                                    document.querySelector(".auth-file-upload").onchange = function(evt){
+                                        const file = evt.target.files[0]
+                                        let fileReader = new FileReader();
+                                        fileReader.onloadend = function(e) {
+                                            let arr = (new Uint8Array(e.target.result)).subarray(0, 4);
+                                            let header = "";
+                                            for(let i = 0; i < arr.length; i++) {
+                                                header += arr[i].toString(16);
+                                            }
+                                            const reg = /image\/jpeg|image\/jpg|image\/png/gi
+                                            switch (header) {
+                                                case "89504e47":
+                                                    type = "image/png";
+                                                    break;
+                                                case "ffd8ffe0":
+                                                case "ffd8ffe1":
+                                                case "ffd8ffe2":
+                                                case "ffd8ffe3":
+                                                case "ffd8ffdb":
+                                                case "ffd8ffee":
+                                                case "ffd8ffe8":
+                                                    type = "image/jpeg";
+                                                    break;
+                                                default:
+                                                    type = "unknown";
+                                                    break;
+                                            }
+                                            if (type.match(reg)) {
+                                                document.querySelector(".auth-file-name").textContent = file.name
+                                                document.querySelector(".submit-auth").onclick = function(){
+                                                    let xhttp
+                                                    if (window.XMLHttpRequest) {
+                                                        xhttp = new XMLHttpRequest()
+                                                    } else {
+                                                        xhttp = new ActiveXObject("Microsoft.XMLHTTP")
+                                                    }
+                                                    let formData = new FormData()
+                                                    formData.append('image', dataURL)
+                                                    formData.append('file', file)
+                                                    document.querySelectorAll(".modal").forEach(function(e){
+                                                        e.remove()
+                                                    })
+                                                    document.querySelector(".avatar-frame").insertAdjacentHTML("afterbegin", `<div class='modal unfollow-modal'><div class='modal-content unfollow-modal-content d-flex-col'><div class='mg-b-lg'><h2 class='d-flex'>Xác thực tài khoản</h2>
+                                                    <span>Bạn đã gửi yêu cầu xác thực tài khoản thành công, hãy đợi 1 chút để chúng tôi phê duyệt!</span><div class="pd d-flex"><button class='df-but bold-font theme-bg white-color confirm-but'>Xong</button></div></div></div></div>`)
+                                                    document.querySelector(".confirm-but").onclick = function(){
+                                                        document.querySelectorAll(".modal").forEach(function(e){
+                                                            e.remove()
+                                                            window.history.back()
+                                                        })
+                                                    }
+                                                    xhttp.onreadystatechange = function() {
+                                                        if (xhttp.readyState == 4 && xhttp.status == 200) {
+                                                            const res = JSON.parse(xhttp.responseText)
+                                                            if (res.status == 'done'){
+                                                                showAlert("Đã gửi yêu cầu xác thực thành công!")
+                                                            }
+                                                            else {
+                                                                showAlert("Xác thực không thành công. Hãy thử lại!")
+                                                            }
+                                                        }
+                                                    }
+                                                    xhttp.open("POST", "/user-auth", true)
+                                                    xhttp.send(formData)
+                                                }
+                                            }
+                                            else {
+                                                showAlert("Định dạng không hợp lệ!")
+                                            }
+                                        }
+                                        fileReader.readAsArrayBuffer(file);
+                                    }
+                                    
+                                    if (document.querySelector(".return-but")){
+                                        document.querySelector(".return-but").onclick = function(){
+                                            document.querySelectorAll(".modal").forEach(function(e){
+                                                e.remove()
+                                                track.getTracks().forEach(function(e) {
+                                                    e.stop();
+                                                });
+                                                window.history.back()
+                                            })
+                                        }
+                                    }
+                                    if (document.querySelector(".close-auth-modal")){
+                                        document.querySelector(".close-auth-modal").onclick = function(){
+                                            document.querySelectorAll(".modal").forEach(function(e){
+                                                e.remove()
+                                                track.getTracks().forEach(function(e) {
+                                                    e.stop();
+                                                });
+                                                window.history.back()
+                                            })
+                                        }
+                                    }
+                                }, 2000)
+                            }
+                        }
+                    }, 100)
+                    })
+
+                    document.querySelector(".close-auth-modal").onclick = function(){
+                        clearInterval(faceItv)
+                        document.querySelector(".user-auth-modal").remove()
+                        document.querySelector(".modal").remove()
+                        track.getTracks().forEach(function(e) {
+                            e.stop();
+                        });
+                        window.history.back()
+                    }
+                }
+                document.querySelector(".destroy-but").onclick = function(){
+                    document.querySelector(".modal").remove()
+                }
+            }
         }
     }
 }
