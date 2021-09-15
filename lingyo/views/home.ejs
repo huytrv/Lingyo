@@ -12,10 +12,10 @@
             <div class="group-title d-flex-start-bottom">
                 <div class="dance-lottie"></div>
                 <% if (new Date().getDay() >= 1 && new Date().getDay() <= 5) { %>
-                    <span class="font-size-lg-3">Vòng hiện tại: Vòng bảng - <span class="home-rank"><%- rankName %></span></span>
+                    <span class="font-size-lg-3 mg-t">Vòng hiện tại: Vòng bảng - <span class="home-rank"><%- rankName %></span></span>
                 <% } %>
                 <% if (new Date().getDay() == 6 || new Date().getDay() == 0) { %>
-                    <span class="font-size-lg-3">Vòng hiện tại: Chung kết - <span class="home-rank"><%- rankName %></span></span>
+                    <span class="font-size-lg-3 mg-t">Vòng hiện tại: Chung kết - <span class="home-rank"><%- rankName %></span></span>
                 <% } %>
             </div>
             <div class="timer-text d-flex">

@@ -48,7 +48,16 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
         TimeRange = [stageTime, stageTime + 5*24*60*60*1000]
         if (new Date().getDay() >= 1 && new Date().getDay() <= 5) {roundType = "group-stage"}else {roundType = "final"}
-        if (roundType == "final"){stageTime = currentTimeline, currentTimeline= currentTimeline + 5*24*60*60*1000}
+        if (roundType == "final"){
+            if (stageTime == currentTimeline) {
+                currentTimeline = currentTimeline + 5*24*60*60*1000
+                TimeRange = [stageTime, currentTimeline]
+            }
+        }
+        else {
+            stageTime = currentTimeline
+            TimeRange = [currentTimeline, currentTimeline + 5*24*60*60*1000]
+        }
         const newRound = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
         if (newRound > round) {
             let buf = 0

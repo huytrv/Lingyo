@@ -390,81 +390,44 @@
                                                                         <% } %>
                                                                 </a>    
                                                                 <div class="avt-info">
-                                                                    <% if (posts[i]['currentUserId'] == currentUserId) { %>
-                                                                        <div class="d-flex">
-                                                                            <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile[i].nickname -%>"><span class="avt-username user-username"><%- posts[i]['user.username'] -%></span></a>
-                                                                            <div class="mark-icon">
-                                                                            </div>
-                                                                            <div class="mg-l d-flex">
-                                                                                <span class="contact-item"></span>
-                                                                                <a class="avt"><span class="post-time">
-                                                                                    <% if ((Date.now() - posts[i].time)/1000 < 5) { %>
-                                                                                        <span class="theme-color">Vừa xong</span>
-                                                                                    <% } %>
-                                                                                    <% if ((Date.now() - posts[i].time)/1000 > 5 && (Date.now() - posts[i].time)/1000 < 60) { %>
-                                                                                        <span class="theme-color"><%- Math.floor((Date.now() - posts[i].time)/1000) -%> giây</span>
-                                                                                    <% } %>
-                                                                                    <% if ((Date.now() - posts[i].time)/1000/60 >= 1 && (Date.now() - posts[i].time)/1000/60 < 60) { %>
-                                                                                        <span class="theme-color"><%- Math.floor((Date.now() - posts[i].time)/1000/60) -%> phút</span>
-                                                                                    <% } %>
-                                                                                    <% if ((Date.now() - posts[i].time)/1000/3600 >= 1 && (Date.now() - posts[i].time)/1000/3600 < 24) { %>
-                                                                                        <%- Math.floor((Date.now() - posts[i].time)/1000/3600) -%> giờ
-                                                                                    <% } %>
-                                                                                    <% if ((Date.now() - posts[i].time)/1000/3600/24 >= 1 && (Date.now() - posts[i].time)/1000/3600/24 < 8) { %>
-                                                                                        <%- Math.floor((Date.now() - posts[i].time)/1000/3600/24) -%> ngày
-                                                                                    <% } %>
-                                                                                    <% if ((Date.now() - posts[i].time)/1000/3600/24 >= 8) { %>
-                                                                                        <%- posts[i].time.getDate() + " tháng " + (posts[i].time.getMonth() + 1) + " lúc " + posts[i].time.getHours() + ':' + posts[i].time.getMinutes()-%>
-                                                                                    <% } %>
-                                                                                </span></a>
-                                                                            </div> 
+                                                                    <div class="d-flex">
+                                                                        <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile[i].nickname -%>"><span class="avt-username <% if (posts[i]['currentUserId'] == currentUserId) { %>user-username<% } %><% if (posts[i]['currentUserId'] != currentUserId) { %><% } %>"><%- posts[i]['user.username'] -%></span></a>
+                                                                        <div class="mark-icon">
                                                                         </div>
                                                                         <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile[i].nickname -%>">
-                                                                            <span class="post-time nickname-content">
+                                                                            <span class="post-time <% if (posts[i]['currentUserId'] == currentUserId) { %>nickname-content<% } %><% if (posts[i]['currentUserId'] != currentUserId) { %><% } %>">
                                                                                 @<%- postProfile[i].nickname -%>
                                                                             </span>
                                                                         </a>
-                                                                    <% } %>
-                                                                    <% if (posts[i]['currentUserId'] != currentUserId) { %>
-                                                                        <div class="d-flex">
-                                                                            <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile[i].nickname -%>"><span class="avt-username"><%- posts[i]['user.username'] -%></span></a>
-                                                                            <div class="mark-icon">
-                                                                            </div>
-                                                                            <div class="mg-l d-flex">
-                                                                                <span class="contact-item"></span>
-                                                                                <a class="avt"><span class="post-time">
-                                                                                    <% if ((Date.now() - posts[i].time)/1000 < 5) { %>
-                                                                                        <span class="theme-color">Vừa xong</span>
-                                                                                    <% } %>
-                                                                                    <% if ((Date.now() - posts[i].time)/1000 > 5 && (Date.now() - posts[i].time)/1000 < 60) { %>
-                                                                                        <span class="theme-color"><%- Math.floor((Date.now() - posts[i].time)/1000) -%> giây</span>
-                                                                                    <% } %>
-                                                                                    <% if ((Date.now() - posts[i].time)/1000/60 >= 1 && (Date.now() - posts[i].time)/1000/60 < 60) { %>
-                                                                                        <span class="theme-color"><%- Math.floor((Date.now() - posts[i].time)/1000/60) -%> phút</span>
-                                                                                    <% } %>
-                                                                                    <% if ((Date.now() - posts[i].time)/1000/3600 >= 1 && (Date.now() - posts[i].time)/1000/3600 < 24) { %>
-                                                                                        <%- Math.floor((Date.now() - posts[i].time)/1000/3600) -%> giờ
-                                                                                    <% } %>
-                                                                                    <% if ((Date.now() - posts[i].time)/1000/3600/24 >= 1 && (Date.now() - posts[i].time)/1000/3600/24 < 8) { %>
-                                                                                        <%- Math.floor((Date.now() - posts[i].time)/1000/3600/24) -%> ngày
-                                                                                    <% } %>
-                                                                                    <% if ((Date.now() - posts[i].time)/1000/3600/24 >= 8) { %>
-                                                                                        <%- posts[i].time.getDate() + " tháng " + (posts[i].time.getMonth() + 1) + " lúc " + posts[i].time.getHours() + ':' + posts[i].time.getMinutes()-%>
-                                                                                    <% } %>
-                                                                                </span></a>
-                                                                            </div> 
-                                                                        </div>
-                                                                        <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile[i].nickname -%>">
-                                                                            <span class="post-time">
-                                                                                @<%- postProfile[i].nickname -%>
-                                                                            </span>
-                                                                        </a>
-                                                                    <% } %>
+                                                                        <div class="mg-l d-flex">
+                                                                            <span class="contact-item"></span>
+                                                                            <a class="avt"><span class="post-time">
+                                                                                <% if ((Date.now() - posts[i].time)/1000 < 5) { %>
+                                                                                    <span class="theme-color">Vừa xong</span>
+                                                                                <% } %>
+                                                                                <% if ((Date.now() - posts[i].time)/1000 > 5 && (Date.now() - posts[i].time)/1000 < 60) { %>
+                                                                                    <span class="theme-color"><%- Math.floor((Date.now() - posts[i].time)/1000) -%> giây</span>
+                                                                                <% } %>
+                                                                                <% if ((Date.now() - posts[i].time)/1000/60 >= 1 && (Date.now() - posts[i].time)/1000/60 < 60) { %>
+                                                                                    <span class="theme-color"><%- Math.floor((Date.now() - posts[i].time)/1000/60) -%> phút</span>
+                                                                                <% } %>
+                                                                                <% if ((Date.now() - posts[i].time)/1000/3600 >= 1 && (Date.now() - posts[i].time)/1000/3600 < 24) { %>
+                                                                                    <%- Math.floor((Date.now() - posts[i].time)/1000/3600) -%> giờ
+                                                                                <% } %>
+                                                                                <% if ((Date.now() - posts[i].time)/1000/3600/24 >= 1 && (Date.now() - posts[i].time)/1000/3600/24 < 8) { %>
+                                                                                    <%- Math.floor((Date.now() - posts[i].time)/1000/3600/24) -%> ngày
+                                                                                <% } %>
+                                                                                <% if ((Date.now() - posts[i].time)/1000/3600/24 >= 8) { %>
+                                                                                    <%- posts[i].time.getDate() + " tháng " + (posts[i].time.getMonth() + 1) + " lúc " + posts[i].time.getHours() + ':' + posts[i].time.getMinutes()-%>
+                                                                                <% } %>
+                                                                            </span></a>
+                                                                        </div> 
+                                                                    </div>
+                                                                    <div class="post-description"><%- posts[i].description -%> - đã tham gia #<%- posts[i].category -%></div>
                                                                 </div> 
                                                             </div>
                                                         </div>
                                                         <div class="post-content">
-                                                            <div class="post-description"><%- posts[i].description -%> #<%- posts[i].category -%></div>
                                                             <% if (posts[i].file) { %>
                                                                 <% if (posts[i].file.type == 'video') { %>
                                                                 <div class="post-file">

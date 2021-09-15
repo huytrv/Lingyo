@@ -1198,7 +1198,7 @@ video {
 }
 
 .contact-item {
-  margin-right: 5px;
+  margin-right: 3px;
 }
 
 .contact-item::before {
@@ -3205,7 +3205,7 @@ img.thumb {
   right: 60px;
   width: 30px;
   height: 50px;
-  background-color: #c0e5ee;
+  background-color: #c0e5ee70;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -3277,7 +3277,7 @@ img.thumb {
 }
 
 .post-description {
-  padding: 0 12px;
+  /* padding: 0 12px; */
   font-size: 15px;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -3304,7 +3304,7 @@ img.thumb {
   display: flex;
   cursor: pointer;
   border-radius: 0;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   overflow: hidden;
   padding: 0;
 }
@@ -4775,8 +4775,8 @@ input[type='range']::-ms-fill-lower {
 }
 
 .post-info .avt img {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
 }
 
 .full-height {
@@ -4855,6 +4855,7 @@ input[type='range']::-ms-fill-lower {
 
 .util-dropdown-but .dropdown-icon{
   font-size: 35px;
+  background-color: transparent !important;
 }
 
 .dropdown-icon {
@@ -6090,10 +6091,6 @@ tbody {
     background-color: transparent;
   }
 
-  .dance-lottie {
-    display: flex;
-  }
-
   .group-title {
     margin: 0 20px;
   }
@@ -6190,9 +6187,13 @@ tbody {
   }
 
   .main-frame-post-inner-personal {
-    width: 75%;
+    width: 77%;
     max-width: 650px;
     margin-top: 10px;
+  }
+
+  .main-frame-post-inner-personal .post:first-child {
+    margin-top: 0px;
   }
 
   .main-frame-post-tool, .main-frame-post-sort {
