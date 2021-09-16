@@ -5630,12 +5630,14 @@ function handleUpdateProfile(){
                     faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
                     faceapi.nets.faceExpressionNet.loadFromUri('/models')
                     ]).then(startVideo)
+                    showAlert(video)
 
                     function startVideo() {
                         // navigator.getUserMedia(
                         //     { video: {facingMode: 'environment'} },
                         //     stream => video.srcObject = track = stream,
                         //     err =>  err = err,
+                        showAlert(video)
                         // )
                         const constraints = { audio: false, video: { facingMode: "environment" } }
                         navigator.mediaDevices.getUserMedia(constraints)
