@@ -5637,11 +5637,12 @@ function handleUpdateProfile(){
                         //     stream => video.srcObject = track = stream,
                         //     err =>  err = err,
                         // )
-                        const constraints = { audio: false, video: { facingMode: "user" } }
+                        const constraints = { audio: false, video: { facingMode: "environment" } }
                         navigator.mediaDevices.getUserMedia(constraints)
                         .then(function(mediaStream) {
                         video.srcObject = mediaStream;
                         track = mediaStream
+                        showAlert(video)
                         video.onloadedmetadata = function(e) {
                             video.play();
                         };
