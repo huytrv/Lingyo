@@ -5620,6 +5620,7 @@ function handleUpdateProfile(){
                     <div class="pd d-flex">Trước tiên hãy xác thực khuôn mặt, hình ảnh xác thực này ở chế độ riêng tư trong bản ghi của Lingyo.</div>
                     <div class="auth-video">
                     <video autoplay muted></video>
+                    <div class="loading-frame d-flex"><span class="iconify spin loading-icon" data-icon="ant-design:loading-3-quarters-outlined" data-inline="false"></span></div>
                     </div>
                     <div class="d-flex"><h3 class="face-request pd">Chờ một chút trong khi chúng tôi nhận dạng khuôn mặt bạn!</h3></div>
                     </div></div></div>`)
@@ -5654,6 +5655,7 @@ function handleUpdateProfile(){
                         track = mediaStream
                         video.onloadedmetadata = function(e) {
                             video.play();
+                            document.querySelector(".loading-frame").remove()
                         };
                         })
                         .catch(function(err) { showAlert(err.name + ": " + err.message); });
