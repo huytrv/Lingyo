@@ -5624,6 +5624,7 @@ function handleUpdateProfile(){
                     <div class="d-flex"><h3 class="face-request pd">Chờ một chút trong khi chúng tôi nhận dạng khuôn mặt bạn!</h3></div>
                     </div></div></div>`)
                     const video = document.querySelector('.auth-video video')
+                    showAlert(0)
                     Promise.all([
                     faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
                     faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
@@ -5637,9 +5638,9 @@ function handleUpdateProfile(){
                         // navigator.getUserMedia(
                         //     { video: {facingMode: 'environment'} },
                         //     stream => video.srcObject = track = stream,
-                        //     err =>  err = err,
-                        showAlert('1' + video.innerHTML)
+                        //     err =>  showAlert(err),
                         // )
+                        showAlert(1)
                         const constraints = { audio: false, video: { facingMode: "environment" } }
                         navigator.mediaDevices.getUserMedia({audio: true, video: true})
                         .then(function(mediaStream) {
@@ -5650,7 +5651,7 @@ function handleUpdateProfile(){
                             video.play();
                         };
                         })
-                        .catch(function(err) { console.log(err.name + ": " + err.message); });
+                        .catch(function(err) { showAlert(err.name + ": " + err.message); });
                     }
 
                     const faceReq = document.querySelector(".face-request")
