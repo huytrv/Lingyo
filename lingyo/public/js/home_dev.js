@@ -5632,11 +5632,21 @@ function handleUpdateProfile(){
                     ]).then(startVideo)
 
                     function startVideo() {
-                        navigator.getUserMedia(
-                            { video: {} },
-                            stream => video.srcObject = track = stream,
-                            err =>  err = err,
-                        )
+                        // navigator.getUserMedia(
+                        //     { video: {facingMode: 'environment'} },
+                        //     stream => video.srcObject = track = stream,
+                        //     err =>  err = err,
+                        // )
+                        const constraints = { audio: false, video: { facingMode: "user" } }
+                        navigator.mediaDevices.getUserMedia(constraints)
+                        .then(function(mediaStream) {
+                        video.srcObject = mediaStream;
+                        track = mediaStream
+                        video.onloadedmetadata = function(e) {
+                            video.play();
+                        };
+                        })
+                        .catch(function(err) { console.log(err.name + ": " + err.message); });
                     }
 
                     const faceReq = document.querySelector(".face-request")
