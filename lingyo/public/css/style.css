@@ -4378,6 +4378,7 @@ input[type=radio] {
   display: flex;
   justify-content: center;
   align-items: center;
+  max-height: 320px;
 }
 
 .user-verify {
