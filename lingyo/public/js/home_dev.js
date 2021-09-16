@@ -5642,9 +5642,14 @@ function handleUpdateProfile(){
                         // )
                         showAlert(1)
                         const constraints = { audio: false, video: { facingMode: "environment" } }
-                        navigator.mediaDevices.getUserMedia({audio: true, video: true})
+                        navigator.mediaDevices.getUserMedia(constraints)
                         .then(function(mediaStream) {
-                        video.srcObject = mediaStream;
+                        window.stream = mediaStream; 
+                        if (typeof video.srcObject == "object") {
+                            video.srcObject = mediaStream;
+                        } else {
+                        video.src = URL.createObjectURL(mediaStream);
+                        }
                         showAlert('2' + video.innerHTML)
                         track = mediaStream
                         video.onloadedmetadata = function(e) {

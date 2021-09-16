@@ -6611,6 +6611,7 @@ tbody {
   .avatar-frame .unfollow-modal-content {
     width: 400px !important;
     height: auto !important;
+    max-height: 420px;
   }
 
   .auth-video video {
