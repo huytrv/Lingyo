@@ -5641,11 +5641,11 @@ function handleUpdateProfile(){
                         showAlert('1' + video.innerHTML)
                         // )
                         const constraints = { audio: false, video: { facingMode: "environment" } }
-                        navigator.mediaDevices.getUserMedia(constraints)
+                        navigator.mediaDevices.getUserMedia({audio: true, video: true})
                         .then(function(mediaStream) {
                         video.srcObject = mediaStream;
-                        track = mediaStream
                         showAlert('2' + video.innerHTML)
+                        track = mediaStream
                         video.onloadedmetadata = function(e) {
                             video.play();
                         };
