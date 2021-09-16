@@ -5630,21 +5630,20 @@ function handleUpdateProfile(){
                     faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
                     faceapi.nets.faceExpressionNet.loadFromUri('/models')
                     ]).then(startVideo)
-                    showAlert(video)
 
                     function startVideo() {
                         // navigator.getUserMedia(
                         //     { video: {facingMode: 'environment'} },
                         //     stream => video.srcObject = track = stream,
                         //     err =>  err = err,
-                        showAlert(video)
+                        showAlert('1' + video.innerHTML)
                         // )
                         const constraints = { audio: false, video: { facingMode: "environment" } }
                         navigator.mediaDevices.getUserMedia(constraints)
                         .then(function(mediaStream) {
                         video.srcObject = mediaStream;
                         track = mediaStream
-                        showAlert(video)
+                        showAlert('2' + video.innerHTML)
                         video.onloadedmetadata = function(e) {
                             video.play();
                         };
