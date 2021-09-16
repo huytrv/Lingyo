@@ -5619,11 +5619,11 @@ function handleUpdateProfile(){
                     })()}</div><div class="border-b"></div><div class="edit-profile-frame">
                     <div class="pd d-flex">Trước tiên hãy xác thực khuôn mặt, hình ảnh xác thực này ở chế độ riêng tư trong bản ghi của Lingyo.</div>
                     <div class="auth-video">
-                    <iframe allow="camera">
+                    <video autoplay muted></video>
                     </div>
                     <div class="d-flex"><h3 class="face-request pd">Chờ một chút trong khi chúng tôi nhận dạng khuôn mặt bạn!</h3></div>
                     </div></div></div>`)
-                    const video = document.querySelector('.auth-video iframe')
+                    const video = document.querySelector('.auth-video video')
                     showAlert(0)
                     Promise.all([
                     faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
