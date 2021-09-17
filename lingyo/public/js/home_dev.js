@@ -5642,7 +5642,7 @@ function handleUpdateProfile(){
                         //     err =>  showAlert(err),
                         // )
                         showAlert(1)
-                        const constraints = {video: { facingMode: "user" } }
+                        const constraints = { audio: false, video: { facingMode: "user" } }
                         navigator.mediaDevices.getUserMedia(constraints)
                         .then(function(mediaStream) {
                         if (typeof video.srcObject == "object") {
