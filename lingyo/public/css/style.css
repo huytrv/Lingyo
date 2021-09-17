@@ -5391,11 +5391,11 @@ input[type='range']::-ms-fill-lower {
 
 .cate-reward .top-reward-frame{
   min-width: 24%;
-  background-image: linear-gradient(to right, #e3f2f8, rgb(249, 253, 253));
+  background-image: linear-gradient(to right, #d9f1fa, rgb(242, 232, 255));
 }
 
 .cate-reward .top-reward-frame:hover{
-  background-image: linear-gradient(to right, #d0e7f0, rgb(232, 241, 241));
+  background-image: linear-gradient(to right, #d0e7f0, rgb(240, 233, 241));
 }
 
 .icon-reward-2 {
@@ -5424,6 +5424,10 @@ input[type='range']::-ms-fill-lower {
 
 .icon-reward {
   font-size: 30px;
+}
+
+.verified {
+  margin-top: 0px !important;
 }
 
 .gradient-border::after {
