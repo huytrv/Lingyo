@@ -460,6 +460,7 @@ const server = https.createServer(op, app).listen(443, function(){
     console.log("Server is running...")
     app.get('*', function(req, res){
         if (req.headers.host == "18.142.122.185") {res.redirect('https://fodance.com')}
+        res.header("Access-Control-Allow-Origin", "*");
     })
 });
 
