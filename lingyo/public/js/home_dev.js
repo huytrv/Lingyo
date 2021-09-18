@@ -5655,7 +5655,7 @@ function handleUpdateProfile(){
                         showAlert(1)
                         navigator.permissions.query({name:'camera'}).then(function(result) {
                             showAlert(result.state);
-                        })
+                        }).catch(function(err){showAlert(err)})
                         // const constraints = { audio: false, video: { facingMode: "user" } }
                         // navigator.mediaDevices.getUserMedia(constraints)
                         // .then(function(mediaStream) {
