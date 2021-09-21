@@ -5638,8 +5638,6 @@ function handleUpdateProfile(){
                     <div class="d-flex"><h3 class="face-request pd">Chờ một chút trong khi chúng tôi nhận dạng khuôn mặt bạn!</h3></div>
                     </div></div></div>`)
                     const video = document.querySelector('.auth-video video')
-                    video.width = 640;
-                        video.height = 480;
                     showAlert(0)
                     Promise.all([
                     faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
@@ -5655,8 +5653,7 @@ function handleUpdateProfile(){
                         //     err =>  showAlert(err),
                         // )
                         showAlert(1)
-                        
-                        const constraints = { audio: false, video: true }
+                        const constraints = { audio: false, video: { facingMode: "user" } }
                         navigator.mediaDevices.getUserMedia(constraints)
                         .then(function(mediaStream) {
                         if (typeof video.srcObject == "object") {
