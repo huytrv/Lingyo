@@ -5648,34 +5648,25 @@ function handleUpdateProfile(){
                     video.setAttribute('autoplay', '');
                     video.setAttribute('muted', '');
                     function startVideo() {
-                        // navigator.getUserMedia(
-                        //     { video: {facingMode: 'environment'} },
-                        //     stream => video.srcObject = track = stream,
-                        //     err =>  showAlert(err),
-                        // )
-                        showAlert(1)
-                        const constraints = {
-                            video: true,
-                            audio: false
-                        }
-                        navigator.mediaDevices.getUserMedia(constraints)
-                        .then(function(mediaStream) {
-                        if (typeof video.srcObject == "object") {
-                            window.stream = mediaStream
-                            video.srcObject = mediaStream;
-                        } else {
-                        video.src = URL.createObjectURL(mediaStream);
-                        }
-                        authVideo.appendChild(video)
-                        showAlert('2' + video.innerHTML)
-                        track = mediaStream
-                        video.onloadedmetadata = function(e) {
-                            video.play();
-                            document.querySelector(".loading-frame").remove()
-                        };
-                        })
-                        .catch(function(err) { showAlert(err.name + ": " + err.message); });
-                    }
+
+    const constraints = {
+      video: true,
+      audio: false
+    };
+
+    const handleSuccess = (stream) => {
+      window.stream = stream;
+      video.srcObject = stream;
+    };
+
+    const handleError = (error) => {
+      const p = document.createElement('p');
+      p.innerHTML = 'navigator.getUserMedia error: ' + error.name + ', ' + error.message;
+      authVideo.nativeElement.appendChild(p);
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+    }
 
                     const faceReq = document.querySelector(".face-request")
 
