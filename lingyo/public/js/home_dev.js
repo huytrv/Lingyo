@@ -5632,11 +5632,14 @@ function handleUpdateProfile(){
                     })()}</div><div class="border-b"></div><div class="edit-profile-frame">
                     <div class="pd d-flex">Trước tiên hãy xác thực khuôn mặt, hình ảnh xác thực này ở chế độ riêng tư trong bản ghi của Lingyo.</div>
                     <div class="auth-video">
+                    <video autoplay muted></video>
                     <div class="loading-frame d-flex"><span class="iconify spin loading-icon" data-icon="ant-design:loading-3-quarters-outlined" data-inline="false"></span></div>
                     </div>
                     <div class="d-flex"><h3 class="face-request pd">Chờ một chút trong khi chúng tôi nhận dạng khuôn mặt bạn!</h3></div>
                     </div></div></div>`)
-                    const authVideo = document.querySelector('.auth-video')
+                    const video = document.querySelector('.auth-video video')
+                    video.width = 640;
+                        video.height = 480;
                     showAlert(0)
                     Promise.all([
                     faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
@@ -5644,30 +5647,32 @@ function handleUpdateProfile(){
                     faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
                     faceapi.nets.faceExpressionNet.loadFromUri('/models')
                     ]).then(startVideo)
-                    const video = document.createElement('video');
-                    video.setAttribute('autoplay', '');
-                    video.setAttribute('muted', '');
+
                     function startVideo() {
-
-    const constraints = {
-      video: true,
-      audio: false
-    };
-
-    const handleSuccess = (stream) => {
-      window.stream = stream;
-      video.srcObject = stream;
-    };
-
-    const handleError = (error) => {
-      const p = document.createElement('p');
-      p.innerHTML = 'navigator.getUserMedia error: ' + error.name + ', ' + error.message;
-      showAlert(error.name + ', ' + error.message)
-      authVideo.nativeElement.appendChild(p);
-    };
-
-    navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
-    }
+                        // navigator.getUserMedia(
+                        //     { video: {facingMode: 'environment'} },
+                        //     stream => video.srcObject = track = stream,
+                        //     err =>  showAlert(err),
+                        // )
+                        showAlert(1)
+                        
+                        const constraints = { audio: false, video: true }
+                        navigator.mediaDevices.getUserMedia(constraints)
+                        .then(function(mediaStream) {
+                        if (typeof video.srcObject == "object") {
+                            video.srcObject = mediaStream;
+                        } else {
+                        video.src = URL.createObjectURL(mediaStream);
+                        }
+                        showAlert('2' + video.innerHTML)
+                        track = mediaStream
+                        video.onloadedmetadata = function(e) {
+                            video.play();
+                            document.querySelector(".loading-frame").remove()
+                        };
+                        })
+                        .catch(function(err) { showAlert(err.name + ": " + err.message); });
+                    }
 
                     const faceReq = document.querySelector(".face-request")
 
