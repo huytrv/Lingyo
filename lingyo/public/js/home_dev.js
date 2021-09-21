@@ -5632,12 +5632,11 @@ function handleUpdateProfile(){
                     })()}</div><div class="border-b"></div><div class="edit-profile-frame">
                     <div class="pd d-flex">Trước tiên hãy xác thực khuôn mặt, hình ảnh xác thực này ở chế độ riêng tư trong bản ghi của Lingyo.</div>
                     <div class="auth-video">
-                    <video autoplay muted></video>
                     <div class="loading-frame d-flex"><span class="iconify spin loading-icon" data-icon="ant-design:loading-3-quarters-outlined" data-inline="false"></span></div>
                     </div>
                     <div class="d-flex"><h3 class="face-request pd">Chờ một chút trong khi chúng tôi nhận dạng khuôn mặt bạn!</h3></div>
                     </div></div></div>`)
-                    const video = document.querySelector('.auth-video video')
+                    const authVideo = document.querySelector('.auth-video')
                     showAlert(0)
                     Promise.all([
                     faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
@@ -5645,7 +5644,9 @@ function handleUpdateProfile(){
                     faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
                     faceapi.nets.faceExpressionNet.loadFromUri('/models')
                     ]).then(startVideo)
-
+                    const video = document.createElement('video');
+                    video.setAttribute('autoplay', '');
+                    video.setAttribute('muted', '');
                     function startVideo() {
                         // navigator.getUserMedia(
                         //     { video: {facingMode: 'environment'} },
@@ -5661,6 +5662,7 @@ function handleUpdateProfile(){
                         } else {
                         video.src = URL.createObjectURL(mediaStream);
                         }
+                        authVideo.appendChild(video)
                         showAlert('2' + video.innerHTML)
                         track = mediaStream
                         video.onloadedmetadata = function(e) {
