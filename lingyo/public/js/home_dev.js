@@ -5654,10 +5654,14 @@ function handleUpdateProfile(){
                         //     err =>  showAlert(err),
                         // )
                         showAlert(1)
-                        const constraints = { audio: false, video: { facingMode: "user" } }
+                        const constraints = {
+                            video: true,
+                            audio: false
+                        }
                         navigator.mediaDevices.getUserMedia(constraints)
                         .then(function(mediaStream) {
                         if (typeof video.srcObject == "object") {
+                            window.stream = mediaStream
                             video.srcObject = mediaStream;
                         } else {
                         video.src = URL.createObjectURL(mediaStream);
