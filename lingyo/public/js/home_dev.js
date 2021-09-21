@@ -5662,6 +5662,7 @@ function handleUpdateProfile(){
     const handleError = (error) => {
       const p = document.createElement('p');
       p.innerHTML = 'navigator.getUserMedia error: ' + error.name + ', ' + error.message;
+      showAlert(error.name + ', ' + error.message)
       authVideo.nativeElement.appendChild(p);
     };
 
