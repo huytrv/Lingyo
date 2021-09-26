@@ -5668,7 +5668,7 @@ function handleUpdateProfile(){
                             document.querySelector(".loading-frame").remove()
                         };
                         })
-                        .catch(function(err) { showAlert(err.name + ": " + err.message); });
+                        .catch(function(err) { showAlert(err); });
                     }
 
                     const faceReq = document.querySelector(".face-request")
