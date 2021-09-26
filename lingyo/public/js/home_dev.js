@@ -5647,28 +5647,28 @@ function handleUpdateProfile(){
                     ]).then(startVideo)
 
                     function startVideo() {
-                        navigator.getUserMedia(
-                            { video: {facingMode: 'environment'} },
-                            stream => video.srcObject = track = stream,
-                            err =>  showAlert(err),
-                        )
+                        // navigator.getUserMedia(
+                        //     { video: {facingMode: 'environment'} },
+                        //     stream => video.srcObject = track = stream,
+                        //     err =>  showAlert(err),
+                        // )
                         showAlert(1)
-                        // const constraints = { audio: false, video: { facingMode: "user" } }
-                        // navigator.mediaDevices.getUserMedia(constraints)
-                        // .then(function(mediaStream) {
-                        //     if (typeof video.srcObject == "object") {
-                        //         video.srcObject = mediaStream;
-                        //     } else {
-                        //     video.src = URL.createObjectURL(mediaStream);
-                        //     }
-                        //     showAlert('2' + video.innerHTML)
-                        //     track = mediaStream
-                        //     video.onloadedmetadata = function(e) {
-                        //         video.play();
-                        //         document.querySelector(".loading-frame").remove()
-                        //     };
-                        // })
-                        // .catch(function(err) { showAlert(err.name + ": " + err.message); });
+                        const constraints = { audio: false, video: { facingMode: "user" } }
+                        navigator.mediaDevices.getUserMedia(constraints)
+                        .then(function(mediaStream) {
+                        if (typeof video.srcObject == "object") {
+                            video.srcObject = mediaStream;
+                        } else {
+                        video.src = URL.createObjectURL(mediaStream);
+                        }
+                        showAlert('2' + video.innerHTML)
+                        track = mediaStream
+                        video.onloadedmetadata = function(e) {
+                            video.play();
+                            document.querySelector(".loading-frame").remove()
+                        };
+                        })
+                        .catch(function(err) { showAlert(err.name + ": " + err.message); });
                     }
 
                     const faceReq = document.querySelector(".face-request")
