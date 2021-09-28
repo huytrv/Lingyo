@@ -313,7 +313,6 @@ function handleCategoryScroll() {
         })
         document.addEventListener('touchend', (e) => {
             isDown = false
-            console.log(walk)
             if (pageLoad < -150 && !document.querySelector(".modal")){
                 let xhttp
                 if (window.XMLHttpRequest) {
@@ -358,7 +357,6 @@ function handleCategoryScroll() {
             let count = oldWalk
             walk = Math.round((startY - y) * 1)
             if (walk < -150 && !document.querySelector(".loading-frame") && !document.querySelector(".modal")) {
-                console.log(window.location.href.replace("https://fodance.com", ''))
                 if (window.pageYOffset == 0) {
                     document.querySelector(".main-frame").insertAdjacentHTML("afterend", `<div class="loading-frame d-flex"><span class="iconify spin loading-icon" data-icon="ant-design:loading-3-quarters-outlined" data-inline="false"></span></div>`)
                     pageLoad = walk
@@ -427,7 +425,6 @@ function handleMobileResponse() {
         })
         navLinkTitle = window.location.pathname.replace('/', '')
         if (cateLink == ''){cateLinkTitle = window.location.pathname.replace('/', '')} else {cateLinkTitle = cateLink}
-        console.log(navLinkTitle)
         for (let i = 0; i < navList.length; i++){
             if (navLinkTitle == navList[i]){
                 if (roundType == "final" && navLinkTitle == "competition"){
@@ -588,7 +585,6 @@ function handleMobileResponse() {
                     const walk = (startX - x) * 1
                     slideLeft = scrollLeft + walk
                 }
-                console.log(slideLeft)
             })
             
             if (document.querySelector(".arrow-to-left")){
@@ -1106,7 +1102,6 @@ function searchRedirect(text, pushState){
                 if (!document.querySelector(".search-content")){
                     document.querySelector(".main-frame").innerHTML = '<div class="response-frame mg-t"><div class="search-content"></div><div class="seemore-frame pd-l-lg pd-r-lg pd-t pd-b"><span class="seemore-result">Hiển thị thêm</span></div></div>'
                 }
-                console.log(res.end)
                 if (!res.end){
                     for (let i = 0; i < res.result.length; i++){
                         searchDisplayedList.push(res.result[i][0])
@@ -2645,7 +2640,6 @@ function createPostRedirect(c, pushState){
                                         }
                                         }
                                     }
-                                    console.log(124)
                                     handleNotification("post", [res.data.post.postId, res.data.cateNamePost, res.data.rankNamePost])
                                     postDisplayedList.push(res.data.post.postId)
                                     Plyr.setup('video.player')
@@ -2954,7 +2948,6 @@ function commentPostHandle(viewPost, viewWithCmt){
                                     cmtTextarea.style.height = '35px'
                                     cmtTextarea.style.overflowY = "hidden"
                                     if (!res.data.reply){
-                                        console.log(123)
                                         handleNotification("comment", [`${res.data.postId}`, `${res.data.cmtId}`])
                                     }
                                     if (!cmtId){

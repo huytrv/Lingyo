@@ -345,7 +345,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 sum += cateTotal.post
                             }
                             count ++
-                            // console.log(enjoyList[i])
                             if (count == cateList.length) {
                                 let buf1, buf2, buf3, buf4 = 0
                                 if (rank == 'primary'){homeRank = "Sơ cấp", buf1 = 0.12, buf2 = 0.06, buf3 = 0.03, buf4 = 0.09}
@@ -358,7 +357,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 finalFPList[1] = Math.round(sum * 2)
                                 finalFPList[2] = Math.round(sum * 1)
                                 for (let j = 0; j < enjoyList.length; j++){
-                                    console.log(sum)
                                     if (sum > 0){
                                         cateRewardList[j] = (Math.round(((enjoyList[j]/sum) * buf4) * 100) / 100).toFixed(2)
                                         cateFPList[j] = Math.round((enjoyList[j]/sum) * 1)
@@ -1922,7 +1920,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         userId: req.user.userId,
                                     }
                                 }).then(function(postNumbers){
-                                    console.log(postNumbers)
                                     if ((roundType == "final" && postNumbers < 1) || (roundType == "group-stage" && postNumbers < 3)){
                                         if ((competition && f.file && f.file.type.includes("video")) || (!competition && !cateList.includes(category) && !f.file)){
                                             if (rank == "primary" || rank == "intermediate" || rank == "highgrade" || rank == ''){
@@ -4159,7 +4156,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             }).then(function () {
                                 comments.increment('like', {by: 1, where: {cmtId: req.body.dataCmtDf}}).then(function(){
                                     commentLikes.count({where: {cmtId: req.body.dataCmtDf}}).then(function(total){
-                                        console.log(total)
                                         const data = {
                                             total: total
                                         }
@@ -4187,7 +4183,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         const data = {
                                             total: total
                                         }
-                                        console.log(total)
                                         res.json({
                                             data: data
                                         })
@@ -4753,7 +4748,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 const reg = /image\/jpeg|image\/jpg|image\/png/gi;
                 (async () => {
                     const mineType = await FileType.fromFile(f.file.path)
-                    console.log(mineType)
                     if (mineType.mime.match(reg)){
                         const root =  __dirname.replace('\controllers', '')
                         const image = sharp(f.file.path);
@@ -5022,7 +5016,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 }
             }
             else if (req.body.type == "post-done"){
-                console.log(123)
                 if (typeof(req.user.userId) === "number" && typeof(req.body.source) === "object" && typeof(req.body.type) === "string"){
                     notifications.create({
                         sourceUser: req.user.userId,
@@ -5303,7 +5296,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         userId: post.userId
                                     }
                                 }).then(function(e){
-                                    console.log(e)
                                     if (e.length > 1){
                                         notifications.destroy({
                                             where: {
@@ -5831,26 +5823,19 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 }
             }).then(function(a){
                 if (!a){
-                    console.log(1)
                     const form = formidable()
                     form.parse(req, (err, fields, f) => {
                         const reg = /image\/jpeg|image\/jpg|image\/png/gi;
                         (async () => {
                             const mineType = await FileType.fromFile(f.file.path)
                             if (mineType.mime.match(reg)){
-                                console.log(2)
                                 uploadFile(f.file.path, f.file.name, f.file.type).then(function (err) {
-                                    if (err){console.log('1 ', err)}
                                     const data = fields.image.replace(/^data:image\/\w+;base64,/, "");
                                     const buf = Buffer.from(data, "base64");
                                     const root =  __dirname.replace('\controllers', '')
                                     const filePath = path.join(root, `uploads\\auth_image_${req.user.userId}.png`)
-                                    console.log(buf)
-                                    console.log(filePath)
                                     fs.writeFile(filePath, buf, () => {
                                         uploadFile(filePath, `auth_image_${req.user.userId}.png`, 'png').then(function (err) {
-                                            if (err){console.log('1 ', err)}
-                                            console.log(3)
                                             userAuth.create({
                                                 face: `auth_image_${req.user.userId}.png`,
                                                 file: f.file.name,
@@ -5867,7 +5852,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 })
                             }
                             else {
-                                console.log("err")
                                 res.json({
                                     status: "err"
                                 })
