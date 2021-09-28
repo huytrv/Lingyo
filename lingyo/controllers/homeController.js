@@ -3835,6 +3835,156 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
     })
 
+    app.post("/comment-scription", function(req, res){
+        if (req.isAuthenticated()){
+            req.session.tryTime = 0
+            req.session.blockLogin = false
+            if (req.body.content.trim().length > 0 && req.body.content.trim().length <= 1000){
+                function getRndInteger(min, max) {
+                    return Math.floor(Math.random() * (max - min)) + min;
+                }
+                const postId = req.body.dataPostDf
+                posts.findOne({
+                    where: {
+                        postId: postId
+                    }
+                }).then(function(p){
+                    if (p){
+                        comments.count({
+                            where: {
+                                postId: postId,
+                                reply: null
+                            }
+                        }).then(function(total){
+                            function generateComment(){
+                                const id = getRndInteger(1000000000000000, 10000000000000000)
+                                comments.findOne({
+                                    where: {
+                                        cmtId: id
+                                    }
+                                }).then(function(c){
+                                    if (!c){
+                                        function createWithoutTag(){
+                                            if (typeof(id) === "number" && typeof(req.body.cmtId) === "object" && typeof(req.user.userId) == "number" && typeof(req.body.content) === "string"){
+                                                comments.create({ 
+                                                    cmtId: id,
+                                                    user: req.user.userId,
+                                                    tag: null,
+                                                    content: req.body.content.trim(),
+                                                    like: 0,
+                                                    time: new Date(),
+                                                    reply: req.body.cmtId,
+                                                    postId: postId,
+                                                }).then(function(cmt){
+                                                    if (!req.body.cmtId){posts.increment('comment', {by: 1, where: {postId: postId}})}
+                                                    userProfile.findOne({
+                                                        raw: true,
+                                                        where: {
+                                                            userId: req.user.userId
+                                                        }
+                                                    }).then(function(profile){  
+                                                        const cmtAvt = profile.avatar
+                                                        const nickname = profile.nickname
+                                                        const auth = profile.auth
+                                                        const data = {
+                                                            postId: p.postId,
+                                                            cmtId: cmt.cmtId,
+                                                            user: req.user.userId,
+                                                            username: req.user.username,
+                                                            nickname: nickname,
+                                                            avt: cmtAvt,
+                                                            reply: cmt.reply,
+                                                            auth: auth,
+                                                            total: total
+                                                        }
+                                                        res.json({
+                                                            status: 'done',
+                                                            data: data
+                                                        })
+                                                    })
+                                                })
+                                            }
+                                            
+                                        }
+                                        if (req.body.tag){
+                                            userProfile.findOne({
+                                                where: {
+                                                    nickname: req.body.tag
+                                                }
+                                            }).then(function(u){
+                                                if (u){
+                                                    if (typeof(id) === "number" && typeof(req.body.cmtId) === "object" && typeof(req.user.userId) == "number" && typeof(req.body.content) === "string"){
+                                                        comments.create({ 
+                                                            cmtId: id,
+                                                            user: req.user.userId,
+                                                            tag: u.userId,
+                                                            content: req.body.content.trim(),
+                                                            like: 0,
+                                                            time: new Date(),
+                                                            reply: req.body.cmtId,
+                                                            postId: postId,
+                                                        }).then(function(cmt){
+                                                            if (!req.body.cmtId){posts.increment('comment', {by: 1, where: {postId: postId}})}
+                                                            userProfile.findOne({
+                                                                raw: true,
+                                                                where: {
+                                                                    userId: req.user.userId
+                                                                }
+                                                            }).then(function(profile){  
+                                                                const cmtAvt = profile.avatar
+                                                                const nickname = profile.nickname
+                                                                const auth = profile.auth
+                                                                const data = {
+                                                                    postId: p.postId,
+                                                                    cmtId: cmt.cmtId,
+                                                                    user: req.user.userId,
+                                                                    username: req.user.username,
+                                                                    nickname: nickname,
+                                                                    avt: cmtAvt,
+                                                                    reply: cmt.reply,
+                                                                    auth: auth,
+                                                                    total: total
+                                                                }
+                                                                res.json({
+                                                                    status: 'done',
+                                                                    data: data
+                                                                })
+                                                            })
+                                                        })
+                                                    }
+                                                }    
+                                                else {
+                                                    createWithoutTag()
+                                                }
+                                            })
+                                        }
+                                        else {
+                                            createWithoutTag()
+                                        }
+                                    }
+                                    else {
+                                        generateComment()
+                                    }
+                                })
+                            }
+                            generateComment()
+                        })
+                    }else {
+                        res.end()
+                    }
+                })
+            }
+            else {
+                res.json({
+                    status: 'error',
+                })
+            }
+        }
+        else {
+            res.redirect('login')
+        }
+    })
+
     app.post("/load-comment-scription", function(req, res){
         if (req.isAuthenticated()){
             req.session.tryTime = 0
@@ -3875,7 +4025,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             else if (cmts.length == 0 && req.body.viewWithCmt){
                                 res.json({status: "removed", data: {total: total}})
                             }
-                            const cmtUsernames = [], cmtNicknames = [], cmtAvts = [], repTotal = [], cmtLiked = []
+                            const cmtUsernames = [], cmtNicknames = [], cmtAvts = [], cmtAuth = [], repTotal = [], cmtLiked = []
                             let buf = 0
                             for (let i = 0; i < cmts.length; i++){
                                 const cmtId = cmts[i].cmtId
@@ -3905,6 +4055,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         }).then(function(n){
                                             cmtNicknames[i] = n.nickname
                                             cmtAvts[i] = n.avatar
+                                            cmtAuth[i] = n.auth
                                             commentLikes.findAll({
                                                 where: {
                                                     cmtId: cmts[i].cmtId
@@ -3930,6 +4081,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                             likeTotal: cl.length,
                                                             cmtUsernames: cmtUsernames,
                                                             cmtNicknames: cmtNicknames,
+                                                            cmtAuth: cmtAuth,
                                                             cmtLiked: cmtLiked,
                                                             cmtAvts: cmtAvts,
                                                             cmtTags: null,
