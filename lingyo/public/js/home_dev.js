@@ -425,8 +425,9 @@ function handleMobileResponse() {
         document.querySelectorAll("input[data-plyr='volume']").forEach(function(e){
             e.remove()
         })
-        if (navLink == ''){navLinkTitle = window.location.pathname.replace('/', '')} else {navLinkTitle = navLink}
+        navLinkTitle = window.location.pathname.replace('/', '')
         if (cateLink == ''){cateLinkTitle = window.location.pathname.replace('/', '')} else {cateLinkTitle = cateLink}
+        console.log(navLinkTitle)
         for (let i = 0; i < navList.length; i++){
             if (navLinkTitle == navList[i]){
                 if (roundType == "final" && navLinkTitle == "competition"){
@@ -2564,6 +2565,10 @@ function createPostRedirect(c, pushState){
                                     handleNavigation()
                                     handleMainFrame()
                                     replaceLinkName()
+                                }
+                                else if (res.status == "over post"){
+                                    clearInterval(interv)
+                                    showAlert("Bạn chỉ có thể đăng 3 bài viết Vòng bảng và 1 bài viết Vòng chung kết!")
                                 }
                                 else if (res.status == "no files chosen"){
                                     clearInterval(interv)

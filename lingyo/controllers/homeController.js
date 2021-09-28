@@ -33,7 +33,7 @@ const s3 = new S3({
 })
 
 
-module.exports = function(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber, userAuth){
+module.exports = function(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber, reward, userAuth){
     const rankList = ["primary", "intermediate", "highgrade"]
     const rankName = ["Sơ cấp", "Trung cấp", "Cao cấp"]
     const cateList = ["freestyle", "hiphop", "rap", "contemporary", "ballroom", "modern", "ballet", "shuffle", "jazz", "sexy", "flashmob", "other"]
@@ -330,19 +330,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     const enjoyList = [], finalRewardList = [], cateRewardList = [], finalFPList = [], cateFPList = []
                     let count = sum = 0
                     for (let i = 0; i < cateList.length; i++){
-                        posts.count({
+                        reward.findOne({
                             where: {
                                 category: cateList[i],
                                 rank: rank,
-                                time: {
-                                    [Op.between]: TimeRange
-                                },
-                                auth: true
+                                round: round                           
                             }
                         }).then(function(cateTotal){
-                            enjoyList[i] = cateTotal
-                            sum += cateTotal
+                            if (!cateTotal){
+                                enjoyList[i] = 0
+                            }
+                            else {
+                                enjoyList[i] = cateTotal.post
+                                sum += cateTotal.post
+                            }
                             count ++
+                            // console.log(enjoyList[i])
                             if (count == cateList.length) {
                                 let buf1, buf2, buf3, buf4 = 0
                                 if (rank == 'primary'){homeRank = "Sơ cấp", buf1 = 0.12, buf2 = 0.06, buf3 = 0.03, buf4 = 0.09}
@@ -355,6 +358,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 finalFPList[1] = Math.round(sum * 2)
                                 finalFPList[2] = Math.round(sum * 1)
                                 for (let j = 0; j < enjoyList.length; j++){
+                                    console.log(sum)
                                     if (sum > 0){
                                         cateRewardList[j] = (Math.round(((enjoyList[j]/sum) * buf4) * 100) / 100).toFixed(2)
                                         cateFPList[j] = Math.round((enjoyList[j]/sum) * 1)
@@ -530,6 +534,27 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 postId: data.postId
                             }
                         }).then(function(){
+                            if (roundType == "group-stage"){
+                                reward.findOne({
+                                    where: {
+                                        category: p.category,
+                                        rank: p.rank,
+                                        round: round
+                                    }
+                                }).then(function(rw){
+                                    if (rw){
+                                        reward.increment('post', {by: 1, where: {category: p.category, rank: p.rank, round: round}})
+                                    }
+                                    else {
+                                        reward.create({
+                                            category: p.category,
+                                            rank: p.rank,
+                                            round: round,
+                                            post: 1
+                                        })
+                                    }
+                                })
+                            }
                             io.sockets.emit("video-validated", data.postId)
                         })
                     }
@@ -1887,145 +1912,164 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     userId: req.user.userId
                                 }
                             }).then(function(profile){
-                                if ((competition && f.file && f.file.type.includes("video")) || (!competition && !cateList.includes(category) && !f.file)){
-                                    if (rank == "primary" || rank == "intermediate" || rank == "highgrade" || rank == ''){
-                                        if (cateList.includes(category) || category == ''){
-                                            if ((category != '' && rank != '') || category == ''){
-                                                let ticketValid = true
-                                                if (rank == '' && competition){rank = "primary"}
-                                                if (rank == "intermediate" && profile.tickets < 1){ticketValid = false}
-                                                if (rank == "highgrade" && profile.tickets < 3){ticketValid = false}
-                                                if (ticketValid){
-                                                    function generatePost(){
-                                                        const id = getRndInteger(1000000000000000, 10000000000000000)
-                                                        posts.findOne({
-                                                            where: {
-                                                                postId: id
-                                                            }
-                                                        }).then(function(p){
-                                                            if (!p){
-                                                                function createPosts(){
-                                                                    if (typeof(id) === "number" && typeof(description) === "string" && typeof(category) === "string" && typeof(rank) === "string" && typeof(competition) === "string" && typeof(req.user.userId) === "number"){
-                                                                        posts.create({ 
-                                                                            postId: id,
-                                                                            description: description,
-                                                                            file: file,
-                                                                            time: new Date(),
-                                                                            like: 0,
-                                                                            comment: 0,
-                                                                            share: 0,
-                                                                            category: category,
-                                                                            rank: rank,
-                                                                            competition: competition,
-                                                                            videoViews: 0,
-                                                                            auth: false,
-                                                                            userId: req.user.userId
-                                                                        }).then(function(newPost){
-                                                                            function PostCreated() {
-                                                                                if (rank == "intermediate"){
-                                                                                    userProfile.increment('tickets', {by: -1, where: {userId: req.user.userId}})
-                                                                                }
-                                                                                else if (rank == "highgrade"){
-                                                                                    userProfile.increment('tickets', {by: -3, where: {userId: req.user.userId}})
-                                                                                }
-                                                                                let cateNamePost = false, rankNamePost = false
-                                                                                for (let c = 0; c < cateList.length; c++){
-                                                                                    if (cateList[c] == category){cateNamePost = cateName[c]}
-                                                                                }
-                                                                                for (let r = 0; r < rankList.length; r++){
-                                                                                    if (rankList[r] == rank){rankNamePost = rankName[r]}
-                                                                                }
-                                                                                const data = {
-                                                                                    username: req.user.username,
-                                                                                    userId: req.user.userId,
-                                                                                    profile: profile,
-                                                                                    post: newPost,
+                                posts.count({
+                                    where: {
+                                        time: {
+                                            [Op.gte]: currentTimeline
+                                        },
+                                        category: category,
+                                        rank: rank,
+                                        userId: req.user.userId,
+                                    }
+                                }).then(function(postNumbers){
+                                    console.log(postNumbers)
+                                    if ((roundType == "final" && postNumbers < 1) || (roundType == "group-stage" && postNumbers < 3)){
+                                        if ((competition && f.file && f.file.type.includes("video")) || (!competition && !cateList.includes(category) && !f.file)){
+                                            if (rank == "primary" || rank == "intermediate" || rank == "highgrade" || rank == ''){
+                                                if (cateList.includes(category) || category == ''){
+                                                    if ((category != '' && rank != '') || category == ''){
+                                                        let ticketValid = true
+                                                        if (rank == '' && competition){rank = "primary"}
+                                                        if (rank == "intermediate" && profile.tickets < 1){ticketValid = false}
+                                                        if (rank == "highgrade" && profile.tickets < 3){ticketValid = false}
+                                                        if (ticketValid){
+                                                            function generatePost(){
+                                                                const id = getRndInteger(1000000000000000, 10000000000000000)
+                                                                posts.findOne({
+                                                                    where: {
+                                                                        postId: id
+                                                                    }
+                                                                }).then(function(p){
+                                                                    if (!p){
+                                                                        function createPosts(){
+                                                                            if (typeof(id) === "number" && typeof(description) === "string" && typeof(category) === "string" && typeof(rank) === "string" && typeof(competition) === "string" && typeof(req.user.userId) === "number"){
+                                                                                posts.create({ 
+                                                                                    postId: id,
+                                                                                    description: description,
+                                                                                    file: file,
+                                                                                    time: new Date(),
+                                                                                    like: 0,
+                                                                                    comment: 0,
+                                                                                    share: 0,
                                                                                     category: category,
                                                                                     rank: rank,
-                                                                                    cateNamePost: cateNamePost,
-                                                                                    rankNamePost: rankNamePost
-                                                                                }
-                                                                                res.json({
-                                                                                    status: "post-created",
-                                                                                    data: data
-                                                                                })
-                                                                            }
-                                                                            if (f.file){
-                                                                                sendModerateMail("fodancemoderator@gmail.com", id)
-                                                                                const interv = setInterval(function(){
-                                                                                    posts.findOne({
-                                                                                        where: {
-                                                                                            postId: id
+                                                                                    competition: competition,
+                                                                                    videoViews: 0,
+                                                                                    auth: false,
+                                                                                    userId: req.user.userId
+                                                                                }).then(function(newPost){
+                                                                                    function PostCreated() {
+                                                                                        if (rank == "intermediate"){
+                                                                                            userProfile.increment('tickets', {by: -1, where: {userId: req.user.userId}})
                                                                                         }
-                                                                                    }).then(function(postAuth){
-                                                                                        if (postAuth){
-                                                                                            if (postAuth.auth){
-                                                                                                clearInterval(interv)
-                                                                                                PostCreated()
-                                                                                            }
-                                                                                        }                                                                              
-                                                                                        else {
-                                                                                            clearInterval(interv)
-                                                                                            res.json({
-                                                                                                status: "post-invalid",
-                                                                                            })
+                                                                                        else if (rank == "highgrade"){
+                                                                                            userProfile.increment('tickets', {by: -3, where: {userId: req.user.userId}})
                                                                                         }
-                                                                                    })
-                                                                                }, 5000)
-                                                                            }
-                                                                            else {
-                                                                                posts.update({
-                                                                                    auth: true
-                                                                                }, {
-                                                                                    where: {
-                                                                                        postId: id
+                                                                                        let cateNamePost = false, rankNamePost = false
+                                                                                        for (let c = 0; c < cateList.length; c++){
+                                                                                            if (cateList[c] == category){cateNamePost = cateName[c]}
+                                                                                        }
+                                                                                        for (let r = 0; r < rankList.length; r++){
+                                                                                            if (rankList[r] == rank){rankNamePost = rankName[r]}
+                                                                                        }
+                                                                                        const data = {
+                                                                                            username: req.user.username,
+                                                                                            userId: req.user.userId,
+                                                                                            profile: profile,
+                                                                                            post: newPost,
+                                                                                            category: category,
+                                                                                            rank: rank,
+                                                                                            cateNamePost: cateNamePost,
+                                                                                            rankNamePost: rankNamePost
+                                                                                        }
+                                                                                        res.json({
+                                                                                            status: "post-created",
+                                                                                            data: data
+                                                                                        })
                                                                                     }
-                                                                                }).then(function(){
-                                                                                    PostCreated()
+                                                                                    if (f.file){
+                                                                                        sendModerateMail("fodancemoderator@gmail.com", id)
+                                                                                        const interv = setInterval(function(){
+                                                                                            posts.findOne({
+                                                                                                where: {
+                                                                                                    postId: id
+                                                                                                }
+                                                                                            }).then(function(postAuth){
+                                                                                                if (postAuth){
+                                                                                                    if (postAuth.auth){
+                                                                                                        clearInterval(interv)
+                                                                                                        PostCreated()
+                                                                                                    }
+                                                                                                }                                                                              
+                                                                                                else {
+                                                                                                    clearInterval(interv)
+                                                                                                    res.json({
+                                                                                                        status: "post-invalid",
+                                                                                                    })
+                                                                                                }
+                                                                                            })
+                                                                                        }, 5000)
+                                                                                    }
+                                                                                    else {
+                                                                                        posts.update({
+                                                                                            auth: true
+                                                                                        }, {
+                                                                                            where: {
+                                                                                                postId: id
+                                                                                            }
+                                                                                        }).then(function(){
+                                                                                            PostCreated()
+                                                                                        })
+                                                                                    }
                                                                                 })
                                                                             }
-                                                                        })
+                                                                            
+                                                                        }
+                                                                        createPosts()
                                                                     }
-                                                                    
-                                                                }
-                                                                createPosts()
+                                                                    else {
+                                                                        generatePost()
+                                                                    }
+                                                                })
                                                             }
-                                                            else {
-                                                                generatePost()
-                                                            }
+                                                            generatePost()
+                                                        }
+                                                        else {
+                                                            res.json({
+                                                                status: "not enough ticket"
+                                                            })
+                                                        }
+                                                    }
+                                                    else {
+                                                        res.json({
+                                                            status: "topic rank invalid"
                                                         })
                                                     }
-                                                    generatePost()
                                                 }
                                                 else {
                                                     res.json({
-                                                        status: "not enough ticket"
+                                                        status: "topic invalid"
                                                     })
                                                 }
                                             }
                                             else {
                                                 res.json({
-                                                    status: "topic rank invalid"
+                                                    status: "rank invalid"
                                                 })
                                             }
                                         }
                                         else {
                                             res.json({
-                                                status: "topic invalid"
+                                                status: "no files chosen"
                                             })
                                         }
                                     }
                                     else {
                                         res.json({
-                                            status: "rank invalid"
+                                            status: "over post"
                                         })
                                     }
-                                }
-                                else {
-                                    res.json({
-                                        status: "no files chosen"
-                                    })
-                                }
+                                })
                             })
                         }
                         if (f.file){

@@ -6362,7 +6362,6 @@ tbody {
   }
 
   .notification-item {
-    flex-direction: row;
     justify-content: space-between;
     padding: 12px 30px;
   }

@@ -372,6 +372,13 @@ const cardNumber = mysqlDB.define("cardnumber", {
     name: sequelize.STRING,
 })
 
+const reward = mysqlDB.define("reward", {
+    round: sequelize.INTEGER,
+    category: sequelize.STRING,
+    rank: sequelize.STRING,
+    post: sequelize.INTEGER
+})
+
 const userAuth = mysqlDB.define("userauth", {
     face: sequelize.STRING,
     file: sequelize.STRING,
@@ -477,4 +484,4 @@ const io = socketio(server)
 loginController(app, users)
 forgotController(app, users, forgotPasswordToken, forgotPasswordCode)
 updateController(app, users)
-homeController(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber, userAuth)
+homeController(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber, reward, userAuth)
