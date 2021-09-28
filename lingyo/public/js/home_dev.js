@@ -515,6 +515,97 @@ function handleMobileResponse() {
                     document.querySelector(".mobile-creator").style.zIndex = 5000
                 }
             }
+
+            let clickValid = true, slideLeft = 0
+            const slider = document.querySelector('.sidenav-frame')
+            let isDown = false
+            let startX
+            let scrollLeft
+            let clickBuf = 0
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true
+                startX = e.pageX
+                scrollLeft = slider.scrollLeft
+                clickBuf = 1
+            })
+            slider.addEventListener('mouseleave', () => {
+                isDown = false
+                if (slideLeft > 50 || slideLeft < -50 && clickValid) {
+                    document.querySelector(".sidenav").style.width = "0";
+                    document.querySelector(".sidenav-frame").style.position = "relative"
+                    document.querySelector(".mobile-creator").style.zIndex = 5000
+                }
+            })
+            slider.addEventListener('mouseup', (e) => {
+                isDown = false
+                if (clickBuf == 1){clickValid = true}
+                else {clickValid = false}
+                if (slideLeft > 50 || slideLeft < -50 && clickValid) {
+                    document.querySelector(".sidenav").style.width = "0";
+                    document.querySelector(".sidenav-frame").style.position = "relative"
+                    document.querySelector(".mobile-creator").style.zIndex = 5000
+                }
+            })
+            slider.addEventListener('mousemove', (e) => {
+                clickBuf += 1
+                if(!isDown) return 
+                e.preventDefault()
+                const x = e.pageX
+                const walk = (startX - x) * 1
+                slideLeft = scrollLeft + walk
+                slider.scrollLeft = slideLeft
+            })
+
+            slider.addEventListener('touchstart', (e) => {
+                isDown = true
+                for (i=0; i < e.changedTouches.length; i++) {
+                    startX = e.changedTouches[i].pageX
+                    scrollLeft = slider.scrollLeft
+                }
+            })
+            slider.addEventListener('touchcancel', () => {
+                isDown = false
+                if (slideLeft > 50 || slideLeft < -50 && clickValid) {
+                    document.querySelector(".sidenav").style.width = "0";
+                    document.querySelector(".sidenav-frame").style.position = "relative"
+                    document.querySelector(".mobile-creator").style.zIndex = 5000
+                }
+            })
+            slider.addEventListener('touchend', (e) => {
+                isDown = false
+                if (slideLeft > 50 || slideLeft < -50 && clickValid) {
+                    document.querySelector(".sidenav").style.width = "0";
+                    document.querySelector(".sidenav-frame").style.position = "relative"
+                    document.querySelector(".mobile-creator").style.zIndex = 5000
+                }
+            })
+            slider.addEventListener('touchmove', (e) => {
+                if(!isDown) return 
+                e.preventDefault()
+                for (i=0; i < e.changedTouches.length; i++) {
+                    // const x = e.pageX
+                    const x = e.changedTouches[i].pageX
+                    const walk = (startX - x) * 1
+                    slideLeft = scrollLeft + walk
+                }
+                console.log(slideLeft)
+            })
+            
+            if (document.querySelector(".arrow-to-left")){
+                document.querySelector(".arrow-to-left").onclick = function(){
+                    document.querySelector(".category-slidebar").style.scrollBehavior = 'smooth'
+                    if (scrollRange > 300){scrollRange -= 300}
+                    else {scrollRange = 0}
+                    slider.scrollLeft = scrollRange
+                }
+                document.querySelector(".arrow-to-right").onclick = function(){
+                    document.querySelector(".category-slidebar").style.scrollBehavior = 'smooth'
+                    const maxScrollLeft = slider.scrollWidth - slider.clientWidth
+                    if (scrollRange < maxScrollLeft){scrollRange += 300}
+                    else {scrollRange = maxScrollLeft}
+                    slider.scrollLeft = scrollRange
+                }
+            }
         }
 
         if (document.querySelector(".return-but") && !document.querySelector(".return-but").classList.contains("close-view-post-modal")){
