@@ -2244,7 +2244,7 @@ input:checked + .slider:before {
   justify-content: flex-end;
   align-items: center;
   min-width: 110px;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .nav-item img {
@@ -5075,7 +5075,7 @@ input[type='range']::-ms-fill-lower {
 }
 
 .walking-lottie {
-  width: 30px;
+  width: 25px;
   display: flex;
 }
 
@@ -5392,11 +5392,11 @@ input[type='range']::-ms-fill-lower {
 
 .cate-reward .top-reward-frame{
   min-width: 24%;
-  background-image: linear-gradient(to right, #d9f1fa, rgb(242, 232, 255));
+  background-image: linear-gradient(to right, #d9f1fa, rgb(235, 237, 255));
 }
 
 .cate-reward .top-reward-frame:hover{
-  background-image: linear-gradient(to right, #d0e7f0, rgb(240, 233, 241));
+  background-image: linear-gradient(to right, #d0e7f0, rgb(235, 233, 241));
 }
 
 .icon-reward-2 {
@@ -5542,8 +5542,8 @@ input[type='range']::-ms-fill-lower {
   top: 1px;
   width: calc(100% - 2px);
   height: calc(100% - 2px);
-  /* background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));; */
-  background-color: #fafafa;
+  background-image: linear-gradient(to right, #dedefd, rgb(252, 248, 255));;
+  /* background-color: #fafafa; */
   border-radius: 20px;
 }
 .rw2 .rainbow::after {
@@ -5555,7 +5555,8 @@ input[type='range']::-ms-fill-lower {
   width: calc(100% - 2px);
   height: calc(100% - 2px);
   /* background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));; */
-  background-color: #fafafa;
+  /* background-color: #fafafa; */
+  background-image: linear-gradient(to right, #dedefd, rgb(252, 248, 255));;
   border-radius: 20px;
 }
 .rw3 .rainbow::after {
@@ -5567,7 +5568,8 @@ input[type='range']::-ms-fill-lower {
   width: calc(100% - 2px);
   height: calc(100% - 2px);
   /* background-image: linear-gradient(to right, #fddee6, rgb(255, 248, 253));; */
-  background-color: #fafafa;
+  /* background-color: #fafafa; */
+  background-image: linear-gradient(to right, #dedefd, rgb(252, 248, 255));;
   border-radius: 20px;
 }
 
@@ -6253,7 +6255,7 @@ tbody {
   }
 
   .main-frame-post-inner {
-    width: 80%;
+    width: 75%;
     min-width: 480px;
     max-width: 600px;
     margin-top: 0;
@@ -6623,6 +6625,10 @@ tbody {
     height: 100%;
     max-height: 270px;
     min-width: 390px;
+  }
+  
+  .final-reward {
+    width: 95%;
   }
 }
 
