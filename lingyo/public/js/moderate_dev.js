@@ -116,8 +116,9 @@ socket.on("post-need-moderate", function(posts){
                 <button class="submit-but validate-video" data-valid="true">Chấp nhận</button>
                 <button class="submit-but danger-color validate-video" data-valid="false">Không hợp lệ</button>
             </div>
-        </div>`)  
+            </div>`)  
             viewImage()
+            console.log(0)
             validateMedia(posts[i])
         }
     }
@@ -167,14 +168,26 @@ function validateMedia(post){
             // xhttp.setRequestHeader('Content-Type', 'application/json')
             // xhttp.send(JSON.stringify(data))
             socket.emit("/validate-video", data)
-            let cate, rank
-            for(let i = 0; i < cateList.length; i++){
-                if (post.category == cateList[i]){cate = cateName[i]}
+            if (post){
+                let cate, rank
+                for(let i = 0; i < cateList.length; i++){
+                    if (post.category == cateList[i]){cate = cateName[i]}
+                }
+                for(let i = 0; i < rankList.length; i++){
+                    if (post.rank == rankList[i]){rank = rankName[i]}
+                }
+                console.log(1243)
+                handleNotification("post-done", [post.postId, cate, rank])
             }
-            for(let i = 0; i < rankList.length; i++){
-                if (post.rank == rankList[i]){rank = rankName[i]}
+            else {
+                const ps = document.querySelectorAll(".post-moderate")
+                for (let i = 0; i < ps.length; i++){
+                    postId = ps[i].getAttribute("data-post-df")
+                    category = ps[i].querySelector(".pre-post-cate").textContent
+                    rank = ps[i].querySelector(".pre-post-rank").textContent
+                    handleNotification("post-done", [postId, category, rank])
+                }
             }
-            handleNotification("post-done", [post.postId, cate, rank])
             validateBut[i].parentNode.parentNode.remove()
         }
     }

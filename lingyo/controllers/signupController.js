@@ -503,7 +503,7 @@ module.exports = function(app, users, userProfile, emailRegister, phoneRegister)
                                                 followers: 0,
                                                 following: 0,
                                                 points: 0,
-                                                stars: 0,
+                                                usd: 0,
                                                 tickets: 0,
                                                 rank1: 0,
                                                 rank2: 0,
@@ -515,6 +515,7 @@ module.exports = function(app, users, userProfile, emailRegister, phoneRegister)
                                                 followNotification: true,
                                                 voteFollowNotification: true,
                                                 postFollowNotification: true,
+                                                posts: 0,
                                                 starstatus: false,
                                                 new: true,
                                                 auth: false

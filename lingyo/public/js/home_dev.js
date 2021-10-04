@@ -2651,6 +2651,10 @@ function createPostRedirect(c, pushState){
                                     handleMainFrame()
                                     replaceLinkName()
                                 }
+                                else if (res.status == "not auth"){
+                                    clearInterval(interv)
+                                    showAlert("Bạn cần xác thực tài khoản để tham gia!")
+                                }
                                 else if (res.status == "over post"){
                                     clearInterval(interv)
                                     showAlert("Bạn chỉ có thể đăng 3 bài viết Vòng bảng và 1 bài viết Vòng chung kết!")

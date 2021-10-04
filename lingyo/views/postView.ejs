@@ -42,21 +42,20 @@
                     <div class="post-info">
                         <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile.nickname -%>">
                             <% if (postProfile.avatar.includes("http")) { %>
-                                <img src="<%- postProfile.avatar -%>" class="user-avt" username="<%- postViewUser -%>">
+                                <img src="<%- postProfile.avatar -%>" class="user-avt" username="<%- post['user.username'] -%>">
                             <% } %>
                             <% if (!postProfile.avatar.includes("http")) { %>
-                                <img src="https://cdn.fodance.com/fd-media/<%- postProfile.avatar -%>" class="user-avt" username="<%- postViewUser -%>">
-                                <% } %>
+                                <img src="https://cdn.fodance.com/fd-media/<%- postProfile.avatar -%>" class="user-avt" username="<%- post['user.username'] -%>">
+                            <% } %>
                         </a>    
                         <div class="avt-info">
                             <div class="d-flex">
-                                <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile.nickname -%>"><span class="avt-username <% if (post.userId == userId) { %>user-username<% } %><% if (post.userId != userId) { %><% } %>"><%- postViewUser -%></span></a>
-                                <% if (postProfile[i].auth) { %><span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span><%}%>
-                                    <div class="mark-icon">
+                                <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile.nickname -%>"><span class="avt-username <% if (post['user.userId'] == userId) { %>user-username<% } %><% if (post['user.userId'] != userId) { %><% } %>"><%- post['user.username'] -%></span></a>
+                                <% if (postProfile.auth) { %><span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span><%}%>
                                 <div class="mark-icon">
                                 </div>
                                 <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile.nickname -%>">
-                                    <span class="post-time <% if (post.userId == userId) { %>nickname-content<% } %><% if (post.userId != userId) { %><% } %>">
+                                    <span class="post-time <% if (post['user.userId'] == userId) { %>nickname-content<% } %><% if (post['user.userId'] != userId) { %><% } %>">
                                         @<%- postProfile.nickname -%>
                                     </span>
                                 </a>

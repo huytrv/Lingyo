@@ -272,8 +272,8 @@ const userProfile = mysqlDB.define("userProfile", {
     location: sequelize.STRING(150),
     followers: sequelize.INTEGER,
     following: sequelize.INTEGER,
-    points: sequelize.INTEGER,
-    stars: sequelize.INTEGER,
+    points: sequelize.FLOAT,
+    usd: sequelize.FLOAT,
     tickets: sequelize.INTEGER,
     rank1: sequelize.INTEGER,
     rank2: sequelize.INTEGER,
@@ -284,6 +284,7 @@ const userProfile = mysqlDB.define("userProfile", {
     followNotification: sequelize.BOOLEAN,
     voteFollowNotification: sequelize.BOOLEAN,
     postFollowNotification: sequelize.BOOLEAN,
+    posts: sequelize.INTEGER,
     starStatus: sequelize.BOOLEAN,
     new: sequelize.BOOLEAN,
     auth: sequelize.BOOLEAN
