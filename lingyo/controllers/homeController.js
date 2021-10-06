@@ -1113,7 +1113,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     if (fl) {followed[i] = true}
                                                     else {followed[i] = false}
                                                     if (buf == p.length){
-                                                        res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'competition', rankLink: rank, rankName: rankName, cateActive: cateList[c], cateName: cateName[c], rank: true, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
+                                                        res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'competition', rankLink: rank, rankName: rankName, cateActive: cateList[c], cateName: cateName[c], rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                     }
                                                 })
                                             })
@@ -1122,7 +1122,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 }
                             }
                             else {
-                                res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'competition', rankLink: rank, rankName: rankName, cateActive: cateList[c], cateName: cateName[c], rank: true, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
+                                res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'competition', rankLink: rank, rankName: rankName, cateActive: cateList[c], cateName: cateName[c], rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                             }
                         })
                     })
