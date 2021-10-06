@@ -53,14 +53,14 @@
                                 </form>
                             </div>
                             <div class="border-b mg-l mg-r"></div>
-                            <div class="d-flex">
-                                <a class="sort-content-but d-flex-col noselect sort-cate <% if (cateActive != '') { %>sort-content-but-active <% } %>" sort-data="rank-sort-content"><span class="iconify" data-icon="bi:bar-chart-fill" data-inline="false"></span><div class="d-flex-col"><span>Thứ</span><span>hạng</span></div></a>
-                                <a class="sort-content-but d-flex-col noselect" sort-data='random-sort-content'><span class="iconify" data-icon="fe:random" data-inline="false"></span><div class="d-flex-col"><span>Ngẫu</span><span>nhiên</span></div></a>
-                                <a class="sort-content-but d-flex-col noselect" sort-data='latest-sort-content'><span class="iconify" data-icon="ic:twotone-autorenew" data-inline="false"></span><div class="d-flex-col"><span>Mới</span><span>nhất</span></div></a>
+                            <div class="d-flex">  
+                                <a class="sort-content-but d-flex-col noselect mg-b sort-cate  <% if (cateActive != '') { %>sort-content-but-active <% } %>"" sort-data='foryou-sort-content'><span class="iconify" data-icon="fluent:share-screen-person-16-regular"></span><div class="d-flex-col"><span>Cho</span><span>bạn</span></div></a>
+                                <a class="sort-content-but d-flex-col noselect mg-b" sort-data='latest-sort-content'><span class="iconify" data-icon="ic:twotone-autorenew" data-inline="false"></span><div class="d-flex-col"><span>Mới</span><span>nhất</span></div></a>
+                                <a class="sort-content-but d-flex-col noselect mg-b" sort-data="rank-sort-content"><span class="iconify" data-icon="bi:bar-chart-fill" data-inline="false"></span><div class="d-flex-col"><span>Thứ</span><span>hạng</span></div></a>
                                 <a class="sort-content-but d-flex-col noselect" sort-data='follow-sort-content'><span class="iconify" data-icon="ri:user-follow-line" data-inline="false"></span><div class="d-flex-col"><span>Theo</span><span>dõi</span></div></a>
                             </div>
                             <div class="border-b mg-l mg-r"></div>
-                            <a class="nav-item nav-red honors-but <% if (active == 'honors') { %> active <% } %>" nav-data='honors'><span class="iconify" data-icon="ph:medal-light" data-inline="false"></span><span class="nav-item-name-red">Vinh danh</span></a>
+                            <a class="nav-item nav-red community-but <% if (active == 'community') { %> active <% } %>" nav-data='community'><span class="iconify" data-icon="fluent:people-community-16-regular"></span><span class="nav-item-name-red">Cộng đồng</span></a>
                             <a class="nav-item nav-red saved-but <% if (active == 'saved') { %> active <% } %>" nav-data='saved'><span class="iconify" data-icon="bi:bookmark-check" data-inline="false"></span><span class="nav-item-name-red">Đã lưu</span></a>
                             <a class="nav-item nav-red add-topic-but <% if (active == 'add-topic') { %> active <% } %>" nav-data='add-topic'><span class="iconify" data-icon="heroicons-outline:view-grid-add" data-inline="false"></span><span class="nav-item-name-red">Thêm thể loại</span></a>
                             <div class="border-b mg-l mg-r"></div>
@@ -157,14 +157,14 @@
                                 <a class="nav-ele nav-item nav-red fame-but <% if (active == 'fame') { %> active <% } %>" nav-data='fame'><span class="iconify" data-icon="bi:bar-chart" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Xếp hạng</span></a>                             
                                 <a class="nav-ele nav-item nav-red notifications-but <% if (active == 'notifications') { %> active <% } %>" nav-data='notifications'><span class="iconify" data-icon="ph:bell-simple" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Thông báo</span></a>
                                 <a class="nav-ele nav-item nav-red saved-but <% if (active == 'saved') { %> active <% } %>" nav-data='saved'><span class="iconify" data-icon="bi:bookmark-check" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Đã lưu</span></a>
-                                <a class="nav-ele nav-item nav-red honors-but <% if (active == 'honors') { %> active <% } %>" nav-data='honors'><span class="iconify" data-icon="ph:medal-light" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Vinh danh</span></a>
+                                <a class="nav-ele nav-item nav-red community-but <% if (active == 'community') { %> active <% } %>" nav-data='community'><span class="iconify" data-icon="fluent:people-community-16-regular"></span><span class="nav-item-name nav-item-name-red">Cộng đồng</span></a>
                                 <a class="nav-ele nav-item nav-red add-topic-but <% if (active == 'add-topic') { %> active <% } %>" nav-data='add-topic'><span class="iconify" data-icon="heroicons-outline:view-grid-add" data-inline="false"></span><span class="nav-item-name nav-item-name-red">Thêm thể loại</span></a>
                                 <button class="dropdown-but nav-ele nav-item nav-dropdown mg-b">
                                     <span class="iconify dropdown-icon" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span>
                                 </button>
                                 <div class="dropdown-content nav-dropdown-content noselect">
                                     <a class="nav-item nav-red saved-but2" nav-data='saved'><span class="iconify" data-icon="uim:layer-group" data-inline="false"></span><span class="nav-item-name-red">Đã lưu</span></a>
-                                    <a class="nav-item nav-red honors-but2 <% if (active == 'honors') { %> active <% } %>" nav-data='honors'><span class="iconify" data-icon="ph:medal-light" data-inline="false"></span><span class="nav-item-name-red">Vinh danh</span></a>
+                                    <a class="nav-item nav-red community-but2 <% if (active == 'community') { %> active <% } %>" nav-data='community'><span class="iconify" data-icon="fluent:people-community-16-regular"></span><span class="nav-item-name-red">Cộng đồng</span></a>
                                     <a class="nav-item nav-red add-topic-but2" nav-data='add-topic'><span class="iconify" data-icon="heroicons-outline:view-grid-add" data-inline="false"></span><span class="nav-item-name-red">Thêm thể loại</span></a>
                                 </div>
                             </div>

@@ -35,9 +35,9 @@
 <div class="main-frame-post d-flex">
     <div class="main-frame-post-sort-rounder">
         <div class="main-frame-post-sort">
-            <a class="sort-content-but d-flex-col noselect mg-b sort-cate sort-content-but-active" sort-data="rank-sort-content"><span class="iconify" data-icon="bi:bar-chart-fill" data-inline="false"></span><div class="d-flex-col"><span>Thứ</span><span>hạng</span></div></a>
-            <a class="sort-content-but d-flex-col noselect mg-b" sort-data='random-sort-content'><span class="iconify" data-icon="fe:random" data-inline="false"></span><div class="d-flex-col"><span>Ngẫu</span><span>nhiên</span></div></a>
+            <a class="sort-content-but d-flex-col noselect mg-b sort-cate sort-content-but-active" sort-data='foryou-sort-content'><span class="iconify" data-icon="fluent:share-screen-person-16-regular"></span><div class="d-flex-col"><span>Cho</span><span>bạn</span></div></a>
             <a class="sort-content-but d-flex-col noselect mg-b" sort-data='latest-sort-content'><span class="iconify" data-icon="ic:twotone-autorenew" data-inline="false"></span><div class="d-flex-col"><span>Mới</span><span>nhất</span></div></a>
+            <a class="sort-content-but d-flex-col noselect mg-b" sort-data="rank-sort-content"><span class="iconify" data-icon="bi:bar-chart-fill" data-inline="false"></span><div class="d-flex-col"><span>Thứ</span><span>hạng</span></div></a>
             <a class="sort-content-but d-flex-col noselect" sort-data='follow-sort-content'><span class="iconify" data-icon="ri:user-follow-line" data-inline="false"></span><div class="d-flex-col"><span>Theo</span><span>dõi</span></div></a>
         </div>
     </div>
@@ -114,7 +114,7 @@
                                         <span class="contact-item"></span>
                                         <a class="avt"><span class="post-time">
                                             <% if ((Date.now() - posts[i].time)/1000 < 5) { %>
-                                                <span class="theme-color">Vừa xong</span>
+                                                <span>Vừa xong</span>
                                             <% } %>
                                             <% if ((Date.now() - posts[i].time)/1000 > 5 && (Date.now() - posts[i].time)/1000 < 60) { %>
                                                 <span class="theme-color"><%- Math.floor((Date.now() - posts[i].time)/1000) -%> giây</span>

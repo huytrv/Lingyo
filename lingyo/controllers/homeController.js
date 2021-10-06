@@ -38,8 +38,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     const rankName = ["Sơ cấp", "Trung cấp", "Cao cấp"]
     const cateList = ["freestyle", "hiphop", "rap", "contemporary", "ballroom", "modern", "ballet", "shuffle", "jazz", "sexy", "flashmob", "other"]
     const cateName = ["Nhảy tự do", "Hiphop", "Rap", "Múa đương đại", "Khiêu vũ", "Nhảy hiện đại", "Múa ba lê", "Shuffle", "Jazz", "Sexy", "Fashmob", "Khác"]
-    const navList = ["fame", "notifications", "saved", "honors", "add-topic", "setting"]
-    const navName = ["Xếp hạng", "Thông báo", "Đã lưu", "Vinh danh", "Thêm thể loại", "Cài đặt"]
+    const navList = ["fame", "notifications", "saved", "community", "add-topic", "setting"]
+    const navName = ["Xếp hạng", "Thông báo", "Đã lưu", "Cộng đồng", "Thêm thể loại", "Cài đặt"]
     const startTimeline = new Date("Mon Dec 28 2020 00:00:00")
     let round, currentTimeline, roundType, stageTime, TimeRange
     //handleVoteChampion
@@ -982,7 +982,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     }).then(function(p){
                                         profileWinner[t] = p
                                         users.findOne({
-                                            here: {
+                                            where: {
                                                 userId: winners[t].userId
                                             }
                                         }).then(function(u){
@@ -1029,6 +1029,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         })
     }
 
+    //handle Category
     for (let c = 0; c < cateList.length; c++){
         app.get(`/${cateList[c]}`,function(req, res){
             if (cateList[c] != "competition"){categoryList = [cateList[c]]} else {categoryList = cateList}
@@ -1053,7 +1054,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 model: users,
                             }],
                             order: [
-                                ['like', 'DESC'],
+                                ['videoImpressions', 'ASC'],
                                 ['time', 'ASC']
                             ],
                             where: {
@@ -1249,8 +1250,9 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         if (req.isAuthenticated()){
             req.session.tryTime = 0
             req.session.blockLogin = false
-            if (req.body.category == '' || roundType == "final") {postCategory = cateList} else {postCategory = [req.body.category]}
+            if (req.body.category == '' || req.body.category == 'competition' || roundType == "final") {postCategory = cateList} else {postCategory = [req.body.category]}
             // if (req.body.category != '' && req.body.filter == "current"){
+                console.log(postCategory)
                 userProfile.findOne({
                     raw: true,
                     where: {
@@ -1347,115 +1349,220 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
     })
 
-    app.post("/random-sort-content",function(req, res){
+    // app.post("/random-sort-content",function(req, res){
+    //     if (req.isAuthenticated()){
+    //         req.session.tryTime = 0
+    //         req.session.blockLogin = false
+    //         if (req.body.category == '' || roundType == "final") {postCategory = cateList} else {postCategory = [req.body.category]}
+    //         // if (req.body.category != ''){
+    //             let timeFilter
+    //             if (req.body.filter == "current"){timeFilter = currentTimeline}
+    //             else {timeFilter = startTimeline}
+    //             userProfile.findOne({
+    //                 raw: true,
+    //                 where: {
+    //                     userId: req.user.userId
+    //                 }
+    //             }).then(function(profile){
+    //                 posts.findAll({
+    //                     raw: true,
+    //                     include : [{
+    //                         model: users,
+    //                     }],
+    //                     order: [
+    //                         Sequelize.fn( 'RAND' ),
+    //                     ],
+    //                     limit: 5,
+    //                     where: {
+    //                         category: {
+    //                             [Op.in]: postCategory
+    //                         },
+    //                         time: {
+    //                             [Op.gte]: timeFilter
+    //                         },
+    //                         rank: req.body.rankLink,
+    //                         auth: true
+    //                     }
+    //                 }).then(function(p){
+    //                     // if (p[0] && p[0].category == ''){res.end()}
+    //                     // else {
+    //                         const postProfile = []
+    //                         const saved = []
+    //                         const postLiked = []
+    //                         const followed = []
+    //                         let buf = 0
+    //                         if (p.length != 0){
+    //                             for (let i = 0; i < p.length; i++){
+    //                                 userProfile.findOne({
+    //                                     raw: true,
+    //                                     where: {
+    //                                         userId: p[i]['user.userId']
+    //                                     }
+    //                                 }).then(function(pp){
+    //                                     postProfile[i] = pp
+    //                                     postLikes.findAll({
+    //                                         raw: true,
+    //                                         where: {
+    //                                             postId: p[i].postId
+    //                                         }
+    //                                     }).then(function(pl){
+    //                                         postSaved.findOne({
+    //                                             where: {
+    //                                                 postId: p[i].postId,
+    //                                                 userId: p[i]['user.userId']
+    //                                             }
+    //                                         }).then(function(s){
+    //                                             if (s){saved[i] = true}
+    //                                             else {saved[i] = false}
+    //                                             postLiked[i] = false
+    //                                             for (let c = 0; c < pl.length; c++){
+    //                                                 if (pl[c].userId == req.user.userId) {
+    //                                                     postLiked[i] = true
+    //                                                 }
+    //                                             }
+    //                                             follow.findOne({
+    //                                                 where: {
+    //                                                     user1: profile.userId,
+    //                                                     user2: pp.userId
+    //                                                 }
+    //                                             }).then(function(fl){
+    //                                                 buf ++
+    //                                                 if (fl) {followed[i] = true}
+    //                                                 else {followed[i] = false}
+    //                                                 if (buf == p.length){
+    //                                                     res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'competition', 
+    //                                                     rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
+    //                                                 }
+    //                                             })
+    //                                         })
+    //                                     })
+    //                                 })
+    //                             }
+    //                         }
+    //                         else {
+    //                             res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'competition', 
+    //                             rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
+    //                         }
+    //                     // }
+    //                 })
+    //             })
+    //         // }
+    //     }
+    //     else {
+    //         res.redirect("/login")
+    //     }
+    // })
+
+    app.post("/foryou-sort-content", function(req, res){
         if (req.isAuthenticated()){
-            req.session.tryTime = 0
-            req.session.blockLogin = false
-            if (req.body.category == '' || roundType == "final") {postCategory = cateList} else {postCategory = [req.body.category]}
-            // if (req.body.category != ''){
-                let timeFilter
-                if (req.body.filter == "current"){timeFilter = currentTimeline}
-                else {timeFilter = startTimeline}
-                userProfile.findOne({
+        req.session.tryTime = 0
+        req.session.blockLogin = false
+        if (req.body.category == '' || req.body.category == 'competition' || roundType == "final") {postCategory = cateList} else {postCategory = [req.body.category]}
+        // if (req.body.category != ''){
+            let timeFilter
+            if (req.body.filter == "current"){timeFilter = currentTimeline}
+            else {timeFilter = startTimeline}
+            userProfile.findOne({
+                raw: true,
+                where: {
+                    userId: req.user.userId
+                }
+            }).then(function(profile){
+                posts.findAll({
                     raw: true,
+                    include : [{
+                        model: users,
+                    }],
+                    order: [
+                        ['videoImpressions', 'ASC'],
+                        ['time', 'ASC']
+                    ],
+                    limit: 5,
                     where: {
-                        userId: req.user.userId
+                        category: {
+                            [Op.in]: postCategory
+                        },
+                        time: {
+                            [Op.gte]: timeFilter
+                        },
+                        rank: req.body.rankLink,
+                        auth: true
                     }
-                }).then(function(profile){
-                    posts.findAll({
-                        raw: true,
-                        include : [{
-                            model: users,
-                        }],
-                        order: [
-                            Sequelize.fn( 'RAND' ),
-                        ],
-                        limit: 5,
-                        where: {
-                            category: {
-                                [Op.in]: postCategory
-                            },
-                            time: {
-                                [Op.gte]: timeFilter
-                            },
-                            rank: req.body.rankLink,
-                            auth: true
-                        }
-                    }).then(function(p){
-                        // if (p[0] && p[0].category == ''){res.end()}
-                        // else {
-                            const postProfile = []
-                            const saved = []
-                            const postLiked = []
-                            const followed = []
-                            let buf = 0
-                            if (p.length != 0){
-                                for (let i = 0; i < p.length; i++){
-                                    userProfile.findOne({
+                }).then(function(p){
+                    // if (p[0] && p[0].category == ''){res.end()}
+                    // else {
+                        const postProfile = []
+                        const saved = []
+                        const postLiked = []
+                        const followed = []
+                        let buf = 0
+                        if (p.length != 0){
+                            for (let i = 0; i < p.length; i++){
+                                userProfile.findOne({
+                                    raw: true,
+                                    where: {
+                                        userId: p[i]['user.userId']
+                                    }
+                                }).then(function(pp){
+                                    postProfile[i] = pp
+                                    postLikes.findAll({
                                         raw: true,
                                         where: {
-                                            userId: p[i]['user.userId']
+                                            postId: p[i].postId
                                         }
-                                    }).then(function(pp){
-                                        postProfile[i] = pp
-                                        postLikes.findAll({
-                                            raw: true,
+                                    }).then(function(pl){
+                                        postSaved.findOne({
                                             where: {
-                                                postId: p[i].postId
+                                                postId: p[i].postId,
+                                                userId: p[i]['user.userId']
                                             }
-                                        }).then(function(pl){
-                                            postSaved.findOne({
+                                        }).then(function(s){
+                                            if (s){saved[i] = true}
+                                            else {saved[i] = false}
+                                            postLiked[i] = false
+                                            for (let c = 0; c < pl.length; c++){
+                                                if (pl[c].userId == req.user.userId) {
+                                                    postLiked[i] = true
+                                                }
+                                            }
+                                            follow.findOne({
                                                 where: {
-                                                    postId: p[i].postId,
-                                                    userId: p[i]['user.userId']
+                                                    user1: profile.userId,
+                                                    user2: pp.userId
                                                 }
-                                            }).then(function(s){
-                                                if (s){saved[i] = true}
-                                                else {saved[i] = false}
-                                                postLiked[i] = false
-                                                for (let c = 0; c < pl.length; c++){
-                                                    if (pl[c].userId == req.user.userId) {
-                                                        postLiked[i] = true
-                                                    }
+                                            }).then(function(fl){
+                                                buf ++
+                                                if (fl) {followed[i] = true}
+                                                else {followed[i] = false}
+                                                if (buf == p.length){
+                                                    res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'competition', 
+                                                    rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
                                                 }
-                                                follow.findOne({
-                                                    where: {
-                                                        user1: profile.userId,
-                                                        user2: pp.userId
-                                                    }
-                                                }).then(function(fl){
-                                                    buf ++
-                                                    if (fl) {followed[i] = true}
-                                                    else {followed[i] = false}
-                                                    if (buf == p.length){
-                                                        res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'competition', 
-                                                        rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
-                                                    }
-                                                })
                                             })
                                         })
                                     })
-                                }
+                                })
                             }
-                            else {
-                                res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'competition', 
-                                rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
-                            }
-                        // }
-                    })
+                        }
+                        else {
+                            res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'competition', 
+                            rankLink: req.body.rankLink, rankName: req.body.rankName, cateActive: req.body.category, cateName: '', rank: false, winnerCongrat: false, modal: false, newUser: false, roundType: roundType})
+                        }
+                    // }
                 })
-            // }
-        }
-        else {
-            res.redirect("/login")
-        }
+            })
+        // }
+    }
+    else {
+        res.redirect("/login")
+    }
     })
 
     app.post("/latest-sort-content",function(req, res){
         if (req.isAuthenticated()){
             req.session.tryTime = 0
             req.session.blockLogin = false
-            if (req.body.category == '' || roundType == "final") {postCategory = cateList} else {postCategory = [req.body.category]}
+            if (req.body.category == '' || req.body.category == 'competition' || roundType == "final") {postCategory = cateList} else {postCategory = [req.body.category]}
             // if (req.body.category != ''){
                 let timeFilter
                 if (req.body.filter == "current"){timeFilter = currentTimeline}
@@ -1559,7 +1666,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         if (req.isAuthenticated()){
             req.session.tryTime = 0
             req.session.blockLogin = false
-            if (req.body.category == '' || roundType == "final") {postCategory = cateList} else {postCategory = [req.body.category]}
+            if (req.body.category == ''  || req.body.category == 'competition' || roundType == "final") {postCategory = cateList} else {postCategory = [req.body.category]}
             // if (req.body.category != ''){
                 let timeFilter
                 if (req.body.filter == "current"){timeFilter = currentTimeline}
@@ -1853,6 +1960,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                                         rank: rank,
                                                                                         competition: competition,
                                                                                         videoViews: 0,
+                                                                                        videoImpressions: 0,
                                                                                         auth: false,
                                                                                         userId: req.user.userId
                                                                                     }).then(function(newPost){
@@ -2378,7 +2486,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             if (!req.body.savedView){
                 if (req.body.param == ''){
                     // if (req.body.category != '' && cateList.includes(req.body.category)){
-                        if (req.body.category != 'competition') {categoryList = [req.body.category]} else {categoryList = cateList}
+                        if (req.body.category != 'competition' && req.body.category != '') {categoryList = [req.body.category]} else {categoryList = cateList}
                         if (req.body.cateSort == 'rank-sort-content'){
                             posts.count({
                                 where: {
@@ -2508,7 +2616,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 }
                             })
                         }
-                        else if (req.body.cateSort == 'random-sort-content'){
+                        else if (req.body.cateSort == 'foryou-sort-content'){
                             posts.count({
                                 where: {
                                     category: categoryList,
@@ -2527,7 +2635,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             model: users,
                                         }],
                                         order: [
-                                            Sequelize.fn('RAND')
+                                            ['videoImpressions', 'ASC'],
+                                            ['time', 'ASC']
                                         ],
                                         where: {
                                             category: categoryList,
@@ -3514,10 +3623,33 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         })
     })
 
-    app.post("/video-count-scription", function(req, res){
-        posts.increment("videoViews", {by: 1, where: {postId: req.body.post}}).then(function(){
-            res.end()
+    app.post("/video-impressions-scription", function(req, res){
+        posts.findOne({
+            where: {
+                postId: req.body.post
+            }
+        }).then(function(p){
+            if (p.videoImpressions < 100000000){
+                posts.increment("videoImpressions", {by: 1, where: {postId: req.body.post}}).then(function(){
+                    res.end()
+                })
+            }
         })
+    })
+
+    app.post("/video-count-scription", function(req, res){
+        posts.findOne({
+            where: {
+                postId: req.body.post
+            }
+        }).then(function(p){
+            if (p.videoViews < 100000000){
+                posts.increment("videoViews", {by: 1, where: {postId: req.body.post}}).then(function(){
+                    res.end()
+                })
+            }
+        })
+
     })
 
     // view post
@@ -5077,15 +5209,29 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             }
             else if (req.body.type == "post-done"){
                 if (typeof(req.user.userId) === "number" && typeof(req.body.source) === "object" && typeof(req.body.type) === "string"){
-                    notifications.create({
-                        sourceUser: req.user.userId,
-                        postInfo: req.body.source,
-                        type: req.body.type,
-                        read: false,
-                        time: Date.now(),
-                        userId: req.user.userId
-                    }).then(function(){
-                        res.end()
+                    notifications.findOne({
+                        where: {
+                            sourceUser: req.user.userId,
+                            postInfo: req.body.source,
+                            type: req.body.type,
+                            userId: req.user.userId
+                        }
+                    }).then(function(p){
+                        if (!p){
+                            notifications.create({
+                                sourceUser: req.user.userId,
+                                postInfo: req.body.source,
+                                type: req.body.type,
+                                read: false,
+                                time: Date.now(),
+                                userId: req.user.userId
+                            }).then(function(){
+                                res.end()
+                            })
+                        }
+                        else {
+                            res.end()
+                        }
                     })
                 }
             }
@@ -5903,6 +6049,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                 auth: false
                                             }).then(function(){
                                                 fs.unlinkSync(filePath)
+                                                console.log(1)
                                                 res.json({
                                                     status: 'done',
                                                 })
@@ -5912,6 +6059,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 })
                             }
                             else {
+                                console.log(2)
                                 res.json({
                                     status: "err"
                                 })
@@ -5920,6 +6068,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     })
                 }
                 else {
+                    console.log(3)
                     res.end()
                 }
             })

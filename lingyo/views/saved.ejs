@@ -58,7 +58,7 @@
                                             <span class="contact-item"></span>
                                             <a class="avt"><span class="post-time">
                                                 <% if ((Date.now() - posts[i].time)/1000 < 5) { %>
-                                                    <span class="theme-color">Vừa xong</span>
+                                                    <span>Vừa xong</span>
                                                 <% } %>
                                                 <% if ((Date.now() - posts[i].time)/1000 > 5 && (Date.now() - posts[i].time)/1000 < 60) { %>
                                                     <span class="theme-color"><%- Math.floor((Date.now() - posts[i].time)/1000) -%> giây</span>

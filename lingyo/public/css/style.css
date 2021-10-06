@@ -6267,6 +6267,10 @@ tbody {
     margin-top: 10px;
   }
 
+  .main-frame-post-inner-personal.frame-post-content {
+    margin-top: 0px;
+  }
+
   .main-frame-post-inner-personal .post:first-child {
     margin-top: 0px;
   }
