@@ -3664,7 +3664,10 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             where: {
                 postId: req.params.path,
                 auth: true
-            }
+            },
+            include : [{
+                model: users,
+            }],
         }).then(function(p){
             if (p){
                 if (req.isAuthenticated()){
