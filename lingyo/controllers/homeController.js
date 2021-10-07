@@ -202,6 +202,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }).promise()
     }
 
+    //home page
     app.get("/", function(req, res) {
         if (req.isAuthenticated()){
             req.session.tryTime = 0
@@ -320,7 +321,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         model: users,
                     },],
                     order: [
-                        Sequelize.fn( 'RAND' ),
+                        ['videoImpressions', 'ASC'],
+                        ['time', 'ASC']
                     ],
                     limit: 5,
                     where: {

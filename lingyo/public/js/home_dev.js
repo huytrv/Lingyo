@@ -2054,6 +2054,7 @@ function categoryRedirect(cate, pushState){
     stopScrollPage = 0
     cateSort = "foryou-sort-content"
     filter = "current"
+    impessionAjaxSend = []
     if (!pushState){rankLink = "primary"}
     if (document.querySelector(".all-filter") && document.querySelector(".all-filter").classList.contains("theme-color")){
         document.querySelector(".all-filter").classList.remove("theme-color")
@@ -4069,6 +4070,7 @@ function handleMainFrame(){
                 rankLink: rankLink,
                 rankName: rankName
             }
+            impessionAjaxSend = []
             cateSort = item.getAttribute("sort-data")
             if(window.innerWidth <= 662){
                 if (cateSort == "rank-sort-content"){sortType = "Thứ hạng"}
@@ -4771,6 +4773,7 @@ function handleNavigation(){
                 
             }
             else {
+                impessionAjaxSend = []
                 // document.querySelector(".main-frame").style.minHeight = "1162px"
                 if (statusRedirect == cateLink || competitionContentText == 'competition'){
                     let xhttp
