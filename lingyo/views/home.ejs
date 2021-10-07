@@ -42,12 +42,52 @@
             <div class="group-title d-flex-start-bottom">
                 <div class="dance-lottie"></div>
                 <% if (new Date().getDay() >= 1 && new Date().getDay() <= 5) { %>
-                    <span class="font-size-lg-3 mg-t">Vòng hiện tại: Vòng bảng - <span class="home-rank"><%- rankName %></span></span>
+                    <span class="font-size-lg-3 mg-b">Vòng hiện tại: Vòng bảng - <span class="home-rank"><%- rankName %></span></span>
                 <% } %>
                 <% if (new Date().getDay() == 6 || new Date().getDay() == 0) { %>
-                    <span class="font-size-lg-3 mg-t">Vòng hiện tại: Chung kết - <span class="home-rank"><%- rankName %></span></span>
+                    <span class="font-size-lg-3 mg-b">Vòng hiện tại: Chung kết - <span class="home-rank"><%- rankName %></span></span>
                 <% } %>
             </div>
+        </div>
+        <div class="top-reward d-flex-col">
+                <div class="final-reward d-flex-col mg-b">
+                    <h3>1. Thưởng hạng Chung kết hiện tại - Top 3</h3>
+                    <div class="d-flex mg-t">
+                        <div class="top-reward-frame shine rw1">
+                            <div class="top-reward-inner rainbow">
+                                <div class="animate__animated animate__bounce"><span class="iconify icon-reward icon-reward-1" data-icon="emojione-monotone:1st-place-medal" data-inline="false"></span></div>
+                                <span class="mg-r-sm animate__animated animate__bounceInUp">Hạng 1</span>
+                                <div class="border-b"></div>
+                                <div class="border-b"></div>
+                                <div class="animate__animated animate__bounceInUp"><span class="bold-font rw-color usd-rw"><%- finalRewardList[0] -%> </span> USD, <span class="bold-font rw-color fp-rw"><%- finalFPList[0] -%></span> FP</div>
+                            </div>
+                        </div>
+                        <div class="top-reward-frame shine rw2">
+                            <div class="top-reward-inner rainbow">
+                                <div class="animate__animated animate__bounce"><span class="iconify icon-reward icon-reward-2" data-icon="emojione-monotone:2nd-place-medal" data-inline="false"></span></div>
+                                <span class="mg-r-sm animate__animated animate__bounceInUp">Hạng 2</span>
+                                <div class="border-b"></div>
+                                <div class="border-b"></div>
+                                <div class="animate__animated animate__bounceInUp"><span class="bold-font rw-color usd-rw"><%- finalRewardList[1] -%> </span> USD, <span class="bold-font rw-color fp-rw"><%- finalFPList[1] -%> </span> FP</div>
+                            </div>
+                        </div>
+                        <div class="top-reward-frame shine rw3">
+                            <div class="top-reward-inner rainbow">
+                                <div class="animate__animated animate__bounce"><span class="iconify icon-reward icon-reward-3" data-icon="emojione-monotone:3rd-place-medal" data-inline="false"></span></div>
+                                <span class="mg-r-sm animate__animated animate__bounceInUp">Hạng 3</span>
+                                <div class="border-b"></div>
+                                <div class="border-b"></div>
+                                <div class="animate__animated animate__bounceInUp"><span class="bold-font rw-color usd-rw"><%- finalRewardList[2] -%> </span> USD, <span class="bold-font rw-color fp-rw"><%- finalFPList[2] -%> </span> FP</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            <div>
+                <a class="d-flex nav-red competition-but" nav-data='competition'><h3 class="nav-item-name theme-color d-flex"><span class="iconify font-icon mg-r" data-icon="ant-design:play-circle-filled" data-inline="false"></span>Bình chọn video tham dự tại <span class="nav-item-name-red mg-l-sm">Vòng đấu</span></h3></a>
+            </div>
+        </div>
+        <div>
             <div class="timer-text d-flex">
                 <div class="mg-r-sm">Còn</div><div class="timer-bar-value"></div>
             </div>
@@ -59,53 +99,18 @@
                 <span>Vòng bảng diễn ra trong 5 ngày đầu tuần, những người đứng đầu ở mỗi thể loại sẽ tiến vào Vòng trung kết (2 ngày cuối), tiền thưởng dựa trên tỉ lệ vũ công tham gia.</span>
             </div>
         </div>
-        <div class="top-reward d-flex-col">
-                <div class="final-reward d-flex-col mg-b">
-                    <h3>1. Thưởng hạng Chung kết hiện tại - Top 3</h3>
-                    <div class="d-flex mg-t">
-                        <div class="top-reward-frame shine rw1">
-                            <div class="top-reward-inner rainbow">
-                                <span class="iconify icon-reward icon-reward-1" data-icon="emojione-monotone:1st-place-medal" data-inline="false"></span>
-                                <span class="mg-r-sm">Hạng 1</span>
-                                <div class="border-b"></div>
-                                <div class="border-b"></div>
-                                <div><span class="bold-font rw-color usd-rw"><%- finalRewardList[0] -%> </span> USD, <span class="bold-font rw-color fp-rw"><%- finalFPList[0] -%></span> FP</div>
-                            </div>
+        <div class="top-reward">
+            <div class="cate-reward d-flex-col">
+                <h3>2. Thưởng hạng thể loại hiện tại - Top 1</h3>
+                <div class="d-flex flex-wrap mg-t">
+                <% for (let i = 0; i < cateList.length; i++) { %>
+                    <button class="top-reward-frame category-but" topic-data="<%- cateList[i] %>">
+                        <div class="d-flex-start">
+                            <span><span class="category-item-name"><%- nameList[i] %></span>: <span class="bold-font rw-color usd-rw"><%- cateRewardList[i] %></span> $, <span class="bold-font rw-color fp-rw"><%- cateFPList[i] -%> </span> FP</span>
                         </div>
-                        <div class="top-reward-frame shine rw2">
-                            <div class="top-reward-inner rainbow">
-                                <span class="iconify icon-reward icon-reward-2" data-icon="emojione-monotone:2nd-place-medal" data-inline="false"></span>
-                                <span class="mg-r-sm">Hạng 2</span>
-                                <div class="border-b"></div>
-                                <div class="border-b"></div>
-                                <div><span class="bold-font rw-color usd-rw"><%- finalRewardList[1] -%> </span> USD, <span class="bold-font rw-color fp-rw"><%- finalFPList[1] -%> </span> FP</div>
-                            </div>
-                        </div>
-                        <div class="top-reward-frame shine rw3">
-                            <div class="top-reward-inner rainbow">
-                                <span class="iconify icon-reward icon-reward-3" data-icon="emojione-monotone:3rd-place-medal" data-inline="false"></span>
-                                <span class="mg-r-sm">Hạng 3</span>
-                                <div class="border-b"></div>
-                                <div class="border-b"></div>
-                                <div><span class="bold-font rw-color usd-rw"><%- finalRewardList[2] -%> </span> USD, <span class="bold-font rw-color fp-rw"><%- finalFPList[2] -%> </span> FP</div>
-                            </div>
-                        </div>
-                    </div>
+                    </button>
+                <% } %>
                 </div>
-                <div class="cate-reward d-flex-col">
-                    <h3>2. Thưởng hạng thể loại hiện tại - Top 1</h3>
-                    <div class="d-flex flex-wrap mg-t">
-                    <% for (let i = 0; i < cateList.length; i++) { %>
-                        <button class="top-reward-frame category-but" topic-data="<%- cateList[i] %>">
-                            <div class="d-flex-start">
-                                <span><span class="category-item-name"><%- nameList[i] %></span>: <span class="bold-font rw-color usd-rw"><%- cateRewardList[i] %></span> $, <span class="bold-font rw-color fp-rw"><%- cateFPList[i] -%> </span> FP</span>
-                            </div>
-                        </button>
-                    <% } %>
-                    </div>
-                </div>
-            <div>
-                <a class="d-flex nav-red competition-but" nav-data='competition'><h3 class="nav-item-name theme-color d-flex"><span class="iconify font-icon mg-r" data-icon="ant-design:play-circle-filled" data-inline="false"></span>Bình chọn video tham dự tại <span class="nav-item-name-red mg-l-sm">Vòng đấu</span></h3></a>
             </div>
         </div>
     </div>

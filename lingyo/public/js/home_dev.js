@@ -3482,7 +3482,7 @@ function handleMainFrame(){
             setTimeout(function(){
                 clearInterval(animationTimer)
                 rewardFP[i].textContent = staticFP
-            }, 800)
+            }, 1200)
         }
     }
     runningReward()
