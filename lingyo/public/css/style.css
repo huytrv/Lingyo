@@ -6664,7 +6664,7 @@ tbody {
 
 @media screen and (max-width: 500px) {
   .final-reward .top-reward-frame:first-child {
-    width: 50%;
+    width: 60%;
     margin: 0 90px;
   }
 }
