@@ -40,14 +40,17 @@ function viewImage(){
 viewImage()
 
 socket.on("post-need-moderate", function(posts){
+    console.log(123)
     window.navigator.vibrate(800)
     if (posts && posts.length != 0){
         if (document.querySelector(".none-video")){
             document.querySelector(".none-video").remove()
         }
         for(let i = 0; i < posts.length; i++){
-            postDisplayed.push(posts[i].postId)
-            socket.emit("displayed-post", postDisplayed)
+            if (document.querySelector(`.post[data-post-df='${posts[i].postId}']`)){
+                postDisplayed.push(posts[i].postId)
+                socket.emit("displayed-post", postDisplayed)
+            }
             document.querySelector(".moderate-content").insertAdjacentHTML("beforeend", `<div class="d-flex-col post-moderate" data-post-df="${posts[i].postId}">
             <div class="pre-post-media">
                 ${(()=>{if (posts[i].file.type == "video") {return `

@@ -248,9 +248,10 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 finalFPList[1] = Math.round(sum * 2)
                                 finalFPList[2] = Math.round(sum * 1)
                                 for (let j = 0; j < enjoyList.length; j++){
+                                    console.log(enjoyList[j])
                                     if (sum > 0){
-                                        cateRewardList[j] = (Math.round(((enjoyList[j]/sum) * buf4) * 100) / 100).toFixed(2)
-                                        cateFPList[j] = Math.round((enjoyList[j]/sum) * 1)
+                                        cateRewardList[j] = (Math.round(((enjoyList[j] * buf4)) * 100) / 100).toFixed(2)
+                                        cateFPList[j] = Math.round((enjoyList[j]) * 1)
                                     }
                                     else {
                                         cateRewardList[j] = 0.00
@@ -279,6 +280,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         }
                                     })
                                 }
+                                console.log(cateRewardList)
+
                                 res.render("home", {username: req.user.username, userId: req.user.userId, winnerCongrat: winnerCongrat, newUser: newUser, profile: profile, active: "home", cateActive: '', cateName: '', nameList: cateName, cateList: cateList, finalRewardList: finalRewardList, cateRewardList: cateRewardList, finalFPList: finalFPList, cateFPList: cateFPList, rankLink: '', rankName: homeRank, modal: false})
                             }
                         })
@@ -548,7 +551,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 if (p.length != 0){
                     for (let i = 0; i < p.length; p ++){
                         postList.push(p[i].postId)
-                        if (i == p.length){
+                        if (i == p.length - 1){
                             socket.emit("post-need-moderate", p)
                         }
                     }
@@ -3629,10 +3632,15 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 postId: req.body.post
             }
         }).then(function(p){
-            if (p.videoImpressions < 100000000){
-                posts.increment("videoImpressions", {by: 1, where: {postId: req.body.post}}).then(function(){
-                    res.end()
-                })
+            if (p){
+                if (p.videoImpressions < 100000000){
+                    posts.increment("videoImpressions", {by: 1, where: {postId: req.body.post}}).then(function(){
+                        res.end()
+                    })
+                }
+            }
+            else {
+                res.end()
             }
         })
     })
