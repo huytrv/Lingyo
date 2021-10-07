@@ -1930,7 +1930,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     }
                                 }).then(function(postNumbers){
                                     if (profile.auth){
-                                        if (((roundType == "final" && postNumbers < 1) || (roundType == "group-stage" && postNumbers < 3)) && profile.posts < 3){
+                                        if ((roundType == "final" && postNumbers < 1) || (roundType == "group-stage" && postNumbers < 3)){
                                             if ((competition && f.file && f.file.type.includes("video")) || (!competition && !cateList.includes(category) && !f.file)){
                                                 if (rank == "primary" || rank == "intermediate" || rank == "highgrade" || rank == ''){
                                                     if (cateList.includes(category) || category == ''){
@@ -3426,7 +3426,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         userId: req.user.userId
                                     }
                                 }).then(function(){
-                                    userProfile.increment('posts', {by: -1, where: {userId: p.userId}})
                                     postSaved.destroy({
                                         where: {
                                             postId: postId
