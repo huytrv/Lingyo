@@ -42,19 +42,19 @@
             <div class="group-title d-flex-start-bottom">
                 <div class="dance-lottie"></div>
                 <% if (new Date().getDay() >= 1 && new Date().getDay() <= 5) { %>
-                    <span class="font-size-lg-3 mg-b">Vòng hiện tại: Vòng bảng - <span class="home-rank"><%- rankName %></span></span>
+                    <span class="font-size-lg-3">Vòng hiện tại: Vòng bảng - <span class="home-rank"><%- rankName %></span></span>
                 <% } %>
                 <% if (new Date().getDay() == 6 || new Date().getDay() == 0) { %>
-                    <span class="font-size-lg-3 mg-b">Vòng hiện tại: Chung kết - <span class="home-rank"><%- rankName %></span></span>
+                    <span class="font-size-lg-3">Vòng hiện tại: Chung kết - <span class="home-rank"><%- rankName %></span></span>
                 <% } %>
-            </div>
-            <div class="timer-text d-flex">
-                <div class="mg-r-sm">Còn</div><div class="timer-bar-value"></div>
             </div>
             <div class="walking-lottie"></div>
             <div class="home-round-timer mg-b">
                 <div class="timer-bar"></div>
-                </div>
+            </div>
+            <div class="timer-text d-flex mg-b">
+                <div class="mg-r-sm">Còn</div><div class="timer-bar-value"></div>
+            </div>
         </div>
         <div class="top-reward d-flex-col">
                 <div class="final-reward d-flex-col mg-b">
