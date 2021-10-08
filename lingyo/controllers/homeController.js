@@ -43,14 +43,13 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     const startTimeline = new Date("Mon Dec 28 2020 00:00:00")
     let round, currentTimeline, roundType, stageTime, TimeRange
     //handleVoteChampion
-    roundType = "final"
 
     setInterval(function(){ 
         round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
         currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
         stageTime = currentTimeline
         TimeRange = [stageTime, stageTime + 5*24*60*60*1000]
-        // if (new Date().getDay() >= 1 && new Date().getDay() <= 5) {roundType = "group-stage"}else {roundType = "final"}
+        if (new Date().getDay() >= 1 && new Date().getDay() <= 5) {roundType = "group-stage"}else {roundType = "final"}
         if (roundType == "final"){
             if (stageTime == currentTimeline) {
                 let buf = 0
@@ -135,8 +134,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         if (winnerObj.usd){
                                             WinnerList[p[i].userId].push(winnerObj)
                                         }
-
-                                        roundType = "group-stage"
                                         if (buf == rankList.length * cateList.length) {
                                             
                                             for (userId in WinnerList) {
