@@ -24,10 +24,13 @@
                 </div>
                 <div class="d-flex-col mg-t">
                     <% for (let i = 0; i < winnerCongrat.length; i++) { %>
-                        <div class="d-flex mg-t">
-                            <span class="theme-color mg-r-lg">Hạng <%- Object.values(winnerCongrat[i])[2] -%> <%- Object.keys(winnerCongrat[i])[2] -%></span>
-                            <span class="mg-r-sm"><%- Object.values(winnerCongrat[i])[1] -%></span><span class="iconify font-icon mg-l-sm theme-color" data-icon="emojione-v1:money-bag" data-inline="false"></span>
-                            <span class="mg-l-sm"><%- Object.values(winnerCongrat[i])[0] -%> <b>FP</b></span>
+                        <div class="d-flex-col mg-t">
+                            <div><span class="theme-color mg-r-lg">Hạng <%- Object.values(winnerCongrat[i])[2] -%> <%- Object.keys(winnerCongrat[i])[2] -%></span></div>
+                            <div class="d-flex">
+                                <span class="mg-r-sm"><%- Object.values(winnerCongrat[i])[1] -%></span><span class="iconify font-icon mg-l-sm theme-color" data-icon="emojione-v1:money-bag" data-inline="false"></span>
+                                <span class="mg-l-sm"><%- Object.values(winnerCongrat[i])[0] -%> <b>FP</b></span>
+                            </div>
+                            
                         </div>
                     <% } %>
                 </div>
