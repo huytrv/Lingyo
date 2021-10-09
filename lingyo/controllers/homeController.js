@@ -43,10 +43,9 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     const startTimeline = new Date("Mon Dec 28 2020 00:00:00")
     let round, currentTimeline, roundType, stageTime, TimeRange
     //handleVoteChampion
-
+    round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
+    currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
     setInterval(function(){ 
-        round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
-        currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
         stageTime = currentTimeline
         TimeRange = [stageTime, stageTime + 5*24*60*60*1000]
         if (new Date().getDay() >= 1 && new Date().getDay() <= 5) {roundType = "group-stage"}else {roundType = "final"}
@@ -135,7 +134,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             WinnerList[p[i].userId].push(winnerObj)
                                         }
                                         if (buf == rankList.length * cateList.length) {
-                                            
                                             for (userId in WinnerList) {
                                                 userProfile.update({
                                                     winner: WinnerList[userId]
@@ -144,10 +142,11 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                         userId: userId
                                                     }
                                                 }).then(function(){
-                                                    currentTimeline = currentTimeline + 5*24*60*60*1000
-                                                    TimeRange = [stageTime, currentTimeline]
                                                 })
                                             }
+                                            currentTimeline = currentTimeline + 5*24*60*60*1000
+                                            TimeRange = [stageTime, currentTimeline]
+                                            console.log(123)
                                         }
                                     })                                
                                 }
