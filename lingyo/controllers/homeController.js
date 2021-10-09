@@ -146,7 +146,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             }
                                             currentTimeline = currentTimeline + 5*24*60*60*1000
                                             TimeRange = [stageTime, currentTimeline]
-                                            console.log(123)
                                         }
                                     })                                
                                 }
