@@ -272,6 +272,7 @@ const userProfile = mysqlDB.define("userProfile", {
     location: sequelize.STRING(150),
     followers: sequelize.INTEGER,
     following: sequelize.INTEGER,
+    rank: sequelize.STRING(100),
     points: sequelize.FLOAT,
     usd: sequelize.FLOAT,
     tickets: sequelize.INTEGER,

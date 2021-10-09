@@ -287,10 +287,17 @@
                                     </div>
                                     <div class="follow-user-info-mobile-frame">  
                                         <div class="follow-user-info-mobile">
+                                            <div class="user-rank d-flex-start pd-l">
+                                                <div class="d-flex">
+                                                    <span class="mg-r-sm">Hạng: </span>
+                                                    <h3 class="mg-r-lg level<%- rankIndex %>"><%- userRank -%></h3>
+                                                </div>
+                                                <span><b><%- profile.points -%></b> FP</span>
+                                            </div>
                                             <div class="follow-user-info-inner d-flex-start">
                                                 <a class="following noselect"><b class="following-total"><%- profile.following -%></b> Đang theo dõi</a>
                                                 <a class="followers noselect"><b class="followers-total"><%- profile.followers -%></b> Theo dõi</a>
-                                            </div>                 
+                                            </div>              
                                         </div>   
                                     </div>
                                     <div class="highlights-mobile-frame">
@@ -353,6 +360,13 @@
                                     </div>
                                     <div class="follow-user-info-frame">
                                         <div class="follow-user-info <% if (user.username.length <= 15) { %>avatar-name-mg<% } %>">
+                                            <div class="user-rank d-flex-start pd-l">
+                                                <div class="d-flex">
+                                                    <span class="mg-r-sm">Hạng: </span>
+                                                    <h3 class="mg-r-lg level<%- rankIndex %>"><%- userRank -%></h3>
+                                                </div>
+                                                <span><b><%- profile.points -%></b> FP</span>
+                                            </div>
                                             <div class="follow-user-info-inner d-flex-start">
                                                 <a class="following noselect"><b class="following-total"><%- profile.following -%></b> Đang theo dõi</a>
                                                 <a class="followers noselect"><b class="followers-total"><%- profile.followers -%></b> Theo dõi</a>

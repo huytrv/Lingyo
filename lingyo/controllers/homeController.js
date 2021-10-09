@@ -40,12 +40,25 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     const cateName = ["Nhảy tự do", "Hiphop", "Rap", "Múa đương đại", "Khiêu vũ", "Nhảy hiện đại", "Múa ba lê", "Shuffle", "Jazz", "Sexy", "Fashmob", "Khác"]
     const navList = ["fame", "notifications", "saved", "community", "add-topic", "setting"]
     const navName = ["Xếp hạng", "Thông báo", "Đã lưu", "Cộng đồng", "Thêm thể loại", "Cài đặt"]
+    const levelList = ["iron", "bronze", "silver", "gold", "platinum", "diamon", "master", "challenge"]
+    const levelName = ["Sắt", "Đồng", "Bạc", "Vàng", "Bạch Kim", "Kim Cương", "Cao thủ", "Thách đấu"]
     const startTimeline = new Date("Mon Dec 28 2020 00:00:00")
     let round, currentTimeline, roundType, stageTime, TimeRange
     //handleVoteChampion
     round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
     currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
     stageTime = currentTimeline
+    function updateUserRank(point){
+        if (point >= 0 && point <= 100){return "iron"}
+        else if (point > 100 && point < 300){return "bronze"}
+        else if (point >= 300 && point < 700){return "silver"}
+        else if (point >= 700 && point < 1200){return "gold"}
+        else if (point >= 1200 && point < 1800){return "platinum"}
+        else if (point >= 1800 && point < 2500){return "diamon"}
+        else if (point >= 2500 && point < 3300){return "master"}
+        else if (point >= 3300 && point < 5000){return "challenge"}
+        else if (point >= 5000){return "challenge"}
+    }
     setInterval(function(){ 
         TimeRange = [stageTime, stageTime + 5*24*60*60*1000]
         if (new Date().getDay() >= 1 && new Date().getDay() <= 5) {roundType = "group-stage"}else {roundType = "final"}
@@ -110,6 +123,19 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             if (winnerObj[`${cateName[c]} - ${rankName[r]}`] != rank) {
                                                 winnerObj[`${cateName[c]} - ${rankName[r]}`] = rank
                                             }
+                                            userProfile.findOne({
+                                                where: {
+                                                    userId: p[i].userId
+                                                }
+                                            }).then(function(ur){
+                                                userProfile.update({
+                                                    rank: updateUserRank(ur.points)
+                                                }, {
+                                                    where :{
+                                                        userId: p[i].userId
+                                                    }
+                                                })
+                                            })
                                         }
                                         if (typeof(round) === "number" && typeof(rank), typeof(p[i].userId) === "number"){
                                             voteWinners.findOne({
@@ -238,6 +264,19 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     winnerObj['usd'] = finalRewardList[2]
                                     winnerObj['fp'] = finalFPList[2]
                                 }
+                                userProfile.findOne({
+                                    where: {
+                                        userId: p[i].userId
+                                    }
+                                }).then(function(ur){
+                                    userProfile.update({
+                                        rank: updateUserRank(ur.points)
+                                    }, {
+                                        where :{
+                                            userId: p[i].userId
+                                        }
+                                    })
+                                })
                                 
                                 if (typeof(round) === "number" && typeof(rank), typeof(p[i].userId) === "number"){
                                     voteWinners.create({
@@ -6296,8 +6335,15 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     }
                                 }).then(function(currentProfile){
                                     let isCurrentUser = false
+                                    let userRank = '', rankIndex = 0
                                     if (req.user.userId == user.userId){
                                         isCurrentUser = true
+                                    }
+                                    for (let r = 0; r < levelList.length; r++){
+                                        if (profile.rank == levelList[r]){
+                                            userRank = levelName[r]
+                                            rankIndex = r
+                                        }
                                     }
                                     const postProfile = []
                                     const postLiked = []
@@ -6344,7 +6390,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                 }
                                                             }
                                                             if (buf == p.length){
-                                                                res.render("personal", {isCurrentUser: isCurrentUser, username: req.user.username, currentUsername: currentUser.username, currentUserId: currentUser.userId, currentProfile: currentProfile, followed: followed, user: user, profile: profile, posts: p, postProfile: postProfile, postLiked: postLiked, saved: saved, active: '', cateActive: '', cateName: '', rank: false, modal: modal})
+                                                                res.render("personal", {isCurrentUser: isCurrentUser, username: req.user.username, currentUsername: currentUser.username, currentUserId: currentUser.userId, currentProfile: currentProfile, followed: followed, user: user, profile: profile, posts: p, postProfile: postProfile, postLiked: postLiked, saved: saved, active: '', cateActive: '', cateName: '', userRank: userRank, rankIndex: rankIndex, rank: false, modal: modal})
                                                             }
                                                         })
                                                     })
@@ -6352,7 +6398,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             }
                                         }
                                         else {
-                                            res.render("personal", {isCurrentUser: isCurrentUser, username: req.user.username, currentUsername: currentUser.username, currentUserId: currentUser.userId, currentProfile: currentProfile, followed: followed, user: user, profile: profile, posts: p, postProfile: postProfile, postLiked: postLiked, saved: saved, active: '', cateActive: '', cateName: '', rank: false, modal: modal})
+                                            res.render("personal", {isCurrentUser: isCurrentUser, username: req.user.username, currentUsername: currentUser.username, currentUserId: currentUser.userId, currentProfile: currentProfile, followed: followed, user: user, profile: profile, posts: p, postProfile: postProfile, postLiked: postLiked, saved: saved, active: '', cateActive: '', cateName: '', userRank: userRank, rankIndex: rankIndex, rank: false, modal: modal})
                                         }
                                     })
                                 })

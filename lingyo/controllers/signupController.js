@@ -505,6 +505,7 @@ module.exports = function(app, users, userProfile, emailRegister, phoneRegister)
                                                 points: 0,
                                                 usd: 0,
                                                 tickets: 0,
+                                                rank: "bronze",
                                                 rank1: 0,
                                                 rank2: 0,
                                                 rank3: 0,

@@ -1461,6 +1461,35 @@ input:checked + .slider:before {
   margin-right: 10px;
 }
 
+.user-rank h3 {
+ margin: 0px;
+}
+
+.level0 {
+  color: rgb(53, 53, 53);
+}
+.level1 {
+  color: rgb(160, 140, 86);
+}
+.level2 {
+  color: rgb(148, 148, 148);
+}
+.level3 {
+  color: rgb(243, 225, 62);
+}
+.level4 {
+  color: rgb(67, 201, 172);
+}
+.level5 {
+  color: rgb(86, 145, 212);
+}
+.level6 {
+  color: rgb(119, 51, 184);
+}
+.level7 {
+  color: rgb(206, 29, 73);
+}
+
 .follow-user-info {
   width: 100%;
   position: relative;
@@ -1701,6 +1730,7 @@ input:checked + .slider:before {
 
 .follow-user-info-mobile {
   display: flex;
+  flex-direction: column;
 }
 
 .mobile-download {
@@ -6486,6 +6516,10 @@ tbody {
   .update-time {
     display: flex;
     align-items: center;
+  }
+
+  .coundown {
+    display: none;
   }
 
   /* .img-video-but {
