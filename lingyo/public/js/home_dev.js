@@ -752,7 +752,7 @@ const showAlertWithLink = function(link){
         if (document.querySelectorAll(".alert-link").length != 0){
             document.querySelector(".alert-link").remove()
         }
-    }, 8000)
+    }, 5000)
 }
 
 const showSuccessAlert = function(text) {
