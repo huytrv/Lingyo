@@ -2656,6 +2656,10 @@ function createPostRedirect(c, pushState){
                                     clearInterval(interv)
                                     showAlert("Bạn cần xác thực tài khoản để tham gia!")
                                 }
+                                else if (res.status == "not win"){
+                                    clearInterval(interv)
+                                    showAlert("Bạn phải dành chiến thắng Vòng bảng để tham gia Vòng chung kết!")
+                                }
                                 else if (res.status == "over post"){
                                     clearInterval(interv)
                                     showAlert("Bạn chỉ có thể đăng 3 bài viết Vòng bảng và 1 bài viết Vòng chung kết!")
