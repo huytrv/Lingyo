@@ -144,7 +144,7 @@
                 </div>
                 <div class="d-flex-sb pd-l-lg pd-r-lg">
                     <div class="interactive-but-total d-flex vote-total"><% if (post.like != 0) { -%><span class="iconify vote-icon mg-r-sm" data-icon="ic:twotone-how-to-vote" data-inline="false"></span><span class="like-total"><%- post.like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") -%><% } %></span></div>
-                    <div class="sbd"><span>SBD: <%- post.sbd -%></span></div>
+                    <div class="ms"><span>MS: <%- post.ms -%></span></div>
                     <% if (post.file && post.file.type == 'video') { %>
                         <div class="video-views"><span class="view-total"><%- post.videoViews -%></span><span> lượt xem</span></div>
                     <% } %>

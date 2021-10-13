@@ -1623,8 +1623,8 @@ function handleRefreshTask(){
                                                     </a>
                                                 </div>
                                             </div>
-                                            ${(()=>{if (res.notifications[i].postInfo[1]) {return `<div class="mg-l-lg"><span>đã đăng một video mới vào Thể loại <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[1]}</span> cấp <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[2]}</span> - SBD: <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[3]}</span></span></div>`}
-                                                else {return `<div class="mg-l-lg"><span>đã đăng một video mới - SBD: <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[3]}</span></span></div>`}
+                                            ${(()=>{if (res.notifications[i].postInfo[1]) {return `<div class="mg-l-lg"><span>đã đăng một video mới vào Thể loại <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[1]}</span> cấp <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[2]}</span> - MS: <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[3]}</span></span></div>`}
+                                                else {return `<div class="mg-l-lg"><span>đã đăng một video mới - MS: <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[3]}</span></span></div>`}
                                             })()}
                                         </div>
                                         <div class="mg-t-sm"><span class="mg-t">Click để xem video và bình chọn</span></div>
@@ -1652,8 +1652,8 @@ function handleRefreshTask(){
                                                 </a>
                                             </div>
                                             <div class="d-flex-col-start">
-                                            ${(()=>{if (res.notifications[i].postInfo[1]) {return `<div class="noselect"><span>Bạn đã đăng một video mới vào Thể loại <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[1]}</span> cấp <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[2]}</span> - SBD: <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[3]}</span></span></div>`}
-                                                else {return `<div class="noselect"><span>Bạn đã đăng một video mới - SBD: <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[3]}</span></span></div>`}
+                                            ${(()=>{if (res.notifications[i].postInfo[1]) {return `<div class="noselect"><span>Bạn đã đăng một video mới vào Thể loại <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[1]}</span> cấp <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[2]}</span> - MS: <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[3]}</span></span></div>`}
+                                                else {return `<div class="noselect"><span>Bạn đã đăng một video mới - MS: <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[3]}</span></span></div>`}
                                             })()}
                                             </div>
                                         </div>
@@ -2725,7 +2725,7 @@ function createPostRedirect(c, pushState){
                                         }
                                         }
                                     }
-                                    handleNotification("post", [res.data.post.postId, res.data.cateNamePost, res.data.rankNamePost, res.data.post.sbd])
+                                    handleNotification("post", [res.data.post.postId, res.data.cateNamePost, res.data.rankNamePost, res.data.post.ms])
                                     postDisplayedList.push(res.data.post.postId)
                                     Plyr.setup('video.player')
                                     showAlertWithLink(`Video của bạn đã được xử lý thành công! <span class="nav-red underline-deco" nav-data="view-post" data-post-df="${res.data.post.postId}">Xem video?<span class="avt-username"></span></span>`)

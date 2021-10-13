@@ -2305,7 +2305,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                                                     share: 0,
                                                                                                     category: category,
                                                                                                     rank: rank,
-                                                                                                    sbd: num + 1,
+                                                                                                    ms: num + 1,
                                                                                                     competition: competition,
                                                                                                     videoViews: 0,
                                                                                                     videoImpressions: 0,

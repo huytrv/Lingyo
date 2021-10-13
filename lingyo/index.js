@@ -309,7 +309,7 @@ const posts = mysqlDB.define("posts", {
     share: sequelize.INTEGER,
     category: sequelize.STRING,
     rank: sequelize.STRING,
-    sbd: sequelize.INTEGER,
+    ms: sequelize.INTEGER,
     competition: sequelize.BOOLEAN,
     videoViews: sequelize.INTEGER,
     videoImpressions: sequelize.INTEGER,

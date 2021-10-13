@@ -17,7 +17,7 @@
                 <% if (posts) { %>
                     <% if (posts.length != 0) { %>
                         <% for (let i = 0; i < posts.length; i++) { %>
-                            <div class="d-flex-col post-moderate" data-post-df="<%- posts[i].postId -%>" data-post-sbd="<%- posts[i].sbd -%>">
+                            <div class="d-flex-col post-moderate" data-post-df="<%- posts[i].postId -%>" data-post-ms="<%- posts[i].ms -%>">
                                 <div class="pre-post-media">
                                     <% if (posts[i].file.type == "video") { %>
                                     <video muted controls src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>"></video>
