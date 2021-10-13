@@ -170,16 +170,15 @@ function validateMedia(post){
                     if (post.rank == rankList[i]){rank = rankName[i]}
                 }
                 console.log(1243)
-                handleNotification("post-done", [post.postId, cate, rank])
+                handleNotification("post-done", [post.postId, cate, rank, post.sbd])
             }
             else {
-                const ps = document.querySelectorAll(".post-moderate")
-                for (let i = 0; i < ps.length; i++){
-                    postId = ps[i].getAttribute("data-post-df")
-                    category = ps[i].querySelector(".pre-post-cate").textContent
-                    rank = ps[i].querySelector(".pre-post-rank").textContent
-                    handleNotification("post-done", [postId, category, rank])
-                }
+                const ps = validateBut[i].parentNode.parentNode.parentNode.querySelector(".post-moderate")
+                postId = ps.getAttribute("data-post-df")
+                category = ps.querySelector(".pre-post-cate").textContent
+                rank = ps.querySelector(".pre-post-rank").textContent
+                sbd = ps.getAttribute("data-post-sbd")
+                handleNotification("post-done", [postId, category, rank, sbd])
             }
             validateBut[i].parentNode.parentNode.remove()
         }

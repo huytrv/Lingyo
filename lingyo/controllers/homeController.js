@@ -33,7 +33,7 @@ const s3 = new S3({
 })
 
 
-module.exports = function(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber, reward, userAuth){
+module.exports = function(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber, reward, userAuth, postRank){
     const rankList = ["primary", "intermediate", "highgrade"]
     const rankName = ["Sơ cấp", "Trung cấp", "Cao cấp"]
     const cateList = ["freestyle", "hiphop", "rap", "contemporary", "ballroom", "modern", "ballet", "shuffle", "jazz", "sexy", "flashmob", "other"]
@@ -62,10 +62,207 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     setInterval(function(){ 
         TimeRange = [stageTime, stageTime + 5*24*60*60*1000]
         if (new Date().getDay() >= 1 && new Date().getDay() <= 5) {roundType = "group-stage"}else {roundType = "final"}
+        for (let r = 0; r < rankList.length; r++){
+            for (let c = 0; c < cateList.length; c++){
+                posts.findAll({
+                    where: {
+                        auth: true,
+                        time: {
+                            [Op.gte]: currentTimeline
+                        },
+                        category: cateList[c],
+                        rank: rankList[r]
+                    },
+                    order: [
+                        ['like', 'DESC']
+                    ],
+                }).then(function(postList){
+                    for (let i = 0; i < postList.length; i++){
+                        postRank.findOne({
+                            where: {
+                                postId: postList[i].postId,
+                                round: round,
+                                category: cateList[c],
+                                rank: rankList[r]
+                            },
+                        }).then(function(pr){
+                            if (!pr){
+                                postRank.create({
+                                    postId: postList[i].postId,
+                                    round: round,
+                                    category: cateList[c],
+                                    rank: rankList[r],
+                                    postRank: i + 1
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        }
+
+        let d = new Date()
+        if (d.toLocaleTimeString() == '11:00:00 PM'){
+            for (let r = 0; r < rankList.length; r++){
+                for (let c = 0; c < cateList.length; c++){
+                    posts.findAll({
+                        where: {
+                            auth: true,
+                            time: {
+                                [Op.gte]: currentTimeline
+                            },
+                            category: cateList[c],
+                            rank: rankList[r]
+                        },
+                        order: [
+                            ['like', 'DESC'],
+                            ['time', 'ASC']
+                        ],
+                    }).then(function(postList){
+                        for (let i = 0; i < postList.length; i++){
+                            postRank.findOne({
+                                where: {
+                                    postId: postList[i].postId,
+                                    round: round,
+                                    category: cateList[c],
+                                    rank: rankList[r]
+                                },
+                            }).then(function(pr){
+                                if (!pr){
+                                    postRank.create({
+                                        postId: postList[i].postId,
+                                        round: round,
+                                        category: cateList[c],
+                                        rank: rankList[r],
+                                        postRank: i + 1
+                                    })
+                                }
+                                else {
+                                    if (pr.postRank > (i + 1)){
+                                        userProfile.increment('points', {by: pr.postRank - (i+1), where: {userId: postList[i].userId}})
+                                        notifications.findOne({
+                                            where: {
+                                                sourceUser: postList[i].userId,
+                                                type: "post-reward",
+                                                userId: postList[i].userId
+                                            }
+                                        }).then(function(n){
+                                            if (typeof(postList[i].userId) === "number"){
+                                                userProfile.findOne({
+                                                    where: {
+                                                        userId: postList[i].userId
+                                                    }
+                                                }).then(function(profile){
+                                                    if (!n){
+                                                        notifications.create({
+                                                            sourceUser: postList[i].userId,
+                                                            postInfo: [profile.nickname, pr.postRank - (i+1)],
+                                                            type: "post-reward",
+                                                            read: false,
+                                                            time: Date.now(),
+                                                            userId: postList[i].userId
+                                                        })
+                                                    }   
+                                                    else {
+                                                        notifications.update({
+                                                            postInfo: [profile.nickname, pr.postRank - (i+1)],
+                                                            read: false,
+                                                            time: Date.now(),
+                                                        },
+                                                        {
+                                                            where: {
+                                                                sourceUser: postList[i].userId,
+                                                                type: "post-reward",
+                                                                userId: postList[i].userId
+                                                            }
+                                                        })
+                                                    }       
+                                                })
+                                                            
+                                            }
+                                        })
+                                    }
+                                    postLikes.findAll({
+                                        where: {
+                                            postId: postList[i].postId,
+                                            time: {
+                                                [Op.gt]: Date.now() - 24*60*60*1000
+                                            }
+                                        }
+                                    }).then(function(likeList){
+                                        for (let j = 0; j < likeList.length; j++){
+                                            userProfile.findOne({
+                                                where: {
+                                                    userId: likeList[j].userId
+                                                }
+                                            }).then(function(pp){
+                                                if (pp.points + (pr.postRank - (i+1)) >= 0){
+                                                    userProfile.increment('points', {by: pr.postRank - (i+1), where: {userId: likeList[j].userId}})
+                                                }
+                                            })
+                                            notifications.findOne({
+                                                where: {
+                                                    sourceUser: postList[i].userId,
+                                                    type: "vote-reward",
+                                                    userId: likeList[j].userId
+                                                }
+                                            }).then(function(n){
+                                                if (typeof(postList[i].userId) === "number" && typeof(likeList[j].userId) === "number"){
+                                                    userProfile.findOne({
+                                                        where: {
+                                                            userId: postList[i].userId
+                                                        }
+                                                    }).then(function(profile){
+                                                        if (!n){
+                                                            notifications.create({
+                                                                sourceUser: postList[i].userId,
+                                                                postInfo: [profile.nickname, pr.postRank - (i+1)],
+                                                                type: "vote-reward",
+                                                                read: false,
+                                                                time: Date.now(),
+                                                                userId: likeList[j].userId
+                                                            })
+                                                        }   
+                                                        else {
+                                                            notifications.update({
+                                                                postInfo: [profile.nickname, pr.postRank - (i+1)],
+                                                                read: false,
+                                                                time: Date.now(),
+                                                            },
+                                                            {
+                                                                where: {
+                                                                    sourceUser: postList[i].userId,
+                                                                    type: "reward",
+                                                                    userId: likeList[j].userId
+                                                                }
+                                                            })
+                                                        }   
+                                                    })             
+                                                }
+                                            })
+                                        }
+                                    })
+                                    postRank.update({
+                                        postRank: i + 1
+                                    },{
+                                        where: {
+                                            postId: postList[i].postId,
+                                            round: round,
+                                            category: cateList[c],
+                                            rank: rankList[r]
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+        }
         if (roundType == "final"){
             if (stageTime == currentTimeline) {
                 let buf = 0
-                let cateRewardList, cateFPList = 0
+                let cateRewardList, cateLPList = 0
                 let buf4 = 0
                 const WinnerList = {}
                 for (let r = 0; r < rankList.length; r++){
@@ -108,18 +305,18 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         if (rankList[r] == 'highgrade'){homeRank = "Cao cấp", buf4 = 0.54}
                                         if (sum > 0){
                                             cateRewardList = (Math.round((sum * buf4) * 100) / 100)
-                                            cateFPList = Math.round(sum * 1)
+                                            cateLPList = Math.round(sum * 1)
                                         }
                                         else {
                                             cateRewardList = 0.00
-                                            cateFPList = 0
+                                            cateLPList = 0
                                         }
                                         if (rank == 1){
                                             userProfile.increment('rank1', {by: 1, where: {userId: p[i].userId}})
-                                            userProfile.increment('points', {by: cateFPList, where: {userId: p[i].userId}})
+                                            userProfile.increment('points', {by: cateLPList, where: {userId: p[i].userId}})
                                             userProfile.increment('usd', {by: cateRewardList, where: {userId: p[i].userId}})
                                             winnerObj['usd'] = cateRewardList
-                                            winnerObj['fp'] = cateFPList
+                                            winnerObj['lp'] = cateLPList
                                             if (winnerObj[`${cateName[c]} - ${rankName[r]}`] != rank) {
                                                 winnerObj[`${cateName[c]} - ${rankName[r]}`] = rank
                                             }
@@ -189,7 +386,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         const newRound = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
         if (newRound > round) {
             let buf = 0
-            const finalRewardList = [], finalFPList= [], cateRewardList = [], cateFPList = []
+            const finalRewardList = [], finalLPList= [], cateRewardList = [], cateLPList = []
             let buf1, buf2, buf3, buf4 = 0
             userProfile.update({
                 posts: 0
@@ -239,30 +436,30 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 finalRewardList[0] = (Math.round((sum * buf1) * 100) / 100)
                                 finalRewardList[1] = (Math.round((sum * buf2) * 100) / 100)
                                 finalRewardList[2] = (Math.round((sum * buf3) * 100) / 100)
-                                finalFPList[0] = Math.round(sum * 3)
-                                finalFPList[1] = Math.round(sum * 2)
-                                finalFPList[2] = Math.round(sum * 1)
+                                finalLPList[0] = Math.round(sum * 3)
+                                finalLPList[1] = Math.round(sum * 2)
+                                finalLPList[2] = Math.round(sum * 1)
                                 winnerObj[homeRank] = rank
                                 if (rank == 1){
                                     userProfile.increment('rank1', {by: 1, where: {userId: p[i].userId}})
-                                    userProfile.increment('points', {by: finalFPList[0], where: {userId: p[i].userId}})
+                                    userProfile.increment('points', {by: finalLPList[0], where: {userId: p[i].userId}})
                                     userProfile.increment('usd', {by: finalRewardList[0], where: {userId: p[i].userId}})
                                     winnerObj['usd'] = finalRewardList[0]
-                                    winnerObj['fp'] = finalFPList[0]
+                                    winnerObj['lp'] = finalLPList[0]
                                 }
                                 if (rank == 2){
                                     userProfile.increment('rank2', {by: 1, where: {userId: p[i].userId}})
-                                    userProfile.increment('points', {by: finalFPList[1], where: {userId: p[i].userId}})
+                                    userProfile.increment('points', {by: finalLPList[1], where: {userId: p[i].userId}})
                                     userProfile.increment('usd', {by: finalRewardList[1], where: {userId: p[i].userId}})
                                     winnerObj['usd'] = finalRewardList[1]
-                                    winnerObj['fp'] = finalFPList[1]
+                                    winnerObj['lp'] = finalLPList[1]
                                 }
                                 if (rank == 3){
                                     userProfile.increment('rank3', {by: 1, where: {userId: p[i].userId}})
-                                    userProfile.increment('points', {by: finalFPList[2], where: {userId: p[i].userId}})
+                                    userProfile.increment('points', {by: finalLPList[2], where: {userId: p[i].userId}})
                                     userProfile.increment('usd', {by: finalRewardList[2], where: {userId: p[i].userId}})
                                     winnerObj['usd'] = finalRewardList[2]
-                                    winnerObj['fp'] = finalFPList[2]
+                                    winnerObj['lp'] = finalLPList[2]
                                 }
                                 userProfile.findOne({
                                     where: {
@@ -349,7 +546,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         userId: req.user.userId
                     }
                 }).then(function(profile){
-                    const enjoyList = [], finalRewardList = [], cateRewardList = [], finalFPList = [], cateFPList = []
+                    const enjoyList = [], finalRewardList = [], cateRewardList = [], finalLPList = [], cateLPList = []
                     let count = sum = 0
                     for (let i = 0; i < cateList.length; i++){
                         reward.findOne({
@@ -375,17 +572,17 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 finalRewardList[0] = (Math.round((sum * buf1) * 100) / 100).toFixed(2)
                                 finalRewardList[1] = (Math.round((sum * buf2) * 100) / 100).toFixed(2)
                                 finalRewardList[2] = (Math.round((sum * buf3) * 100) / 100).toFixed(2)
-                                finalFPList[0] = Math.round(sum * 3)
-                                finalFPList[1] = Math.round(sum * 2)
-                                finalFPList[2] = Math.round(sum * 1)
+                                finalLPList[0] = Math.round(sum * 3)
+                                finalLPList[1] = Math.round(sum * 2)
+                                finalLPList[2] = Math.round(sum * 1)
                                 for (let j = 0; j < enjoyList.length; j++){
                                     if (sum > 0){
                                         cateRewardList[j] = (Math.round(((enjoyList[j] * buf4)) * 100) / 100).toFixed(2)
-                                        cateFPList[j] = Math.round((enjoyList[j]) * 1)
+                                        cateLPList[j] = Math.round((enjoyList[j]) * 1)
                                     }
                                     else {
                                         cateRewardList[j] = 0.00
-                                        cateFPList[j] = 0
+                                        cateLPList[j] = 0
                                     }
                                 }
                                 let winnerCongrat = []
@@ -410,7 +607,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         }
                                     })
                                 }
-                                res.render("home", {username: req.user.username, userId: req.user.userId, winnerCongrat: winnerCongrat, newUser: newUser, profile: profile, active: "home", cateActive: '', cateName: '', nameList: cateName, cateList: cateList, finalRewardList: finalRewardList, cateRewardList: cateRewardList, finalFPList: finalFPList, cateFPList: cateFPList, rankLink: '', rankName: homeRank, roundType: roundType, modal: false})
+                                res.render("home", {username: req.user.username, userId: req.user.userId, winnerCongrat: winnerCongrat, newUser: newUser, profile: profile, active: "home", cateActive: '', cateName: '', nameList: cateName, cateList: cateList, finalRewardList: finalRewardList, cateRewardList: cateRewardList, finalLPList: finalLPList, cateLPList: cateLPList, rankLink: '', rankName: homeRank, roundType: roundType, modal: false})
                             }
                         })
                     }
@@ -686,6 +883,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     }
                 }
             })
+
             userAuth.findAll({
                 where: {
                     auth: false,
@@ -2089,86 +2287,97 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                                 if (!p){
                                                                                     function createPosts(){
                                                                                         if (typeof(id) === "number" && typeof(description) === "string" && typeof(category) === "string" && typeof(rank) === "string" && typeof(competition) === "string" && typeof(req.user.userId) === "number"){
-                                                                                            posts.create({ 
-                                                                                                postId: id,
-                                                                                                description: description,
-                                                                                                file: file,
-                                                                                                time: new Date(),
-                                                                                                like: 0,
-                                                                                                comment: 0,
-                                                                                                share: 0,
-                                                                                                category: category,
-                                                                                                rank: rank,
-                                                                                                competition: competition,
-                                                                                                videoViews: 0,
-                                                                                                videoImpressions: 0,
-                                                                                                auth: false,
-                                                                                                userId: req.user.userId
-                                                                                            }).then(function(newPost){
-                                                                                                function PostCreated() {
-                                                                                                    if (rank == "intermediate"){
-                                                                                                        userProfile.increment('tickets', {by: -1, where: {userId: req.user.userId}})
-                                                                                                    }
-                                                                                                    else if (rank == "highgrade"){
-                                                                                                        userProfile.increment('tickets', {by: -3, where: {userId: req.user.userId}})
-                                                                                                    }
-                                                                                                    let cateNamePost = false, rankNamePost = false
-                                                                                                    for (let c = 0; c < cateList.length; c++){
-                                                                                                        if (cateList[c] == category){cateNamePost = cateName[c]}
-                                                                                                    }
-                                                                                                    for (let r = 0; r < rankList.length; r++){
-                                                                                                        if (rankList[r] == rank){rankNamePost = rankName[r]}
-                                                                                                    }
-                                                                                                    const data = {
-                                                                                                        username: req.user.username,
-                                                                                                        userId: req.user.userId,
-                                                                                                        profile: profile,
-                                                                                                        post: newPost,
-                                                                                                        category: category,
-                                                                                                        rank: rank,
-                                                                                                        cateNamePost: cateNamePost,
-                                                                                                        rankNamePost: rankNamePost
-                                                                                                    }
-                                                                                                    res.json({
-                                                                                                        status: "post-created",
-                                                                                                        data: data
-                                                                                                    })
+                                                                                            posts.count({
+                                                                                                where: {
+                                                                                                    time: {
+                                                                                                        [Op.gte]: currentTimeline
+                                                                                                    },
+                                                                                                    rank: rank,
                                                                                                 }
-                                                                                                if (f.file){
-                                                                                                    sendModerateMail("fodancemoderator@gmail.com", id)
-                                                                                                    const interv = setInterval(function(){
-                                                                                                        posts.findOne({
+                                                                                            }).then(function(num){
+                                                                                                posts.create({ 
+                                                                                                    postId: id,
+                                                                                                    description: description,
+                                                                                                    file: file,
+                                                                                                    time: new Date(),
+                                                                                                    like: 0,
+                                                                                                    comment: 0,
+                                                                                                    share: 0,
+                                                                                                    category: category,
+                                                                                                    rank: rank,
+                                                                                                    sbd: num + 1,
+                                                                                                    competition: competition,
+                                                                                                    videoViews: 0,
+                                                                                                    videoImpressions: 0,
+                                                                                                    auth: false,
+                                                                                                    userId: req.user.userId
+                                                                                                }).then(function(newPost){
+                                                                                                    function PostCreated() {
+                                                                                                        if (rank == "intermediate"){
+                                                                                                            userProfile.increment('tickets', {by: -1, where: {userId: req.user.userId}})
+                                                                                                        }
+                                                                                                        else if (rank == "highgrade"){
+                                                                                                            userProfile.increment('tickets', {by: -3, where: {userId: req.user.userId}})
+                                                                                                        }
+                                                                                                        let cateNamePost = false, rankNamePost = false
+                                                                                                        for (let c = 0; c < cateList.length; c++){
+                                                                                                            if (cateList[c] == category){cateNamePost = cateName[c]}
+                                                                                                        }
+                                                                                                        for (let r = 0; r < rankList.length; r++){
+                                                                                                            if (rankList[r] == rank){rankNamePost = rankName[r]}
+                                                                                                        }
+                                                                                                        const data = {
+                                                                                                            username: req.user.username,
+                                                                                                            userId: req.user.userId,
+                                                                                                            profile: profile,
+                                                                                                            post: newPost,
+                                                                                                            category: category,
+                                                                                                            rank: rank,
+                                                                                                            cateNamePost: cateNamePost,
+                                                                                                            rankNamePost: rankNamePost
+                                                                                                        }
+                                                                                                        res.json({
+                                                                                                            status: "post-created",
+                                                                                                            data: data
+                                                                                                        })
+                                                                                                    }
+                                                                                                    if (f.file){
+                                                                                                        sendModerateMail("fodancemoderator@gmail.com", id)
+                                                                                                        const interv = setInterval(function(){
+                                                                                                            posts.findOne({
+                                                                                                                where: {
+                                                                                                                    postId: id
+                                                                                                                }
+                                                                                                            }).then(function(postAuth){
+                                                                                                                if (postAuth){
+                                                                                                                    if (postAuth.auth){
+                                                                                                                        clearInterval(interv)
+                                                                                                                        PostCreated()
+                                                                                                                    }
+                                                                                                                }                                                                              
+                                                                                                                else {
+                                                                                                                    clearInterval(interv)
+                                                                                                                    res.json({
+                                                                                                                        status: "post-invalid",
+                                                                                                                    })
+                                                                                                                }
+                                                                                                            })
+                                                                                                        }, 5000)
+                                                                                                    }
+                                                                                                    else {
+                                                                                                        posts.update({
+                                                                                                            auth: true
+                                                                                                        }, {
                                                                                                             where: {
                                                                                                                 postId: id
                                                                                                             }
-                                                                                                        }).then(function(postAuth){
-                                                                                                            if (postAuth){
-                                                                                                                if (postAuth.auth){
-                                                                                                                    clearInterval(interv)
-                                                                                                                    PostCreated()
-                                                                                                                }
-                                                                                                            }                                                                              
-                                                                                                            else {
-                                                                                                                clearInterval(interv)
-                                                                                                                res.json({
-                                                                                                                    status: "post-invalid",
-                                                                                                                })
-                                                                                                            }
+                                                                                                        }).then(function(){
+                                                                                                            PostCreated()
                                                                                                         })
-                                                                                                    }, 5000)
-                                                                                                }
-                                                                                                else {
-                                                                                                    posts.update({
-                                                                                                        auth: true
-                                                                                                    }, {
-                                                                                                        where: {
-                                                                                                            postId: id
-                                                                                                        }
-                                                                                                    }).then(function(){
-                                                                                                        PostCreated()
-                                                                                                    })
-                                                                                                }
+                                                                                                    }
+                                                                                                })
                                                                                             })
+                                                                                            
                                                                                         }
                                                                                         
                                                                                     }
@@ -3611,6 +3820,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         if (!pLiked && typeof(req.body.dataPostDf) === "string" && typeof(req.user.userId) === "number"){
                             postLikes.create({
                                 userId: req.user.userId,
+                                time: Date.now(),
                                 postId: req.body.dataPostDf
                             }).then(function () {
                                 posts.increment('like', {by: 1, where: {postId: req.body.dataPostDf}}).then(function(){
@@ -3632,42 +3842,49 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             })
                         }
                         else {
-                            res.end()
+                            res.json({
+                                data: bull
+                            })
                         }
                     }
                     else {
-                        if (pLiked){
-                            postLikes.destroy({
-                                where: {
-                                    userId: req.user.userId,
-                                    postId: req.body.dataPostDf
-                                }
-                            }).then(function () {
-                                posts.increment('like', {by: -1, where: {postId: req.body.dataPostDf}}).then(function(){
-                                    posts.findOne({
-                                        where: {
-                                            postId: req.body.dataPostDf,
-                                            auth: true
-                                        }
-                                    }).then(function(t){
-                                        const data = {
-                                            total: t.like,
-                                            postId: t.postId
-                                        }
-                                        res.json({
-                                            data: data
-                                        })
-                                    })
-                                })
-                            })
-                        }
-                        else {
-                            res.end()
-                        }
+                        // if (pLiked){
+                        //     postLikes.destroy({
+                        //         where: {
+                        //             userId: req.user.userId,
+                        //             postId: req.body.dataPostDf
+                        //         }
+                        //     }).then(function () {
+                        //         posts.increment('like', {by: -1, where: {postId: req.body.dataPostDf}}).then(function(){
+                        //             posts.findOne({
+                        //                 where: {
+                        //                     postId: req.body.dataPostDf,
+                        //                     auth: true
+                        //                 }
+                        //             }).then(function(t){
+                        //                 const data = {
+                        //                     total: t.like,
+                        //                     postId: t.postId
+                        //                 }
+                        //                 res.json({
+                        //                     data: data
+                        //                 })
+                        //             })
+                        //         })
+                        //     })
+                        // }
+                        // else {
+                        //     res.end()
+                        // }
+                        res.json({
+                            data: null
+                        })
                     }
                 }
                 else {
-                    res.end()
+                    res.json({
+                        data: null
+                    })
                 }
             })
         }
@@ -5230,6 +5447,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         },
                         order: [
                             ['time', 'DESC'],
+                            ['read', 'ASC']
                         ],
                     }).then(function(n){
                         notifications.update({
@@ -5312,7 +5530,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     if (!n){
                                         notifications.create({
                                             sourceUser: req.user.userId,
-                                            post: null,
+                                            postInfo: null,
                                             type: req.body.type,
                                             read: false,
                                             time: Date.now(),
@@ -5383,6 +5601,25 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 time: Date.now(),
                                 userId: req.user.userId
                             }).then(function(){
+                                notifications.findAll({
+                                    where: {
+                                        sourceUser: req.user.userId,
+                                        postInfo: req.body.source,
+                                        type: req.body.type,
+                                        userId: req.user.userId
+                                    }
+                                }).then(function(n){
+                                    if (n.length > 1){
+                                        notifications.destroy({
+                                            where:{
+                                                sourceUser: req.user.userId,
+                                                postInfo: req.body.source,
+                                                type: req.body.type,
+                                                userId: req.user.userId
+                                            }
+                                        })
+                                    }
+                                })
                                 res.end()
                             })
                         }

@@ -309,6 +309,7 @@ const posts = mysqlDB.define("posts", {
     share: sequelize.INTEGER,
     category: sequelize.STRING,
     rank: sequelize.STRING,
+    sbd: sequelize.INTEGER,
     competition: sequelize.BOOLEAN,
     videoViews: sequelize.INTEGER,
     videoImpressions: sequelize.INTEGER,
@@ -317,6 +318,17 @@ const posts = mysqlDB.define("posts", {
 
 const postLikes = mysqlDB.define("postlikes", {
     userId: sequelize.BIGINT,
+    time: sequelize.DATE,
+})
+
+const postRank = mysqlDB.define("postRank", {
+    round: sequelize.INTEGER,
+    category: sequelize.STRING,
+    rank: sequelize.STRING,
+    postRank: sequelize.INTEGER,
+    postId: {
+        type: sequelize.BIGINT,
+    }, 
 })
 
 const comments = mysqlDB.define("comments", {
@@ -337,7 +349,7 @@ const commentLikes = mysqlDB.define("commentlikes", {
 })
 
 const voteWinners = mysqlDB.define("votewinners", {
-    round: sequelize.STRING,
+    round: sequelize.INTEGER,
     rank: sequelize.STRING,
     category: sequelize.STRING,
     userId: sequelize.BIGINT
@@ -487,4 +499,4 @@ const io = socketio(server)
 loginController(app, users)
 forgotController(app, users, forgotPasswordToken, forgotPasswordCode)
 updateController(app, users)
-homeController(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber, reward, userAuth)
+homeController(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber, reward, userAuth, postRank)

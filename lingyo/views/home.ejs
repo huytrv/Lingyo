@@ -28,7 +28,7 @@
                             <div><span class="theme-color mg-r-lg">Hạng <%- Object.values(winnerCongrat[i])[2] -%> <%- Object.keys(winnerCongrat[i])[2] -%></span></div>
                             <div class="d-flex">
                                 <span class="mg-r-sm"><%- Object.values(winnerCongrat[i])[1] -%></span><span class="iconify font-icon mg-l-sm theme-color" data-icon="emojione-v1:money-bag" data-inline="false"></span>
-                                <span class="mg-l-sm"><%- Object.values(winnerCongrat[i])[0] -%> <b>FP</b></span>
+                                <span class="mg-l-sm"><%- Object.values(winnerCongrat[i])[0] -%> <b>LP</b></span>
                             </div>
                             
                         </div>
@@ -79,7 +79,7 @@
                                 <span class="mg-r-sm animate__animated animate__bounceInUp">Hạng 1</span>
                                 <div class="border-b"></div>
                                 <div class="border-b"></div>
-                                <div class="animate__animated animate__bounceInUp"><span class="bold-font rw-color usd-rw"><%- finalRewardList[0] -%> </span> USD, <span class="bold-font rw-color fp-rw"><%- finalFPList[0] -%></span> FP</div>
+                                <div class="animate__animated animate__bounceInUp"><span class="bold-font rw-color usd-rw"><%- finalRewardList[0] -%> </span> USD, <span class="bold-font rw-color fp-rw"><%- finalLPList[0] -%></span> LP</div>
                             </div>
                         </div>
                         <div class="top-reward-frame shine rw2">
@@ -88,7 +88,7 @@
                                 <span class="mg-r-sm animate__animated animate__bounceInUp">Hạng 2</span>
                                 <div class="border-b"></div>
                                 <div class="border-b"></div>
-                                <div class="animate__animated animate__bounceInUp"><span class="bold-font rw-color usd-rw"><%- finalRewardList[1] -%> </span> USD, <span class="bold-font rw-color fp-rw"><%- finalFPList[1] -%> </span> FP</div>
+                                <div class="animate__animated animate__bounceInUp"><span class="bold-font rw-color usd-rw"><%- finalRewardList[1] -%> </span> USD, <span class="bold-font rw-color fp-rw"><%- finalLPList[1] -%> </span> LP</div>
                             </div>
                         </div>
                         <div class="top-reward-frame shine rw3">
@@ -97,7 +97,7 @@
                                 <span class="mg-r-sm animate__animated animate__bounceInUp">Hạng 3</span>
                                 <div class="border-b"></div>
                                 <div class="border-b"></div>
-                                <div class="animate__animated animate__bounceInUp"><span class="bold-font rw-color usd-rw"><%- finalRewardList[2] -%> </span> USD, <span class="bold-font rw-color fp-rw"><%- finalFPList[2] -%> </span> FP</div>
+                                <div class="animate__animated animate__bounceInUp"><span class="bold-font rw-color usd-rw"><%- finalRewardList[2] -%> </span> USD, <span class="bold-font rw-color fp-rw"><%- finalLPList[2] -%> </span> LP</div>
                             </div>
                         </div>
                     </div>
@@ -119,11 +119,21 @@
                 <% for (let i = 0; i < cateList.length; i++) { %>
                     <button class="top-reward-frame category-but" topic-data="<%- cateList[i] %>">
                         <div class="d-flex-start">
-                            <span><span class="category-item-name"><%- nameList[i] %></span>: <span class="bold-font rw-color usd-rw"><%- cateRewardList[i] %></span> $, <span class="bold-font rw-color fp-rw"><%- cateFPList[i] -%> </span> FP</span>
+                            <span><span class="category-item-name"><%- nameList[i] %></span>: <span class="bold-font rw-color usd-rw"><%- cateRewardList[i] %></span> $, <span class="bold-font rw-color fp-rw"><%- cateLPList[i] -%> </span> LP</span>
                         </div>
                     </button>
                 <% } %>
                 </div>
+            </div>
+        </div>
+        <div class="top-reward">
+            <div class="d-flex-col flex-wrap mg-t mg-b-lg">
+                <h3>3. Thưởng LP ngoài</h3>
+                <div><span>Đăng 1 bài viết Vòng bảng: + </span><span>5LP</span></div>
+                <div><span>Đăng 1 bài viết Vòng chung kết: + </span><span>10LP</span></div>
+                <h4 class="gray-color">Bình chọn một video: </h4>
+                <div><span>Khi video đó tăng thêm <b>x</b> hạng sau 3 giờ: + </span><span><b>x</b> LP</span></div>
+                <div><span>Khi video đó giảm đi <b>x</b> hạng sau 3 giờ: - </span><span><b>x</b> LP</span></div>
             </div>
         </div>
     </div>

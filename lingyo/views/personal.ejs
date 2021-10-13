@@ -292,7 +292,7 @@
                                                     <span class="mg-r-sm">Hạng: </span>
                                                     <h3 class="mg-r-lg level<%- rankIndex %>"><%- userRank -%></h3>
                                                 </div>
-                                                <span><b><%- profile.points -%></b> FP</span>
+                                                <span><b><%- profile.points -%></b> LP</span>
                                             </div>
                                             <div class="follow-user-info-inner d-flex-start">
                                                 <a class="following noselect"><b class="following-total"><%- profile.following -%></b> Đang theo dõi</a>
@@ -365,7 +365,7 @@
                                                     <span class="mg-r-sm">Hạng: </span>
                                                     <h3 class="mg-r-lg level<%- rankIndex %>"><%- userRank -%></h3>
                                                 </div>
-                                                <span><b><%- profile.points -%></b> FP</span>
+                                                <span><b><%- profile.points -%></b> LP</span>
                                             </div>
                                             <div class="follow-user-info-inner d-flex-start">
                                                 <a class="following noselect"><b class="following-total"><%- profile.following -%></b> Đang theo dõi</a>
@@ -525,6 +525,7 @@
                                                         </div>
                                                         <div class="d-flex-sb pd-l-lg pd-r-lg">
                                                             <div class="interactive-but-total d-flex vote-total"><% if (posts[i].like != 0) { -%><span class="iconify vote-icon mg-r-sm" data-icon="ic:twotone-how-to-vote" data-inline="false"></span><span class="like-total"><%- posts[i].like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") -%><% } %></span></div>
+                                                            <div class="sbd"><span>SBD: <%- posts[i].sbd -%></span></div>
                                                             <% if (posts[i].file && posts[i].file.type == 'video') { %>
                                                                 <div class="video-views"><span class="view-total"><%- posts[i].videoViews -%></span><span> lượt xem</span></div>
                                                             <% } %>

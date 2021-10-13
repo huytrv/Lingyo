@@ -2253,8 +2253,8 @@ input:checked + .slider:before {
   justify-content: flex-start;
   align-items: flex-start;
   cursor: pointer;
-  background-color: #e8f3f7;
-  padding: 15px;
+  background-color: white;
+  padding: 12px;
 }
 
 .notification-item:hover {
@@ -4870,12 +4870,20 @@ input[type='range']::-ms-fill-lower {
 .post-info {
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   padding: 5px 0;
 }
 
 .post-info .avt img {
   width: 45px;
   height: 45px;
+}
+
+.sbd {
+  border-radius: 20px;
+  background-color: #d7f7ff;
+  padding: 3px 10px;
+  margin-left: 40px;
 }
 
 .full-height {
@@ -5982,7 +5990,7 @@ tbody {
   }
 
   .header-rank {
-    margin-right: 0 !important;
+    margin-left: 100px !important;
   }
 
   .logo {
@@ -6417,6 +6425,7 @@ tbody {
   .notification-item {
     justify-content: space-between;
     padding: 12px 30px;
+    background-color: #e8f3f7;
   }
 
   .main {

@@ -79,14 +79,96 @@
                                 </div>
                                 <div class="d-flex-col-start">
                                     <% if (notifications[i].postInfo[1]) { %>
-                                        <div class="noselect"><span>Bạn đã đăng một video mới vào thể loại <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[1] -%></span> cấp <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[2] -%></span></span></div>
+                                        <div class="noselect"><span>Bạn đã đăng một video mới vào thể loại <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[1] -%></span> cấp <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[2] -%></span> - SBD: <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[3] -%></span></span></div>
                                     <% } %>
                                     <% if (!notifications[i].postInfo[1]) { %>
-                                        <div class="noselect"><span>đã đăng một video mới</span></div>
+                                        <div class="noselect"><span>đã đăng một video mới - SBD: <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[3] -%></span></span></div>
                                     <% } %>
                                 </div>
                             </div>
-                            <div><span class="mg-t">Click để xem video và bình chọn</span></div>
+                            <div class="mg-t-sm"><span class="mg-t">Click để xem video và bình chọn</span></div>
+                        </div>
+                        <div class="time-noti">
+                            <% if ((Date.now() - notifications[i].time)/1000 < 5) { %>
+                                <span class="theme-color">Vừa xong</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000 > 5 && (Date.now() - notifications[i].time)/1000 < 60) { %>
+                                <span class="theme-color"><%- Math.floor((Date.now() - notifications[i].time)/1000) -%> giây trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/60 >= 1 && (Date.now() - notifications[i].time)/1000/60 < 60) { %>
+                                <span class="theme-color"><%- Math.floor((Date.now() - notifications[i].time)/1000/60) -%> phút trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600 >= 1 && (Date.now() - notifications[i].time)/1000/3600 < 24) { %>
+                                <span><%- Math.floor((Date.now() - notifications[i].time)/1000/3600) -%> giờ trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600/24 >= 1 && (Date.now() - notifications[i].time)/1000/3600/24 < 8) { %>
+                                <span><%- Math.floor((Date.now() - notifications[i].time)/1000/3600/24) -%> ngày trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600/24 >= 8) { %>
+                                <span><%- notifications[i].time.getDate() + " tháng " + (notifications[i].time.getMonth() + 1) + " lúc " + notifications[i].time.getHours() + ':' + notifications[i].time.getMinutes()-%></span>
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+                <% if (notifications[i].type == "post-reward") { %>
+                    <div class="notification-item nav-red <% if (!read[i]) { %>unread-notification-bg<% } %> <% if (i < notifications.length - 1) { %>border-b<% } %>" nav-data='personal' data-user-df="<%- notifications[i].postInfo[0] -%>">
+                        <div class="d-flex-col-start">
+                            <div class="d-flex-start">
+                                <div class="d-flex">
+                                    <a class="avt">
+                                        <% if (notificationProfile[i].avatar.includes("http")) { %>
+                                            <img src="<%- notificationProfile[i].avatar -%>" class="user-avt" username="<%- notificationName[i] -%>">
+                                            <% } %>
+                                        <% if (!notificationProfile[i].avatar.includes("http")) { %>
+                                            <img src="https://cdn.fodance.com/fd-media/<%- notificationProfile[i].avatar -%>" class="user-avt" username="<%- notificationName[i] -%>">
+                                        <% } %>                                    
+                                    </a>
+                                </div>
+                                <div class="d-flex-col-start">
+                                    <div class="noselect"><span>Bạn đã nhận được <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[1] -%></span>LP theo mức tăng hạng video tham dự</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="time-noti">
+                            <% if ((Date.now() - notifications[i].time)/1000 < 5) { %>
+                                <span class="theme-color">Vừa xong</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000 > 5 && (Date.now() - notifications[i].time)/1000 < 60) { %>
+                                <span class="theme-color"><%- Math.floor((Date.now() - notifications[i].time)/1000) -%> giây trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/60 >= 1 && (Date.now() - notifications[i].time)/1000/60 < 60) { %>
+                                <span class="theme-color"><%- Math.floor((Date.now() - notifications[i].time)/1000/60) -%> phút trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600 >= 1 && (Date.now() - notifications[i].time)/1000/3600 < 24) { %>
+                                <span><%- Math.floor((Date.now() - notifications[i].time)/1000/3600) -%> giờ trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600/24 >= 1 && (Date.now() - notifications[i].time)/1000/3600/24 < 8) { %>
+                                <span><%- Math.floor((Date.now() - notifications[i].time)/1000/3600/24) -%> ngày trước</span>
+                            <% } %>
+                            <% if ((Date.now() - notifications[i].time)/1000/3600/24 >= 8) { %>
+                                <span><%- notifications[i].time.getDate() + " tháng " + (notifications[i].time.getMonth() + 1) + " lúc " + notifications[i].time.getHours() + ':' + notifications[i].time.getMinutes()-%></span>
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+                <% if (notifications[i].type == "post-reward") { %>
+                    <div class="notification-item nav-red <% if (!read[i]) { %>unread-notification-bg<% } %> <% if (i < notifications.length - 1) { %>border-b<% } %>" nav-data='personal' data-user-df="<%- notifications[i].postInfo[0] -%>">
+                        <div class="d-flex-col-start">
+                            <div class="d-flex-start">
+                                <div class="d-flex">
+                                    <a class="avt">
+                                        <% if (notificationProfile[i].avatar.includes("http")) { %>
+                                            <img src="<%- notificationProfile[i].avatar -%>" class="user-avt" username="<%- notificationName[i] -%>">
+                                            <% } %>
+                                        <% if (!notificationProfile[i].avatar.includes("http")) { %>
+                                            <img src="https://cdn.fodance.com/fd-media/<%- notificationProfile[i].avatar -%>" class="user-avt" username="<%- notificationName[i] -%>">
+                                        <% } %>                                    
+                                    </a>
+                                </div>
+                                <div class="d-flex-col-start">
+                                    <div class="noselect"><span>Bạn đã nhận được <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[1] -%></span>LP qua việc bình chọn video tham dự</span></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="time-noti">
                             <% if ((Date.now() - notifications[i].time)/1000 < 5) { %>
@@ -129,14 +211,14 @@
                                         <a class="avt"><span class="avt-username user-username"><%- notificationName[i] -%></span></a>
                                     </div>
                                     <% if (notifications[i].postInfo[1]) { %>
-                                        <div class="noselect"><span>đã đăng một video mới vào thể loại <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[1] -%></span> cấp <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[2] -%></span></span></div>
+                                        <div class="noselect"><span>đã đăng một video mới vào thể loại <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[1] -%></span> cấp <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[2] -%></span> - SBD: <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[3] -%></span></span></div>
                                     <% } %>
                                     <% if (!notifications[i].postInfo[1]) { %>
-                                        <div class="noselect"><span>đã đăng một video mới</span></div>
+                                        <div class="noselect"><span>đã đăng một video mới - SBD: <span class="theme-color font-size-lg-1"><%- notifications[i].postInfo[3] -%></span></span></div>
                                     <% } %>
                                 </div>
                             </div>
-                            <div><span class="mg-t">Click để xem video và bình chọn</span></div>
+                            <div class="mg-t-sm"><span class="mg-t">Click để xem video và bình chọn</span></div>
                         </div>
                         <div class="time-noti">
                             <% if ((Date.now() - notifications[i].time)/1000 < 5) { %>

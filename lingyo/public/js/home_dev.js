@@ -1561,7 +1561,7 @@ function handleRefreshTask(){
                                         <span class="mg-l-lg">đã theo dõi bạn.</span>
                                     </div>
                                     <div class="time-noti">
-                                    ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span>Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
+                                    ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
                                     </div>
                                 </div>
                             `)
@@ -1595,13 +1595,13 @@ function handleRefreshTask(){
                                     </div>
                                 </div>
                                 <div class="time-noti">
-                                    ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span>Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
+                                    ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
                                 </div>
                             </div>`)
                             }
                             else if (res.notifications[i].type == "post"){
                                 document.querySelector(".notifications-inner").insertAdjacentHTML("afterbegin", `
-                                <div class="notification-item unread-notification-bg border-b nav-red" nav-data='personal' data-user-df="${res.notifications[i].postInfo[0]}>
+                                <div class="notification-item unread-notification-bg border-b nav-red" nav-data="view-post" data-post-df="${res.notifications[i].postInfo[0]}">
                                     <div class="d-flex-start">
                                         <div class="d-flex-start">
                                             <div class="d-flex">
@@ -1623,14 +1623,98 @@ function handleRefreshTask(){
                                                     </a>
                                                 </div>
                                             </div>
-                                            ${(()=>{if (res.notifications[i].postInfo[1]) {return `<div class="mg-l-lg"><span>đã đăng một video mới vào Thể loại <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[1]}</span> cấp <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[2]}</span></span></div>`}
-                                                else {return `<div class="mg-l-lg"><span>đã đăng một video mới</span></div>`}
+                                            ${(()=>{if (res.notifications[i].postInfo[1]) {return `<div class="mg-l-lg"><span>đã đăng một video mới vào Thể loại <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[1]}</span> cấp <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[2]}</span> - SBD: <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[3]}</span></span></div>`}
+                                                else {return `<div class="mg-l-lg"><span>đã đăng một video mới - SBD: <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[3]}</span></span></div>`}
                                             })()}
                                         </div>
-                                        <div><span class="mg-t">Click để xem video và bình chọn</span></div>
+                                        <div class="mg-t-sm"><span class="mg-t">Click để xem video và bình chọn</span></div>
                                     </div>
                                     <div class="time-noti">
-                                    ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span>Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
+                                    ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
+                                    </div>
+                                </div>
+                            `)
+                            }
+                            else if (res.notifications[i].type == "post-done"){
+                                document.querySelector(".notifications-inner").insertAdjacentHTML("afterbegin", `
+                                <div class="notification-item unread-notification-bg border-b nav-red" nav-data="view-post" data-post-df="${res.notifications[i].postInfo[0]}">
+                                    <div class="d-flex-col-start">
+                                        <div class="d-flex-start">
+                                            <div class="d-flex">
+                                                <a class="avt">
+                                                    ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
+                                                    <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                                    `}
+                                                    else {return `
+                                                    <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                                    `}
+                                                    })()}
+                                                </a>
+                                            </div>
+                                            <div class="d-flex-col-start">
+                                            ${(()=>{if (res.notifications[i].postInfo[1]) {return `<div class="noselect"><span>Bạn đã đăng một video mới vào Thể loại <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[1]}</span> cấp <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[2]}</span> - SBD: <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[3]}</span></span></div>`}
+                                                else {return `<div class="noselect"><span>Bạn đã đăng một video mới - SBD: <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[3]}</span></span></div>`}
+                                            })()}
+                                            </div>
+                                        </div>
+                                        <div class="mg-t-sm"><span class="mg-t">Click để xem video và bình chọn</span></div>
+                                    </div>
+                                    <div class="time-noti">
+                                    ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
+                                    </div>
+                                </div>
+                            `)
+                            }
+                            else if (res.notifications[i].type == "post-reward"){
+                                document.querySelector(".notifications-inner").insertAdjacentHTML("afterbegin", `
+                                <div class="notification-item unread-notification-bg border-b nav-red" nav-data='personal' data-user-df="${res.notifications[i].postProfile[0]}">
+                                    <div class="d-flex-col-start">
+                                        <div class="d-flex-start">
+                                            <div class="d-flex">
+                                                <a class="avt">
+                                                    ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
+                                                    <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                                    `}
+                                                    else {return `
+                                                    <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                                    `}
+                                                    })()}
+                                                </a>
+                                            </div>
+                                            <div class="d-flex-col-start">
+                                            <div class="noselect"><span>Bạn đã nhận được <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[1]}</span>LP theo mức tăng hạng video tham dự</span></span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="time-noti">
+                                    ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
+                                    </div>
+                                </div>
+                            `)
+                            }
+                            else if (res.notifications[i].type == "vote-reward"){
+                                document.querySelector(".notifications-inner").insertAdjacentHTML("afterbegin", `
+                                <div class="notification-item unread-notification-bg border-b nav-red" nav-data='personal' data-user-df="${res.notifications[i].postInfo[0]}">
+                                    <div class="d-flex-col-start">
+                                        <div class="d-flex-start">
+                                            <div class="d-flex">
+                                                <a class="avt">
+                                                    ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
+                                                    <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                                    `}
+                                                    else {return `
+                                                    <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                                    `}
+                                                    })()}
+                                                </a>
+                                            </div>
+                                            <div class="d-flex-col-start">
+                                            <div class="noselect"><span>Bạn đã nhận được <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[1]}</span>LP qua việc bình chọn video tham dự</span></span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="time-noti">
+                                    ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
                                     </div>
                                 </div>
                             `)
@@ -1659,7 +1743,7 @@ function handleRefreshTask(){
                                         <span class="mg-l">đã có video đạt <span class="theme-color"> ${res.notifications[i].postInfo[1]}</span> lượt bình chọn</span>
                                     </div>
                                     <div class="time-noti">
-                                    ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span>Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
+                                    ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
                                     </div>
                                 </div>`)
                             }
@@ -1681,7 +1765,7 @@ function handleRefreshTask(){
                                         </div>
                                     </div>
                                     <div class="time-noti">
-                                    ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span>Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
+                                    ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
                                     </div>
                                 </div>`)
                             }
@@ -1703,7 +1787,7 @@ function handleRefreshTask(){
                                         </div>
                                     </div>
                                     <div class="time-noti">
-                                        ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span>Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
+                                        ${(() => {if ((Date.now() - Date.parse(res.notifications[i].time))/1000 < 5) {return `<span class="theme-color">Vừa xong</span>`} else if((Date.now() - Date.parse(res.notifications[i].time))/1000 > 5 && (Date.now() - Date.parse(res.notifications[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000)} giây trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/60)} phút trước</span>`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600)} giờ trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24)} ngày trước`} else if ((Date.now() - Date.parse(res.notifications[i].time))/1000/3600/24 >= 8) {return `${new Date(res.notifications[i].time).getDate() + " tháng " + (new Date(res.notifications[i].time).getMonth() + 1) + " lúc " + new Date(res.notifications[i].time).getHours() + ':' + new Date(res.notifications[i].time).getMinutes()}`}})()}
                                     </div>
                                 </div>`)
                             }
@@ -2470,7 +2554,7 @@ function createPostRedirect(c, pushState){
                             }                   
                             if (f.type.match('video.*')) {
                                 fileCate = 2
-                                ele.innerHTML = `<video class="thumb player" playsinline controls src="${src}"></video>
+                                ele.innerHTML = `<video class="thumb player" playsinline controls src="${src}#t=3"></video>
                                                 <button class='close-thumb close-thumb' type='button'><span class='iconify dropdown-icon' data-icon='feather:x' data-inline='false'></span></button>`
                                 if(document.querySelectorAll(".thumb-preview").length == 0) {
                                     document.querySelector(".thumb-content").insertBefore(ele, null)
@@ -2641,7 +2725,7 @@ function createPostRedirect(c, pushState){
                                         }
                                         }
                                     }
-                                    handleNotification("post", [res.data.post.postId, res.data.cateNamePost, res.data.rankNamePost])
+                                    handleNotification("post", [res.data.post.postId, res.data.cateNamePost, res.data.rankNamePost, res.data.post.sbd])
                                     postDisplayedList.push(res.data.post.postId)
                                     Plyr.setup('video.player')
                                     showAlertWithLink(`Video của bạn đã được xử lý thành công! <span class="nav-red underline-deco" nav-data="view-post" data-post-df="${res.data.post.postId}">Xem video?<span class="avt-username"></span></span>`)
@@ -3467,7 +3551,7 @@ function handleMainFrame(){
 
     function runningReward() {
         let rewardMoney = document.querySelectorAll(".usd-rw")
-        let rewardFP = document.querySelectorAll(".fp-rw")
+        let rewardLP = document.querySelectorAll(".LP-rw")
         for (let i = 0; i < rewardMoney.length; i++){
             const staticMoney = parseFloat(rewardMoney[i].textContent)
             let animationTimer = setInterval(function() {
@@ -3478,14 +3562,14 @@ function handleMainFrame(){
                 rewardMoney[i].textContent = staticMoney.toFixed(2)
             }, 800)
         }
-        for (let i = 0; i < rewardFP.length; i++){
-            const staticFP = parseFloat(rewardFP[i].textContent)
+        for (let i = 0; i < rewardLP.length; i++){
+            const staticLP = parseFloat(rewardLP[i].textContent)
             let animationTimer = setInterval(function() {
-                rewardFP[i].textContent = Math.round((Math.random() * (staticFP - 0) + 0))
+                rewardLP[i].textContent = Math.round((Math.random() * (staticLP - 0) + 0))
             }, 50)
             setTimeout(function(){
                 clearInterval(animationTimer)
-                rewardFP[i].textContent = staticFP
+                rewardLP[i].textContent = staticLP
             }, 1200)
         }
     }
@@ -3835,29 +3919,30 @@ function handleMainFrame(){
                     if (likeTotal == 0) {interactiveTotal.innerHTML = `<span class="iconify vote-icon mg-r-sm" data-icon="ic:twotone-how-to-vote" data-inline="false"></span></span><span class="like-total">${likeTotal + 1}</span>`}
                     else {likePost[i].parentNode.parentNode.querySelector(".like-total").innerHTML = likeTotal + 1}
                 }
-                else {
-                    data.liked = false
-                    likePost[i].classList.remove("interactive-but-liked")
-                    likePost[i].setAttribute("data-liked", "false")
-                    if (likeTotal - 1 != 0){
-                        if (likeTotal != 1) {likePost[i].parentNode.parentNode.querySelector(".like-total").innerHTML = likeTotal - 1}
-                        else {interactiveTotal.innerHTML = `<span class="iconify vote-icon mg-r-sm" data-icon="ic:twotone-how-to-vote" data-inline="false"></span></span><span class="like-total">${likeTotal - 1}</span>`}
-                    } else {
-                        interactiveTotal.innerHTML = ''
-                    }
-                }
+                // else {
+                //     data.liked = false
+                //     likePost[i].classList.remove("interactive-but-liked")
+                //     likePost[i].setAttribute("data-liked", "false")
+                //     if (likeTotal - 1 != 0){
+                //         if (likeTotal != 1) {likePost[i].parentNode.parentNode.querySelector(".like-total").innerHTML = likeTotal - 1}
+                //         else {interactiveTotal.innerHTML = `<span class="iconify vote-icon mg-r-sm" data-icon="ic:twotone-how-to-vote" data-inline="false"></span></span><span class="like-total">${likeTotal - 1}</span>`}
+                //     } else {
+                //         interactiveTotal.innerHTML = ''
+                //     }
+                // }
                 xhttp.onreadystatechange = function(){
                     if (xhttp.readyState == 4 && xhttp.status == 200){
                         const res = JSON.parse(xhttp.responseText)
-                        if (res.data.total != 0){
+                        if (res.data && res.data.total != 0){
                             likePost[i].parentNode.parentNode.querySelector(".like-total").innerHTML = res.data.total
                             if (res.data.total == 10 || res.data.total == 50 || res.data.total == 100 || res.data.total == 500 || res.data.total == 1000 || res.data.total % 1000 == 0){
                                 handleNotification("vote", [`${res.data.postId}`, `${res.data.total}`])
                             }
                             handleNotification("like", [`${res.data.postId}`, `${res.data.total}`])
-                        } else {
-                            interactiveTotal.innerHTML = ''
-                        }
+                        } 
+                        // else {
+                        //     interactiveTotal.innerHTML = ''
+                        // }
                         const postId = likePost[i].parentNode.parentNode.getAttribute("data-post-df")
                         const postInner = likePost[i].parentNode.parentNode.innerHTML
                         const mainWrap = '<div class="main-frame">' + competitionContentText + '</div>'
@@ -4319,7 +4404,6 @@ function handleMainFrame(){
             interval = setInterval(function(){
                 if (elementInViewport2(vds[0]) && document.querySelector("video.player") && !paused[0] && buf != -1) {
                     playTime[0] ++
-                    console.log(playTime[0])
                     if ((playTime[0] >= 15 || playTime[0] >= document.querySelectorAll("video.player")[0].duration) && !videoAjaxSend[0]){
                         countVideoViews(document.querySelectorAll("video.player")[buf].parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("data-post-df"))
                         videoAjaxSend[0] = true
@@ -4474,7 +4558,7 @@ function handleScroll(){
                                     if (document.querySelectorAll(".post-section").length != 0){
                                         document.querySelector(".post-section").insertAdjacentHTML("beforeend", `
                                         <div class='post' data-post-df='${res.data.posts[i].postId}'>
-                                        ${(()=>{if(res.data.rank){if (rankIndex > 3 && rankIndex <= 10){return `<div class="ranking"><span>${rankIndex}th</span></div>`} else{return ''}} else{return ''}})()}
+                                        ${(()=>{if(res.data.rank){if (rankIndex > 3){return `<div class="ranking"><span>${rankIndex}th</span></div>`} else{return ''}} else{return ''}})()}
                                         <div class='post-util'><button class='avt-but header-but dropdown-but util-dropdown-but'><span class='iconify dropdown-icon bg-white' data-icon='vaadin:ellipsis-dots-h' data-inline='false'></span></button><div class='util-dropdown-content dropdown-content'>${(() => {if(!res.data.saved[i]) {return "<a class='nav-item save-post'><span class='iconify' data-icon='bi:bookmark-plus' data-inline='false'></span>Lưu bài viết</a>"} else {return '<a class="nav-item remove-save-post"><span class="iconify" data-icon="bi:bookmark-dash" data-inline="false"></span>Bỏ lưu bài viết</a>'}})()}${(() => {if(!res.data.notice[i]) {return '<a class="nav-item post-notice"><span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn</a>'} else {return '<a class="nav-item remove-post-notice"><span class="iconify" data-icon="ph:bell-simple-slash" data-inline="false"></span>Tắt thông báo bình chọn</a>'}})()}<a class="nav-item copy-link-post"><span class="iconify" data-icon="clarity:copy-line" data-inline="false"></span>Sao chép liên kết</a>${(() => {if(res.data.userId != res.data.posts[i].userId) {if (!res.data.followed[i]){return `<a class="nav-item follow-post-user" data-following="false"><span class="iconify" data-icon="simple-line-icons:user-following" data-inline="false"></span><span class="follow-text mg-r-sm">Theo dõi</span> ${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</a>`} else {return `<a class="nav-item follow-post-user" data-following="true"><span class="iconify" data-icon="simple-line-icons:user-following" data-inline="false"></span><span class="follow-text mg-r-sm">Bỏ theo dõi</span> ${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</a>`}}else {return "<a class='nav-item del-post'><span class='iconify' data-icon='bx:bx-hide' data-inline='false'></span>Xóa bài viết</a>"}})()}</div></div><div class='post-user'><div class='post-info'><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}"> ${(()=>{if (res.data.postProfile[i].avatar.includes("http")) {return `<img src="${res.data.postProfile[i].avatar}" class="user-avt" username="${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}">`}else {return `<img src="https://cdn.fodance.com/fd-media/${res.data.postProfile[i].avatar}" class="user-avt" username="${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}">`}})()}</a><div class='avt-info'><div class="d-flex"><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}">${(() => {if(res.data.userId == res.data.posts[i].userId) {return "<span class='avt-username user-username'>"}else {return "<span class='avt-username'>"}})()}${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</span></a>
                                         ${(()=>{if(res.data.postPtofile[i].auth){return '<span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span>'}else{return ''}})()}
                                         <div class='mark-icon'></div>
@@ -5747,7 +5831,7 @@ function handleUpdateProfile(){
                 history.pushState({
                 }, '', url)
             
-                document.querySelector(".avatar-frame").insertAdjacentHTML("afterbegin", `<div class='modal unfollow-modal'><div class='modal-content unfollow-modal-content d-flex-col'><div class='mg-b-lg'><h2 class='d-flex'>Xác thực tài khoản</h2><span>1.Bạn cần xác thực tài khoản của mình để có thể đăng video tham dự lên Lingyo, việc xác thực sẽ giúp chúng tôi xác nhận người tham gia trong video là bạn.</span><br><span>2.Bạn vẫn có thể tích điểm FP để tăng hạng dựa trên việc bình chọn video nếu không xác thực, tuy nhiên điểm cộng sẽ không nhiều!</span><br><span>3.Bạn cần điền đầy đủ thông tin trong phần cập nhật hồ sơ trước khi tiến hành xác thực</span></div><div class='d-flex-sb'><button class='df-but bold-font width-40 destroy-but'>Hủy</button><button class='df-but bold-font theme-bg white-color confirm-but'>Xác thực</button></div></div></div>`)
+                document.querySelector(".avatar-frame").insertAdjacentHTML("afterbegin", `<div class='modal unfollow-modal'><div class='modal-content unfollow-modal-content d-flex-col'><div class='mg-b-lg'><h2 class='d-flex'>Xác thực tài khoản</h2><span>1.Bạn cần xác thực tài khoản của mình để có thể đăng video tham dự lên Lingyo, việc xác thực sẽ giúp chúng tôi xác nhận người tham gia trong video là bạn.</span><br><span>2.Bạn vẫn có thể tích điểm LP để tăng hạng dựa trên việc bình chọn video nếu không xác thực, tuy nhiên điểm cộng sẽ không nhiều!</span><br><span>3.Bạn cần điền đầy đủ thông tin trong phần cập nhật hồ sơ trước khi tiến hành xác thực</span></div><div class='d-flex-sb'><button class='df-but bold-font width-40 destroy-but'>Hủy</button><button class='df-but bold-font theme-bg white-color confirm-but'>Xác thực</button></div></div></div>`)
                 document.querySelector(".confirm-but").onclick = function(){
                     document.querySelector(".unfollow-modal").remove()
                     document.querySelector(".avatar-frame").insertAdjacentHTML('beforeend', `<div class="modal unfollow-modal"><div class="user-auth-modal"><div class="modal-content unfollow-modal-content"><div class="group-title d-flex">
