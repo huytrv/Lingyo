@@ -51,7 +51,7 @@ socket.on("post-need-moderate", function(posts){
                 postDisplayed.push(posts[i].postId)
                 socket.emit("displayed-post", postDisplayed)
             }
-            document.querySelector(".moderate-content").insertAdjacentHTML("beforeend", `<div class="d-flex-col post-moderate" data-post-df="${posts[i].postId}">
+            document.querySelector(".moderate-content").insertAdjacentHTML("beforeend", `<div class="d-flex-col post-moderate" data-post-df="${posts[i].postId}" data-post-ms="${posts[i].ms}" data-post-competition="${posts[i].competition}">
             <div class="pre-post-media">
                 ${(()=>{if (posts[i].file.type == "video") {return `
                     <video muted controls src="https://cdn.fodance.com/fd-media/${posts[i].file.path[0]}"></video>
@@ -161,6 +161,7 @@ function validateMedia(post){
             // xhttp.setRequestHeader('Content-Type', 'application/json')
             // xhttp.send(JSON.stringify(data))
             socket.emit("/validate-video", data)
+            console.log(data.validData)
             if (post){
                 let cate, rank
                 for(let i = 0; i < cateList.length; i++){
@@ -169,16 +170,32 @@ function validateMedia(post){
                 for(let i = 0; i < rankList.length; i++){
                     if (post.rank == rankList[i]){rank = rankName[i]}
                 }
-                console.log(1243)
-                handleNotification("post-done", [post.postId, cate, rank, post.ms])
+                if (data.validData == "true" && post.competition) {
+                    handleNotification("post-done", [post.postId, cate, rank, post.ms, post.competition])
+                }
+                else {
+                    handleNotification("post-err", [post.postId, cate, rank, post.ms, post.competition])
+                }
             }
             else {
                 const ps = validateBut[i].parentNode.parentNode.parentNode.querySelector(".post-moderate")
                 postId = ps.getAttribute("data-post-df")
-                category = ps.querySelector(".pre-post-cate").textContent
-                rank = ps.querySelector(".pre-post-rank").textContent
+                c = ps.querySelector(".pre-post-cate").textContent
+                r = ps.querySelector(".pre-post-rank").textContent
                 ms = ps.getAttribute("data-post-ms")
-                handleNotification("post-done", [postId, category, rank, ms])
+                competition = ps.getAttribute("data-post-competition")
+                for(let i = 0; i < cateList.length; i++){
+                    if (c == cateList[i]){cate = cateName[i]}
+                }
+                for(let i = 0; i < rankList.length; i++){
+                    if (rank == rankList[i]){rank = rankName[i]}
+                }
+                if (data.validData == "true") {
+                    handleNotification("post-done", [postId, cate, rank, ms, competition])
+                }
+                else {
+                    handleNotification("post-err", [postId, cate, rank, ms, competition])
+                }
             }
             validateBut[i].parentNode.parentNode.remove()
         }

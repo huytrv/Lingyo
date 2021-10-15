@@ -5770,7 +5770,7 @@ tbody {
 
 .alert, .alert-link {
   position: fixed;
-  bottom: 20px;
+  bottom: 40px;
   right: 20px;
   background-color: #92d2f7;
   padding: 10px 20px;

@@ -24,6 +24,7 @@ const cfFileBucket = gc.bucket("fodance-bk")
 
 //aws
 const S3 = require("aws-sdk/clients/s3")
+const { json } = require("body-parser")
 const bucketName = process.env.AWS_BUCKET_NAME
 const accessKeyId = process.env.AWS_ACCESS_KEY
 const secretAccessKey = process.env.AWS_SECRET_KEY
@@ -48,16 +49,24 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
     currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
     stageTime = currentTimeline
-    function updateUserRank(point){
-        if (point >= 0 && point <= 100){return "iron"}
-        else if (point > 100 && point < 300){return "bronze"}
-        else if (point >= 300 && point < 700){return "silver"}
-        else if (point >= 700 && point < 1200){return "gold"}
-        else if (point >= 1200 && point < 1800){return "platinum"}
-        else if (point >= 1800 && point < 2500){return "diamon"}
-        else if (point >= 2500 && point < 3300){return "master"}
-        else if (point >= 3300 && point < 5000){return "challenge"}
+    function updateUserRank(point, userId){
+        let rank = "iron"
+        if (point >= 0 && point <= 100){rank = "iron"}
+        else if (point > 100 && point < 300){rank = "bronze"}
+        else if (point >= 300 && point < 700){rank = "silver"}
+        else if (point >= 700 && point < 1200){rank = "gold"}
+        else if (point >= 1200 && point < 1800){rank = "platinum"}
+        else if (point >= 1800 && point < 2500){rank = "diamon"}
+        else if (point >= 2500 && point < 3300){rank = "master"}
+        else if (point >= 3300 && point < 5000){rank = "challenge"}
         else if (point >= 5000){return "challenge"}
+        userProfile.update({
+            rank: rank
+        }, {
+            where :{
+                userId: userId
+            }
+        })
     }
     setInterval(function(){ 
         TimeRange = [stageTime, stageTime + 5*24*60*60*1000]
@@ -101,8 +110,26 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             }
         }
 
+        reward.findOne({
+            where: {
+                round: round
+            }
+        }).then(function(r){
+            if (!r){
+                userProfile.update({
+                    posts: 0
+                }, {
+                    where: {
+                        posts: {
+                            [Op.gt]: 0
+                        }
+                    }
+                })
+            }
+        })
+
         let d = new Date()
-        if (d.toLocaleTimeString() == '11:00:00 PM'){
+        if (d.toLocaleTimeString() == '4:19:00 PM'){
             for (let r = 0; r < rankList.length; r++){
                 for (let c = 0; c < cateList.length; c++){
                     posts.findAll({
@@ -153,6 +180,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                         userId: postList[i].userId
                                                     }
                                                 }).then(function(profile){
+                                                    updateUserRank(profile.points, profile.userId)
                                                     if (!n){
                                                         notifications.create({
                                                             sourceUser: postList[i].userId,
@@ -197,7 +225,9 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                 }
                                             }).then(function(pp){
                                                 if (pp.points + (pr.postRank - (i+1)) >= 0){
-                                                    userProfile.increment('points', {by: pr.postRank - (i+1), where: {userId: likeList[j].userId}})
+                                                    userProfile.increment('points', {by: pr.postRank - (i+1), where: {userId: likeList[j].userId}}).then(function(){
+                                                        updateUserRank(pp.points, pp.userId)
+                                                    })
                                                 }
                                             })
                                             notifications.findOne({
@@ -232,7 +262,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                             {
                                                                 where: {
                                                                     sourceUser: postList[i].userId,
-                                                                    type: "reward",
+                                                                    type: "vote-reward",
                                                                     userId: likeList[j].userId
                                                                 }
                                                             })
@@ -325,13 +355,52 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     userId: p[i].userId
                                                 }
                                             }).then(function(ur){
-                                                userProfile.update({
-                                                    rank: updateUserRank(ur.points)
-                                                }, {
-                                                    where :{
-                                                        userId: p[i].userId
-                                                    }
-                                                })
+                                                updateUserRank(ur.points, ur.userId)
+                                            })
+                                        }
+                                        if (rank > 1){
+                                            notifications.findOne({
+                                                where: {
+                                                    sourceUser: p[i].userId,
+                                                    type: "not-win",
+                                                    userId: p[i].userId
+                                                }
+                                            }).then(function(n){
+                                                if (typeof(p[i].userId) === "number"){
+                                                    userProfile.findOne({
+                                                        where: {
+                                                            userId: p[i].userId
+                                                        }
+                                                    }).then(function(up){
+                                                        if (!n){
+                                                            notifications.create({
+                                                                sourceUser: p[i].userId,
+                                                                postInfo: [up.nickname, rank, p[i].ms],
+                                                                type: "not-win",
+                                                                read: false,
+                                                                time: Date.now(),
+                                                                userId: p[i].userId
+                                                            })
+                                                        }   
+                                                        else {
+                                                            if (n.postInfo[1] > rank){
+                                                                notifications.update({
+                                                                    postInfo: [up.nickname, rank, p[i].ms],
+                                                                    read: false,
+                                                                    time: Date.now(),
+                                                                },
+                                                                {
+                                                                    where: {
+                                                                        sourceUser: p[i].userId,
+                                                                        type: "not-win",
+                                                                        userId: p[i].userId
+                                                                    }
+                                                                })
+                                                            }
+                                                        }   
+                                                    })
+                                                    
+                                                }
                                             })
                                         }
                                         if (typeof(round) === "number" && typeof(rank), typeof(p[i].userId) === "number"){
@@ -388,15 +457,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             let buf = 0
             const finalRewardList = [], finalLPList= [], cateRewardList = [], cateLPList = []
             let buf1, buf2, buf3, buf4 = 0
-            userProfile.update({
-                posts: 0
-            }, {
-                where: {
-                    posts: {
-                        [Op.gt]: 0
-                    }
-                }
-            })
             const WinnerList = {}
             for (let r = 0; r < rankList.length; r++){
                 let sum = 0
@@ -461,18 +521,58 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     winnerObj['usd'] = finalRewardList[2]
                                     winnerObj['lp'] = finalLPList[2]
                                 }
+                                if (rank > 3){
+                                    notifications.findOne({
+                                        where: {
+                                            sourceUser: p[i].userId,
+                                            type: "not-win",
+                                            userId: p[i].userId
+                                        }
+                                    }).then(function(n){
+                                        if (typeof(p[i].userId) === "number"){
+                                            userProfile.findOne({
+                                                where: {
+                                                    userId: p[i].userId
+                                                }
+                                            }).then(function(up){
+                                                if (!n){
+                                                    notifications.create({
+                                                        sourceUser: p[i].userId,
+                                                        postInfo: [up.nickname, rank, p[i].ms],
+                                                        type: "not-win",
+                                                        read: false,
+                                                        time: Date.now(),
+                                                        userId: p[i].userId
+                                                    })
+                                                }   
+                                                else {
+                                                    if (n.postInfo[1] > rank){
+                                                        notifications.update({
+                                                            postInfo: [up.nickname, rank, p[i].ms],
+                                                            read: false,
+                                                            time: Date.now(),
+                                                        },
+                                                        {
+                                                            where: {
+                                                                sourceUser: p[i].userId,
+                                                                type: "not-win",
+                                                                userId: p[i].userId
+                                                            }
+                                                        })
+                                                    }
+                                                }   
+                                            })
+                                            
+                                        }
+                                    })
+                                }
+    
                                 userProfile.findOne({
                                     where: {
                                         userId: p[i].userId
                                     }
                                 }).then(function(ur){
-                                    userProfile.update({
-                                        rank: updateUserRank(ur.points)
-                                    }, {
-                                        where :{
-                                            userId: p[i].userId
-                                        }
-                                    })
+                                    updateUserRank(ur.points, ur.userId)
                                 })
                                 
                                 if (typeof(round) === "number" && typeof(rank), typeof(p[i].userId) === "number"){
@@ -753,13 +853,50 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             }
                         }).then(function(){
                             if (roundType == "group-stage"){
-                                userProfile.increment('posts', {by: 1, where: {userId: p.userId}})
                                 userProfile.findOne({
                                     where: {
                                         userId: p.userId
                                     }
                                 }).then(function(up){
-                                    if (up.posts < 3){
+                                    if (up.posts < 3 && p.competition){
+                                        userProfile.increment('posts', {by: 1, where: {userId: p.userId}})
+                                        let rw = 5
+                                        if (roundType == "final"){rw = 10}
+                                        userProfile.increment('points', {by: rw, where: {userId: p.userId}})
+                                        notifications.findOne({
+                                            where: {
+                                                sourceUser: p.userId,
+                                                type: "create-post-reward",
+                                                userId: p.userId
+                                            }
+                                        }).then(function(n){
+                                            if (typeof(p.userId) === "number"){
+                                                if (!n){
+                                                    notifications.create({
+                                                        sourceUser: p.userId,
+                                                        postInfo: [up.nickname, rw],
+                                                        type: "create-post-reward",
+                                                        read: false,
+                                                        time: Date.now(),
+                                                        userId: p.userId
+                                                    })
+                                                }   
+                                                else {
+                                                    notifications.update({
+                                                        postInfo: [up.nickname, rw],
+                                                        read: false,
+                                                        time: Date.now(),
+                                                    },
+                                                    {
+                                                        where: {
+                                                            sourceUser: p.userId,
+                                                            type: "create-post-reward",
+                                                            userId: p.userId
+                                                        }
+                                                    })
+                                                }   
+                                            }
+                                        })
                                         reward.findOne({
                                             where: {
                                                 category: p.category,
@@ -1145,7 +1282,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             order: [
                                 ['points', 'DESC'],
                             ],
-                            limit: 10
+                            limit: 50
                         }).then(function(topFames){
                             let count = 0
                             const topFameUsers = []
@@ -1158,7 +1295,19 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     count ++
                                     topFameUsers[t] = user.username
                                     if (count == topFames.length){
-                                        res.render(navList[i], {topFames: topFames, topFameUsers: topFameUsers, username: req.user.username, userId: req.user.userId, profile: profile, rankLink: '', rankName: '', cateActive: '', active: navList[i], cateName: navName[i], modal: false})
+                                        userProfile.findAll({
+                                            order: [
+                                                ['points', 'DESC'],
+                                            ],
+                                        }).then(function(profileList){
+                                            let currentRank
+                                            for (let j = 0; j < profileList.length; j++){
+                                                if (profile.points == profileList[j].points){currentRank = j+1}
+                                                if (j == profileList.length - 1){
+                                                    res.render(navList[i], {currentRank: currentRank, topFames: topFames, topFameUsers: topFameUsers, username: req.user.username, userId: req.user.userId, profile: profile, rankLink: '', rankName: '', cateActive: '', active: navList[i], cateName: navName[i], modal: false})
+                                                }
+                                            }
+                                        })
                                     }
                                 })
                             }
@@ -1284,50 +1433,84 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             }
                         })
                     }
-                    else if (i == 3) {
-                        const currentRound = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
-                        voteWinners.findAll({
+                    else if (i == 3) { 
+                        userProfile.findOne({
                             raw: true,
-                            where: {
-                                round: currentRound
-                            },
-                            order: [
-                                ['rank', 'ASC'],
-                            ],
-                        }).then(function(winners){
-                            const profileWinner = [], usernameWinner = [], empty = []
-                            let count = 0
-                            for (let c = 0; c < cateList.length; c++){
-                                empty[c] = true
-                                for (let w = 0; w < winners.length; w++){
-                                    if (winners[w].category == cateList[c]) {empty[c] = false}
-                                }
+                            where: {    
+                                userId: req.user.userId
                             }
-                            if (winners.length != 0){
-                                for (let t = 0; t < winners.length; t++){
-                                    userProfile.findOne({
-                                        where: {
-                                            userId: winners[t].userId
-                                        }
-                                    }).then(function(p){
-                                        profileWinner[t] = p
-                                        users.findOne({
+                        }).then(function(profile){
+                            posts.findAll({
+                                raw: true,
+                                include : [{
+                                    model: users,
+                                },],
+                                order: [
+                                    ['time', 'ASC']
+                                ],
+                                limit: 5,
+                                where: {
+                                    auth: true,
+                                    competition: false
+                                }
+                            }).then(function(p){
+                                const postProfile = []
+                                const saved = []
+                                const postLiked = []
+                                const followed = []
+                                let buf = 0
+                                if (p.length != 0){
+                                    const root =  __dirname.replace('\controllers', '')
+                                    for (let j = 0; j < p.length; j++){      
+                                        userProfile.findOne({
+                                            raw: true,
                                             where: {
-                                                userId: winners[t].userId
+                                                userId: p[j]['user.userId']
                                             }
-                                        }).then(function(u){
-                                            count ++
-                                            usernameWinner[t] = u.username
-                                            if (count == winners.length){
-                                                res.render(navList[i], {cateList: cateList, topicName: cateName, currentRound: currentRound, empty: empty, winners: winners, usernameWinner:usernameWinner, profileWinner: profileWinner, username: req.user.username, userId: req.user.userId, profile: profile, rankLink: '', rankName: '', cateActive: '', active: navList[i], cateName: navName[i], modal: false})
-                                            }
+                                        }).then(function(pp){
+                                            postProfile[j] = pp
+                                            postLikes.findAll({
+                                                raw: true,
+                                                where: {
+                                                    postId: p[j].postId
+                                                }
+                                            }).then(function(pl){
+                                                postSaved.findOne({
+                                                    where: {
+                                                        postId: p[j].postId,
+                                                        userId: p[j]['user.userId']
+                                                    }
+                                                }).then(function(s){
+                                                    if (s){saved[j] = true}
+                                                    else {saved[j] = false}
+                                                    postLiked[j] = false
+                                                    for (let c = 0; c < pl.length; c++){
+                                                        if (pl[c].userId == req.user.userId) {
+                                                            postLiked[j] = true
+                                                        }
+                                                    }
+                                                    follow.findOne({
+                                                        where: {
+                                                            user1: profile.userId,
+                                                            user2: pp.userId
+                                                        }
+                                                    }).then(function(fl){
+                                                        buf ++
+                                                        if (fl) {followed[j] = true}
+                                                        else {followed[j] = false}
+                                                        if (buf == p.length){
+                                                            res.render(navList[i], {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'community', rankLink: '', rankName: rankName, cateActive: 'community', cateName: '', rank: false, modal: false, roundType: roundType})
+                                                        }
+                                                    })
+                                                })
+                                            })
                                         })
-                                    })
+                                    }
                                 }
-                            }
-                            else {
-                                res.render(navList[i], {cateList: cateList, topicName: cateName, currentRound: currentRound, empty: empty, winners: winners, usernameWinner: usernameWinner, profileWinner: profileWinner, username: req.user.username, userId: req.user.userId, profile: profile, rankLink: '', rankName: '', cateActive: '', active: navList[i], cateName: navName[i], modal: false})
-                            }
+                                else {
+                                    res.render(navList[i], {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'community', rankLink: '', cateActive: 'community', cateName: '', rankName: rankName, rank: false, modal: false, roundType: roundType})
+                                }
+                            })
                         })
                     }
                     else if (i == 4) {
@@ -2219,25 +2402,29 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 let rank = fields.rank
                 if (rank != "primary" && rank != "intermediate" && rank != "highgrade"){rank = 'primary'}
                 let competition = fields.competition
-                let files = [f.file], file = {}
+                let files = f.file, file = {}
                 if (!Array.isArray(files)) {
                     files = [files]
                 }
                 if (f.file){
                     for (let i = 0; i < files.length; i++){
-                        if (files[i].type.includes("video") && files.length > 1) {fileValid = false}
-                        const reg = /image\/jpeg|image\/jpg|image\/png|image\/gif|video\/mp4|video\/webm|video\/flv|video\/mov|video\/wmv|video\/avi/gi;
-                        (async () => {
-                            const mineType = await FileType.fromFile(files[i].path)
-                            if (mineType.mime.match(reg) || files[i].size > 209715200 || files.length > 4) {fileValid = false}
-                        })();
+                        if (files[i] && files[i].type){
+                            if (files[i] && files[i].type.includes("video") && files.length > 1) {fileValid = false}
+                            const reg = /image\/jpeg|image\/jpg|image\/png|image\/gif|video\/mp4|video\/webm|video\/flv|video\/mov|video\/wmv|video\/avi/gi;
+                            (async () => {
+                                const mineType = await FileType.fromFile(files[i].path)
+                                if (mineType.mime.match(reg) || files[i].size > 209715200 || files.length > 4) {fileValid = false}
+                            })();
+                        }
                     }
                 }
                 if (fileValid){
                     file.path = paths
                     if (files[0] == null) { file = null}
-                    else if (files[0].type.includes('video')) {file.type = 'video'}
-                    else {file.type = 'image' }
+                    if (files[0].type) {
+                        if (files[0].type.includes('video')) {file.type = 'video'}
+                        else {file.type = 'image' }
+                    }
                     if ((description.length != 0 && description.length <= 1000) || f.file){
                         function postCreator(){
                             userProfile.findOne({
@@ -2252,6 +2439,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             [Op.gte]: currentTimeline
                                         },
                                         rank: rank,
+                                        competition: true,
                                         userId: req.user.userId,
                                     }
                                 }).then(function(postNumbers){
@@ -2265,10 +2453,10 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             userId: req.user.userId
                                         }
                                     }).then(function(isWin){
-                                        if (profile.auth){
+                                        if (profile.auth || competition == "false"){
                                             if ((roundType == "final" && isWin) || roundType == "group-stage"){
-                                                if ((roundType == "final" && postNumbers < 1) || (roundType == "group-stage" && postNumbers < 3)){
-                                                    if ((competition && f.file && f.file.type.includes("video")) || (!competition && !cateList.includes(category) && !f.file)){
+                                                if (((roundType == "final" && postNumbers < 1) || (roundType == "group-stage" && postNumbers < 3)) || competition == "false"){
+                                                    if ((competition && files[0] && files[0].type.includes("video")) || competition == "false"){
                                                         if (rank == "primary" || rank == "intermediate" || rank == "highgrade" || rank == ''){
                                                             if (cateList.includes(category) || category == ''){
                                                                 if ((category != '' && rank != '') || category == ''){
@@ -2293,8 +2481,11 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                                                         [Op.gte]: currentTimeline
                                                                                                     },
                                                                                                     rank: rank,
+                                                                                                    competition: true
                                                                                                 }
                                                                                             }).then(function(num){
+                                                                                                let ms = null
+                                                                                                if (competition){ms = num + 1} else {ms = null}
                                                                                                 posts.create({ 
                                                                                                     postId: id,
                                                                                                     description: description,
@@ -2305,7 +2496,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                                                     share: 0,
                                                                                                     category: category,
                                                                                                     rank: rank,
-                                                                                                    ms: num + 1,
+                                                                                                    ms: ms,
                                                                                                     competition: competition,
                                                                                                     videoViews: 0,
                                                                                                     videoImpressions: 0,
@@ -5583,6 +5774,53 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 }
             }
             else if (req.body.type == "post-done"){
+                if (typeof(req.user.userId) === "number" && typeof(req.body.source) === "object" && typeof(req.body.type) === "string"){
+                    notifications.findOne({
+                        where: {
+                            sourceUser: req.user.userId,
+                            postInfo: req.body.source,
+                            type: req.body.type,
+                            userId: req.user.userId
+                        }
+                    }).then(function(p){
+                        if (!p){
+                            notifications.create({
+                                sourceUser: req.user.userId,
+                                postInfo: req.body.source,
+                                type: req.body.type,
+                                read: false,
+                                time: Date.now(),
+                                userId: req.user.userId
+                            }).then(function(){
+                                notifications.findAll({
+                                    where: {
+                                        sourceUser: req.user.userId,
+                                        postInfo: req.body.source,
+                                        type: req.body.type,
+                                        userId: req.user.userId
+                                    }
+                                }).then(function(n){
+                                    if (n.length > 1){
+                                        notifications.destroy({
+                                            where:{
+                                                sourceUser: req.user.userId,
+                                                postInfo: req.body.source,
+                                                type: req.body.type,
+                                                userId: req.user.userId
+                                            }
+                                        })
+                                    }
+                                })
+                                res.end()
+                            })
+                        }
+                        else {
+                            res.end()
+                        }
+                    })
+                }
+            }
+            else if (req.body.type == "post-err"){
                 if (typeof(req.user.userId) === "number" && typeof(req.body.source) === "object" && typeof(req.body.type) === "string"){
                     notifications.findOne({
                         where: {

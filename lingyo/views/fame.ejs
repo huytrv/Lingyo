@@ -56,6 +56,37 @@
                     </td>
                 </tr>     
             <% } %>
+            <tr style="position: fixed; bottom: 60px; z-index: 5000; width: 95%; border: 1px solid rgb(186, 186, 255);" class="fame-ele nav-red fame-top-1" nav-data="personal" data-user-df="<%- profile.nickname -%>">
+                <td class="width-5">
+                    <span class="<% if (currentRank == 0) { %>rank1-color<% } %><% if (currentRank == 1) { %>rank2-color<% } %><% if (currentRank == 2) { %>rank3-color<% } %>"><%- currentRank -%></span>
+                </td>
+                <td class="width-50">
+                    <a class="avt none-deco d-flex d-flex-start nav-red <% if (currentRank == 0) { %>avt-rank1<% } %><% if (currentRank == 1) { %>avt-rank2<% } %><% if (currentRank == 2) { %>avt-rank3<% } %>" nav-data="personal" data-user-df="<%- profile.nickname -%>">
+                        <% if (profile.avatar.includes("http")) { %>
+                        <img src="<%- profile.avatar -%>">
+                        <% } %>
+                        <% if (!profile.avatar.includes("http")) { %>
+                            <img src="https://cdn.fodance.com/fd-media/<%- profile.avatar -%>">
+                        <% } %>
+                        <div class="d-flex-col-start">
+                            <span class="avt-username font-size-lg-1" nav-data="personal" data-user-df="<%- profile.nickname -%>">Bạn</span>
+                            <span class="avt-nickname"><%- profile.nickname -%></span>
+                        </div>
+                    </a>
+                </td>
+                <td class="width-12 d-flex">
+                    <span><%- profile.rank1 -%></span>
+                </td>
+                <td class="width-12 d-flex">
+                    <span><%- profile.rank2 -%></span>
+                </td>
+                <td class="width-12 d-flex">
+                    <span><%- profile.rank3 -%></span>
+                </td>
+                <td class="width-10">
+                    <span class="points d-flex <% if (i < 3) { %>animate-color<% } %>"><%- profile.points -%></span>
+                </td>
+            </tr>
         </table>
     </div>
 </div>
