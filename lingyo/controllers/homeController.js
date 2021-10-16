@@ -331,7 +331,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         const rank = i + 1
                                         const winnerObj = {}
                                         if (!WinnerList[p[i].userId]){
-                                            console.log(1)
                                             WinnerList[p[i].userId] = []}
                                     
                                             if (rankList[r] == 'primary'){homeRank = "Sơ cấp", buf4 = 0.09}
@@ -427,11 +426,9 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                 })
                                             }  
                                             if (winnerObj.usd){
-                                                console.log(2)
                                                 WinnerList[p[i].userId].push(winnerObj)
                                             }
                                             if (buf == rankList.length * cateList.length) {
-                                                console.log(WinnerList)
                                                 for (userId in WinnerList) {
                                                     userProfile.update({
                                                         winner: WinnerList[userId]
@@ -465,10 +462,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 }
             }
         }
-        else {
-            stageTime = currentTimeline
-            TimeRange = [currentTimeline, currentTimeline + 5*24*60*60*1000]
-        }
+       
         const newRound = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
         if (newRound > round) {
             let buf = 0
