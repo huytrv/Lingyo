@@ -316,135 +316,147 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         }).then(function(p){
                             buf ++
                             if (p.length != 0){
-                                for (let i = 0; i < p.length; i++){
-                                    const rank = i + 1
-                                    const winnerObj = {}
-                                    if (!WinnerList[p[i].userId]){
-                                        console.log(1)
-                                        WinnerList[p[i].userId] = []}
-                                    reward.findOne({
-                                        where: {
-                                            rank: rankList[r],
-                                            category: cateList[c],
-                                            round: round                           
-                                        }
-                                    }).then(function(cateTotal){
-                                        if (cateTotal) {
-                                            sum += cateTotal.post
-                                        }
-                                        if (rankList[r] == 'primary'){homeRank = "Sơ cấp", buf4 = 0.09}
-                                        if (rankList[r] == 'intermediate'){homeRank = "Trung cấp", buf4 = 0.18}
-                                        if (rankList[r] == 'highgrade'){homeRank = "Cao cấp", buf4 = 0.54}
-                                        if (sum > 0){
-                                            cateRewardList = (Math.round((sum * buf4) * 100) / 100)
-                                            cateLPList = Math.round(sum * 1)
-                                        }
-                                        else {
-                                            cateRewardList = 0.00
-                                            cateLPList = 0
-                                        }
-                                        if (rank == 1){
-                                            userProfile.increment('rank1', {by: 1, where: {userId: p[i].userId}})
-                                            userProfile.increment('points', {by: cateLPList, where: {userId: p[i].userId}})
-                                            userProfile.increment('usd', {by: cateRewardList, where: {userId: p[i].userId}})
-                                            winnerObj['usd'] = cateRewardList
-                                            winnerObj['lp'] = cateLPList
-                                            if (winnerObj[`${cateName[c]} - ${rankName[r]}`] != rank) {
-                                                winnerObj[`${cateName[c]} - ${rankName[r]}`] = rank
+                                reward.findOne({
+                                    where: {
+                                        rank: rankList[r],
+                                        category: cateList[c],
+                                        round: round,
+                                        received: false                          
+                                    }
+                                }).then(function(cateTotal){
+                                    if (cateTotal) {
+                                        sum += cateTotal.post
+                                    }
+                                    for (let i = 0; i < p.length; i++){
+                                        const rank = i + 1
+                                        const winnerObj = {}
+                                        if (!WinnerList[p[i].userId]){
+                                            console.log(1)
+                                            WinnerList[p[i].userId] = []}
+                                    
+                                            if (rankList[r] == 'primary'){homeRank = "Sơ cấp", buf4 = 0.09}
+                                            if (rankList[r] == 'intermediate'){homeRank = "Trung cấp", buf4 = 0.18}
+                                            if (rankList[r] == 'highgrade'){homeRank = "Cao cấp", buf4 = 0.54}
+                                            if (sum > 0){
+                                                cateRewardList = (Math.round((sum * buf4) * 100) / 100)
+                                                cateLPList = Math.round(sum * 1)
                                             }
-                                            userProfile.findOne({
-                                                where: {
-                                                    userId: p[i].userId
+                                            else {
+                                                cateRewardList = 0.00
+                                                cateLPList = 0
+                                            }
+                                            if (rank == 1){
+                                                userProfile.increment('rank1', {by: 1, where: {userId: p[i].userId}})
+                                                userProfile.increment('points', {by: cateLPList, where: {userId: p[i].userId}})
+                                                userProfile.increment('usd', {by: cateRewardList, where: {userId: p[i].userId}})
+                                                winnerObj['usd'] = cateRewardList
+                                                winnerObj['lp'] = cateLPList
+                                                if (winnerObj[`${cateName[c]} - ${rankName[r]}`] != rank) {
+                                                    winnerObj[`${cateName[c]} - ${rankName[r]}`] = rank
                                                 }
-                                            }).then(function(ur){
-                                                updateUserRank(ur.points, ur.userId)
-                                            })
-                                        }
-                                        if (rank > 1){
-                                            notifications.findOne({
-                                                where: {
-                                                    sourceUser: p[i].userId,
-                                                    type: "not-win",
-                                                    userId: p[i].userId
-                                                }
-                                            }).then(function(n){
-                                                if (typeof(p[i].userId) === "number"){
-                                                    userProfile.findOne({
-                                                        where: {
-                                                            userId: p[i].userId
-                                                        }
-                                                    }).then(function(up){
-                                                        if (!n){
-                                                            notifications.create({
-                                                                sourceUser: p[i].userId,
-                                                                postInfo: [up.nickname, rank, p[i].ms],
-                                                                type: "not-win",
-                                                                read: false,
-                                                                time: Date.now(),
+                                                userProfile.findOne({
+                                                    where: {
+                                                        userId: p[i].userId
+                                                    }
+                                                }).then(function(ur){
+                                                    updateUserRank(ur.points, ur.userId)
+                                                })
+                                            }
+                                            if (rank > 1){
+                                                notifications.findOne({
+                                                    where: {
+                                                        sourceUser: p[i].userId,
+                                                        type: "not-win",
+                                                        userId: p[i].userId
+                                                    }
+                                                }).then(function(n){
+                                                    if (typeof(p[i].userId) === "number"){
+                                                        userProfile.findOne({
+                                                            where: {
                                                                 userId: p[i].userId
-                                                            })
-                                                        }   
-                                                        else {
-                                                            if (n.postInfo[1] > rank){
-                                                                notifications.update({
+                                                            }
+                                                        }).then(function(up){
+                                                            if (!n){
+                                                                notifications.create({
+                                                                    sourceUser: p[i].userId,
                                                                     postInfo: [up.nickname, rank, p[i].ms],
+                                                                    type: "not-win",
                                                                     read: false,
                                                                     time: Date.now(),
-                                                                },
-                                                                {
-                                                                    where: {
-                                                                        sourceUser: p[i].userId,
-                                                                        type: "not-win",
-                                                                        userId: p[i].userId
-                                                                    }
+                                                                    userId: p[i].userId
                                                                 })
-                                                            }
-                                                        }   
-                                                    })
-                                                    
-                                                }
-                                            })
-                                        }
-                                        if (typeof(round) === "number" && typeof(rank), typeof(p[i].userId) === "number"){
-                                            voteWinners.findOne({
-                                                where: {
-                                                    round: round + 1,
-                                                    rank: rankList[r],
-                                                    category: cateList[c],
-                                                    userId: p[i].userId
-                                                }
-                                            }).then(function(v){
-                                                if (!v){
-                                                    voteWinners.create({
+                                                            }   
+                                                            else {
+                                                                if (n.postInfo[1] > rank){
+                                                                    notifications.update({
+                                                                        postInfo: [up.nickname, rank, p[i].ms],
+                                                                        read: false,
+                                                                        time: Date.now(),
+                                                                    },
+                                                                    {
+                                                                        where: {
+                                                                            sourceUser: p[i].userId,
+                                                                            type: "not-win",
+                                                                            userId: p[i].userId
+                                                                        }
+                                                                    })
+                                                                }
+                                                            }   
+                                                        })
+                                                        
+                                                    }
+                                                })
+                                            }
+                                            if (typeof(round) === "number" && typeof(rank), typeof(p[i].userId) === "number"){
+                                                voteWinners.findOne({
+                                                    where: {
                                                         round: round + 1,
                                                         rank: rankList[r],
                                                         category: cateList[c],
                                                         userId: p[i].userId
+                                                    }
+                                                }).then(function(v){
+                                                    if (!v){
+                                                        voteWinners.create({
+                                                            round: round + 1,
+                                                            rank: rankList[r],
+                                                            category: cateList[c],
+                                                            userId: p[i].userId
+                                                        })
+                                                    }
+                                                })
+                                            }  
+                                            if (winnerObj.usd){
+                                                console.log(2)
+                                                WinnerList[p[i].userId].push(winnerObj)
+                                            }
+                                            if (buf == rankList.length * cateList.length) {
+                                                console.log(WinnerList)
+                                                for (userId in WinnerList) {
+                                                    userProfile.update({
+                                                        winner: WinnerList[userId]
+                                                    },{
+                                                        where: {
+                                                            userId: userId
+                                                        }
+                                                    }).then(function(){
                                                     })
                                                 }
-                                            })
-                                        }  
-                                        if (winnerObj.usd){
-                                            console.log(2)
-                                            WinnerList[p[i].userId].push(winnerObj)
-                                        }
-                                        if (buf == rankList.length * cateList.length) {
-                                            console.log(WinnerList)
-                                            for (userId in WinnerList) {
-                                                userProfile.update({
-                                                    winner: WinnerList[userId]
-                                                },{
+                                                reward.update({
+                                                    received: true
+                                                },
+                                                {
                                                     where: {
-                                                        userId: userId
+                                                        rank: rankList[r],
+                                                        category: cateList[c],
+                                                        round: round,
                                                     }
-                                                }).then(function(){
                                                 })
+                                                currentTimeline = currentTimeline + 5*24*60*60*1000
+                                                TimeRange = [stageTime, currentTimeline]
                                             }
-                                            currentTimeline = currentTimeline + 5*24*60*60*1000
-                                            TimeRange = [stageTime, currentTimeline]
-                                        }
-                                    })                                
-                                }
+                                    }
+                                })                                
                             }
                             
                         })
@@ -489,7 +501,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             reward.findOne({
                                 where: {
                                     rank: rankList[r],
-                                    round: round                           
+                                    round: round,
+                                    received: false                         
                                 }
                             }).then(function(cateTotal){
                                 if (cateTotal) {
@@ -599,6 +612,15 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         }).then(function(){
                                             round = newRound
                                             currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
+                                        })
+                                        reward.update({
+                                            received: true
+                                        },
+                                        {
+                                            where: {
+                                                rank: rankList[r],
+                                                round: round,
+                                            }
                                         })
                                     }
                                 }
@@ -917,7 +939,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     category: p.category,
                                                     rank: p.rank,
                                                     round: round,
-                                                    post: 1
+                                                    post: 1,
+                                                    received: false
                                                 })
                                             }
                                         })

@@ -391,7 +391,8 @@ const reward = mysqlDB.define("reward", {
     round: sequelize.INTEGER,
     category: sequelize.STRING,
     rank: sequelize.STRING,
-    post: sequelize.INTEGER
+    post: sequelize.INTEGER,
+    received: sequelize.BOOLEAN,
 })
 
 const userAuth = mysqlDB.define("userauth", {

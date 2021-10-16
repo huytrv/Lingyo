@@ -511,6 +511,7 @@ module.exports = function(app, users, userProfile, emailRegister, phoneRegister)
                                                 rank3: 0,
                                                 rank10: 0,
                                                 winner: [],
+                                                reward: false,
                                                 saved: [],
                                                 notice: [],
                                                 followNotification: true,
