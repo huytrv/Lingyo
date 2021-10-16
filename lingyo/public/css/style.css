@@ -5728,6 +5728,14 @@ input[type='range']::-ms-fill-lower {
   justify-content: center;
 }
 
+.user-fame {
+  position: fixed; 
+  bottom: 60px; 
+  z-index: 5000; 
+  width: 95%; 
+  border: 1px solid rgb(186, 186, 255);
+}
+
 .fame-top-1 {
   background-color: rgb(233, 252, 255);
 }
@@ -6406,12 +6414,20 @@ tbody {
 
   .fame-content {
     padding: 0 20px !important;
-    height: 350px;
+    height: 400px;
     overflow-y: scroll;
   }
 
   .fame-ele {
     background-color: rgba(239, 253, 255, 0.822);
+  }
+
+  .user-fame {
+    position: sticky !important; 
+    bottom: 0px; 
+    z-index: 5000; 
+    width: 100%; 
+    border: 1px solid rgb(186, 186, 255);
   }
 
   .update-content {

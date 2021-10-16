@@ -319,7 +319,9 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 for (let i = 0; i < p.length; i++){
                                     const rank = i + 1
                                     const winnerObj = {}
-                                    if (!WinnerList[p[i].userId]){WinnerList[p[i].userId] = []}
+                                    if (!WinnerList[p[i].userId]){
+                                        console.log(1)
+                                        WinnerList[p[i].userId] = []}
                                     reward.findOne({
                                         where: {
                                             rank: rankList[r],
@@ -423,25 +425,28 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             })
                                         }  
                                         if (winnerObj.usd){
+                                            console.log(2)
                                             WinnerList[p[i].userId].push(winnerObj)
+                                        }
+                                        if (buf == rankList.length * cateList.length) {
+                                            console.log(WinnerList)
+                                            for (userId in WinnerList) {
+                                                userProfile.update({
+                                                    winner: WinnerList[userId]
+                                                },{
+                                                    where: {
+                                                        userId: userId
+                                                    }
+                                                }).then(function(){
+                                                })
+                                            }
+                                            currentTimeline = currentTimeline + 5*24*60*60*1000
+                                            TimeRange = [stageTime, currentTimeline]
                                         }
                                     })                                
                                 }
                             }
-                            if (buf == rankList.length * cateList.length) {
-                                for (userId in WinnerList) {
-                                    userProfile.update({
-                                        winner: WinnerList[userId]
-                                    },{
-                                        where: {
-                                            userId: userId
-                                        }
-                                    }).then(function(){
-                                    })
-                                }
-                                currentTimeline = currentTimeline + 5*24*60*60*1000
-                                TimeRange = [stageTime, currentTimeline]
-                            }
+                            
                         })
                     }
                     

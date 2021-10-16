@@ -438,7 +438,7 @@ function handleMobileResponse() {
                     document.querySelector(".title-content").textContent = navName[i]
                 }
                 if (document.querySelector(".mobile-creator")){
-                    if (i < 5) {document.querySelector(".mobile-creator").style.display = "block"}
+                    if (i < 5 && i != 1) {document.querySelector(".mobile-creator").style.display = "block"}
                     else {document.querySelector(".mobile-creator").style.display = "none"}
                 }
             }
