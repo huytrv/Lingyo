@@ -4709,7 +4709,7 @@ input[type='range']::-ms-fill-lower {
   top: -22px;
 }
 .avt-rank.platinum {
-  top: -21px;
+  top: -22px;
 }
 .avt-rank.gold {
   top: -23px;
@@ -4761,8 +4761,81 @@ input[type='range']::-ms-fill-lower {
   width: 76px !important;
   height: 76px !important;
 }
+.open-nav .avt-rank.challenge {
+  top: -16px;
+  left: -14px;
+  width: 76px !important;
+  height: 76px !important;
+}
+.open-nav .avt-rank.master {
+  top: -15px;
+  left: -14px;
+  width: 76px !important;
+  height: 76px !important;
+}
+.open-nav .avt-rank.diamon {
+  top: -19px;
+  left: -14px;
+  width: 76px !important;
+  height: 76px !important;
+}
+.open-nav .avt-rank.platinum {
+  top: -19px;
+  left: -14px;
+  width: 76px !important;
+  height: 76px !important;
+}
+.open-nav .avt-rank.gold {
+  top: -19px;
+  left: -14px;
+  width: 76px !important;
+  height: 76px !important;
+}
+.open-nav .avt-rank.silver {
+  top: -19px;
+  left: -14px;
+  width: 76px !important;
+  height: 76px !important;
+}
 
 .sidenav .avt-rank {
+  top: -15px;
+  left: 10px;
+  width: 89px !important;
+  height: 89px !important;
+}
+.sidenav .avt-rank.challenge {
+  top: -11px;
+  left: 10px;
+  width: 89px !important;
+  height: 89px !important;
+}
+
+.sidenav .avt-rank.master {
+  top: -9px;
+  left: 10px;
+  width: 89px !important;
+  height: 89px !important;
+}
+.sidenav .avt-rank.diamon {
+  top: -13px;
+  left: 10px;
+  width: 89px !important;
+  height: 89px !important;
+}
+.sidenav .avt-rank.platinum {
+  top: -13px;
+  left: 10px;
+  width: 89px !important;
+  height: 89px !important;
+}
+.sidenav .avt-rank.gold {
+  top: -15px;
+  left: 10px;
+  width: 89px !important;
+  height: 89px !important;
+}
+.sidenav .avt-rank.silver {
   top: -15px;
   left: 10px;
   width: 89px !important;
