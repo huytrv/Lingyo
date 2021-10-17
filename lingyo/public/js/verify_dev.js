@@ -1,4 +1,4 @@
-const socket = io("https://fodance.com")
+const socket = io("https://lingyo.vn")
 
 const rankList = ["primary", "intermediate", "highgrade"]
 const rankName = ["Sơ cấp", "Trung cấp", "Cao cấp"]
@@ -40,8 +40,8 @@ socket.on("user-need-verify", function(data){
                     <span>${data.birthday[i]}</span>
                     <span>${data.location[i]}</span>
                 </div>
-                <img src="https://cdn.fodance.com/fd-media/${data.authList[i].face}">
-                <img src="https://cdn.fodance.com/fd-media/${data.authList[i].file}">
+                <img src="https://cdn.lingyo.vn/lingyo-media/${data.authList[i].face}">
+                <img src="https://cdn.lingyo.vn/lingyo-media/${data.authList[i].file}">
             </div>
             <div class="d-flex pd width-100">
                 <button class="submit-but validate-auth" data-valid="true">Chấp nhận</button>

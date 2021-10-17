@@ -1,4 +1,4 @@
-const socket = io("https://fodance.com")
+const socket = io("https://lingyo.vn")
 
 const rankList = ["primary", "intermediate", "highgrade"]
 const rankName = ["Sơ cấp", "Trung cấp", "Cao cấp"]
@@ -26,7 +26,7 @@ function viewImage(){
             <div class="modal view-post-modal">
             <div class="modal-content view-post-modal-content d-flex">
                 <div class="close-view-post-modal return-but"><span class="iconify" data-icon="heroicons-outline:arrow-left" data-inline="false"></span></div>
-                    <img src="https://cdn.fodance.com/fd-media/${postMedia[i].getAttribute("src")}" class="view-post-img">
+                    <img src="https://cdn.lingyo.vn/lingyo-media/${postMedia[i].getAttribute("src")}" class="view-post-img">
                 </div>
             </div>
             </div>
@@ -54,50 +54,50 @@ socket.on("post-need-moderate", function(posts){
             document.querySelector(".moderate-content").insertAdjacentHTML("beforeend", `<div class="d-flex-col post-moderate" data-post-df="${posts[i].postId}" data-post-ms="${posts[i].ms}" data-post-competition="${posts[i].competition}">
             <div class="pre-post-media">
                 ${(()=>{if (posts[i].file.type == "video") {return `
-                    <video muted controls src="https://cdn.fodance.com/fd-media/${posts[i].file.path[0]}"></video>
+                    <video muted controls src="https://cdn.lingyo.vn/lingyo-media/${posts[i].file.path[0]}"></video>
                 `}
                 else {return `
                 ${(()=>{if (posts[i].file.path.length == 1){return `
                     <div class="post-file">
-                        <img src="https://cdn.fodance.com/fd-media/${posts[i].file.path[0]}" class="media-post post-image">
+                        <img src="https://cdn.lingyo.vn/lingyo-media/${posts[i].file.path[0]}" class="media-post post-image">
                     </div>
                 `}
                 else if (posts[i].file.path.length == 2){return `
                     <div class="post-file thumb-2-files">
                         <div class="thumb-file">
-                            <img src="https://cdn.fodance.com/fd-media/${posts[i].file.path[0]}" class="media-post post-image">
+                            <img src="https://cdn.lingyo.vn/lingyo-media/${posts[i].file.path[0]}" class="media-post post-image">
                         </div>
                         <div class="thumb-file">
-                            <img src="https://cdn.fodance.com/fd-media/${posts[i].file.path[1]}" class="media-post post-image">
+                            <img src="https://cdn.lingyo.vn/lingyo-media/${posts[i].file.path[1]}" class="media-post post-image">
                         </div>
                     </div>
                 `}
                 else if (posts[i].file.path.length == 3){return `
                     <div class="post-file thumb-3-files">
                         <div class="thumb-file">
-                            <img src="https://cdn.fodance.com/fd-media/${posts[i].file.path[0]}" class="media-post post-image">
+                            <img src="https://cdn.lingyo.vn/lingyo-media/${posts[i].file.path[0]}" class="media-post post-image">
                         </div>
                         <div class="thumb-file">
-                            <img src="https://cdn.fodance.com/fd-media/${posts[i].file.path[1]}" class="media-post post-image">
+                            <img src="https://cdn.lingyo.vn/lingyo-media/${posts[i].file.path[1]}" class="media-post post-image">
                         </div>
                         <div class="thumb-file">
-                            <img src="https://cdn.fodance.com/fd-media/${posts[i].file.path[2]}" class="media-post post-image">
+                            <img src="https://cdn.lingyo.vn/lingyo-media/${posts[i].file.path[2]}" class="media-post post-image">
                         </div>
                     </div>
                 `}
                 else if (posts[i].file.path.length == 4){return `
                     <div class="post-file thumb-4-files">
                         <div class="thumb-file">
-                            <img src="https://cdn.fodance.com/fd-media/${posts[i].file.path[0]}" class="media-post post-image">
+                            <img src="https://cdn.lingyo.vn/lingyo-media/${posts[i].file.path[0]}" class="media-post post-image">
                         </div>
                         <div class="thumb-file">
-                            <img src="https://cdn.fodance.com/fd-media/${posts[i].file.path[1]}" class="media-post post-image">
+                            <img src="https://cdn.lingyo.vn/lingyo-media/${posts[i].file.path[1]}" class="media-post post-image">
                         </div>
                         <div class="thumb-file">
-                            <img src="https://cdn.fodance.com/fd-media/${posts[i].file.path[2]}" class="media-post post-image">
+                            <img src="https://cdn.lingyo.vn/lingyo-media/${posts[i].file.path[2]}" class="media-post post-image">
                         </div>
                         <div class="thumb-file">
-                            <img src="https://cdn.fodance.com/fd-media/${posts[i].file.path[3]}" class="media-post post-image">
+                            <img src="https://cdn.lingyo.vn/lingyo-media/${posts[i].file.path[3]}" class="media-post post-image">
                         </div>
                     </div>
                 `}

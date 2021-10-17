@@ -9,7 +9,7 @@ module.exports = function(app, users){
     app.use(flash());
     app.route('/login')
     .get(function(req, res){
-        if (req.headers.host == "18.142.122.185") {res.redirect('https://fodance.com')}
+        if (req.headers.host == "18.163.40.72") {res.redirect('https://lingyo.vn')}
         else {
             req.logout()
             res.render("login", {message: '', username: ''})

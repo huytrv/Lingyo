@@ -199,7 +199,7 @@ function pretreatment(){
                 document.execCommand('copy')
                 document.body.removeChild(el)
             }
-            copyToClipboard("https://fodance.com/")
+            copyToClipboard("https://lingyo.vn/")
             showAlert("Đã sao chép liên kết")
         }
     }
@@ -303,7 +303,7 @@ function handleCategoryScroll() {
                         handleMainInfo()
                     }
                 }
-                xhttp.open("GET", window.location.href.replace("https://fodance.com", ''), true)
+                xhttp.open("GET", window.location.href.replace("https://lingyo.vn", ''), true)
                 xhttp.setRequestHeader('Content-Type', 'application/json')
                 xhttp.send()
             }
@@ -342,7 +342,7 @@ function handleCategoryScroll() {
                         handleMainInfo()
                     }
                 }
-                xhttp.open("GET", window.location.href.replace("https://fodance.com", ''), true)
+                xhttp.open("GET", window.location.href.replace("https://lingyo.vn", ''), true)
                 xhttp.setRequestHeader('Content-Type', 'application/json')
                 xhttp.send()
             }
@@ -901,7 +901,7 @@ function starRedirect(c, pushState){
                 if (pushState){
                     history.pushState({
                         paymentModal: c.outerHTML,
-                    }, '', 'https://fodance.com/star-reward')
+                    }, '', 'https://lingyo.vn/star-reward')
                 }
             }
 
@@ -971,7 +971,7 @@ function paymentRedirect(c, pushState){
         if (pushState){
             history.pushState({
                 paymentModal: c.outerHTML,
-            }, '', 'https://fodance.com/ticket-payment')
+            }, '', 'https://lingyo.vn/ticket-payment')
         }
     }
 
@@ -1052,14 +1052,14 @@ function replaceLinkName(){
     //     const path = e.getAttribute('src')
     //     if (!path.includes("https")) {
     //         if ((e.tagName == "IMG" || e.tagName == "VIDEO") && !e.classList.contains("cf-img") && e.getAttribute("src") != "/public/images/default-cover.png" && e.getAttribute("src") != "/public/images/default-user.png"){
-    //             e.setAttribute('src', "https://cdn.fodance.com/fd-media/" + path)
+    //             e.setAttribute('src', "https://cdn.lingyo.vn/lingyo-media/" + path)
     //         }
     //         else {
-    //             e.setAttribute('src', "https://fodance.com" + path)
+    //             e.setAttribute('src', "https://lingyo.vn" + path)
     //         }
     //     }
     //     // if (!path.includes("http") && !e.classList.contains("post-video")){
-    //     //     e.setAttribute('src', "https://fodance.com" + path)
+    //     //     e.setAttribute('src', "https://lingyo.vn" + path)
     //     // }
     //     // else if (!path.includes("http") && e.classList.contains("post-video")){
     //     //     // const file = new File([path], path, {
@@ -1067,7 +1067,7 @@ function replaceLinkName(){
     //     //     // })
     //     //     // const urlBlob = URL.createObjectURL(file)
     //     //     // e.setAttribute('src', urlBlob)
-    //     //     // let blob = fetch("https://fodance.com" + path).then(function(r){
+    //     //     // let blob = fetch("https://lingyo.vn" + path).then(function(r){
     //     //     // });
     //     // }
     // })
@@ -1117,7 +1117,7 @@ function searchRedirect(text, pushState){
                                     <a class="avt"><img src="${res.result[i][3]}" class="user-avt" username="${res.result[i][1]}"></a>
                                     `}
                                     else {return `
-                                    <a class="avt"><img src="https://cdn.fodance.com/fd-media/${res.result[i][3]}" class="user-avt" username="${res.result[i][1]}"></a>
+                                    <a class="avt"><img src="https://cdn.lingyo.vn/lingyo-media/${res.result[i][3]}" class="user-avt" username="${res.result[i][1]}"></a>
                                     `}
                                     })()}
                                     <div class="d-flex-col-start">
@@ -1172,7 +1172,7 @@ function searchRedirect(text, pushState){
         if (pushState){
             history.pushState({
                 searchAgent: textUrl
-            }, '', 'https://fodance.com/search?q=' + textUrl)
+            }, '', 'https://lingyo.vn/search?q=' + textUrl)
             document.querySelector('title').textContent = 'Lingyo | ' + text + ' - ' + "Tìm kiếm"
         }
     }
@@ -1324,7 +1324,7 @@ function rankRedirect(rankBut, pushState){
                 if (pushState){
                     history.pushState({
                         rankAgent: rankAgent
-                    }, '', 'https://fodance.com/' + cateLink + "?rank=" + rankLink)
+                    }, '', 'https://lingyo.vn/' + cateLink + "?rank=" + rankLink)
                     document.querySelector('title').textContent = 'Lingyo | ' + cateName + ' - ' + rankName
                 }
             }    
@@ -1368,7 +1368,7 @@ function rankRedirect(rankBut, pushState){
         if (pushState){
             history.pushState({
                 rankAgent: rankAgent
-            }, '', 'https://fodance.com' + "?rank=" + rankLink)
+            }, '', 'https://lingyo.vn' + "?rank=" + rankLink)
         }
         document.querySelector('title').textContent = 'Lingyo | ' + rankName
         statusRedirect = navLink
@@ -1549,7 +1549,7 @@ function handleRefreshTask(){
                                             <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                             `}
                                             else {return `
-                                            <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                            <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                             `}
                                             })()}
                                             </a>
@@ -1581,7 +1581,7 @@ function handleRefreshTask(){
                                             <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                             `}
                                             else {return `
-                                            <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                            <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                             `}
                                             })()}
                                         </a>
@@ -1614,7 +1614,7 @@ function handleRefreshTask(){
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     else {return `
-                                                    <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     })()}
                                                 </a>
@@ -1650,7 +1650,7 @@ function handleRefreshTask(){
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     else {return `
-                                                    <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     })()}
                                                 </a>
@@ -1679,7 +1679,7 @@ function handleRefreshTask(){
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     else {return `
-                                                    <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     })()}
                                                 </a>
@@ -1708,7 +1708,7 @@ function handleRefreshTask(){
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     else {return `
-                                                    <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     })()}
                                                 </a>
@@ -1735,7 +1735,7 @@ function handleRefreshTask(){
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     else {return `
-                                                    <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     })()}
                                                 </a>
@@ -1762,7 +1762,7 @@ function handleRefreshTask(){
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     else {return `
-                                                    <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     })()}
                                                 </a>
@@ -1789,7 +1789,7 @@ function handleRefreshTask(){
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     else {return `
-                                                    <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                                     `}
                                                     })()}
                                                 </a>
@@ -1814,7 +1814,7 @@ function handleRefreshTask(){
                                         <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}"></a>
                                             `}
                                         else {return `
-                                        <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}"></a>
+                                        <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}"></a>
                                         `}
                                         })()}
                                     </div>
@@ -1842,7 +1842,7 @@ function handleRefreshTask(){
                                         <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                         `}
                                         else {return `
-                                        <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                        <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                         `}
                                         })()}
                                         </a>
@@ -1864,7 +1864,7 @@ function handleRefreshTask(){
                                         <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                         `}
                                         else {return `
-                                        <img src="https://cdn.fodance.com/fd-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
+                                        <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
                                         `}
                                         })()}
                                         </a>
@@ -2017,7 +2017,7 @@ function handleMainInfo(){
                                 <img src="${res.profileSuggestion[i].avatar}">                            
                                 `}
                                 else {return `
-                                <img src="https://cdn.fodance.com/fd-media/${res.profileSuggestion[i].avatar}">                            
+                                <img src="https://cdn.lingyo.vn/lingyo-media/${res.profileSuggestion[i].avatar}">                            
                                 `}})()}<div class="d-flex-col-start"><div class="d-flex"><span class="avt-username" data-user-df="${res.profileSuggestion[i].nickname}">${res.userSuggestion[i]}</span>${(()=>{if(res.profileSuggestion[i].auth){return '<span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span>'}else{return ''}})()}</div><span class="avt-nickname">${res.profileSuggestion[i].nickname}</span></div></a><button class="follow-but" data-following="false"><span class="follow-text">Theo dõi</span></button></div>`)
                             }   
                             replaceLinkName()
@@ -2321,13 +2321,13 @@ function categoryRedirect(cate, pushState){
         // if (cateLink != 'competition'){
             history.pushState({
                 cateAgent: cateAgent,
-            }, '', 'https://fodance.com/' + cateLink + '?rank=' + rankLink )
+            }, '', 'https://lingyo.vn/' + cateLink + '?rank=' + rankLink )
             document.querySelector('title').textContent = 'Lingyo | ' + cateName + ' - ' + rankName
         // }
         // else {
         //     history.pushState({
         //         cateAgent: cateAgent,
-        //     }, '', 'https://fodance.com/competition')
+        //     }, '', 'https://lingyo.vn/competition')
         //     document.querySelector('title').textContent = 'Lingyo | Vòng đấu'
         // }
     }
@@ -2423,7 +2423,7 @@ function createPostRedirect(c, pushState){
     if (pushState){
         history.pushState({
             createPostModal: c.outerHTML,
-        }, '', 'https://fodance.com/create-post')
+        }, '', 'https://lingyo.vn/create-post')
     }
     const textarea = document.querySelector(".create-post-textarea")
     textarea.oninput = function() {
@@ -2795,7 +2795,7 @@ function createPostRedirect(c, pushState){
                                     clearInterval(interv)
                                     if ((res.data.category == cateLink && res.data.rank == rankLink) || (cateLink == 'competition' || navLink == "community") ){
                                         if ( document.querySelector(".post-section")){
-                                        document.querySelector(".post-section").insertAdjacentHTML("afterbegin", `<div class='post post-create-down' data-post-df=${res.data.post.postId}><div class='post-util'><button class='avt-but header-but dropdown-but util-dropdown-but'><span class='iconify dropdown-icon bg-white' data-icon='vaadin:ellipsis-dots-h' data-inline='false'></span></button><div class='util-dropdown-content dropdown-content'><a class='nav-item save-post'><span class='iconify' data-icon='bi:bookmark-plus' data-inline='false'></span>Lưu bài viết</a><a class="nav-item post-notice"><span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn</a><a class="nav-item copy-link-post"><span class="iconify" data-icon="clarity:copy-line" data-inline="false"></span>Sao chép liên kết</a><a class='nav-item del-post'><span class='iconify' data-icon='bx:bx-hide' data-inline='false'></span>Xóa bài viết</a></div></div><div class='post-user'><div class='post-info'><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}">${(()=>{if (res.data.profile.avatar.includes("http")) {return `<img src="${res.data.profile.avatar}" class='user-avt'>`}else {return `<img src="https://cdn.fodance.com/fd-media/${res.data.profile.avatar}" class='user-avt'>`}})()}</a>
+                                        document.querySelector(".post-section").insertAdjacentHTML("afterbegin", `<div class='post post-create-down' data-post-df=${res.data.post.postId}><div class='post-util'><button class='avt-but header-but dropdown-but util-dropdown-but'><span class='iconify dropdown-icon bg-white' data-icon='vaadin:ellipsis-dots-h' data-inline='false'></span></button><div class='util-dropdown-content dropdown-content'><a class='nav-item save-post'><span class='iconify' data-icon='bi:bookmark-plus' data-inline='false'></span>Lưu bài viết</a><a class="nav-item post-notice"><span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn</a><a class="nav-item copy-link-post"><span class="iconify" data-icon="clarity:copy-line" data-inline="false"></span>Sao chép liên kết</a><a class='nav-item del-post'><span class='iconify' data-icon='bx:bx-hide' data-inline='false'></span>Xóa bài viết</a></div></div><div class='post-user'><div class='post-info'><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}">${(()=>{if (res.data.profile.avatar.includes("http")) {return `<img src="${res.data.profile.avatar}" class='user-avt'>`}else {return `<img src="https://cdn.lingyo.vn/lingyo-media/${res.data.profile.avatar}" class='user-avt'>`}})()}</a>
                                         <div class='avt-info'>
                                         <div class="d-flex"><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}"><span class='avt-username user-username'>${res.data.username}</span></a>
                                         ${(()=>{if(res.data.profile.auth){return '<span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span>'}else{return ''}})()}<div class='mark-icon'>
@@ -2803,7 +2803,7 @@ function createPostRedirect(c, pushState){
                                         <a class='avt nav-red' nav-data='personal' data-user-df="${res.data.profile.nickname}"><span class='post-time nickname-content'>${(() => {if(res.data.profile && res.data.profile.nickname) {return `@${res.data.profile.nickname}`}else {return `@${res.data.username}`}})()}</span></a>
                                         <div class='mg-l d-flex'><span class='contact-item'></span><a class='avt'><span class='post-time theme-color'>Vừa xong</span></a></div></div>
                                         <div class='post-description'>${res.data.post.description} - đã tham gia #${res.data.post.category}</div>
-                                        </div></div></div><div class='post-content'>${(() => {if(res.data.post.file) {if(res.data.post.file.type == 'video'){return `<div class='post-file'><video class='player media-post' poster="/public/images/poster.png" src="https://cdn.fodance.com/fd-media/${res.data.post.file.path}"></video></div>`}else{if (res.data.post.file.path.length == 1) {return `<div class='post-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[0]}" class='media-post post-image'></div>`}if (res.data.post.file.path.length == 2) {return `<div class='post-file thumb-2-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[1]}" class='media-post post-image'></div></div>`}if (res.data.post.file.path.length == 3) {return `<div class='post-file thumb-3-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[2]}" class='media-post post-image''></div></div>`}if (res.data.post.file.path.length == 4) {return `<div class='post-file thumb-4-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[2]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.post.file.path[3]}" class='media-post post-image'></div></div>`}}} else {return ''}})()}</div><div class="d-flex-start pd-l-lg pd-r-lg"><div class="interactive-but-total d-flex vote-total"></div></div><div class="border-b mg-t-sm mg-b-sm mg-r-lg mg-l-lg"></div><div class='post-interactive'><button class="interactive-but like-but" data-liked="false"><span class="iconify font-size-lg-5" data-icon="ant-design:heart-twotone"></span><span>Bình chọn</span></button><button class='interactive-but comment-but'><span class='iconify font-size-lg-1' data-icon='bi:chat-square' data-inline='false'></span><span>Bình luận<span class="interactive-comment-total"></span></span></button><button class='interactive-but'><span class='iconify font-size-lg-1' data-icon='simple-line-icons:share-alt' data-inline='false'></span><span>Chia sẻ</span></button></div></div>`)                    
+                                        </div></div></div><div class='post-content'>${(() => {if(res.data.post.file) {if(res.data.post.file.type == 'video'){return `<div class='post-file'><video class='player media-post' poster="/public/images/poster.png" src="https://cdn.lingyo.vn/lingyo-media/${res.data.post.file.path}"></video></div>`}else{if (res.data.post.file.path.length == 1) {return `<div class='post-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.post.file.path[0]}" class='media-post post-image'></div>`}if (res.data.post.file.path.length == 2) {return `<div class='post-file thumb-2-files'><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.post.file.path[1]}" class='media-post post-image'></div></div>`}if (res.data.post.file.path.length == 3) {return `<div class='post-file thumb-3-files'><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.post.file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.post.file.path[2]}" class='media-post post-image''></div></div>`}if (res.data.post.file.path.length == 4) {return `<div class='post-file thumb-4-files'><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.post.file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.post.file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.post.file.path[2]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.post.file.path[3]}" class='media-post post-image'></div></div>`}}} else {return ''}})()}</div><div class="d-flex-start pd-l-lg pd-r-lg"><div class="interactive-but-total d-flex vote-total"></div></div><div class="border-b mg-t-sm mg-b-sm mg-r-lg mg-l-lg"></div><div class='post-interactive'><button class="interactive-but like-but" data-liked="false"><span class="iconify font-size-lg-5" data-icon="ant-design:heart-twotone"></span><span>Bình chọn</span></button><button class='interactive-but comment-but'><span class='iconify font-size-lg-1' data-icon='bi:chat-square' data-inline='false'></span><span>Bình luận<span class="interactive-comment-total"></span></span></button><button class='interactive-but'><span class='iconify font-size-lg-1' data-icon='simple-line-icons:share-alt' data-inline='false'></span><span>Chia sẻ</span></button></div></div>`)                    
                                         document.querySelector('.post-create-down').onanimationend = function() {
                                             document.querySelector(`[data-post-df='${res.data.post.postId}']`).classList.remove('post-create-down')
                                             if (document.querySelector(".frame-post-home")){
@@ -2969,7 +2969,7 @@ function commentPostHandle(viewPost, viewWithCmt){
                             }
                             for(let i = 0; i < res.data.cmts.length; i++) {
                                 function showCmt(cmtFrame, data, reply, i){
-                                    cmtFrame.insertAdjacentHTML('beforeend', `<div class="comment-item d-flex-start-top" data-cmt-df="${data.cmts[i].cmtId}"><div class="comment-content"><a class="avt nav-red mg-t ${(()=>{if (reply) {return 'rep-avt-small'} else {return ''}})()}" nav-data="personal" data-user-df="${data.cmtNicknames[i]}"><img src="${(()=>{if (data.cmtAvts[i].includes("https")) {return `${data.cmtAvts[i]}`} else {return `https://cdn.fodance.com/fd-media/${data.cmtAvts[i]}`}})()}"></a><div class="comment-inner d-flex-col-start mg-l-sm"><div class="comment-wrapper d-flex-col-start"><div class="d-flex"><div class="d-flex"><a class="avt nav-red username" nav-data="personal" data-user-df="${data.cmtNicknames[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="avt-username user-username cmt-username">'} else {return '<span class="avt-username cmt-username">'}})()}${data.cmtUsernames[i]}</span></a>${(()=>{if(data.cmtAuth[i]){return '<span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span>'}else{return ''}})()}<div class="mark-icon"></div></div><a class="avt nav-red d-flex mg-l-sm" nav-data="personal" data-user-df="${data.cmtNicknames[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="post-time nickname-content">'} else {return '<span class="post-time nickname-content">'}})()}@${data.cmtNicknames[i]}</span></a></div><div>${(()=>{if (data.cmts[i].tag){return`<a class="nav-red username mg-r-sm" nav-data="personal" data-user-df="${data.cmtTagNickname[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="avt-username user-username cmt-username">'} else {return '<span class="avt-username cmt-username">'}})()}${data.cmtTags[i]}</span></a>`} else {return ''}})()}${data.cmts[i].content}</div></div><div class="d-flex"><div class="comment-interactive d-flex-start">${(() => {if (data.cmtLiked[i]) {return '<a class="like-cmt-but interactive-but-liked d-flex-start mg-r noselect" data-cmt-liked="true">'} else {return '<a class="like-cmt-but d-flex-start noselect" data-cmt-liked="false">'}})()}<span class="iconify mg-r-sm" data-icon="simple-line-icons:like" data-inline="false"></span><span>Thích </span><span class="comment-total mg-r-sm">${(() => {if (data.likeTotal != 0) {return `(${data.likeTotal})`} else {return ''}})()}</span></a><a class="rep-comment-but ${(()=>{if (reply) {return 'rep-with-tag'} else {return ''}})()} d-flex-start noselect"><span class="iconify mg-r-sm" data-icon="bi:chat-square" data-inline="false"></span><span>Trả lời</span></a></div><div class="d-flex mg-l"><span class="contact-item"></span><a class="avt"><span class='post-time'>${(() => {if ((Date.now() - Date.parse(data.cmts[i].time))/1000 < 5) {return `<span>Vừa xong</span>`} else if((Date.now() - Date.parse(data.cmts[i].time))/1000 > 5 && (Date.now() - Date.parse(data.cmts[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000)} giây</span>`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/60)} phút</span>`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/3600)} giờ`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24)} ngày`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 >= 8) {return `${new Date(data.cmts[i].time).getDate() + " tháng " + (new Date(data.cmts[i].time).getMonth() + 1) + " lúc " + new Date(data.cmts[i].time).getHours() + ':' + new Date(data.cmts[i].time).getMinutes()}`}})()}</span></a></div></div></div><div class="comment-util noselect"><button class="avt-but header-but dropdown-but util-dropdown-but"><span class="iconify dropdown-icon bg-white" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span></button><div class="comment-util-dropdown-content dropdown-content">${(()=> {if (data.user == data.cmts[i].user || data.postUser == data.user) {return '<a class="nav-item del-cmt"><span class="iconify" data-icon="bx:bx-hide" data-inline="false"></span>Xóa bình luận</a>'} else {return '<a class="nav-item report-cmt"><span class="iconify" data-icon="octicon:issue-opened" data-inline="false"></span>Báo cáo bình luận</a>'}})()}</div></div></div></div>`)
+                                    cmtFrame.insertAdjacentHTML('beforeend', `<div class="comment-item d-flex-start-top" data-cmt-df="${data.cmts[i].cmtId}"><div class="comment-content"><a class="avt nav-red mg-t ${(()=>{if (reply) {return 'rep-avt-small'} else {return ''}})()}" nav-data="personal" data-user-df="${data.cmtNicknames[i]}"><img src="${(()=>{if (data.cmtAvts[i].includes("https")) {return `${data.cmtAvts[i]}`} else {return `https://cdn.lingyo.vn/lingyo-media/${data.cmtAvts[i]}`}})()}"></a><div class="comment-inner d-flex-col-start mg-l-sm"><div class="comment-wrapper d-flex-col-start"><div class="d-flex"><div class="d-flex"><a class="avt nav-red username" nav-data="personal" data-user-df="${data.cmtNicknames[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="avt-username user-username cmt-username">'} else {return '<span class="avt-username cmt-username">'}})()}${data.cmtUsernames[i]}</span></a>${(()=>{if(data.cmtAuth[i]){return '<span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span>'}else{return ''}})()}<div class="mark-icon"></div></div><a class="avt nav-red d-flex mg-l-sm" nav-data="personal" data-user-df="${data.cmtNicknames[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="post-time nickname-content">'} else {return '<span class="post-time nickname-content">'}})()}@${data.cmtNicknames[i]}</span></a></div><div>${(()=>{if (data.cmts[i].tag){return`<a class="nav-red username mg-r-sm" nav-data="personal" data-user-df="${data.cmtTagNickname[i]}">${(()=>{if (data.user == data.cmts[i].user) {return '<span class="avt-username user-username cmt-username">'} else {return '<span class="avt-username cmt-username">'}})()}${data.cmtTags[i]}</span></a>`} else {return ''}})()}${data.cmts[i].content}</div></div><div class="d-flex"><div class="comment-interactive d-flex-start">${(() => {if (data.cmtLiked[i]) {return '<a class="like-cmt-but interactive-but-liked d-flex-start mg-r noselect" data-cmt-liked="true">'} else {return '<a class="like-cmt-but d-flex-start noselect" data-cmt-liked="false">'}})()}<span class="iconify mg-r-sm" data-icon="simple-line-icons:like" data-inline="false"></span><span>Thích </span><span class="comment-total mg-r-sm">${(() => {if (data.likeTotal != 0) {return `(${data.likeTotal})`} else {return ''}})()}</span></a><a class="rep-comment-but ${(()=>{if (reply) {return 'rep-with-tag'} else {return ''}})()} d-flex-start noselect"><span class="iconify mg-r-sm" data-icon="bi:chat-square" data-inline="false"></span><span>Trả lời</span></a></div><div class="d-flex mg-l"><span class="contact-item"></span><a class="avt"><span class='post-time'>${(() => {if ((Date.now() - Date.parse(data.cmts[i].time))/1000 < 5) {return `<span>Vừa xong</span>`} else if((Date.now() - Date.parse(data.cmts[i].time))/1000 > 5 && (Date.now() - Date.parse(data.cmts[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000)} giây</span>`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/60)} phút</span>`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/3600)} giờ`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24)} ngày`} else if ((Date.now() - Date.parse(data.cmts[i].time))/1000/3600/24 >= 8) {return `${new Date(data.cmts[i].time).getDate() + " tháng " + (new Date(data.cmts[i].time).getMonth() + 1) + " lúc " + new Date(data.cmts[i].time).getHours() + ':' + new Date(data.cmts[i].time).getMinutes()}`}})()}</span></a></div></div></div><div class="comment-util noselect"><button class="avt-but header-but dropdown-but util-dropdown-but"><span class="iconify dropdown-icon bg-white" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span></button><div class="comment-util-dropdown-content dropdown-content">${(()=> {if (data.user == data.cmts[i].user || data.postUser == data.user) {return '<a class="nav-item del-cmt"><span class="iconify" data-icon="bx:bx-hide" data-inline="false"></span>Xóa bình luận</a>'} else {return '<a class="nav-item report-cmt"><span class="iconify" data-icon="octicon:issue-opened" data-inline="false"></span>Báo cáo bình luận</a>'}})()}</div></div></div></div>`)
                                     handleToggle()
                                     handleNavigation()
                                     replaceLinkName()
@@ -3126,7 +3126,7 @@ function commentPostHandle(viewPost, viewWithCmt){
                             if (xhttp.readyState == 4 && xhttp.status == 200) {
                                 const res = JSON.parse(xhttp.responseText)
                                 if (res.status == 'done'){
-                                    commented.insertAdjacentHTML(pos, `<div class="comment-item d-flex-start-top" data-cmt-df="${res.data.cmtId}"><div class="comment-content"><a class="avt mg-t nav-red ${(()=>{if (cmtId) {return 'rep-avt-small'} else {return ''}})()}" nav-data="personal" data-user-df="${res.data.nickname}"><img src="${(()=>{if (res.data.avt.includes("https")) {return `${res.data.avt}`} else {return `https://cdn.fodance.com/fd-media/${res.data.avt}`}})()}"></a><div class="comment-inner d-flex-col-start mg-l-sm"><div class="comment-wrapper d-flex-col-start"><div class="d-flex"><a class="nav-red username" nav-data="personal" data-user-df="${res.data.nickname}"><span class="avt-username user-username cmt-username">${res.data.username}</span></a>${(()=>{if(res.data.auth){return '<span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span>'}else{return ''}})()}<div class="mark-icon"></div><a class="avt d-flex mg-l-sm"><span class="post-time nickname-content">@${res.data.nickname}</span></a></div><div>${(() => {if (data.tag){return `<a class="nav-red" nav-data="personal" data-user-df="${data.tag}"><span class="avt-username cmt-username">${tagUsername}</span></a>`} else {return ""}})()}${data.content}</div></div><div class="d-flex"><div class="comment-interactive d-flex-start"><a class="like-cmt-but d-flex-start noselect" data-cmt-liked="false"><span class="iconify mg-r-sm" data-icon="simple-line-icons:like" data-inline="false"></span><span>Thích </span><span class="comment-total mg-r-sm"></span></a><a class="rep-comment-but d-flex-start noselect"><span class="iconify mg-r-sm" data-icon="bi:chat-square" data-inline="false"></span><span>Trả lời</span></a></div><div class="mg-l d-flex"><span class="contact-item"></span><a class="avt"><span class="post-time"><span>Vừa xong</span></a></div></div></div><div class="comment-util noselect"><button class="avt-but header-but dropdown-but util-dropdown-but"><span class="iconify dropdown-icon bg-white" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span></button><div class="comment-util-dropdown-content dropdown-content"><a class="nav-item del-cmt"><span class="iconify" data-icon="bx:bx-hide" data-inline="false"></span>Xóa bình luận</a></div></div><div></div>`)
+                                    commented.insertAdjacentHTML(pos, `<div class="comment-item d-flex-start-top" data-cmt-df="${res.data.cmtId}"><div class="comment-content"><a class="avt mg-t nav-red ${(()=>{if (cmtId) {return 'rep-avt-small'} else {return ''}})()}" nav-data="personal" data-user-df="${res.data.nickname}"><img src="${(()=>{if (res.data.avt.includes("https")) {return `${res.data.avt}`} else {return `https://cdn.lingyo.vn/lingyo-media/${res.data.avt}`}})()}"></a><div class="comment-inner d-flex-col-start mg-l-sm"><div class="comment-wrapper d-flex-col-start"><div class="d-flex"><a class="nav-red username" nav-data="personal" data-user-df="${res.data.nickname}"><span class="avt-username user-username cmt-username">${res.data.username}</span></a>${(()=>{if(res.data.auth){return '<span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span>'}else{return ''}})()}<div class="mark-icon"></div><a class="avt d-flex mg-l-sm"><span class="post-time nickname-content">@${res.data.nickname}</span></a></div><div>${(() => {if (data.tag){return `<a class="nav-red" nav-data="personal" data-user-df="${data.tag}"><span class="avt-username cmt-username">${tagUsername}</span></a>`} else {return ""}})()}${data.content}</div></div><div class="d-flex"><div class="comment-interactive d-flex-start"><a class="like-cmt-but d-flex-start noselect" data-cmt-liked="false"><span class="iconify mg-r-sm" data-icon="simple-line-icons:like" data-inline="false"></span><span>Thích </span><span class="comment-total mg-r-sm"></span></a><a class="rep-comment-but d-flex-start noselect"><span class="iconify mg-r-sm" data-icon="bi:chat-square" data-inline="false"></span><span>Trả lời</span></a></div><div class="mg-l d-flex"><span class="contact-item"></span><a class="avt"><span class="post-time"><span>Vừa xong</span></a></div></div></div><div class="comment-util noselect"><button class="avt-but header-but dropdown-but util-dropdown-but"><span class="iconify dropdown-icon bg-white" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span></button><div class="comment-util-dropdown-content dropdown-content"><a class="nav-item del-cmt"><span class="iconify" data-icon="bx:bx-hide" data-inline="false"></span>Xóa bình luận</a></div></div><div></div>`)
                                     cmtTextarea.value = null
                                     cmtTextarea.style.height = '35px'
                                     cmtTextarea.style.overflowY = "hidden"
@@ -3450,7 +3450,7 @@ function viewPostRedirect(t, post, pushState){
             history.pushState({
                 viewPostBut: t,
                 post: post.outerHTML
-            }, '', 'https://fodance.com/post/' + post.getAttribute("data-post-df"))
+            }, '', 'https://lingyo.vn/post/' + post.getAttribute("data-post-df"))
         }
         document.querySelectorAll(".interactive-but").forEach(function(e){
             e.style.padding = "8px 10px"
@@ -4069,7 +4069,7 @@ function handleMainFrame(){
         for (let i = 0; i < copyBut.length; i++){
             copyBut[i].onclick = function(){
                 const post = this.parentNode.parentNode.parentNode
-                const link = "https://fodance.com/post/" + post.getAttribute("data-post-df")
+                const link = "https://lingyo.vn/post/" + post.getAttribute("data-post-df")
                 copyToClipboard(link)
             }
         }
@@ -4199,13 +4199,13 @@ function handleMainFrame(){
         const shareBut = document.querySelectorAll(".share-but")
         for (let i = 0; i < shareBut.length; i++){
             shareBut[i].onclick = function(){
-                const postLink = "https://fodance.com/post/" + shareBut[i].parentNode.parentNode.getAttribute("data-post-df")
+                const postLink = "https://lingyo.vn/post/" + shareBut[i].parentNode.parentNode.getAttribute("data-post-df")
                 const content = shareBut[i].parentNode.parentNode.querySelector(".post-description").textContent
                 if (!this.querySelector(".social-share")){
                     this.insertAdjacentHTML("beforeend", `
                     <div class="social-share d-flex-col-start pd-t pd-b">
                         <div class="fb-share-button social-share-item pd" data-href="${postLink}" data-layout="button" data-size="large">
-                            <a class="d-flex-start" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffodance.com%2Fpost%2F${shareBut[i].parentNode.parentNode.getAttribute("data-post-df")}" aria-label="${content}" class="fb-xfbml-parse-ignore"><span class="iconify share-icon share-fb-icon mg-r" data-icon="fa-brands:facebook" data-inline="false"></span>Chia sẻ với Facebook
+                            <a class="d-flex-start" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flingyo.vn%2Fpost%2F${shareBut[i].parentNode.parentNode.getAttribute("data-post-df")}" aria-label="${content}" class="fb-xfbml-parse-ignore"><span class="iconify share-icon share-fb-icon mg-r" data-icon="fa-brands:facebook" data-inline="false"></span>Chia sẻ với Facebook
                             </a>
                         </div>
                         <div class="social-share-item pd">
@@ -4649,13 +4649,13 @@ function handleScroll(){
                                         document.querySelector(".post-section").insertAdjacentHTML("beforeend", `
                                         <div class='post' data-post-df='${res.data.posts[i].postId}'>
                                         ${(()=>{if(res.data.rank){if (rankIndex > 3){return `<div class="ranking"><span>${rankIndex}th</span></div>`} else{return ''}} else{return ''}})()}
-                                        <div class='post-util'><button class='avt-but header-but dropdown-but util-dropdown-but'><span class='iconify dropdown-icon bg-white' data-icon='vaadin:ellipsis-dots-h' data-inline='false'></span></button><div class='util-dropdown-content dropdown-content'>${(() => {if(!res.data.saved[i]) {return "<a class='nav-item save-post'><span class='iconify' data-icon='bi:bookmark-plus' data-inline='false'></span>Lưu bài viết</a>"} else {return '<a class="nav-item remove-save-post"><span class="iconify" data-icon="bi:bookmark-dash" data-inline="false"></span>Bỏ lưu bài viết</a>'}})()}${(() => {if(!res.data.notice[i]) {return '<a class="nav-item post-notice"><span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn</a>'} else {return '<a class="nav-item remove-post-notice"><span class="iconify" data-icon="ph:bell-simple-slash" data-inline="false"></span>Tắt thông báo bình chọn</a>'}})()}<a class="nav-item copy-link-post"><span class="iconify" data-icon="clarity:copy-line" data-inline="false"></span>Sao chép liên kết</a>${(() => {if(res.data.userId != res.data.posts[i].userId) {if (!res.data.followed[i]){return `<a class="nav-item follow-post-user" data-following="false"><span class="iconify" data-icon="simple-line-icons:user-following" data-inline="false"></span><span class="follow-text mg-r-sm">Theo dõi</span> ${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</a>`} else {return `<a class="nav-item follow-post-user" data-following="true"><span class="iconify" data-icon="simple-line-icons:user-following" data-inline="false"></span><span class="follow-text mg-r-sm">Bỏ theo dõi</span> ${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</a>`}}else {return "<a class='nav-item del-post'><span class='iconify' data-icon='bx:bx-hide' data-inline='false'></span>Xóa bài viết</a>"}})()}</div></div><div class='post-user'><div class='post-info'><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}"> ${(()=>{if (res.data.postProfile[i].avatar.includes("http")) {return `<img src="${res.data.postProfile[i].avatar}" class="user-avt" username="${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}">`}else {return `<img src="https://cdn.fodance.com/fd-media/${res.data.postProfile[i].avatar}" class="user-avt" username="${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}">`}})()}</a><div class='avt-info'><div class="d-flex"><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}">${(() => {if(res.data.userId == res.data.posts[i].userId) {return "<span class='avt-username user-username'>"}else {return "<span class='avt-username'>"}})()}${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</span></a>
+                                        <div class='post-util'><button class='avt-but header-but dropdown-but util-dropdown-but'><span class='iconify dropdown-icon bg-white' data-icon='vaadin:ellipsis-dots-h' data-inline='false'></span></button><div class='util-dropdown-content dropdown-content'>${(() => {if(!res.data.saved[i]) {return "<a class='nav-item save-post'><span class='iconify' data-icon='bi:bookmark-plus' data-inline='false'></span>Lưu bài viết</a>"} else {return '<a class="nav-item remove-save-post"><span class="iconify" data-icon="bi:bookmark-dash" data-inline="false"></span>Bỏ lưu bài viết</a>'}})()}${(() => {if(!res.data.notice[i]) {return '<a class="nav-item post-notice"><span class="iconify" data-icon="clarity:bell-outline-badged" data-inline="false"></span>Bật thông báo bình chọn</a>'} else {return '<a class="nav-item remove-post-notice"><span class="iconify" data-icon="ph:bell-simple-slash" data-inline="false"></span>Tắt thông báo bình chọn</a>'}})()}<a class="nav-item copy-link-post"><span class="iconify" data-icon="clarity:copy-line" data-inline="false"></span>Sao chép liên kết</a>${(() => {if(res.data.userId != res.data.posts[i].userId) {if (!res.data.followed[i]){return `<a class="nav-item follow-post-user" data-following="false"><span class="iconify" data-icon="simple-line-icons:user-following" data-inline="false"></span><span class="follow-text mg-r-sm">Theo dõi</span> ${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</a>`} else {return `<a class="nav-item follow-post-user" data-following="true"><span class="iconify" data-icon="simple-line-icons:user-following" data-inline="false"></span><span class="follow-text mg-r-sm">Bỏ theo dõi</span> ${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</a>`}}else {return "<a class='nav-item del-post'><span class='iconify' data-icon='bx:bx-hide' data-inline='false'></span>Xóa bài viết</a>"}})()}</div></div><div class='post-user'><div class='post-info'><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}"> ${(()=>{if (res.data.postProfile[i].avatar.includes("http")) {return `<img src="${res.data.postProfile[i].avatar}" class="user-avt" username="${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}">`}else {return `<img src="https://cdn.lingyo.vn/lingyo-media/${res.data.postProfile[i].avatar}" class="user-avt" username="${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}">`}})()}</a><div class='avt-info'><div class="d-flex"><a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}">${(() => {if(res.data.userId == res.data.posts[i].userId) {return "<span class='avt-username user-username'>"}else {return "<span class='avt-username'>"}})()}${(()=>{if(res.data.postUsername && res.data.postUsername[i]) {return res.data.postUsername[i]} else {return res.data.posts[i]['user.username']}})()}</span></a>
                                         ${(()=>{if(res.data.postPtofile[i].auth){return '<span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span>'}else{return ''}})()}
                                         <div class='mark-icon'></div>
                                         <a class='avt nav-red' nav-data='personal' data-user-df="${res.data.postProfile[i].nickname}">${(() => {if(res.data.userId == res.data.posts[i].userId) {return "<span class='post-time nickname-content'>"}else {return "<span class='post-time'>"}})()}@${res.data.postProfile[i].nickname}</span></a>
                                         <div class='mg-l d-flex'><span class='contact-item'></span><a class='avt'><span class='post-time'>${(() => {if ((Date.now() - Date.parse(res.data.posts[i].time))/1000 < 5) {return `<span>Vừa xong</span>`} else if((Date.now() - Date.parse(res.data.posts[i].time))/1000 > 5 && (Date.now() - Date.parse(res.data.posts[i].time))/1000 < 60) {return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000)} giây</span>`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/60 >= 1 && (Date.now() - Date.parse(res.data.posts[i].time))/1000/60 < 60){return `<span class="theme-color">${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000/60)} phút</span>`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600 >= 1 && (Date.now() - Date.parse(res.data.posts[i].time))/1000/3600 < 24){return `${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600)} giờ`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24 >= 1 && (Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24 < 8){return `${Math.floor((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24)} ngày`} else if ((Date.now() - Date.parse(res.data.posts[i].time))/1000/3600/24 >= 8) {return `${new Date(res.data.posts[i].time).getDate() + " tháng " + (new Date(res.data.posts[i].time).getMonth() + 1) + " lúc " + new Date(res.data.posts[i].time).getHours() + ':' + new Date(res.data.posts[i].time).getMinutes()}`}})()}</span></a></div></div>
                                         <div class='post-description'>${res.data.posts[i].description} - đã tham gia #${res.data.posts[i].category}</div>
-                                        </div></div></div><div class='post-content'>${(() => {if(res.data.posts[i].file) {if(res.data.posts[i].file.type == 'video'){return `<div class='post-file'><video class='player media-post post-video' poster="/public/images/poster.png" src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path}"></video></div>`}else{if (res.data.posts[i].file.path.length == 1) {return `<div class='post-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div>`}if (res.data.posts[i].file.path.length == 2) {return `<div class='post-file thumb-2-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[1]}" class='media-post post-image'></div></div>`}if (res.data.posts[i].file.path.length == 3) {return `<div class='post-file thumb-3-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[2]}" class='media-post post-image'></div></div>`}if (res.data.posts[i].file.path.length == 4) {return `<div class='post-file thumb-4-files'><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[2]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.fodance.com/fd-media/${res.data.posts[i].file.path[3]}" class='media-post post-image'></div></div>`}}} else {return ''}})()}</div><div class="d-flex-sb pd-l-lg pd-r-lg"><div class="interactive-but-total d-flex vote-total">${(() => {if (res.data.posts[i].like != 0) {return `<span class="iconify vote-icon mg-r-sm" data-icon="ic:twotone-how-to-vote" data-inline="false"></span></span><span class="like-total">${res.data.posts[i].like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>`} else {return ''}})()}</div>${(() => {if (res.data.posts[i].file && res.data.posts[i].file.type == 'video') {return `<div class="video-views"><span class="view-total">${res.data.posts[i].videoViews}</span><span> lượt xem</span></div>`} else {return ''}})()}</div><div class="border-b mg-t-sm mg-b-sm mg-r-lg mg-l-lg"></div><div class='post-interactive'>${(() => {if(res.data.postLiked[i]) { return `<button class="interactive-but like-but interactive-but-liked" data-liked="true">`} else {return `<button class="interactive-but like-but" data-liked="false">`}})()}<span class="iconify font-size-lg-5" data-icon="ant-design:heart-twotone"></span><span>Bình chọn</span></button><button class="interactive-but comment-but"><span class="iconify font-size-lg-1" data-icon="bi:chat-square" data-inline="false"></span><span>Bình luận ${(() => {if(res.data.posts[i].comment != 0) {return `(<span class="interactive-comment-total">${res.data.posts[i].comment}</span>)`} else {return '<span class="interactive-comment-total"></span>'}})()}</span></button><button class="interactive-but share-but"><span class="iconify font-size-lg-1" data-icon="simple-line-icons:share-alt" data-inline="false"></span><span>${(() => {if(res.data.posts[i].share != 0) {res.data.posts[i].share} else {return ''}})()}</span><span>Chia sẻ</span></button></div></div>`)
+                                        </div></div></div><div class='post-content'>${(() => {if(res.data.posts[i].file) {if(res.data.posts[i].file.type == 'video'){return `<div class='post-file'><video class='player media-post post-video' poster="/public/images/poster.png" src="https://cdn.lingyo.vn/lingyo-media/${res.data.posts[i].file.path}"></video></div>`}else{if (res.data.posts[i].file.path.length == 1) {return `<div class='post-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div>`}if (res.data.posts[i].file.path.length == 2) {return `<div class='post-file thumb-2-files'><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.posts[i].file.path[1]}" class='media-post post-image'></div></div>`}if (res.data.posts[i].file.path.length == 3) {return `<div class='post-file thumb-3-files'><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.posts[i].file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.posts[i].file.path[2]}" class='media-post post-image'></div></div>`}if (res.data.posts[i].file.path.length == 4) {return `<div class='post-file thumb-4-files'><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.posts[i].file.path[0]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.posts[i].file.path[1]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.posts[i].file.path[2]}" class='media-post post-image'></div><div class='thumb-file'><img src="https://cdn.lingyo.vn/lingyo-media/${res.data.posts[i].file.path[3]}" class='media-post post-image'></div></div>`}}} else {return ''}})()}</div><div class="d-flex-sb pd-l-lg pd-r-lg"><div class="interactive-but-total d-flex vote-total">${(() => {if (res.data.posts[i].like != 0) {return `<span class="iconify vote-icon mg-r-sm" data-icon="ic:twotone-how-to-vote" data-inline="false"></span></span><span class="like-total">${res.data.posts[i].like.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>`} else {return ''}})()}</div>${(() => {if (res.data.posts[i].file && res.data.posts[i].file.type == 'video') {return `<div class="video-views"><span class="view-total">${res.data.posts[i].videoViews}</span><span> lượt xem</span></div>`} else {return ''}})()}</div><div class="border-b mg-t-sm mg-b-sm mg-r-lg mg-l-lg"></div><div class='post-interactive'>${(() => {if(res.data.postLiked[i]) { return `<button class="interactive-but like-but interactive-but-liked" data-liked="true">`} else {return `<button class="interactive-but like-but" data-liked="false">`}})()}<span class="iconify font-size-lg-5" data-icon="ant-design:heart-twotone"></span><span>Bình chọn</span></button><button class="interactive-but comment-but"><span class="iconify font-size-lg-1" data-icon="bi:chat-square" data-inline="false"></span><span>Bình luận ${(() => {if(res.data.posts[i].comment != 0) {return `(<span class="interactive-comment-total">${res.data.posts[i].comment}</span>)`} else {return '<span class="interactive-comment-total"></span>'}})()}</span></button><button class="interactive-but share-but"><span class="iconify font-size-lg-1" data-icon="simple-line-icons:share-alt" data-inline="false"></span><span>${(() => {if(res.data.posts[i].share != 0) {res.data.posts[i].share} else {return ''}})()}</span><span>Chia sẻ</span></button></div></div>`)
                                     }
                                     Plyr.setup('video.player')
                                     handleMainFrame()
@@ -4802,7 +4802,7 @@ function handleNavigation(){
                                         if (pushState){
                                             history.pushState({
                                                 agent: agentText,
-                                            }, '', `https://fodance.com/post/${postLink}`)
+                                            }, '', `https://lingyo.vn/post/${postLink}`)
                                         }
                                         document.querySelector('title').textContent = `Lingyo | Video`
                                     }
@@ -4879,7 +4879,7 @@ function handleNavigation(){
                             if (pushState){
                                 history.pushState({
                                     agent: agentText,
-                                }, '', `https://fodance.com/${navLink}`)
+                                }, '', `https://lingyo.vn/${navLink}`)
                             }
                             document.querySelector('title').textContent = `Lingyo | ${navName}`
                             statusRedirect = navLink
@@ -4939,7 +4939,7 @@ function handleNavigation(){
                         if (pushState){
                             history.pushState({
                                 agent: agentText,
-                            }, '', `https://fodance.com/${personalLink}`)
+                            }, '', `https://lingyo.vn/${personalLink}`)
                         }
                         statusRedirect = personalLink
                         xhttp.open("GET", '/' + personalLink, true)
@@ -5060,7 +5060,7 @@ function handleNavigation(){
                     if (pushState){
                         history.pushState({
                             agent: agentText,
-                        }, '', 'https://fodance.com/competition' + '?rank=' + rankLink)
+                        }, '', 'https://lingyo.vn/competition' + '?rank=' + rankLink)
                     }
                     document.querySelector('title').textContent = 'Lingyo | Tất cả - ' + rankName
                 }
@@ -5078,7 +5078,7 @@ function handleNavigation(){
                         if (document.querySelectorAll(".user-avt")){
                             document.querySelectorAll(".user-avt").forEach(function(e){
                                 if (e.parentNode.getAttribute("data-user-df") == document.querySelector(".header-nickname").getAttribute("data-user-df")){
-                                    e.setAttribute("src", "https://cdn.fodance.com/fd-media/" + avtUpdate)
+                                    e.setAttribute("src", "https://cdn.lingyo.vn/lingyo-media/" + avtUpdate)
                                 }
                             })
                         }
@@ -5136,7 +5136,7 @@ function handleNavigation(){
                         if (pushState){
                             history.pushState({
                                 agent: agentText,
-                            }, '', 'https://fodance.com/' + cateLink + "?rank=" + rankLink)
+                            }, '', 'https://lingyo.vn/' + cateLink + "?rank=" + rankLink)
                         }
                         document.querySelector('title').textContent = 'Lingyo | ' + cateName + ' - ' + rankName
                     // }
@@ -5144,7 +5144,7 @@ function handleNavigation(){
                     //     if (pushState){
                     //         history.pushState({
                     //             agent: agentText,
-                    //         }, '', 'https://fodance.com/competition')
+                    //         }, '', 'https://lingyo.vn/competition')
                     //     }
                     //     document.querySelector('title').textContent = 'Lingyo | Vòng đấu'
                     // }
@@ -5200,7 +5200,7 @@ function handleNavigation(){
             if (pushState){
                 history.pushState({
                     agent: agentText,
-                }, '', 'https://fodance.com' + "?rank=" + rankLink)
+                }, '', 'https://lingyo.vn' + "?rank=" + rankLink)
             }
             document.querySelector('title').textContent = 'Lingyo | ' + rankName
             statusRedirect = navLink
@@ -5313,7 +5313,7 @@ function handleNavigation(){
             }
         }
         
-        // history.replaceState({agent: null}, 'Lingyo', 'https://fodance.com/')
+        // history.replaceState({agent: null}, 'Lingyo', 'https://lingyo.vn/')
     }
 
     const navRed = document.querySelectorAll('.nav-red')
@@ -5323,7 +5323,7 @@ function handleNavigation(){
         }
     }
 
-    // history.replaceState({agent: null}, 'Lingyo', 'https://fodance.com/')
+    // history.replaceState({agent: null}, 'Lingyo', 'https://lingyo.vn/')
 }
 handleNavigation()
 
@@ -5349,7 +5349,7 @@ function editProfileRedirect(editBut, pushState){
         if (pushState){
             history.pushState({
                 editProfileModal: editBut.outerHTML,
-            }, '', "https://fodance.com/" + window.location.pathname.replace('/', '') + "/edit-profile")
+            }, '', "https://lingyo.vn/" + window.location.pathname.replace('/', '') + "/edit-profile")
         }
         const modal = document.querySelector(".edit-profile")
         const editModal = document.querySelector(".edit-profile-modal")
@@ -5635,7 +5635,7 @@ function editProfileRedirect(editBut, pushState){
                                         if (res.status == 'done'){
                                             avtUpdate = res.data.avt
                                             document.querySelectorAll(".user-avt").forEach(function(e){
-                                                e.setAttribute("src", "https://cdn.fodance.com/fd-media/" + res.data.avt)
+                                                e.setAttribute("src", "https://cdn.lingyo.vn/lingyo-media/" + res.data.avt)
                                             })
                                         }
                                         else {
@@ -5877,7 +5877,7 @@ function editProfileRedirect(editBut, pushState){
                                     const res = JSON.parse(xhttp.responseText)
                                     if (res.status == 'done'){
                                         document.querySelectorAll(".user-cover").forEach(function(e){
-                                            e.setAttribute("src", "https://cdn.fodance.com/fd-media/" + res.data.cover)
+                                            e.setAttribute("src", "https://cdn.lingyo.vn/lingyo-media/" + res.data.cover)
                                         })
                                     }
                                     else {
@@ -6371,7 +6371,7 @@ function handleNavInfo(){
                                 <img src="${res.followersAvt[i]}">
                                 `}
                                 else {return `
-                                <img src="https://cdn.fodance.com/fd-media/${res.followersAvt[i]}">
+                                <img src="https://cdn.lingyo.vn/lingyo-media/${res.followersAvt[i]}">
                                 `}
                                 })()}<div class="d-flex-col-start"><span class="avt-username font-size-lg-1">${res.followersUsername[i]}</span><span class="avt-nickname">${res.followersList[i]}</span></div></a>${(() => {if (res.isFollowing[i]) {return '<button class="follow-but following-but" data-following="true"><span class="follow-text">Đang theo dõi</span></button>'} else if (res.isCurrentUser[i]) {return ''} else {return '<button class="follow-but" data-following="false"><span class="follow-text">Theo dõi</span></button>'}})()}</div>`)
                             }
@@ -6447,7 +6447,7 @@ function handleNavInfo(){
                                 <img src="${res.followingAvt[i]}">
                                 `}
                                 else {return `
-                                <img src="https://cdn.fodance.com/fd-media/${res.followingAvt[i]}">
+                                <img src="https://cdn.lingyo.vn/lingyo-media/${res.followingAvt[i]}">
                                 `}
                                 })()}
                                 <div class="d-flex-col-start"><span class="avt-username font-size-lg-1">${res.followingUsername[i]}</span><span class="avt-nickname">${res.followingList[i]}</span></div></a>${(() => {if (res.isFollowing[i]) {return '<button class="follow-but following-but" data-following="true"><span class="follow-text">Đang theo dõi</span></button>'} else if (res.isCurrentUser[i]) {return ''} else {return '<button class="follow-but" data-following="false"><span class="follow-text">Theo dõi</span></button>'}})()}</div>`)
@@ -6536,7 +6536,7 @@ function handleNavInfo(){
                                             imageDisplayedList.push(res.postIdList[i])
                                         }
                                         for(let i = 0; i < res.images.length; i++){
-                                            document.querySelector(".media-content").insertAdjacentHTML('beforeend', `<div class="image-item"><img src="https://cdn.fodance.com/fd-media/${res.images[i]}" class="profile-images"><div>`)
+                                            document.querySelector(".media-content").insertAdjacentHTML('beforeend', `<div class="image-item"><img src="https://cdn.lingyo.vn/lingyo-media/${res.images[i]}" class="profile-images"><div>`)
                                         }
                                         if (imageDisplayedList.length == res.total){
                                             if (document.querySelector(".seemore-frame")){document.querySelector(".seemore-frame").remove()}
@@ -6591,7 +6591,7 @@ function handleNavInfo(){
                                             videoDisplayedList.push(res.postIdList[i])
                                         }
                                         for(let i = 0; i < res.videos.length; i++){
-                                            document.querySelector(".media-content").insertAdjacentHTML('beforeend', `<div class="video-item"><video poster="/public/images/poster.png" src="https://cdn.fodance.com/fd-media/${res.videos[i]}#t=3" class="profile-videos"></video><div>`)
+                                            document.querySelector(".media-content").insertAdjacentHTML('beforeend', `<div class="video-item"><video poster="/public/images/poster.png" src="https://cdn.lingyo.vn/lingyo-media/${res.videos[i]}#t=3" class="profile-videos"></video><div>`)
                                         }
                                         const videoItem = document.querySelectorAll(".video-item video")
                                         for (let i = 0; i < videoItem.length; i++){

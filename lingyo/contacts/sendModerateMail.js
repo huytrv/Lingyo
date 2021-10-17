@@ -3,7 +3,7 @@ const fs = require('fs')
 
 
 module.exports = function(email, code){
-    const output = `<span>Video ${code} cần kiểm duyệt</span><br><a href="https://fodance.com/moderate">Duyệt ngay!</a>`
+    const output = `<span>Video ${code} cần kiểm duyệt</span><br><a href="https://lingyo.vn/moderate">Duyệt ngay!</a>`
 
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',

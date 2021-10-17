@@ -633,7 +633,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         const uploadParams = {
             Bucket: bucketName,
             Body: fileStream,
-            Key: "fd-media/" + filename,
+            Key: "lingyo-media/" + filename,
             ContentType: fileType
         }
 
@@ -643,7 +643,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     function removeFile(filename) {
         const uploadParams = {
             Bucket: bucketName,
-            Key: "fd-media/" + filename
+            Key: "lingyo-media/" + filename
         }
 
         return s3.deleteObject(uploadParams, function (err) {
@@ -949,7 +949,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         //azure
                         // const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STRING;
                         // const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
-                        // const containerClient = blobServiceClient.getContainerClient("fd-media");
+                        // const containerClient = blobServiceClient.getContainerClient("lingyo-media");
                         // for (let i = 0; i < p.file.path.length; i++){
                         //     const blockBlobClient = containerClient.getBlockBlobClient(p.file.path[i])
                         //     blockBlobClient.delete();
@@ -958,7 +958,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         //gg
                         // for (let i = 0; i < p.file.path.length; i++){
                             // (async function() {
-                            //     await cfFileBucket.file("fd-media/" + p.file.path[i]).delete();
+                            //     await cfFileBucket.file("lingyo-media/" + p.file.path[i]).delete();
                             // })();
                         // }
 
@@ -1223,8 +1223,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": "https://fodance.com/payment-success",
-                "cancel_url": "https://fodance.com/payment-cancel",
+                "return_url": "https://lingyo.vn/payment-success",
+                "cancel_url": "https://lingyo.vn/payment-cancel",
             },
             "transactions": [{
                 "item_list": {
@@ -1468,7 +1468,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     model: users,
                                 },],
                                 order: [
-                                    ['time', 'ASC']
+                                    ['time', 'ASC'],
+                                    ['like', 'DESC']
                                 ],
                                 limit: 5,
                                 where: {
@@ -2664,13 +2665,13 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
 
                                 //azure
                                 // const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING)
-                                // const containerClient = blobServiceClient.getContainerClient("fd-media")
+                                // const containerClient = blobServiceClient.getContainerClient("lingyo-media")
                                 // const blockBlobClient = containerClient.getBlockBlobClient(paths[i])
                                 // const blobOptions = { blobHTTPHeaders: { blobContentType: files[i].type } }
                                 // blockBlobClient.upload(rawData, files[i].size, blobOptions)
 
                                 //gg
-                                // const blob = cfFileBucket.file("fd-media/" + paths[i]);
+                                // const blob = cfFileBucket.file("lingyo-media/" + paths[i]);
                                 // const blobStream = blob.createWriteStream();
                                 // blobStream.end(rawData)
                                 // blobStream.on('finish', () => {
@@ -3977,13 +3978,13 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     //azure
                                     // const AZURE_STORAGE_CONNECTION_STRING = process.env.AZURE_STORAGE_CONNECTION_STRING;
                                     // const blobServiceClient = BlobServiceClient.fromConnectionString(AZURE_STORAGE_CONNECTION_STRING);
-                                    // const containerClient = blobServiceClient.getContainerClient("fd-media");
+                                    // const containerClient = blobServiceClient.getContainerClient("lingyo-media");
                                     // const blockBlobClient = containerClient.getBlockBlobClient(p.file.path)
                                     // blockBlobClient.delete();
 
                                     //gg
                                     // (async function() {
-                                    //     await cfFileBucket.file("fd-media/" + p.file.path).delete();
+                                    //     await cfFileBucket.file("lingyo-media/" + p.file.path).delete();
                                     // })();
 
                                     //aws
@@ -5468,7 +5469,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     })
                                 })
                                 //gg
-                                // const blob = cfFileBucket.file("fd-media/" + filename);
+                                // const blob = cfFileBucket.file("lingyo-media/" + filename);
                                 // const blobStream = blob.createWriteStream();
                                 // const rawData = fs.readFileSync(filePath)
                                 // blobStream.on('finish', () => {
@@ -5497,7 +5498,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 //azure
                                 // const rawData = fs.readFileSync(filePath)
                                 // const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
-                                // const containerClient = blobServiceClient.getContainerClient("fd-media");
+                                // const containerClient = blobServiceClient.getContainerClient("lingyo-media");
                                 // const blockBlobClient = containerClient.getBlockBlobClient(filename);
                                 // const blobOptions = { blobHTTPHeaders: { blobContentType: f.file.type } };
                                 // blockBlobClient.upload(rawData, Buffer.byteLength(rawData), blobOptions).then(function(){
@@ -5564,7 +5565,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 })
 
                                 //gg
-                                // const blob = cfFileBucket.file("fd-media/" + filename);
+                                // const blob = cfFileBucket.file("lingyo-media/" + filename);
                                 // const blobStream = blob.createWriteStream();
                                 // const rawData = fs.readFileSync(filePath)
                                 // blobStream.on('finish', () => {

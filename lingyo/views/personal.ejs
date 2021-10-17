@@ -17,7 +17,7 @@
                                     <img src="<%- currentProfile.avatar -%>" class="user-avt header-avatar" username="<%- currentUsername -%>">
                                     <% } %>
                                 <% if (!currentProfile.avatar.includes("http")) { %>
-                                    <img src="https://cdn.fodance.com/fd-media/<%- currentProfile.avatar -%>" class="user-avt header-avatar" username="<%- currentUsername -%>">
+                                    <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.avatar -%>" class="user-avt header-avatar" username="<%- currentUsername -%>">
                                     <% } %>
                                 <div class="d-flex-col-start">
                                     <span class="avt-username header-username nav-item-name-red none-deco user-username"><% if (currentUsername.length > 15) { %><%- currentUsername.substring(0, 12) + '...' + currentUsername.substring(currentUsername.length) -%><% } %><% if (currentUsername.length <= 15) { %><%- currentUsername -%><% } %></span>
@@ -63,7 +63,7 @@
                             <img src="<%- currentProfile.avatar -%>" class="user-avt mg-l-sm" username="<%- username -%>">
                             <% } %>
                         <% if (!currentProfile.avatar.includes("http")) { %>
-                            <img src="https://cdn.fodance.com/fd-media/<%- currentProfile.avatar -%>" class="user-avt mg-l-sm" username="<%- username -%>">
+                            <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.avatar -%>" class="user-avt mg-l-sm" username="<%- username -%>">
                             <% } %>
                     </div>
                     <div class="title"><h2 class="title-content"></h2></div>
@@ -96,7 +96,7 @@
                                 <img src="<%- currentProfile.avatar -%>" class="user-avt header-avatar" username="<%- currentUsername -%>">
                             <% } %>
                             <% if (!currentProfile.avatar.includes("http")) { %>
-                                <img src="https://cdn.fodance.com/fd-media/<%- currentProfile.avatar -%>" class="user-avt header-avatar" username="<%- currentUsername -%>">
+                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.avatar -%>" class="user-avt header-avatar" username="<%- currentUsername -%>">
                             <% } %>
                             <span class="avt-username header-username nav-item-name-red none-deco user-username"><% if (currentUsername.length > 15) { %><%- currentUsername.substring(0, 12) + '...' + currentUsername.substring(currentUsername.length) -%><% } %><% if (currentUsername.length <= 15) { %><%- currentUsername -%><% } %></span>
                         </a>
@@ -119,7 +119,7 @@
                                     <img src="<%- currentProfile.avatar -%>" class="user-avt mg-l-sm" username="<%- currentUsername -%>">
                                 <% } %>
                                 <% if (!currentProfile.avatar.includes("http")) { %>
-                                    <img src="https://cdn.fodance.com/fd-media/<%- currentProfile.avatar -%>" class="user-avt mg-l-sm" username="<%- currentUsername -%>">
+                                    <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.avatar -%>" class="user-avt mg-l-sm" username="<%- currentUsername -%>">
                                 <% } %>
                                 <div class="d-flex-col">
                                     <span class="avt-username nav-item-name-red font-size-lg-1 noselect none-deco user-username"><% if (currentUsername.length > 15) { %><%- currentUsername.substring(0, 12) + '...' + currentUsername.substring(currentUsername.length) -%><% } %><% if (currentUsername.length <= 15) { %><%- currentUsername -%><% } %></span>
@@ -190,7 +190,7 @@
                             <div class="main-frame-post-inner main-frame-post-inner-personal">
                                 <div class="avt-cover-info">
                                     <div class="cover">
-                                        <img src="https://cdn.fodance.com/fd-media/<%- profile.cover -%>" class="user-cover">
+                                        <img src="https://cdn.lingyo.vn/lingyo-media/<%- profile.cover -%>" class="user-cover">
                                     </div>
                                     <div class="avatar-frame">
                                         <div class="avatar">
@@ -198,7 +198,7 @@
                                                 <img src="<%- profile.avatar -%>" class="user-avt user-avatar">
                                                 <% } %>
                                             <% if (!profile.avatar.includes("http")) { %>
-                                                <img src="https://cdn.fodance.com/fd-media/<%- profile.avatar -%>" class="user-avt user-avatar">
+                                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- profile.avatar -%>" class="user-avt user-avatar">
                                                 <% } %>
                                             <% if (user.username.length <= 15) { %>
                                             <div class="avatar-name-frame">
@@ -426,7 +426,7 @@
                                                                         <img src="<%- postProfile[i].avatar -%>" class="user-avt" username="<%- posts[i]['user.username'] -%>">
                                                                         <% } %>
                                                                     <% if (!postProfile[i].avatar.includes("http")) { %>
-                                                                        <img src="https://cdn.fodance.com/fd-media/<%- postProfile[i].avatar -%>" class="user-avt" username="<%- posts[i]['user.username'] -%>">
+                                                                        <img src="https://cdn.lingyo.vn/lingyo-media/<%- postProfile[i].avatar -%>" class="user-avt" username="<%- posts[i]['user.username'] -%>">
                                                                         <% } %>
                                                                 </a>    
                                                                 <div class="avt-info">
@@ -472,51 +472,51 @@
                                                             <% if (posts[i].file) { %>
                                                                 <% if (posts[i].file.type == 'video') { %>
                                                                 <div class="post-file">
-                                                                    <video class="player media-post post-video" loop poster="/public/images/poster.png" muted src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>"></video>
+                                                                    <video class="player media-post post-video" loop poster="/public/images/poster.png" muted src="https://cdn.lingyo.vn/lingyo-media/<%- posts[i].file.path[0] -%>"></video>
                                                                 </div>
                                                                 <% } %>
                                                                 <% if (posts[i].file.type == 'image') { %>
                                                                     <% if (posts[i].file.path.length == 1) { %>
                                                                         <div class="post-file">
-                                                                            <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                                                            <img src="https://cdn.lingyo.vn/lingyo-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
                                                                         </div>
                                                                     <% } %>
                                                                     <% if (posts[i].file.path.length == 2) { %>
                                                                         <div class="post-file thumb-2-files">
                                                                             <div class="thumb-file">
-                                                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                                                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
                                                                             </div>
                                                                             <div class="thumb-file">
-                                                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                                                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
                                                                             </div>
                                                                         </div>
                                                                     <% } %>
                                                                     <% if (posts[i].file.path.length == 3) { %>
                                                                         <div class="post-file thumb-3-files">
                                                                             <div class="thumb-file">
-                                                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                                                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
                                                                             </div>
                                                                             <div class="thumb-file">
-                                                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                                                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
                                                                             </div>
                                                                             <div class="thumb-file">
-                                                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
+                                                                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
                                                                             </div>
                                                                         </div>
                                                                     <% } %>
                                                                     <% if (posts[i].file.path.length == 4) { %>
                                                                         <div class="post-file thumb-4-files">
                                                                             <div class="thumb-file">
-                                                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
+                                                                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- posts[i].file.path[0] -%>" class="media-post post-image">
                                                                             </div>
                                                                             <div class="thumb-file">
-                                                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
+                                                                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- posts[i].file.path[1] -%>" class="media-post post-image">
                                                                             </div>
                                                                             <div class="thumb-file">
-                                                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
+                                                                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- posts[i].file.path[2] -%>" class="media-post post-image">
                                                                             </div>
                                                                             <div class="thumb-file">
-                                                                                <img src="https://cdn.fodance.com/fd-media/<%- posts[i].file.path[3] -%>" class="media-post post-image">
+                                                                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- posts[i].file.path[3] -%>" class="media-post post-image">
                                                                             </div>
                                                                         </div>
                                                                     <% } %>

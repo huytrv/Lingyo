@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer")
 
 module.exports = function(email, token){
-    const link = "https://fodance.com/reset-password/" + token
+    const link = "https://lingyo.vn/reset-password/" + token
     const output = `<table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#ffffff" style="padding:0px;line-height:1px;font-size:1px;margin:0px auto; color: black">
     <tbody>
     <tr>
@@ -22,7 +22,7 @@ module.exports = function(email, token){
     <td height="24" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px"> &nbsp; </td>
     </tr>
     <tr>
-    <td align="center" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px;font-size:0px;line-height:100%;padding:0px"> <a href="http://https://fodance.com" style="text-decoration:none;border-style:none;border:0px;padding:0px;margin:0px;color:#FFF6F6;text-decoration:none" target="_blank" data-saferedirecturl="https://fodance.com"> <img src="https://cdn.fodance.com/fd-media/logo1.png" width="50px" height="50px" alt="Lingyo" title="Lingyo" style="margin:0px;padding:0px;display:inline-block;border:none;outline:none"> </a> </td>
+    <td align="center" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px;font-size:0px;line-height:100%;padding:0px"> <a href="http://https://lingyo.vn" style="text-decoration:none;border-style:none;border:0px;padding:0px;margin:0px;color:#FFF6F6;text-decoration:none" target="_blank" data-saferedirecturl="https://lingyo.vn"> <img src="https://cdn.lingyo.vn/lingyo-media/logo1.png" width="50px" height="50px" alt="Lingyo" title="Lingyo" style="margin:0px;padding:0px;display:inline-block;border:none;outline:none"> </a> </td>
     </tr>
     <tr>
     <td height="24" style="padding:0px;margin:0px auto;font-size:0px;line-height:1px;padding:0px"> &nbsp; </td>

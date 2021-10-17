@@ -83,7 +83,7 @@ module.exports = function(app, users){
                 })
 
                 // var rawData = fs.readFileSync(f.file.path)
-                // const blob = cfFileBucket.file("fd-media/record-file.webm");
+                // const blob = cfFileBucket.file("lingyo-media/record-file.webm");
                 // const blobStream = blob.createWriteStream();
                 // blobStream.end(rawData)
                

@@ -14,7 +14,7 @@ if (window.location.pathname == "/login") {
             document.querySelector(".signup-container").innerHTML = ""
             history.pushState({
                 id: 'login'
-            }, '', 'https://fodance.com/login')
+            }, '', 'https://lingyo.vn/login')
             document.querySelector('title').textContent = "Lingyo - Mạng xã hội bình chọn"
         }
     }
@@ -96,7 +96,7 @@ const signupHandle = function(){
 
     history.pushState({
         id: 'signup'
-    }, '', 'https://fodance.com/signup')
+    }, '', 'https://lingyo.vn/signup')
     document.querySelector('title').textContent = "Lingyo - Mạng xã hội bình chọn"
     if (document.querySelectorAll(".login-redirect").length != 0){
         document.querySelector(".login-redirect").onclick = function(){
@@ -106,7 +106,7 @@ const signupHandle = function(){
             }
             history.pushState({
                 id: 'login'
-            }, 'Lingyo - Mạng xã hội bình chọn', 'https://fodance.com/login')
+            }, 'Lingyo - Mạng xã hội bình chọn', 'https://lingyo.vn/login')
             document.querySelector('title').textContent = "Lingyo - Mạng xã hội bình chọn"
         }
     }

@@ -24,7 +24,7 @@ function FBLogin(){
     passport.use(new facebookStrategy({
         clientID: "2671130773138286",
         clientSecret: "199ef7c41209b16d275cabe262123ab0",
-        callbackURL:"https://fodance.com/facebook/callback",
+        callbackURL:"https://lingyo.vn/facebook/callback",
         profileFields: ["id", "displayName", "name", "picture.type(large)", "email"]
     },
     function(token, refreshToken, profile, done){
@@ -482,7 +482,7 @@ const op = {
 const server = https.createServer(op, app).listen(443, function(){
     console.log("Server is running...")
     app.get('*', function(req, res){
-        if (req.headers.host == "18.142.122.185") {res.redirect('https://fodance.com')}
+        if (req.headers.host == "18.163.40.72") {res.redirect('https://lingyo.vn')}
     })
 });
 
