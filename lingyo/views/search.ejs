@@ -12,10 +12,14 @@
                     <div class="d-flex-sb">
                         <div class="d-flex">
                             <% if (result[i][3].includes("http")) { %>
-                                <a class="avt"><img src="<%- result[i][3] -%>" class="user-avt" username="<%- result[i][1] -%>"></a>
+                                <a class="avt"><img src="<%- result[i][3] -%>" class="user-avt" username="<%- result[i][1] -%>">
+                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- result[i][6] -%>.png" class="avt-rank <%- result[i][6] -%>">
+                                </a>
                                 <% } %>
                             <% if (!result[i][3].includes("http")) { %>
-                                <a class="avt"><img src="https://cdn.lingyo.vn/lingyo-media/<%- result[i][3] -%>" class="user-avt" username="<%- result[i][1] -%>"></a>
+                                <a class="avt"><img src="https://cdn.lingyo.vn/lingyo-media/<%- result[i][3] -%>" class="user-avt" username="<%- result[i][1] -%>">
+                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- result[i][6] -%>.png" class="avt-rank <%- result[i][6] -%>">
+                                </a>
                                 <% } %>
                             <div class="d-flex-col-start">
                                 <a class="avt"><span class="avt-username user-username"><%- result[i][1] -%></span></a>

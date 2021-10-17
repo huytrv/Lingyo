@@ -1411,7 +1411,6 @@ input:checked + .slider:before {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  border: 3px solid white;
   background-color: white;
 }
 
@@ -1434,7 +1433,7 @@ input:checked + .slider:before {
 }
 
 .avatar-name-mg {
-  margin-top: 60px;
+  margin-top: 80px;
 }
 
 .avatar-username {
@@ -4669,6 +4668,7 @@ input[type='range']::-ms-fill-lower {
   text-decoration: none;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .avt:hover {
@@ -4685,11 +4685,91 @@ input[type='range']::-ms-fill-lower {
 }
 
 .highlights .avt img {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
 }
 
-.avt-rank1 img {
+.avt-rank {
+  position: absolute;
+  top: -24px;
+  left: -23px;
+  width: 91px !important;
+  height: 91px !important;
+  border: none !important;
+  background-color: transparent !important;
+}
+
+.avt-rank.challenge {
+  top: -20px;
+}
+.avt-rank.master {
+  top: -18px;
+}
+.avt-rank.diamon {
+  top: -22px;
+}
+.avt-rank.platinum {
+  top: -21px;
+}
+.avt-rank.gold {
+  top: -23px;
+}
+
+/* .follow-hint .avt-rank{
+  width: 84px !important;
+  height: 84px !important;
+} */
+
+.dropdown-content .avt-rank {
+  top: -14px;
+  left: 79px;
+}
+
+.avt-header .avt-rank {
+  top: -16px;
+  left: -5px;
+  width: 75px !important;
+  height: 75px !important;
+}
+
+.avatar .avt-rank {
+  top: -65px;
+  left: -63px;
+  width: 245px !important;
+  height: 245px !important;
+}
+
+.avatar .avt-rank.challenge {
+  top: -55px;
+}
+.avatar .avt-rank.master {
+  top: -53px;
+}
+.avatar .avt-rank.diamon {
+  top: -60px;
+}
+.avatar .avt-rank.platinum {
+  top: -60px;
+}
+.avatar .avt-rank.gold {
+  top: -63px;
+}
+
+.open-nav .avt-rank {
+  top: -20px;
+  left: -14px;
+  width: 76px !important;
+  height: 76px !important;
+}
+
+.sidenav .avt-rank {
+  top: -15px;
+  left: 10px;
+  width: 89px !important;
+  height: 89px !important;
+}
+
+/* .avt-rank1 img {
   margin-right: 5px;
   width: 45px;
   height: 45px;
@@ -4720,7 +4800,7 @@ input[type='range']::-ms-fill-lower {
   border: 2px solid rgb(50, 188, 230);
   animation: colorchange-avt-rank3 2s;
   animation-iteration-count:infinite;
-}
+} */
 
 .rank1-color {
   color: rgb(230, 47, 101);
@@ -4835,6 +4915,7 @@ input[type='range']::-ms-fill-lower {
   background-color: white;
   border-radius: 20px;
   border: none;
+  position: relative;
 }
 
 .avt-but:hover {
@@ -4892,11 +4973,12 @@ input[type='range']::-ms-fill-lower {
 
 .avt-header {
   cursor: pointer;
+  position: relative;
 }
 
 .avt-header img {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
 }
 
@@ -5683,6 +5765,7 @@ input[type='range']::-ms-fill-lower {
   padding: 10px 0;
   position: sticky;
   top: 0;
+  z-index: 1000;
 }
 
 .fame-title th {
@@ -5732,7 +5815,7 @@ input[type='range']::-ms-fill-lower {
 .user-fame {
   position: fixed; 
   bottom: 60px; 
-  z-index: 5000; 
+  z-index: 1000; 
   width: 95%; 
   border: 1px solid rgb(186, 186, 255);
 }

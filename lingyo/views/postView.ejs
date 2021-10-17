@@ -43,9 +43,11 @@
                         <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile.nickname -%>">
                             <% if (postProfile.avatar.includes("http")) { %>
                                 <img src="<%- postProfile.avatar -%>" class="user-avt" username="<%- post['user.username'] -%>">
+                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- postProfile[i].rank -%>.png" class="avt-rank <%- postProfile[i].rank -%>">
                             <% } %>
                             <% if (!postProfile.avatar.includes("http")) { %>
                                 <img src="https://cdn.lingyo.vn/lingyo-media/<%- postProfile.avatar -%>" class="user-avt" username="<%- post['user.username'] -%>">
+                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- postProfile[i].rank -%>.png" class="avt-rank <%- postProfile[i].rank -%>">
                             <% } %>
                         </a>    
                         <div class="avt-info">

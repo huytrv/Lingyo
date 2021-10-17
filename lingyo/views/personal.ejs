@@ -15,9 +15,11 @@
                             <a class="nav-item nav-red avt header-nickname noselect mg-r" nav-data='personal' data-user-df="<%- currentProfile.nickname -%>">
                                 <% if (currentProfile.avatar.includes("http")) { %>
                                     <img src="<%- currentProfile.avatar -%>" class="user-avt header-avatar" username="<%- currentUsername -%>">
+                                    <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.rank -%>.png" class="avt-rank <%- currentProfile.rank -%>">
                                     <% } %>
                                 <% if (!currentProfile.avatar.includes("http")) { %>
                                     <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.avatar -%>" class="user-avt header-avatar" username="<%- currentUsername -%>">
+                                    <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.rank -%>.png" class="avt-rank <%- currentProfile.rank -%>">
                                     <% } %>
                                 <div class="d-flex-col-start">
                                     <span class="avt-username header-username nav-item-name-red none-deco user-username"><% if (currentUsername.length > 15) { %><%- currentUsername.substring(0, 12) + '...' + currentUsername.substring(currentUsername.length) -%><% } %><% if (currentUsername.length <= 15) { %><%- currentUsername -%><% } %></span>
@@ -61,9 +63,11 @@
                     <div class="avt open-nav">
                         <% if (currentProfile.avatar.includes("http")) { %>
                             <img src="<%- currentProfile.avatar -%>" class="user-avt mg-l-sm" username="<%- username -%>">
+                            <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.rank -%>.png" class="avt-rank <%- currentProfile.rank -%>">
                             <% } %>
                         <% if (!currentProfile.avatar.includes("http")) { %>
                             <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.avatar -%>" class="user-avt mg-l-sm" username="<%- username -%>">
+                            <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.rank -%>.png" class="avt-rank <%- currentProfile.rank -%>">
                             <% } %>
                     </div>
                     <div class="title"><h2 class="title-content"></h2></div>
@@ -94,9 +98,11 @@
                         <a class="avt-header nav-red avt avt-but header-nickname d-flex noselect mg-r" nav-data='personal' data-user-df="<%- currentProfile.nickname -%>">
                             <% if (currentProfile.avatar.includes("http")) { %>
                                 <img src="<%- currentProfile.avatar -%>" class="user-avt header-avatar" username="<%- currentUsername -%>">
+                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.rank -%>.png" class="avt-rank <%- currentProfile.rank -%>">
                             <% } %>
                             <% if (!currentProfile.avatar.includes("http")) { %>
                                 <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.avatar -%>" class="user-avt header-avatar" username="<%- currentUsername -%>">
+                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.rank -%>.png" class="avt-rank <%- currentProfile.rank -%>">
                             <% } %>
                             <span class="avt-username header-username nav-item-name-red none-deco user-username"><% if (currentUsername.length > 15) { %><%- currentUsername.substring(0, 12) + '...' + currentUsername.substring(currentUsername.length) -%><% } %><% if (currentUsername.length <= 15) { %><%- currentUsername -%><% } %></span>
                         </a>
@@ -117,9 +123,11 @@
                             <a class="avt nav-red nav-item border-b mg-t none-deco d-flex d-flex-col personal-but header-nickname" nav-data='personal' data-user-df="<%- currentProfile.nickname -%>">
                                 <% if (currentProfile.avatar.includes("http")) { %>
                                     <img src="<%- currentProfile.avatar -%>" class="user-avt mg-l-sm" username="<%- currentUsername -%>">
+                                    <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.rank -%>.png" class="avt-rank <%- currentProfile.rank -%>">
                                 <% } %>
                                 <% if (!currentProfile.avatar.includes("http")) { %>
                                     <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.avatar -%>" class="user-avt mg-l-sm" username="<%- currentUsername -%>">
+                                    <img src="https://cdn.lingyo.vn/lingyo-media/<%- currentProfile.rank -%>.png" class="avt-rank <%- currentProfile.rank -%>">
                                 <% } %>
                                 <div class="d-flex-col">
                                     <span class="avt-username nav-item-name-red font-size-lg-1 noselect none-deco user-username"><% if (currentUsername.length > 15) { %><%- currentUsername.substring(0, 12) + '...' + currentUsername.substring(currentUsername.length) -%><% } %><% if (currentUsername.length <= 15) { %><%- currentUsername -%><% } %></span>
@@ -196,9 +204,11 @@
                                         <div class="avatar">
                                             <% if (profile.avatar.includes("http")) { %>
                                                 <img src="<%- profile.avatar -%>" class="user-avt user-avatar">
+                                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- profile.rank -%>.png" class="avt-rank <%- profile.rank -%>">
                                                 <% } %>
                                             <% if (!profile.avatar.includes("http")) { %>
                                                 <img src="https://cdn.lingyo.vn/lingyo-media/<%- profile.avatar -%>" class="user-avt user-avatar">
+                                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- profile.rank -%>.png" class="avt-rank <%- profile.rank -%>">
                                                 <% } %>
                                             <% if (user.username.length <= 15) { %>
                                             <div class="avatar-name-frame">
@@ -424,9 +434,11 @@
                                                                 <a class="avt nav-red" nav-data='personal' data-user-df="<%- postProfile[i].nickname -%>">
                                                                     <% if (postProfile[i].avatar.includes("http")) { %>
                                                                         <img src="<%- postProfile[i].avatar -%>" class="user-avt" username="<%- posts[i]['user.username'] -%>">
+                                                                        <img src="https://cdn.lingyo.vn/lingyo-media/<%- postProfile[i].rank -%>.png" class="avt-rank <%- postProfile[i].rank -%>">
                                                                         <% } %>
                                                                     <% if (!postProfile[i].avatar.includes("http")) { %>
                                                                         <img src="https://cdn.lingyo.vn/lingyo-media/<%- postProfile[i].avatar -%>" class="user-avt" username="<%- posts[i]['user.username'] -%>">
+                                                                        <img src="https://cdn.lingyo.vn/lingyo-media/<%- postProfile[i].rank -%>.png" class="avt-rank <%- postProfile[i].rank -%>">
                                                                         <% } %>
                                                                 </a>    
                                                                 <div class="avt-info">

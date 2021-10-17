@@ -2759,7 +2759,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             if (p[i].description != null){
                                                 description = p[i].description
                                             }
-                                            result2[i] = [pu.userId, pu.username, p[i].nickname, p[i].avatar, description, followed]
+                                            result2[i] = [pu.userId, pu.username, p[i].nickname, p[i].avatar, description, followed, p[i].rank]
                                             count2 ++
                                             if (count2 == p.length){
                                                 res.json({
@@ -2820,7 +2820,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             description = up.description
                                         }
                                         flArray[i] = [up.followers, up.userId]
-                                        resultBuf[i] = [u[i].userId, u[i].username, up.nickname, up.avatar, description, followed]
+                                        resultBuf[i] = [u[i].userId, u[i].username, up.nickname, up.avatar, description, followed, up.rank]
                                         count1 ++
                                         if (count1 == u.length){
                                             flArray.sort()
@@ -2902,7 +2902,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             if (p[i].description != null){
                                                 description = p[i].description
                                             }
-                                            result2[i] = [pu.userId, pu.username, p[i].nickname, p[i].avatar, description, followed]
+                                            result2[i] = [pu.userId, pu.username, p[i].nickname, p[i].avatar, description, followed, p[i].rank]
                                             count2 ++
                                             if (count2 == p.length){
                                                 res.render("search", {username: req.user.username, userId: req.user.userId, profile: currentUser, result: result1.concat(result2), text: req.query.q, end: end, active: 'competition', rankLink: '', rankName: '', cateActive: '', cateName: '', rank: false, modal: false})
@@ -2962,7 +2962,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             description = up.description
                                         }
                                         flArray[i] = [up.followers, up.userId]
-                                        resultBuf[i] = [u[i].userId, u[i].username, up.nickname, up.avatar, description, followed]
+                                        resultBuf[i] = [u[i].userId, u[i].username, up.nickname, up.avatar, description, followed, up.rank]
                                         count1 ++
                                         if (count1 == u.length){
                                             flArray.sort()

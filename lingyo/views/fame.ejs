@@ -32,9 +32,11 @@
                         <a class="avt none-deco d-flex d-flex-start nav-red <% if (i == 0) { %>avt-rank1<% } %><% if (i == 1) { %>avt-rank2<% } %><% if (i == 2) { %>avt-rank3<% } %>" nav-data="personal" data-user-df="<%- topFames[i].nickname -%>">
                             <% if (topFames[i].avatar.includes("http")) { %>
                             <img src="<%- topFames[i].avatar -%>">
+                            <img src="https://cdn.lingyo.vn/lingyo-media/<%- topFames[i].rank -%>.png" class="avt-rank <%- topFames[i].rank -%> avt-rank-frame">
                             <% } %>
                             <% if (!topFames[i].avatar.includes("http")) { %>
                                 <img src="https://cdn.lingyo.vn/lingyo-media/<%- topFames[i].avatar -%>">
+                                <img src="https://cdn.lingyo.vn/lingyo-media/<%- topFames[i].rank -%>.png" class="avt-rank <%- topFames[i].rank -%> avt-rank-frame">
                             <% } %>
                             <div class="d-flex-col-start">
                                 <span class="avt-username font-size-lg-1" nav-data="personal" data-user-df="<%- topFames[i].nickname -%>"><%- topFameUsers[i] -%></span>
@@ -64,9 +66,11 @@
                     <a class="avt none-deco d-flex d-flex-start nav-red <% if (currentRank == 0) { %>avt-rank1<% } %><% if (currentRank == 1) { %>avt-rank2<% } %><% if (currentRank == 2) { %>avt-rank3<% } %>" nav-data="personal" data-user-df="<%- profile.nickname -%>">
                         <% if (profile.avatar.includes("http")) { %>
                         <img src="<%- profile.avatar -%>">
+                        <img src="https://cdn.lingyo.vn/lingyo-media/<%- profile.rank -%>.png" class="avt-rank <%- profile.rank -%> avt-rank-frame">
                         <% } %>
                         <% if (!profile.avatar.includes("http")) { %>
                             <img src="https://cdn.lingyo.vn/lingyo-media/<%- profile.avatar -%>">
+                            <img src="https://cdn.lingyo.vn/lingyo-media/<%- profile.rank -%>.png" class="avt-rank <%- profile.rank -%> avt-rank-frame">
                         <% } %>
                         <div class="d-flex-col-start">
                             <span class="avt-username font-size-lg-1" nav-data="personal" data-user-df="<%- profile.nickname -%>">Bạn</span>
