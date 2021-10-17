@@ -68,18 +68,24 @@ function FBLogin(){
                                     followers: 0,
                                     following: 0,
                                     points: 0,
-                                    stars: 0,
+                                    usd: 0,
                                     tickets: 0,
+                                    rank: "iron",
                                     rank1: 0,
                                     rank2: 0,
                                     rank3: 0,
                                     rank10: 0,
                                     winner: [],
+                                    reward: false,
                                     saved: [],
                                     notice: [],
                                     followNotification: true,
                                     voteFollowNotification: true,
                                     postFollowNotification: true,
+                                    posts: 0,
+                                    starstatus: false,
+                                    new: true,
+                                    auth: false
                                 }).then(function(){
                                     return done(null, user)
                                 })
@@ -144,18 +150,24 @@ function GGLogin(){
                                     followers: 0,
                                     following: 0,
                                     points: 0,
-                                    stars: 0,
+                                    usd: 0,
                                     tickets: 0,
+                                    rank: "iron",
                                     rank1: 0,
                                     rank2: 0,
                                     rank3: 0,
                                     rank10: 0,
                                     winner: [],
+                                    reward: false,
                                     saved: [],
                                     notice: [],
                                     followNotification: true,
                                     voteFollowNotification: true,
                                     postFollowNotification: true,
+                                    posts: 0,
+                                    starstatus: false,
+                                    new: true,
+                                    auth: false
                                 }).then(function(){
                                     return done(null, user)
                                 })
