@@ -15,7 +15,7 @@ if (window.location.pathname == "/login") {
             history.pushState({
                 id: 'login'
             }, '', 'https://lingyo.vn/login')
-            document.querySelector('title').textContent = "Lingyo - Vòng đấu nhảy múa trực tuyến"
+            document.querySelector('title').textContent = "Lingyo - Thi đấu, xếp hạng vũ công trực tuyến"
         }
     }
     xhttpLogin.open("GET", "/login", true)
@@ -97,7 +97,7 @@ const signupHandle = function(){
     history.pushState({
         id: 'signup'
     }, '', 'https://lingyo.vn/signup')
-    document.querySelector('title').textContent = "Lingyo - Vòng đấu nhảy múa trực tuyến"
+    document.querySelector('title').textContent = "Lingyo - Thi đấu, xếp hạng vũ công trực tuyến"
     if (document.querySelectorAll(".login-redirect").length != 0){
         document.querySelector(".login-redirect").onclick = function(){
             document.querySelector(".modal-content").classList.add("modal-remove-down")
@@ -106,8 +106,8 @@ const signupHandle = function(){
             }
             history.pushState({
                 id: 'login'
-            }, 'Lingyo - Vòng đấu nhảy múa trực tuyến', 'https://lingyo.vn/login')
-            document.querySelector('title').textContent = "Lingyo - Vòng đấu nhảy múa trực tuyến"
+            }, 'Lingyo - Thi đấu, xếp hạng vũ công trực tuyến', 'https://lingyo.vn/login')
+            document.querySelector('title').textContent = "Lingyo - Thi đấu, xếp hạng vũ công trực tuyến"
         }
     }
 
