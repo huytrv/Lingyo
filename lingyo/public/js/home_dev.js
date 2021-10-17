@@ -5948,7 +5948,6 @@ function handleUpdateProfile(){
         let faceValid, faceValid1, faceValid2, faceValid3, faceValid4 = false
         document.querySelector(".user-auth").onclick = function(){
             if (document.querySelectorAll(".user-auth-modal").length == 0){
-                const url = window.location.href
                 history.pushState({
                 }, '', url)
             
@@ -5991,7 +5990,6 @@ function handleUpdateProfile(){
                         //     stream => video.srcObject = track = stream,
                         //     err =>  showAlert(err),
                         // )
-                        showAlert(1)
                         const constraints = { audio: false, video: { facingMode: "user" } }
                         navigator.mediaDevices.getUserMedia(constraints)
                         .then(function(mediaStream) {
@@ -6000,7 +5998,6 @@ function handleUpdateProfile(){
                         } else {
                         video.src = URL.createObjectURL(mediaStream);
                         }
-                        showAlert('2' + video.innerHTML)
                         track = mediaStream
                         video.onloadedmetadata = function(e) {
                             video.play();
