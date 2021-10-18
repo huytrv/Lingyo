@@ -170,7 +170,7 @@ function validateMedia(post){
                 for(let i = 0; i < rankList.length; i++){
                     if (post.rank == rankList[i]){rank = rankName[i]}
                 }
-                if (data.validData == "true" && post.competition) {
+                if (data.validData == "true") {
                     handleNotification("post-done", [post.postId, cate, rank, post.ms, post.competition])
                 }
                 else {

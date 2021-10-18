@@ -1568,11 +1568,11 @@ function handleRefreshTask(){
                                             <a class="avt nav-red" nav-data='personal' data-user-df="${res.notificationProfile[i].nickname}">
                                             ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
                                             <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                            <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                            
                                             `}
                                             else {return `
                                             <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                            <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                            
                                             `}
                                             })()}
                                             </a>
@@ -1602,11 +1602,11 @@ function handleRefreshTask(){
                                             <a class="avt">
                                             ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
                                             <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                            <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                            
                                             `}
                                             else {return `
                                             <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                            <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                            
                                             `}
                                             })()}
                                         </a>
@@ -1637,11 +1637,11 @@ function handleRefreshTask(){
                                                 <a class="avt">
                                                     ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                                    
                                                     `}
                                                     else {return `
                                                     <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                                    
                                                     `}
                                                     })()}
                                                 </a>
@@ -1675,11 +1675,11 @@ function handleRefreshTask(){
                                                 <a class="avt">
                                                     ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                                    
                                                     `}
                                                     else {return `
                                                     <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                                    
                                                     `}
                                                     })()}
                                                 </a>
@@ -1706,11 +1706,11 @@ function handleRefreshTask(){
                                                 <a class="avt">
                                                     ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                                    
                                                     `}
                                                     else {return `
                                                     <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                                    
                                                     `}
                                                     })()}
                                                 </a>
@@ -1737,11 +1737,11 @@ function handleRefreshTask(){
                                                 <a class="avt">
                                                     ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                                    
                                                     `}
                                                     else {return `
                                                     <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                                    
                                                     `}
                                                     })()}
                                                 </a>
@@ -1766,11 +1766,11 @@ function handleRefreshTask(){
                                                 <a class="avt">
                                                     ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                                    
                                                     `}
                                                     else {return `
                                                     <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                                    
                                                     `}
                                                     })()}
                                                 </a>
@@ -1795,11 +1795,11 @@ function handleRefreshTask(){
                                                 <a class="avt">
                                                     ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                                    
                                                     `}
                                                     else {return `
                                                     <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                                    
                                                     `}
                                                     })()}
                                                 </a>
@@ -1824,11 +1824,11 @@ function handleRefreshTask(){
                                                 <a class="avt">
                                                     ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
                                                     <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                                    
                                                     `}
                                                     else {return `
                                                     <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                                    <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                                    
                                                     `}
                                                     })()}
                                                 </a>
@@ -1851,11 +1851,11 @@ function handleRefreshTask(){
                                         <a class="avt nav-red" nav-data='personal' data-user-df="${res.notificationProfile[i].nickname}">
                                         ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
                                         <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}"></a>
-                                        <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                        
                                             `}
                                         else {return `
                                         <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}"></a>
-                                        <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                        
                                         `}
                                         })()}
                                     </div>
@@ -1881,11 +1881,11 @@ function handleRefreshTask(){
                                         <a class="avt">
                                         ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
                                         <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                        <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                        
                                         `}
                                         else {return `
                                         <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                        <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                        
                                         `}
                                         })()}
                                         </a>
@@ -1905,11 +1905,11 @@ function handleRefreshTask(){
                                         <a class="avt">
                                         ${(()=>{if (res.notificationProfile[i].avatar.includes("http")) {return `
                                         <img src="${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                        <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                        
                                         `}
                                         else {return `
                                         <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].avatar}" class="user-avt" username="${res.notificationName[i]}">
-                                        <img src="https://cdn.lingyo.vn/lingyo-media/${res.notificationProfile[i].rank}.png" class="avt-rank ${res.notificationProfile[i].rank}">
+                                        
                                         `}
                                         })()}
                                         </a>

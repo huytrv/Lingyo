@@ -11,6 +11,41 @@ const FileType = require('file-type')
 const sendSMS = require("../contacts/sendSMS")
 const sendMail = require("../contacts/sendMail")
 const sendModerateMail = require("../contacts/sendModerateMail")
+var push = require( 'pushsafer-notifications' );
+
+var p = new push( {
+    k: 'rC8qCFOU8YS5yFJdaFcD',
+    debug: true
+});
+
+var msg = {
+    m: 'This is a Node.js test message',   // Message (required)
+    t: "Node.js Test",                     // Title (optional)
+    s: '8',                                // Sound (value 0-28) (optional)
+    v: '2',                                // Vibration (empty or value 1-3) (optional)
+    i: '5',                                // Icon (value 1-98) (optional)
+    c: '#FF0000',                          // Icon color hexadecimal color code (optional)
+    d: '221',                              // Device or Device Group id (optional)
+    u: 'https://www.pushsafer.com',        // an URL (optional)
+    ut: 'Pushsafer.com',                   // URLs title (optional)
+    l: '10',                               // Time to Live (optional)
+    pr: '2',                               // Priority (optional: -2, -1, 0, 1, 2)
+    re: '60',                              // Retry (optional: 60-10800 seconds)
+    ex: '60',                              // Expire (optional: 60-10800 seconds)
+    cr: '20',                              // Confirm (optional: 60-10800 seconds)
+    a: '1',                                // Answer
+    p: '',                                 // Image converted to > Data URL with Base64-encoded string (optional)
+    p2: '',                                // Image 2 converted to > Data URL with Base64-encoded string (optional)
+    p3: ''                                 // Image 3 converted to > Data URL with Base64-encoded string (optional)
+};
+
+// console.log( p );
+
+p.send( msg, function( err, result ) {
+    //console.log( 'ERROR:', err );
+    console.log( 'RESULT', result );
+    // process.exit(0);
+});
 //azure
 const { BlobServiceClient } = require("@azure/storage-blob");
 
