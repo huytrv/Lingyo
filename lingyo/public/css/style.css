@@ -4551,7 +4551,7 @@ input[type='range']::-ms-fill-lower {
 }
 
 .edit-info {
-  margin-top: 65px;
+  margin-top: 95px;
   padding: 0 25px;
 }
 
@@ -4695,7 +4695,7 @@ input[type='range']::-ms-fill-lower {
 
 .avt-rank {
   position: absolute;
-  top: -24px;
+  top: -23px;
   left: -23px;
   width: 91px !important;
   height: 91px !important;
@@ -4730,7 +4730,7 @@ input[type='range']::-ms-fill-lower {
 }
 
 .avt-header .avt-rank {
-  top: -16px;
+  top: -15px;
   left: -5px;
   width: 75px !important;
   height: 75px !important;
@@ -4748,6 +4748,55 @@ input[type='range']::-ms-fill-lower {
   width: 245px !important;
   height: 245px !important;
 }
+.edit-avt .avt-rank.challenge {
+  top: -50px;
+  left: -63px;
+  width: 245px !important;
+  height: 245px !important;
+}
+.edit-avt .avt-rank.master {
+  top: -50px;
+  left: -63px;
+  width: 245px !important;
+  height: 245px !important;
+}
+.edit-avt .avt-rank.diamon {
+  top: -61px;
+  left: -63px;
+  width: 245px !important;
+  height: 245px !important;
+}
+.edit-avt .avt-rank.platinum {
+  top: -61px;
+  left: -63px;
+  width: 245px !important;
+  height: 245px !important;
+}
+.edit-avt .avt-rank.gold {
+  top: -61px;
+  left: -63px;
+  width: 245px !important;
+  height: 245px !important;
+}
+.edit-avt .avt-rank.silver {
+  top: -61px;
+  left: -63px;
+  width: 245px !important;
+  height: 245px !important;
+}
+.edit-avt .avt-rank.bronze {
+  top: -65px;
+  left: -63px;
+  width: 245px !important;
+  height: 245px !important;
+}
+.edit-avt .avt-rank.iron {
+  top: -65px;
+  left: -63px;
+  width: 245px !important;
+  height: 245px !important;
+}
+
 
 .avatar .avt-rank.challenge {
   top: -55px;
@@ -4806,6 +4855,40 @@ input[type='range']::-ms-fill-lower {
   left: -14px;
   width: 76px !important;
   height: 76px !important;
+}
+
+.avt-header .avt-rank.challenge {
+  top: -10px;
+  left: -5px;
+  
+}
+.avt-header .avt-rank.master {
+  top: -10px;
+  left: -5px;
+}
+.avt-header .avt-rank.diamon {
+  top: -14px;
+  left: -5px;;
+}
+.avt-header .avt-rank.platinum {
+  top: -14px;
+  left: -5px;
+}
+.avt-header .avt-rank.gold {
+  top: -15px;
+  left: -5px;
+}
+.avt-header .avt-rank.silver {
+  top: -15px;
+  left: -5px;
+}
+.avt-header .avt-rank.bronze {
+  top: -16px;
+  left: -5px;
+}
+.avt-header .avt-rank.iron {
+  top: -16px;
+  left: -5px;
 }
 
 .sidenav .avt-rank {
