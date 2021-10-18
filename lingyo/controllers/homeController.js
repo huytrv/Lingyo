@@ -11,41 +11,6 @@ const FileType = require('file-type')
 const sendSMS = require("../contacts/sendSMS")
 const sendMail = require("../contacts/sendMail")
 const sendModerateMail = require("../contacts/sendModerateMail")
-var push = require( 'pushsafer-notifications' );
-
-var p = new push( {
-    k: 'rC8qCFOU8YS5yFJdaFcD',
-    debug: true
-});
-
-var msg = {
-    m: 'This is a Node.js test message',   // Message (required)
-    t: "Node.js Test",                     // Title (optional)
-    s: '8',                                // Sound (value 0-28) (optional)
-    v: '2',                                // Vibration (empty or value 1-3) (optional)
-    i: '5',                                // Icon (value 1-98) (optional)
-    c: '#FF0000',                          // Icon color hexadecimal color code (optional)
-    d: '221',                              // Device or Device Group id (optional)
-    u: 'https://www.pushsafer.com',        // an URL (optional)
-    ut: 'Pushsafer.com',                   // URLs title (optional)
-    l: '10',                               // Time to Live (optional)
-    pr: '2',                               // Priority (optional: -2, -1, 0, 1, 2)
-    re: '60',                              // Retry (optional: 60-10800 seconds)
-    ex: '60',                              // Expire (optional: 60-10800 seconds)
-    cr: '20',                              // Confirm (optional: 60-10800 seconds)
-    a: '1',                                // Answer
-    p: '',                                 // Image converted to > Data URL with Base64-encoded string (optional)
-    p2: '',                                // Image 2 converted to > Data URL with Base64-encoded string (optional)
-    p3: ''                                 // Image 3 converted to > Data URL with Base64-encoded string (optional)
-};
-
-// console.log( p );
-
-p.send( msg, function( err, result ) {
-    //console.log( 'ERROR:', err );
-    console.log( 'RESULT', result );
-    // process.exit(0);
-});
 //azure
 const { BlobServiceClient } = require("@azure/storage-blob");
 
@@ -68,6 +33,16 @@ const s3 = new S3({
     secretAccessKey
 })
 
+// var notification = {
+//     'title': "Test",
+//     'text': 'Hello Huy'
+// }
+
+// var fcm_tokens = []
+// var notification_body = {
+//     'notification': notification,
+//     'registration_ids': fcm_tokens
+// }
 
 module.exports = function(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber, reward, userAuth, postRank){
     const rankList = ["primary", "intermediate", "highgrade"]
@@ -4777,7 +4752,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             else if (cmts.length == 0 && req.body.viewWithCmt){
                                 res.json({status: "removed", data: {total: total}})
                             }
-                            const cmtUsernames = [], cmtNicknames = [], cmtAvts = [], cmtAuth = [], repTotal = [], cmtLiked = []
+                            const cmtUsernames = [], cmtNicknames = [], cmtAvts = [], cmtAuth = [], repTotal = [], cmtLiked = [], cmtRank = []
                             let buf = 0
                             for (let i = 0; i < cmts.length; i++){
                                 const cmtId = cmts[i].cmtId
@@ -4806,6 +4781,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             }
                                         }).then(function(n){
                                             cmtNicknames[i] = n.nickname
+                                            cmtRank[i] = n.rank
                                             cmtAvts[i] = n.avatar
                                             cmtAuth[i] = n.auth
                                             commentLikes.findAll({
@@ -4836,6 +4812,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                             cmtAuth: cmtAuth,
                                                             cmtLiked: cmtLiked,
                                                             cmtAvts: cmtAvts,
+                                                            cmtRank: cmtRank,
                                                             cmtTags: null,
                                                             total: total,
                                                             repTotal: repTotal,
@@ -4875,7 +4852,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 ['time', 'ASC']
                             ],
                         }).then(function(cmts){
-                            const cmtUsernames = [], cmtNicknames = [], cmtAvts = [], cmtTags = [], cmtLiked = [], cmtTagNickname = []
+                            const cmtUsernames = [], cmtNicknames = [], cmtAvts = [], cmtTags = [], cmtLiked = [], cmtTagNickname = [], cmtRank = []
                             let buf = 0
                             for (let i = 0 ; i < cmts.length; i++){
                                 users.findOne({
@@ -4893,6 +4870,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     }).then(function(n){
                                         cmtNicknames[i] = n.nickname
                                         cmtAvts[i] = n.avatar
+                                        cmtRank[i] = n.rank
                                         userProfile.findOne({
                                             where: {
                                                 userId: cmts[i].tag
@@ -4935,6 +4913,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                     cmtLiked: cmtLiked,
                                                                     cmtAvts: cmtAvts,
                                                                     cmtTags: cmtTags,
+                                                                    cmtRank: cmtRank,
                                                                     cmtTagNickname: cmtTagNickname,
                                                                     total: total,
                                                                     postUser: p.userId,

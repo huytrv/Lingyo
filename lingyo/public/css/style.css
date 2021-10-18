@@ -4695,7 +4695,7 @@ input[type='range']::-ms-fill-lower {
 
 .avt-rank {
   position: absolute;
-  top: -23px;
+  top: -24px;
   left: -23px;
   width: 91px !important;
   height: 91px !important;
@@ -5654,6 +5654,8 @@ input[type='range']::-ms-fill-lower {
   background-image: linear-gradient(to bottom, rgb(226, 232, 241), #effbfd);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   padding: 15px 0;
   width: 100%;
   /* color: white; */
@@ -5925,6 +5927,7 @@ input[type='range']::-ms-fill-lower {
   padding: 0 10px;
   border-collapse: collapse;
   position: relative;
+  padding-bottom: 50px;
 }
 
 .fame-title {
@@ -6957,6 +6960,10 @@ tbody {
     min-width: 390px;
   }
 
+  .final-reward {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
 }
 
 @media screen and (device-aspect-ratio: 40/71) {
