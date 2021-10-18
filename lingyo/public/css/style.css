@@ -3905,6 +3905,10 @@ input[type=password]:focus .username-label{
   padding: 10px;
 }
 
+.search-item:hover {
+  background-color: #f2f8ff;
+}
+
 .search-item .follow-but {
   background-color: white;
 }

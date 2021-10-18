@@ -185,7 +185,11 @@ function pretreatment(){
             if (sItem[i].getAttribute("data-user-id")){
                 searchDisplayedList.push(sItem[i].getAttribute("data-user-id"))
             }
+            else if (sItem[i].getAttribute("data-post-df")){
+                searchDisplayedList.push(sItem[i].getAttribute("data-post-df"))
+            }
         }
+        console.log(searchDisplayedList)
     }
 
     if (document.querySelector(".copy-link")){
@@ -421,7 +425,7 @@ function handleMobileResponse() {
             document.querySelector(".mobile-creator-frame").innerHTML = creatorMobile
         }
         document.querySelector(".main").style.paddingBottom = "55px"
-        if (!document.querySelector(".category-slidebar")){
+        if (!document.querySelector(".category-slidebar") && document.querySelector(".category-frame")){
             document.querySelector(".category-frame").style.height = "0px"
         }
         document.querySelectorAll("input[data-plyr='volume']").forEach(function(e){
@@ -642,7 +646,9 @@ function handleMobileResponse() {
         if (categoryInfo != '' && document.querySelector(".category-frame") && !document.querySelector(".category")){
             document.querySelector(".category-frame").innerHTML = categoryInfo
         }
-        document.querySelector(".category-frame").style.height = "45px"
+        if (document.querySelector(".category-frame")){
+            document.querySelector(".category-frame").style.height = "45px"
+        }
     }
 
     if(!document.querySelector(".category")){
@@ -1088,9 +1094,7 @@ function searchRedirect(text, pushState){
         }
         window.scrollTo(0, 0)
         navLink = "search"
-        if (document.querySelector(".category") && ! document.querySelector(".category-slidebar")){
-            document.querySelector(".category").innerHTML = `<div class="d-flex group-title"><span class="mg-l-lg font-size-lg-2 none-deco none-mg">Kết quả tìm kiếm cho "${text}"</div>`
-        }
+
         if (document.querySelector(".post-frame")){
             document.querySelector(".post-frame").innerHTML = '<div class="loading-post"><div class="d-flex-start loading-content"><div class="loading-post-circle mg-r"></div><div class="d-flex-col-start-content width-80"><div class="loading-post-line width-30 mg-b-sm"></div><div class="loading-post-line width-20"></div></div></div><div class="loading-post-line width-90 mg-b-sm"></div></div></div>'
         }
@@ -1104,12 +1108,19 @@ function searchRedirect(text, pushState){
                     document.querySelector(".loading-post").remove()
                 }
                 if (!document.querySelector(".search-content")){
-                    document.querySelector(".main-frame").innerHTML = '<div class="response-frame mg-t"><div class="search-content"></div><div class="seemore-frame pd-l-lg pd-r-lg pd-t pd-b"><span class="seemore-result">Hiển thị thêm</span></div></div>'
+                    document.querySelector(".main-frame").innerHTML = `<div class="category"><div class="d-flex group-title"><span class="mg-l-lg font-size-lg-2 none-deco none-mg">Kết quả tìm kiếm cho "${text}"</div></div><div class="main-frame-post d-flex"><div class="response-frame mg-t"><div class="search-content"></div><div class="seemore-frame pd-l-lg pd-r-lg pd-t pd-b"><span class="seemore-result">Hiển thị thêm</span></div><div></div>`
                 }
+                
                 if (!res.end){
                     for (let i = 0; i < res.result.length; i++){
-                        searchDisplayedList.push(res.result[i][0])
+                        if (res.result[i][0] != "ms"){
+                            searchDisplayedList.push(res.result[i][0])
+                        }
+                        else [
+                            searchDisplayedList.push(res.result[i][1].postId)
+                        ]
                         document.querySelector(".search-content").insertAdjacentHTML('beforeend', `
+                        ${(()=>{if (res.result[i][0] != "ms") {return `
                         <div class="search-item border-b nav-red" nav-data='personal' data-user-df="${res.result[i][2]}" data-user-id="${res.result[i][0]}">
                             <div class="d-flex-sb">
                                 <div class="d-flex">
@@ -1144,7 +1155,15 @@ function searchRedirect(text, pushState){
                             </div>
                             <div><span>${res.result[i][4]}</span></div>
                         </div>
-                        `)
+                        `}
+                        else {return `
+                        <div class="search-item border-b nav-red" nav-data="view-post" data-post-df="${res.result[i][1].postId}">
+                            <div class="d-flex-start">
+                                <span>Video tham dự MS <span class="theme-color">${res.result[i][1].ms}</span> tại thể loại <span class="theme-color">${res.result[i][1].category}</span> cấp <span class="theme-color">${res.result[i][1].rank}</span></span>
+                            </div>
+                        </div>
+                        `}
+                        })()}`)
                     }
                     if (document.querySelector(".seemore-result")){
                         document.querySelector(".seemore-result").onclick = function(){
@@ -4745,7 +4764,7 @@ function handleNavigation(){
         else if (agent.querySelector(".avatar-username")) {
             navName = agent.querySelector(".avatar-username").textContent
         }
-        else {
+        else if (agent.parentNode.querySelector(".avt-username")){
             navName = agent.parentNode.querySelector(".avt-username").textContent
         }
         const navRed = document.querySelectorAll(".nav-red")

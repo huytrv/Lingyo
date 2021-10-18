@@ -321,7 +321,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         rank: rankList[r],
                                         category: cateList[c],
                                         round: round,
-                                        received: false                          
+                                        groupReceived: false                          
                                     }
                                 }).then(function(cateTotal){
                                     if (cateTotal) {
@@ -440,7 +440,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     })
                                                 }
                                                 reward.update({
-                                                    received: true
+                                                    groupReceived: true
                                                 },
                                                 {
                                                     where: {
@@ -496,7 +496,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 where: {
                                     rank: rankList[r],
                                     round: round,
-                                    received: false                         
+                                    finalReceived: false                         
                                 }
                             }).then(function(cateTotal){
                                 if (cateTotal) {
@@ -608,7 +608,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
                                         })
                                         reward.update({
-                                            received: true
+                                            finalReceived: true
                                         },
                                         {
                                             where: {
@@ -934,7 +934,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     rank: p.rank,
                                                     round: round,
                                                     post: 1,
-                                                    received: false
+                                                    groupReceived: false,
+                                                    finalReceived: false
                                                 })
                                             }
                                         })
@@ -2717,7 +2718,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             req.session.tryTime = 0
             req.session.blockLogin = false
             if (req.body.searchText.length > 0 && req.body.searchText.length <= 30){
-                const result1 = [], result2 = [], resultBuf = [], userListed = [], counted = [], flArray = []
+                const result1 = [], result2 = [], result3 = [], resultBuf = [], userListed = [], counted = [], flArray = []
                 let count1 = 0, count2 = 0, end = false
                 function findByNickname(){
                     userProfile.findAll({
@@ -2762,8 +2763,9 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             result2[i] = [pu.userId, pu.username, p[i].nickname, p[i].avatar, description, followed, p[i].rank]
                                             count2 ++
                                             if (count2 == p.length){
+                                                if (result1.concat(result2).concat(result3).length == 0){end = true}
                                                 res.json({
-                                                    result: result1.concat(result2),
+                                                    result: result1.concat(result2).concat(result3),
                                                     end: false
                                                 })
                                             }
@@ -2773,11 +2775,55 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             }
                         }
                         else {
-                            if (result1.concat(result2).length == 0){end = true}
+                            if (result1.concat(result2).concat(result3).length == 0){end = true}
                             res.json({
-                                result: result1.concat(result2),
+                                result: result1.concat(result2).concat(result3),
                                 end: end
                             })
+                        }
+                    })
+                }
+                function findByMs(){
+                    qr = req.body.searchText
+                    if (qr && qr.includes("MS")){qr = qr.replace("MS", '')}
+                    if (qr && qr.includes("ms")){qr = qr.replace("ms", '')}
+                    posts.findAll({
+                        raw: true,
+                        where: {
+                            ms: {
+                                [Op.like]: '%' + qr + '%'
+                            },
+                            postId: {
+                                [Op.notIn]: req.body.searchDisplayedList
+                            },
+                            time: {
+                                [Op.gte]: currentTimeline
+                            }
+                        },
+                    }).then(function(p){
+                        if (p.length != 0){
+                            const postProfile = []
+                            let buf = 0
+                            for (let i = 0; i < p.length; i++){
+                                users.findOne({
+                                    where: {
+                                        userId: p[i].userId
+                                    }
+                                }).then(function(u){
+                                    result3[i] = []
+                                    result3[i][0] = "ms"
+                                    result3[i][1] = p[i]
+                                    postProfile[i] = u
+                                    result3[i][2] = postProfile[i].username
+                                    buf ++ 
+                                    if (buf == p.length){
+                                        findByNickname()
+                                    }
+                                })
+                            }
+                        }
+                        else {
+                            findByNickname()
                         }
                     })
                 }
@@ -2832,7 +2878,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     }
                                                 }
                                             }
-                                            findByNickname()
+                                            findByMs()
                                         }
                                     })
                                 })
@@ -2840,7 +2886,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         }
                     }
                     else {
-                        findByNickname()
+                        findByMs()
                     }
                 })
             }
@@ -2855,13 +2901,11 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             if (req.isAuthenticated()){
                 req.session.tryTime = 0
                 req.session.blockLogin = false
+                let searchDisplayedList = []
                 if (req.body.searchDisplayedList) {
                     searchDisplayedList = req.body.searchDisplayedList
                 }
-                else {
-                    searchDisplayedList = []
-                }
-                const result = [], result1 = [], result2 = [], resultBuf = [], userListed = [], counted = [], flArray = []
+                const result1 = [], result2 = [], result3 = [], resultBuf = [], userListed = [], counted = [], flArray = []
                 let count1 = 0, count2 = 0, end = false
                 function findByNickname(){
                     userProfile.findAll({
@@ -2905,7 +2949,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             result2[i] = [pu.userId, pu.username, p[i].nickname, p[i].avatar, description, followed, p[i].rank]
                                             count2 ++
                                             if (count2 == p.length){
-                                                res.render("search", {username: req.user.username, userId: req.user.userId, profile: currentUser, result: result1.concat(result2), text: req.query.q, end: end, active: 'competition', rankLink: '', rankName: '', cateActive: '', cateName: '', rank: false, modal: false})
+                                                res.render("search", {username: req.user.username, userId: req.user.userId, profile: currentUser, result: result1.concat(result2).concat(result3), text: req.query.q, end: end, active: 'competition', rankLink: '', rankName: '', cateActive: '', cateName: '', rank: false, modal: false})
                                             }
                                         })
                                     })
@@ -2913,14 +2957,58 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             }
                         }
                         else {
-                            if (result1.concat(result2).length == 0){end = true}
+                            if (result1.concat(result2).concat(result3).length == 0){end = true}
                             userProfile.findOne({
                                 where: {
                                     userId: req.user.userId
                                 }
                             }).then(function(currentUser){
-                                res.render("search", {username: req.user.username, userId: req.user.userId, profile: currentUser, result: result1.concat(result2), text: req.query.q, end: end , active: 'competition', rankLink: '', rankName: '', cateActive: '', cateName: '', rank: false, modal: false})
+                                res.render("search", {username: req.user.username, userId: req.user.userId, profile: currentUser, result: result1.concat(result2).concat(result3), text: req.query.q, end: end , active: 'competition', rankLink: '', rankName: '', cateActive: '', cateName: '', rank: false, modal: false})
                             })
+                        }
+                    })
+                }
+                function findByMs(){
+                    qr = req.query.q
+                    if (qr && qr.includes("MS")){qr = qr.replace("MS", '')}
+                    if (qr && qr.includes("ms")){qr = qr.replace("ms", '')}
+                    posts.findAll({
+                        raw: true,
+                        where: {
+                            ms: {
+                                [Op.like]: '%' + qr + '%'
+                            },
+                            postId: {
+                                [Op.notIn]: searchDisplayedList
+                            },
+                            time: {
+                                [Op.gte]: currentTimeline
+                            }
+                        },
+                    }).then(function(p){
+                        if (p.length != 0){
+                            const postProfile = []
+                            let buf = 0
+                            for (let i = 0; i < p.length; i++){
+                                users.findOne({
+                                    where: {
+                                        userId: p[i].userId
+                                    }
+                                }).then(function(u){
+                                    result3[i] = []
+                                    result3[i][0] = "ms"
+                                    result3[i][1] = p[i]
+                                    postProfile[i] = u
+                                    result3[i][2] = postProfile[i].username
+                                    buf ++ 
+                                    if (buf == p.length){
+                                        findByNickname()
+                                    }
+                                })
+                            }
+                        }
+                        else {
+                            findByNickname()
                         }
                     })
                 }
@@ -2931,7 +3019,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             [Op.like]: '%' + req.query.q + '%'
                         },
                         userId: {
-                            [Op.notIn]: searchDisplayedList
+                            [Op.notIn]: searchDisplayedList,
+                            [Op.ne]: req.user.userId
                         }
                     },
                     limit: 10
@@ -2974,7 +3063,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     }
                                                 }
                                             }
-                                            findByNickname()
+                                            findByMs()
                                         }
                                     })
                                 })
@@ -2982,7 +3071,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         }
                     }
                     else {
-                        findByNickname()
+                        findByMs()
                     }
                 })
             }

@@ -404,7 +404,8 @@ const reward = mysqlDB.define("reward", {
     category: sequelize.STRING,
     rank: sequelize.STRING,
     post: sequelize.INTEGER,
-    received: sequelize.BOOLEAN,
+    groupReceived: sequelize.BOOLEAN,
+    finalReceived: sequelize.BOOLEAN,
 })
 
 const userAuth = mysqlDB.define("userauth", {

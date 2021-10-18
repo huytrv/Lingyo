@@ -8,6 +8,14 @@
     <div class="response-frame">
         <div class="search-content">
             <% for (let i = 0; i < result.length; i++){ %>
+                <% if (result[i][0] == "ms") { %>
+                    <div class="search-item border-b nav-red" nav-data="view-post" data-post-df="<%- result[i][1].postId %>">
+                        <div class="d-flex-start">
+                            <span>Video tham dự MS <span class="theme-color"><%- result[i][1].ms %></span> tại thể loại <span class="theme-color"><%- result[i][1].category %></span> cấp <span class="theme-color"><%- result[i][1].rank %></span></span>
+                        </div>
+                    </div>
+                <% } %>
+                <% if (result[i][0] != "ms") { %>
                 <div class="search-item border-b nav-red" nav-data='personal' data-user-df="<%- result[i][2] -%>" data-user-id="<%- result[i][0] -%>">
                     <div class="d-flex-sb">
                         <div class="d-flex">
@@ -41,6 +49,7 @@
                     </div>
                     <div><%- result[i][4] -%></div>
                 </div>
+                <% } %>
             <% } %>
         </div>
         <div class="seemore-frame pd-l-lg pd-r-lg pd-t pd-b"><span class="seemore-result">Hiển thị thêm</span></div>
