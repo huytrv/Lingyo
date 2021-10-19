@@ -472,7 +472,6 @@ img {
 }
 
 .bg-container {
-  display: none;
   position: absolute;
   height: 100%;
   width: 100%;
@@ -3650,10 +3649,7 @@ img.thumb {
   position: relative;
   background: #fff;
   border-radius: 0;
-  width: 100%;
   height: 100%;
-  bottom: initial;
-  margin: auto;
 }
 
 .content-fg {
@@ -3695,12 +3691,16 @@ img.thumb {
 }
 
 .login-with-gg-fb {
-  display: flex;
+  display: none;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
   border-left: none;
+}
+
+.choice-fb-gg {
+  display: none;
 }
 
 .connect-but {
@@ -3811,12 +3811,13 @@ img.thumb {
 }
 
 .large-title {
-  display: none;
+  text-align: center;
 }
 
 .login-title h2 {
   margin-bottom: 15px;
   color: rgb(75, 75, 75);
+  font-size: 18px;
 }
 
 label {
@@ -4790,7 +4791,7 @@ input[type='range']::-ms-fill-lower {
   width: 245px !important;
   height: 245px !important;
 }
-.edit-avt .avt-rank.iron {
+.edit-avt .avt-rank.bronze {
   top: -65px;
   left: -63px;
   width: 245px !important;
@@ -4886,7 +4887,7 @@ input[type='range']::-ms-fill-lower {
   top: -16px;
   left: -5px;
 }
-.avt-header .avt-rank.iron {
+.avt-header .avt-rank.bronze {
   top: -16px;
   left: -5px;
 }
@@ -6328,16 +6329,11 @@ tbody {
   }
 
   .content {
-    width: 710px;
-    height: auto;
-    position: absolute;
-    top: 10%;
-    left: 0;
-    right: 0;
-    border-radius: 5px;
-    box-shadow: 0 0 5px 1px rgb(211, 211, 211);
+    width: 500px;
+    /* border-radius: 5px; */
+    /* box-shadow: 0 0 5px 1px rgb(211, 211, 211); */
     margin-top: 0;
-    background-color: rgb(255, 255, 255, 0.8);
+    /* background-color: rgb(255, 255, 255, 0.8); */
   }
 
   .content-fg {
@@ -6402,28 +6398,25 @@ tbody {
     display: block;
   }
 
-  .login-area {
-    flex-direction: row;
-  }
-
   .login-with-account {
-    width: 50%;
+    width: 90%;
     margin-right: 20px;
   }
 
   .login-with-gg-fb {
-    width: 50%;
+    width: 90%;
+    display: flex;
     flex-direction: column;
     border-left: 1px solid gainsboro;
+  }
+
+  .choice-fb-gg {
+    display: flex;
   }
 
   .connect-but {
     width: 90%;
   }
-
-  .choice-fb-gg {
-    display: none;
-  }  
 
   .cn-fb-but {
     margin-right: 0;

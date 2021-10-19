@@ -7,6 +7,15 @@ function createXHR() {
     return xhttp
 }
 
+if(window.innerWidth <= 662){
+    if (document.querySelector(".login-with-gg-fb")){
+        document.querySelector(".login-with-gg-fb").remove()
+    }
+    if (document.querySelector(".choice-fb-gg")){
+        document.querySelector(".choice-fb-gg").remove()
+    }
+}
+
 if (window.location.pathname == "/login") {
     const xhttpLogin = createXHR()
     xhttpLogin.onreadystatechange = function() {

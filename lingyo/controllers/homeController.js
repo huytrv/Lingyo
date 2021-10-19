@@ -60,16 +60,15 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
     stageTime = currentTimeline
     function updateUserRank(point, userId){
-        let rank = "iron"
-        if (point >= 0 && point <= 100){rank = "iron"}
-        else if (point > 100 && point < 300){rank = "bronze"}
-        else if (point >= 300 && point < 700){rank = "silver"}
-        else if (point >= 700 && point < 1200){rank = "gold"}
-        else if (point >= 1200 && point < 1800){rank = "platinum"}
-        else if (point >= 1800 && point < 2500){rank = "diamon"}
-        else if (point >= 2500 && point < 3300){rank = "master"}
-        else if (point >= 3300 && point < 5000){rank = "challenge"}
-        else if (point >= 5000){return "challenge"}
+        let rank = "bronze"
+        if (point >= 0 && point <= 100){rank = "bronze"}
+        else if (point > 100 && point < 300){rank = "silver"}
+        else if (point >= 300 && point < 700){rank = "gold"}
+        else if (point >= 700 && point < 1200){rank = "platinum"}
+        else if (point >= 1200 && point < 1800){rank = "diamon"}
+        else if (point >= 1800 && point < 2500){rank = "master"}
+        else if (point >= 2500 && point < 3300){rank = "challenge"}
+        else if (point >= 3300){rank = "challenge"}
         userProfile.update({
             rank: rank
         }, {
