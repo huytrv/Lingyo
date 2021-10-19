@@ -507,8 +507,8 @@ const server = https.createServer(op, app).listen(443, function(){
 
 const io = socketio(server)
 
-FBLogin()
-GGLogin()
+// FBLogin()
+// GGLogin()
 // signupController(app, users, userProfile, emailRegister, phoneRegister)
 loginController(app, users)
 forgotController(app, users, forgotPasswordToken, forgotPasswordCode)
