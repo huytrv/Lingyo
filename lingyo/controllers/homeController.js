@@ -6894,10 +6894,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         res.render("privacy-policy")
     })
 
-    app.get("/userauth", function(req, res) {
-        res.render("auth")
-    })
-
     function getPersonal(req, res, modal){
         userProfile.findOne({
             raw:true,
