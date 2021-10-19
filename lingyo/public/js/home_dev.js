@@ -5967,7 +5967,7 @@ function handleUpdateProfile(){
         document.querySelector(".user-auth").onclick = function(){
             const url = window.location.href
             window.open("https://lingyo.vn/userauth",
-                    "", "width=375, height=666");
+                    "_system", "width=375, height=666");
             if (document.querySelectorAll(".user-auth-modal").length == 0){
                 history.pushState({
                 }, '', url)
