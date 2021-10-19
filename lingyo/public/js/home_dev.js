@@ -5967,6 +5967,7 @@ function handleUpdateProfile(){
         let faceValid, faceValid1, faceValid2, faceValid3, faceValid4 = false
         document.querySelector(".user-auth").onclick = function(){
             const url = window.location.href
+            window.open(url)
             if (document.querySelectorAll(".user-auth-modal").length == 0){
                 history.pushState({
                 }, '', url)
