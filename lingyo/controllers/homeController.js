@@ -665,7 +665,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     }
     
 
-    app.post('/store', (req, res) => {
+    app.post("/store", function(req, res) {
         console.log(req.body)
         mobileTokens.findOne({
             where: {

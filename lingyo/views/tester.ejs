@@ -1,5 +1,5 @@
 <%- include('header') -%>
-  <div id="frame" style="position: relative; z-index: 0; width: 480px; height: 270px;"> 
+  <!-- <div id="frame" style="position: relative; z-index: 0; width: 480px; height: 270px;"> 
     <video id="my-video" muted controls="true" width="480" height="270" autoplay crossorigin="anonymous" style="z-index: -1; visibility: hidden; ">
       <source src="/public/videos/video.mp4" type="video/mp4">
     </video>
@@ -9,127 +9,130 @@
     <button id="rec">record</button>
     <div id="image"></div>
     <div class="loading-frame d-flex" style="z-index: -1; background-color: transparent; position: absolute; top:0;left: 0; width: 480px; height: 270px;"></div>
-    <!-- <video id="result" width="480" height="270" style="position: absolute; top:0;left: 0;"></video> -->
-  </div>
+    <video id="result" width="480" height="270" style="position: absolute; top:0;left: 0;"></video>
+  </div> -->
 
 
 <script>
 // document.querySelector('#my-video').playbackRate = 4.0;
 
-var processor = {
-  timerCallback: function() {
-    if (this.video.paused || this.video.ended) {
-      return;
-    }
-    this.computeFrame();
-    var self = this;
-    setTimeout(function () {
-      self.timerCallback();
-    }, 4); // roughly 60 frames per second
-  },
+// var processor = {
+//   timerCallback: function() {
+//     if (this.video.paused || this.video.ended) {
+//       return;
+//     }
+//     this.computeFrame();
+//     var self = this;
+//     setTimeout(function () {
+//       self.timerCallback();
+//     }, 4); // roughly 60 frames per second
+//   },
 
-  doLoad: function() {
-    this.video = document.getElementById("my-video");
-    this.c1 = document.getElementById("my-canvas");
-    this.ctx1 = this.c1.getContext("2d");
-    var self = this;
+//   doLoad: function() {
+//     this.video = document.getElementById("my-video");
+//     this.c1 = document.getElementById("my-canvas");
+//     this.ctx1 = this.c1.getContext("2d");
+//     var self = this;
 
-    // document.getElementById("edit").onclick = function(){
-    //     self.width = self.video.width;
-    //     self.height = self.video.height;
-    //     self.timerCallback();
-    // }
+//     // document.getElementById("edit").onclick = function(){
+//     //     self.width = self.video.width;
+//     //     self.height = self.video.height;
+//     //     self.timerCallback();
+//     // }
 
-    this.video.addEventListener("play", function() {
-      self.width = self.video.width;
-      self.height = self.video.height;
-      self.timerCallback();
-    }, false);
-  },
+//     this.video.addEventListener("play", function() {
+//       self.width = self.video.width;
+//       self.height = self.video.height;
+//       self.timerCallback();
+//     }, false);
+//   },
 
-  computeFrame: function() {
-    this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
-    // var frame = this.ctx1.getImageData(0, 0, this.width, this.height);
-    // var l = frame.data.length / 4;
+//   computeFrame: function() {
+//     this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
+//     // var frame = this.ctx1.getImageData(0, 0, this.width, this.height);
+//     // var l = frame.data.length / 4;
 
-    // for (var i = 0; i < l; i++) {
-    //   var grey = (frame.data[i * 4 + 0] + frame.data[i * 4 + 1] + frame.data[i * 4 + 2]) / 3;
+//     // for (var i = 0; i < l; i++) {
+//     //   var grey = (frame.data[i * 4 + 0] + frame.data[i * 4 + 1] + frame.data[i * 4 + 2]) / 3;
 
-    //   frame.data[i * 4 + 0] = grey;
-    //   frame.data[i * 4 + 1] = grey;
-    //   frame.data[i * 4 + 2] = grey;
-    // }
-    // this.ctx1.putImageData(frame, 0, 0);
+//     //   frame.data[i * 4 + 0] = grey;
+//     //   frame.data[i * 4 + 1] = grey;
+//     //   frame.data[i * 4 + 2] = grey;
+//     // }
+//     // this.ctx1.putImageData(frame, 0, 0);
 
-    return;
-  }
-};  
+//     return;
+//   }
+// };  
 
-processor.doLoad()
+// processor.doLoad()
 
-var cStream, blob,recorder,chunks = [];
-
-
-var rec = document.querySelector("#rec")
-var canvas = document.querySelector("#my-canvas")
-
-rec.onclick = function() {
-  document.querySelector(".loading-frame").innerHTML = '<span class="iconify spin loading-icon" style="width: 100px; height: 100px;" data-icon="ant-design:loading-3-quarters-outlined" data-inline="false"></span>'
-  this.textContent = 'stop recording';
-  // set the framerate to 30FPS
-  var cStream = canvas.captureStream(60);
-  // create a recorder fed with our canvas' stream
-  recorder = new MediaRecorder(cStream);
-  // start it
-  recorder.start();
-  // save the chunks
-  recorder.ondataavailable = saveChunks;
-
-  recorder.onstop = exportStream;
-  // change our button's function
-  this.onclick = stopRecording;
-};
-
-function saveChunks(e) {
-
-  chunks.push(e.data);
-
-}
-
-function stopRecording() {
-  document.querySelector(".loading-frame").innerHTML = ''
-  recorder.stop();
-}
+// var cStream, blob,recorder,chunks = [];
 
 
-function exportStream(e) {
-  blob = new Blob(chunks, {type: 'video/webm'})
-  var vidURL = URL.createObjectURL(blob);
-  var vid = document.createElement("video")
-  vid.controls = true;
-  vid.src = vidURL;
-  vid.defaultPlaybackRate = 0.25;
-  vid.classList.add("abs-top")
-  vid.onended = function() {
-    URL.revokeObjectURL(vidURL);
-  }
-  document.querySelector("#frame").insertBefore(vid, canvas);
-  var data = new FormData();
-  console.log(chunks)
-  data.append('file', blob)
-  let xhttp
-    if (window.XMLHttpRequest) {
-        xhttp = new XMLHttpRequest()
-    } else {
-        xhttp = new ActiveXObject("Microsoft.XMLHTTP")
-    }
-    xhttp.onreadystatechange = function() {    
-      if (xhttp.readyState == 4 && xhttp.status == 200) {
+// var rec = document.querySelector("#rec")
+// var canvas = document.querySelector("#my-canvas")
 
-      }
-    }
-    xhttp.open("POST", "/record", true)
-    xhttp.send(data)
-}
+// rec.onclick = function() {
+//   document.querySelector(".loading-frame").innerHTML = '<span class="iconify spin loading-icon" style="width: 100px; height: 100px;" data-icon="ant-design:loading-3-quarters-outlined" data-inline="false"></span>'
+//   this.textContent = 'stop recording';
+//   // set the framerate to 30FPS
+//   var cStream = canvas.captureStream(60);
+//   // create a recorder fed with our canvas' stream
+//   recorder = new MediaRecorder(cStream);
+//   // start it
+//   recorder.start();
+//   // save the chunks
+//   recorder.ondataavailable = saveChunks;
 
-</script>
+//   recorder.onstop = exportStream;
+//   // change our button's function
+//   this.onclick = stopRecording;
+// };
+
+// function saveChunks(e) {
+
+//   chunks.push(e.data);
+
+// }
+
+// function stopRecording() {
+//   document.querySelector(".loading-frame").innerHTML = ''
+//   recorder.stop();
+// }
+
+
+// function exportStream(e) {
+//   blob = new Blob(chunks, {type: 'video/webm'})
+//   var vidURL = URL.createObjectURL(blob);
+//   var vid = document.createElement("video")
+//   vid.controls = true;
+//   vid.src = vidURL;
+//   vid.defaultPlaybackRate = 0.25;
+//   vid.classList.add("abs-top")
+//   vid.onended = function() {
+//     URL.revokeObjectURL(vidURL);
+//   }
+//   document.querySelector("#frame").insertBefore(vid, canvas);
+//   var data = new FormData();
+//   console.log(chunks)
+//   data.append('file', blob)
+//   let xhttp
+//     if (window.XMLHttpRequest) {
+//         xhttp = new XMLHttpRequest()
+//     } else {
+//         xhttp = new ActiveXObject("Microsoft.XMLHTTP")
+//     }
+//     xhttp.onreadystatechange = function() {    
+//       if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+//       }
+//     }
+//     xhttp.open("POST", "/record", true)
+//     xhttp.send(data)
+// }
+
+// </script>
+
+<a class="store">Nhan</a>
+<script src="/public/js/tester.js"></script>
