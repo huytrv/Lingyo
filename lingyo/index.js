@@ -508,7 +508,7 @@ const server = https.createServer(op, app).listen(443, function(){
     app.get('*', function(req, res){
         if (req.headers.host == "18.163.40.72") {res.redirect('https://lingyo.vn')}
     })
-    app.post('/store', (req, res) => {
+    app.get('/store', (req, res) => {
         console.log(req.body)
         mobileTokens.findOne({
             where: {
