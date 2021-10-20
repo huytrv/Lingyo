@@ -519,7 +519,7 @@ const server = https.createServer(op, app).listen(443, function(){
             if (!mt){
                 mobileTokens.create({
                     token: req.body,
-                    userId: req.body.userId
+                    userId: req.user.userId
                 }).then(function(){
                     res.end()
                 })
