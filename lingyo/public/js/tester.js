@@ -11,5 +11,5 @@ document.querySelector(".store").onclick = function(){
                   }
                 xhttp.open("POST", 'https://lingyo.vn/store', true)
                 xhttp.setRequestHeader('Content-Type', 'application/json')
-                xhttp.send(JSON.stringify(data))
+                xhttp.send()
 }
