@@ -378,7 +378,7 @@ const signupHandle = function(){
 
     if (document.querySelectorAll(".email-form").length != 0){
         document.querySelector(".email-form").addEventListener('input', function(e){
-            if (document.querySelector("input[name='email']").value.trim() != '' && document.querySelector("input[name='email-username']").value.trim() != '' && validateEmail(document.querySelector(".email").value.trim()) && !document.querySelector("input[name='email-username']").value.trim().toLowerCase().includes("fodance")) {
+            if (document.querySelector("input[name='email']").value.trim() != '' && document.querySelector("input[name='email-username']").value.trim() != '' && validateEmail(document.querySelector(".email").value.trim()) && !document.querySelector("input[name='email-username']").value.trim().toLowerCase().includes("lingyo")) {
                 document.querySelector(".submit-email").disabled = false
             }
             else {
@@ -388,9 +388,9 @@ const signupHandle = function(){
                 document.querySelector(".email-msg").textContent = ''
                 document.querySelector(".email-msg").textContent = "Địa chỉ email không hợp lệ"
             }
-            else if (document.querySelector("input[name='email-username']").value.trim().toLowerCase().includes("fodance")){
+            else if (document.querySelector("input[name='email-username']").value.trim().toLowerCase().includes("lingyo")){
                 document.querySelector(".email-msg").textContent = ''
-                document.querySelector(".email-msg").textContent = 'Tên người dùng không được chứa "fodance"'
+                document.querySelector(".email-msg").textContent = 'Tên người dùng không được chứa "lingyo"'
             }
             else {
                 document.querySelector(".email-msg").textContent = ''
@@ -399,7 +399,7 @@ const signupHandle = function(){
     }
     if (document.querySelectorAll(".phone-form").length != 0){
         document.querySelector(".phone-form").addEventListener('input', function(e){
-            if (document.querySelector("input[name='tel']").value.trim() != '' && document.querySelector("input[name='phone-username']").value.trim() != '' && validatePhone(document.querySelector(".tel").value.trim()) && !document.querySelector("input[name='phone-username']").value.trim().toLowerCase().includes("fodance")) {
+            if (document.querySelector("input[name='tel']").value.trim() != '' && document.querySelector("input[name='phone-username']").value.trim() != '' && validatePhone(document.querySelector(".tel").value.trim()) && !document.querySelector("input[name='phone-username']").value.trim().toLowerCase().includes("lingyo")) {
                 document.querySelector(".submit-phone").disabled = false
             }
             else {
@@ -409,9 +409,9 @@ const signupHandle = function(){
                 document.querySelector(".phone-msg").textContent = ''
                 document.querySelector(".phone-msg").textContent = "Số điện thoại không hợp lệ"
             }
-            else if (document.querySelector("input[name='phone-username']").value.trim().toLowerCase().includes("fodance")){
+            else if (document.querySelector("input[name='phone-username']").value.trim().toLowerCase().includes("lingyo")){
                 document.querySelector(".phone-msg").textContent = ''
-                document.querySelector(".phone-msg").textContent = 'Tên người dùng không được chứa "fodance"'
+                document.querySelector(".phone-msg").textContent = 'Tên người dùng không được chứa "lingyo"'
             }
             else {
                 document.querySelector(".phone-msg").textContent = ''

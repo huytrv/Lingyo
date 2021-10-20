@@ -36,7 +36,7 @@ module.exports = function(app, users, userProfile, emailRegister, phoneRegister)
         const emailInput = data.email.trim()
         const usernameInput = data.username.trim()
         if (typeof(emailInput) === "string" && typeof(usernameInput) === "string" && typeof(startTime) === "number" && typeof(data.emailReq) === "number"){
-            if (emailInput != '' && validateEmail(emailInput) && usernameInput != '' && !usernameInput.toLowerCase().includes("fodance")){
+            if (emailInput != '' && validateEmail(emailInput) && usernameInput != '' && !usernameInput.toLowerCase().includes("lingyo")){
                 users.findAll({
                     raw: true,
                     where: {
@@ -196,7 +196,7 @@ module.exports = function(app, users, userProfile, emailRegister, phoneRegister)
         const phoneInput = data.phone.trim()
         const usernameInput = data.username.trim()
         if ((typeof(phoneInput) === "string" || typeof(phoneInput) === "number") && typeof(usernameInput) === "string" && typeof(startTime) === "number" && typeof(data.ip) === "string"){
-            if (phoneInput != '' && validatePhone(phoneInput) && usernameInput != '' && !usernameInput.toLowerCase().includes("fodance")){
+            if (phoneInput != '' && validatePhone(phoneInput) && usernameInput != '' && !usernameInput.toLowerCase().includes("lingyo")){
                 users.findAll({
                     raw: true,
                     where: {
