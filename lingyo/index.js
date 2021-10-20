@@ -17,6 +17,7 @@ const signupController = require("./controllers/signupController")
 const loginController = require("./controllers/loginController")
 const forgotController = require("./controllers/forgotController")
 const updateController = require("./controllers/updateController.js")
+const admin = require("firebase-admin")
 
 const app = express();
 
@@ -414,6 +415,10 @@ const userAuth = mysqlDB.define("userauth", {
     auth: sequelize.BOOLEAN
 })
 
+const mobileTokens = mysqlDB.define("mobiletokens", {
+    token: sequelize.STRING,
+})
+
 users.hasOne(userProfile, {foreignKey: 'userId'});
 userProfile.belongsTo(users, {foreignKey: 'userId'})
 users.hasMany(posts, {foreignKey: 'userId'})
@@ -438,6 +443,8 @@ users.hasMany(cardNumber, {foreignKey: 'userId'});
 cardNumber.belongsTo(users, {foreignKey: 'userId'})
 users.hasMany(userAuth, {foreignKey: 'userId'});
 userAuth.belongsTo(users, {foreignKey: 'userId'})
+users.hasMany(mobileTokens, {foreignKey: 'userId'});
+mobileTokens.belongsTo(users, {foreignKey: 'userId'})
 
 mysqlDB.sync()
 
@@ -492,11 +499,83 @@ const op = {
   ca: fs.readFileSync('config/cert/fullchain.pem')
 };
 
+var FCM = require('fcm-node');
+var serverKey = 'AAAA5tKe95M:APA91bFKr5crKa458X_3SLYNj0tbWtvJlLWM6X1i6dc2maqVR_oBCE4sa-qEXxXXr_twoGa6kI724TutnwmzsE67w5HaGvp2MO4r9_qWrDkz8AF5Lc3MugrlK3MH7onP3kQr82XHKqg8'; //put your server key here
+var fcm = new FCM(serverKey);
+
 const server = https.createServer(op, app).listen(443, function(){
     console.log("Server is running...")
     app.get('*', function(req, res){
         if (req.headers.host == "18.163.40.72") {res.redirect('https://lingyo.vn')}
     })
+    app.post('/store', (req, res) => {
+        console.log(req.body)
+        mobileTokens.findOne({
+            where: {
+                token: req.body,
+                userId: req.user.userId
+            }
+        }).then(function(mt){
+            if (!mt){
+                mobileTokens.create({
+                    token: req.body,
+                    userId: req.body.userId
+                }).then(function(){
+                    res.end()
+                })
+            }
+            else {
+                res.end()
+            }
+        })
+    });
+    app.get('/send', function(req, res) {
+
+        var token_array = [];
+    
+        mobileTokens.findAll({
+            where: {
+                userId: {
+                    [Op.not]: null
+                }
+            }
+        }).then(function(docs){
+            for(let i = 0; i < docs.length; i++) {
+                token_array.push(docs[i].token);
+            }
+        })
+    
+        for(let i = 0; i < token_array.length; i++) {
+            var message = { 
+            // this may vary according to the message type (single
+            // recipient, multicast, topic, et cetera)
+                
+                to: token_array[i].token,
+                collapse_key: 'your_collapse_key',
+    
+                notification: {
+                    title: 'Title of your push notification',
+                    body: 'Body of your push notification'
+                },
+    
+                data: {  
+                // you can send only notification or only 
+                // data(or include both)
+                    my_key: 'my value',
+                    my_another_key: 'my another value'
+                }
+            };
+    
+            fcm.send(message, function (err, response) {
+                if (err) {
+                    console.log("Something has gone wrong!");
+                } else {
+                    console.log("Successfully sent with response: ", response);
+                }
+            });
+        }
+        res.send('send msg');
+    });
 });
 
 // const server = https.createServer(op, (req, res) => {

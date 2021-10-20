@@ -6828,7 +6828,9 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             })
         }
         else {
-            res.redirect("/login")
+            res.json({
+                status: 'done',
+            })
         }
     })
 
