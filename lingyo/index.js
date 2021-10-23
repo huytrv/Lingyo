@@ -516,7 +516,7 @@ const io = socketio(server)
 
 // FBLogin()
 // GGLogin()
-// signupController(app, users, userProfile, emailRegister, phoneRegister)
+signupController(app, users, userProfile, emailRegister, phoneRegister)
 loginController(app, users)
 forgotController(app, users, forgotPasswordToken, forgotPasswordCode)
 updateController(app, users)
