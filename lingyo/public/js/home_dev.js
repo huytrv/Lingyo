@@ -728,9 +728,21 @@ const showAlert = function(text){
     }, 3000)
 }
 
+
+
+window.OneSignal = window.OneSignal || [];
+OneSignal.push(function() {
+  OneSignal.init({
+    appId: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+  });
+// OneSignal.on('subscriptionChange', function (isSubscribed) {
+  // console.log("The user's subscription state is now:", isSubscribed);
+
+// });
 OneSignal.getUserId(function(userId) {
     console.log("OneSignal User ID:", userId);
     // (Output) OneSignal User ID: 270a35cd-4dda-4b3f-b04e-41d7463a2316    
+});
 });
 
 const showAlertCateRank = function(text){
