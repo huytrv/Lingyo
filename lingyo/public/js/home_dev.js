@@ -728,13 +728,9 @@ const showAlert = function(text){
     }, 3000)
 }
 
-OneSignal.push(function() {
-    if(localStorage.getItem('os-user') === null) {
-        OneSignal.getUserId(function(userId) {
-            localStorage.setItem('os-user', userId);
-            showAlert(userId)
-        });
-    }
+OneSignal.getUserId(function(userId) {
+    console.log("OneSignal User ID:", userId);
+    // (Output) OneSignal User ID: 270a35cd-4dda-4b3f-b04e-41d7463a2316    
 });
 
 const showAlertCateRank = function(text){
