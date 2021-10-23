@@ -728,14 +728,14 @@ const showAlert = function(text){
     }, 3000)
 }
 
-OneSignal.push(function() {
-    if(localStorage.getItem('os-user') === null) {
-        OneSignal.getUserId(function(userId) {
-            localStorage.setItem('os-user', userId);
-            showAlert(userId)
-        });
-    }
-});
+// OneSignal.push(function() {
+//     if(localStorage.getItem('os-user') === null) {
+//         OneSignal.getUserId(function(userId) {
+//             localStorage.setItem('os-user', userId);
+//             showAlert(userId)
+//         });
+//     }
+// });
 
 const showAlertCateRank = function(text){
     if (document.querySelectorAll(".alert-cate-rank").length != 0){

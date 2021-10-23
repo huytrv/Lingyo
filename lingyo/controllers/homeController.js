@@ -688,6 +688,12 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
       
     //   sendNotification(message);
 
+    app.get('/OneSignalSDKWorker.js', function(req, res){
+        res.sendfile(__dirname + '/OneSignalSDKWorker.js');
+    })
+    app.get('/OneSignalSDKUpdaterWorker.js', function(req, res){
+        res.sendfile(__dirname + '/OneSignalSDKUpdaterWorker.js');
+    })
     //home page
     app.get("/", function(req, res) {
         if (req.isAuthenticated()){
