@@ -25,6 +25,15 @@ function pretreatment(){
     // const startTimeline = new Date("Mon Oct 05 2020 00:00:00")
     // round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
     // localStorage.roundVisit = round + 1
+
+    OneSignal.push(function() {
+        if(localStorage.getItem('os-user') === null) {
+            OneSignal.getUserId(function(userId) {
+                localStorage.setItem('os-user', userId);
+                showAlert(userId)
+            });
+        }
+    });
     if (document.querySelector(".header-inner-mobile") && document.querySelector(".header-inner-mobile").innerHTML != ''){
         headerInnerMobile = document.querySelector(".header").innerHTML
     }

@@ -33,22 +33,6 @@ const s3 = new S3({
     secretAccessKey
 })
 
-
-var FCM = require('fcm-node');
-var serverKey = 'AAAA5tKe95M:APA91bFKr5crKa458X_3SLYNj0tbWtvJlLWM6X1i6dc2maqVR_oBCE4sa-qEXxXXr_twoGa6kI724TutnwmzsE67w5HaGvp2MO4r9_qWrDkz8AF5Lc3MugrlK3MH7onP3kQr82XHKqg8'; //put your server key here
-var fcm = new FCM(serverKey);
-
-// var notification = {
-//     'title': "Test",
-//     'text': 'Hello Huy'
-// }
-
-// var fcm_tokens = []
-// var notification_body = {
-//     'notification': notification,
-//     'registration_ids': fcm_tokens
-// }
-
 module.exports = function(io, app, users, userProfile, posts, comments, postLikes, commentLikes, postSaved, follow, voteWinners, notifications, addTopic, feedback, report, paypal, cardNumber, reward, userAuth, postRank, mobileTokens){
     const rankList = ["primary", "intermediate", "highgrade"]
     const rankName = ["Sơ cấp", "Trung cấp", "Cao cấp"]
@@ -663,77 +647,53 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         return s3.deleteObject(uploadParams, function (err) {
         }).promise()
     }
-    
 
-    app.post("/store", function(req, res) {
-        console.log(req.body)
-        mobileTokens.findOne({
-            where: {
-                token: req.body,
-                userId: req.user.userId
-            }
-        }).then(function(mt){
-            if (!mt){
-                mobileTokens.create({
-                    token: req.body,
-                    userId: req.user.userId
-                }).then(function(){
-                    res.end()
-                })
-            }
-            else {
-                res.end()
-            }
-        })
-    });
-    app.get('/send', function(req, res) {
+    var sendNotification = function(data) {
+        var headers = {
+          "Content-Type": "application/json; charset=utf-8",
+          "Authorization": "Basic MDYxOWVmNGEtM2YyOS00OTRjLTk1ZjYtOTFiYWU0ZDA4NjJh"
+        };
+        
+        var options = {
+          host: "onesignal.com",
+          port: 443,
+          path: "/api/v1/notifications",
+          method: "POST",
+          headers: headers
+        };
+        
+        var https = require('https');
+        var req = https.request(options, function(res) {  
+          res.on('data', function(data) {
+            console.log("Response:");
+            console.log(JSON.parse(data));
+          });
+        });
+        
+        req.on('error', function(e) {
+          console.log("ERROR:");
+          console.log(e);
+        });
+        
+        req.write(JSON.stringify(data));
+        req.end();
+      };
+      
+      var message = { 
+        app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+        contents: {"en": "Hallo from Lingyo"},
+        // headings: {"en": "Heading"},
+        included_segments: ["Subscribed Users"]
+      };
+      
+      sendNotification(message);
 
-        var token_array = [];
-    
-        mobileTokens.findAll({
-            where: {
-                userId: {
-                    [Op.not]: null
-                }
-            }
-        }).then(function(docs){
-            for(let i = 0; i < docs.length; i++) {
-                token_array.push(docs[i].token);
-            }
-        })
-    
-        for(let i = 0; i < token_array.length; i++) {
-            var message = { 
-            // this may vary according to the message type (single
-            // recipient, multicast, topic, et cetera)
-                
-                to: token_array[i].token,
-                collapse_key: 'your_collapse_key',
-    
-                notification: {
-                    title: 'Title of your push notification',
-                    body: 'Body of your push notification'
-                },
-    
-                data: {  
-                // you can send only notification or only 
-                // data(or include both)
-                    my_key: 'my value',
-                    my_another_key: 'my another value'
-                }
-            };
-    
-            fcm.send(message, function (err, response) {
-                if (err) {
-                    console.log("Something has gone wrong!");
-                } else {
-                    console.log("Successfully sent with response: ", response);
-                }
-            });
-        }
-        res.send('send msg');
-    });
-
+    app.get('/OneSignalSDKWorker.js', function(req, res){
+        res.render("OneSignalSDKWorker.js")
+    })
+    app.get('/OneSignalSDKUpdaterWorker.js', function(req, res){
+        res.render("OneSignalSDKUpdaterWorker.js")
+    })
     //home page
     app.get("/", function(req, res) {
         if (req.isAuthenticated()){
