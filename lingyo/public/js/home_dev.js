@@ -25,6 +25,31 @@ function pretreatment(){
     // const startTimeline = new Date("Mon Oct 05 2020 00:00:00")
     // round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
     // localStorage.roundVisit = round + 1
+    
+    window.OneSignal = window.OneSignal || []
+    OneSignal.push(function() {
+    OneSignal.init({
+        appId: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+    })
+    OneSignal.getUserId(function(userId) {
+        let xhttp
+        if (window.XMLHttpRequest) {
+            xhttp = new XMLHttpRequest()
+        } else {
+            xhttp = new ActiveXObject("Microsoft.XMLHTTP")
+        }
+        const data = {
+            devideId: userId
+        }
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+            }
+        }
+        xhttp.open("POST", "/devide-info", true)
+        xhttp.setRequestHeader('Content-Type', 'application/json')
+        xhttp.send(JSON.stringify(data))
+    })
+    })
     if (document.querySelector(".header-inner-mobile") && document.querySelector(".header-inner-mobile").innerHTML != ''){
         headerInnerMobile = document.querySelector(".header").innerHTML
     }
@@ -727,23 +752,6 @@ const showAlert = function(text){
         }
     }, 3000)
 }
-
-
-
-window.OneSignal = window.OneSignal || [];
-OneSignal.push(function() {
-  OneSignal.init({
-    appId: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-  });
-// OneSignal.on('subscriptionChange', function (isSubscribed) {
-  // console.log("The user's subscription state is now:", isSubscribed);
-
-// });
-OneSignal.getUserId(function(userId) {
-    console.log("OneSignal User ID2:", userId);
-    // (Output) OneSignal User ID: 270a35cd-4dda-4b3f-b04e-41d7463a2316    
-});
-});
 
 const showAlertCateRank = function(text){
     if (document.querySelectorAll(".alert-cate-rank").length != 0){
@@ -1702,7 +1710,7 @@ function handleRefreshTask(){
                                                 </a>
                                             </div>
                                             <div class="d-flex-col-start">
-                                            ${(()=>{if (res.notifications[i].postInfo[1]) {return `<div class="noselect"><span>Bạn đã đăng một video mới vào Thể loại <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[1]}</span> cấp <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[2]}</span> - MS: <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[3]}</span></span></div>`}
+                                            ${(()=>{if (res.notifications[i].postInfo[1]) {return `<div class="noselect"><span>Bạn đã đăng một video tham dự mới vào Thể loại <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[1]}</span> cấp <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[2]}</span> - MS: <span class="theme-color font-size-lg-1">${res.notifications[i].postInfo[3]}</span></span></div>`}
                                                 else {return `<div class="noselect"><span>Bạn đã đăng một video mới trong Cộng đồng</span></div>`}
                                             })()}
                                             </div>
