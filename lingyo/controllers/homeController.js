@@ -686,7 +686,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         included_segments: ["Subscribed Users"]
       };
       
-      sendNotification(message);
+    //   sendNotification(message);
 
     app.get('/OneSignalSDKWorker.js', function(req, res){
         res.render("OneSignalSDKWorker.js")

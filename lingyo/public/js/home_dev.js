@@ -27,12 +27,12 @@ function pretreatment(){
     // localStorage.roundVisit = round + 1
 
     OneSignal.push(function() {
-        if(localStorage.getItem('os-user') === null) {
+        // if(localStorage.getItem('os-user') === null) {
             OneSignal.getUserId(function(userId) {
                 localStorage.setItem('os-user', userId);
                 showAlert(userId)
             });
-        }
+        // }
     });
     if (document.querySelector(".header-inner-mobile") && document.querySelector(".header-inner-mobile").innerHTML != ''){
         headerInnerMobile = document.querySelector(".header").innerHTML
