@@ -31,6 +31,7 @@ function pretreatment(){
     OneSignal.init({
         appId: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
     })
+    showAlert(123)
     OneSignal.getUserId(function(userId) {
         let xhttp
         if (window.XMLHttpRequest) {
