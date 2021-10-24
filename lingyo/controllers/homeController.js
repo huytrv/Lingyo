@@ -842,39 +842,42 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
 
     app.use(cors())
 
-    app.post("/userToken", function (req, res, next) {
-        // let userId = null
-        // if (!req.user){
-        //     userId = null
-        // }
-        // else {
-        //     userId = req.user.userId
-        // }
-        console.log(req.body.token)
-        console.log(req)
-        if (req.user && req.body.token){
-            mobileTokens.findOne({
-                where: {
-                    token: req.body.token,
-                    userId: req.user.userId
-                }
-            }).then(function(mt){
-                if (!mt){
-                    mobileTokens.create({
-                        token: req.body.token,
-                        userId: req.user.userId
-                    }).then(function(){
-                        res.end()
-                    })
-                }
-                else {
-                    res.end()
-                }
-            })
+    app.get("/userToken", function (req, res, next) {
+        let userId = null
+        if (!req.user){
+            userId = null
         }
         else {
-            res.end()
+            userId = req.user.userId
         }
+        res.json({
+            "results": userId
+        })
+        // console.log(req.body.token)
+        // console.log(req)
+        // if (req.user && req.body.token){
+        //     mobileTokens.findOne({
+        //         where: {
+        //             token: req.body.token,
+        //             userId: req.user.userId
+        //         }
+        //     }).then(function(mt){
+        //         if (!mt){
+        //             mobileTokens.create({
+        //                 token: req.body.token,
+        //                 userId: req.user.userId
+        //             }).then(function(){
+        //                 res.end()
+        //             })
+        //         }
+        //         else {
+        //             res.end()
+        //         }
+        //     })
+        // }
+        // else {
+        //     res.end()
+        // }
     })
 
     //home page
