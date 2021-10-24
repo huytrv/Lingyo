@@ -841,6 +841,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
     })
 
+    app.use(cors())
+
     app.post("/userToken", function (req, res) {
         console.log(123)
         setInterval(function(){
