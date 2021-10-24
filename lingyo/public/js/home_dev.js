@@ -41,10 +41,6 @@ function pretreatment(){
         const data = {
             devideId: userId
         }
-        xhttp.onreadystatechange = function() {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-            }
-        }
         xhttp.open("POST", "/devide-info", true)
         xhttp.setRequestHeader('Content-Type', 'application/json')
         xhttp.send(JSON.stringify(data))

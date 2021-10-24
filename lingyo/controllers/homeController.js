@@ -830,6 +830,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     mobileTokens.create({
                         token: req.body.devideId,
                         userId: req.user.userId
+                    }).then(function(){
+                        res.end()
                     })
                 }
             })
