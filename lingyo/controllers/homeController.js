@@ -841,7 +841,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     })
 
     app.post("/userToken", function (req1, res1) {
-        const itv = setInterval(function(){
             app.post("/userinfo", function(req2, res2){
                 console.log(567)
                 if (req2.user){
@@ -872,7 +871,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     })
                 }
             })
-        }, 1000)        
     })
 
     //home page
