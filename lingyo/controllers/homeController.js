@@ -824,7 +824,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     userId: req.user.userId
                 }
             }).then(function(mt){
-                if (!mt){
+                if (!mt && req.body.devideId){
                     mobileTokens.create({
                         token: req.body.devideId,
                         userId: req.user.userId
@@ -837,6 +837,13 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         else {
             res.redirect("/login")
         }
+    })
+
+    app.get("/userToken", function(req, res){
+        console.log(req.user.userId)
+        res.json({
+            "results": req.user.userId
+        })
     })
 
     //home page
