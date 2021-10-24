@@ -842,10 +842,13 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     })
 
     app.post("/userToken", function (req, res) {
-        // if (req.body.token && tokenBuf.length == mid){
-        //     tokenBuf.push(req.body.token)
-        //     mid ++
-        // }
+        setInterval(function(){
+            if (req.body.token && tokenBuf.length == userBuf.length){
+                tokenBuf.push(req.body.token)
+                res.end()
+            }
+        }, 500)
+
         // mobileTokens.findOne({
         //     where: {
         //         token: req.body.token
@@ -863,50 +866,45 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         //         res.end()
         //     }
         // })
-        console.log(1)
-        res.end()
     })
 
     app.post("/userinfo", function(req, res){
-        // if (req.user && userBuf.length == mid){
-        //     userBuf.push(req.user.userId)
-        // }
-        // res.end()
-        console.log(2)
-        res.end()
-        // setInterval(function(){
-        //     for (let i = 0 ; i < tokenBuf.length; i++){
-        //         if (tokenBuf[i] && userBuf[i]){
-        //             mobileTokens.findOne({
-        //                 where: {
-        //                     token: tokenBuf[i],
-        //                     userId: userBuf[i]
-        //                 }
-        //             }).then(function(mt){
-        //                 console.log(tokenBuf)
-        //                 console.log(userBuf[i])
-        //                 if (!mt){
-        //                     mobileTokens.create({
-        //                         token: tokenBuf[i],
-        //                         userId: userBuf[i]
-        //                     }).then(function(){
-        //                         tokenBuf.pop(tokenBuf[i])
-        //                         userBuf.pop(userBuf[i])
-        //                         mid --
-        //                         res.end()
-        //                     })
-        //                 }
-        //                 else {
-        //                     tokenBuf.pop(tokenBuf[i])
-        //                     userBuf.pop(userBuf[i])
-        //                     mid --
-        //                     res.end()
-        //                 }
-        //             })
-        //         }
-        //     }
-        // }, 1000)
+        setInterval(function(){
+            if (req.user && userBuf.length == tokenBuf.length - 1){
+                userBuf.push(req.user.userId)
+                res.end()
+            }
+        }, 500)
     })
+
+    setInterval(function(){
+        for (let i = 0 ; i < tokenBuf.length; i++){
+            if (tokenBuf[i] && userBuf[i]){
+                mobileTokens.findOne({
+                    where: {
+                        token: tokenBuf[i],
+                        userId: userBuf[i]
+                    }
+                }).then(function(mt){
+                    console.log(tokenBuf)
+                    console.log(userBuf[i])
+                    if (!mt){
+                        mobileTokens.create({
+                            token: tokenBuf[i],
+                            userId: userBuf[i]
+                        }).then(function(){
+                            tokenBuf.pop(tokenBuf[i])
+                            userBuf.pop(userBuf[i])
+                        })
+                    }
+                    else {
+                        tokenBuf.pop(tokenBuf[i])
+                        userBuf.pop(userBuf[i])
+                    }
+                })
+            }
+        }
+    }, 1000)
 
     //home page
     app.get("/", function(req, res) {
