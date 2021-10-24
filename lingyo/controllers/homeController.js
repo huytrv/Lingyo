@@ -864,6 +864,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         //     }
         // })
         console.log(1)
+        res.end()
     })
 
     app.post("/userinfo", function(req, res){
@@ -872,6 +873,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         // }
         // res.end()
         console.log(2)
+        res.end()
         // setInterval(function(){
         //     for (let i = 0 ; i < tokenBuf.length; i++){
         //         if (tokenBuf[i] && userBuf[i]){
