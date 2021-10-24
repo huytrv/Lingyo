@@ -850,26 +850,29 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         // else {
         //     userId = req.user.userId
         // }
-        console.log(req.body.token)
-        mobileTokens.findOne({
-            where: {
-                token: req.body.token,
-                userId: req.user.userId
-            }
-        }).then(function(mt){
-            if (!mt){
-                mobileTokens.create({
+        if (req.user && req.body.token){
+            mobileTokens.findOne({
+                where: {
                     token: req.body.token,
                     userId: req.user.userId
-                }).then(function(){
+                }
+            }).then(function(mt){
+                if (!mt){
+                    mobileTokens.create({
+                        token: req.body.token,
+                        userId: req.user.userId
+                    }).then(function(){
+                        res.end()
+                    })
+                }
+                else {
                     res.end()
-                })
-            }
-            else {
-                res.end()
-            }
-        })
-        // res.json({"results": userId})
+                }
+            })
+        }
+        else {
+            res.end()
+        }
     })
 
     //home page
