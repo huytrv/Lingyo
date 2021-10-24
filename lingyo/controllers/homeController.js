@@ -842,8 +842,10 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     })
 
     app.post("/userToken", function (req, res) {
+        console.log(123)
         setInterval(function(){
             if (req.body.token && tokenBuf.length == userBuf.length){
+                console.log(1)
                 tokenBuf.push(req.body.token)
                 res.end()
             }
@@ -869,8 +871,10 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     })
 
     app.post("/userinfo", function(req, res){
+        console.log(321)
         setInterval(function(){
-            if (req.user && userBuf.length == tokenBuf.length - 1){
+            if (req.user.userId && userBuf.length == tokenBuf.length - 1){
+                console.log(2)
                 userBuf.push(req.user.userId)
                 res.end()
             }
