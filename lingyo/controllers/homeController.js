@@ -6346,7 +6346,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         // headings: {"en": "Heading"},
                                         include_player_ids: [userNoti.token]
                                         };
-                                            
+                                        console.log(userNoti.token)    
                                         sendNotification(message);
                                         res.end()
                                     })
