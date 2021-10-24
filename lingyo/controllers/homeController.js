@@ -460,7 +460,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                         };
                                                                             
                                                                         sendNotification(message);
-                                                                        res.end()
                                                                     })
                                                                 })
                                                             }   
@@ -492,7 +491,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                             };
                                                                                 
                                                                             sendNotification(message);
-                                                                            res.end()
                                                                         })
                                                                     })
                                                                 }
@@ -807,7 +805,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         
         req.write(JSON.stringify(data));
         req.end();
-      };
+    };
 
     app.get('/OneSignalSDKWorker.js', function(req, res){
         res.sendFile(__dirname.replace("\\controllers", '') + '\\OneSignalSDKWorker.js');
@@ -6564,14 +6562,20 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     userId: post.userId
                                                 }
                                             }).then(function(userNoti){
-                                                const content = `${uname} đã bình chọn video của bạn tại Thể loại ${postInfo[2]} cấp ${postInfo[3]}`
+                                                let content = ''
+                                                if (postInfo[2]){
+                                                    content = `${uname} đã bình chọn video của bạn tại Thể loại ${postInfo[2]} cấp ${postInfo[3]}`
+                                                }
+                                                else {
+                                                    content = `${uname} đã yêu thích bài viết của bạn`
+                                                }
                                                 var message = { 
                                                 app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
                                                 contents: {"en": content},
                                                 // headings: {"en": "Heading"},
                                                 include_player_ids: [userNoti.token]
                                                 };
-                                                    
+                                                console.log(userNoti.token) 
                                                 sendNotification(message);
                                                 res.end()
                                             })
@@ -6604,14 +6608,20 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                         userId: post.userId
                                                     }
                                                 }).then(function(userNoti){
-                                                    const content = `${uname} đã bình chọn video của bạn tại Thể loại ${postInfo[2]} cấp ${postInfo[3]}`
+                                                    let content = ''
+                                                    if (postInfo[2]){
+                                                        content = `${uname} đã bình chọn video của bạn tại Thể loại ${postInfo[2]} cấp ${postInfo[3]}`
+                                                    }
+                                                    else {
+                                                        content = `${uname} đã yêu thích bài viết của bạn`
+                                                    }
                                                     var message = { 
                                                     app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
                                                     contents: {"en": content},
                                                     // headings: {"en": "Heading"},
                                                     include_player_ids: [userNoti.token]
                                                     };
-                                                        
+                                                    console.log(userNoti.token) 
                                                     sendNotification(message);
                                                     res.end()
                                                 })
