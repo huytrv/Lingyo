@@ -41,6 +41,7 @@ function pretreatment(){
         const data = {
             devideId: userId
         }
+        showAlert(userId)
         xhttp.open("POST", "/devide-info", true)
         xhttp.setRequestHeader('Content-Type', 'application/json')
         xhttp.send(JSON.stringify(data))
