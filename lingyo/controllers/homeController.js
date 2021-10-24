@@ -198,8 +198,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                 const content = `Bạn đã nhận được ${pr.postRank - (i+1)}LP theo mức tăng hạng video tham dự`
                                                                 var message = { 
                                                                 app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                contents: {"vi": content},
-                                                                // headings: {"vi": "Heading"},
+                                                                contents: {"en": content},
+                                                                // headings: {"en": "Heading"},
                                                                 include_player_ids: [userNoti.token]
                                                                 };
                                                                     
@@ -228,8 +228,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                 const content = `Bạn đã nhận được ${pr.postRank - (i+1)}LP theo mức tăng hạng video tham dự`
                                                                 var message = { 
                                                                 app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                contents: {"vi": content},
-                                                                // headings: {"vi": "Heading"},
+                                                                contents: {"en": content},
+                                                                // headings: {"en": "Heading"},
                                                                 include_player_ids: [userNoti.token]
                                                                 };
                                                                     
@@ -292,8 +292,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                     const content = `>Bạn đã nhận được ${pr.postRank - (i+1)}LP qua việc bình chọn video tham dự`
                                                                     var message = { 
                                                                     app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                    contents: {"vi": content},
-                                                                    // headings: {"vi": "Heading"},
+                                                                    contents: {"en": content},
+                                                                    // headings: {"en": "Heading"},
                                                                     include_player_ids: [userNoti.token]
                                                                     };
                                                                         
@@ -322,8 +322,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                     const content = `>Bạn đã nhận được ${pr.postRank - (i+1)}LP qua việc bình chọn video tham dự`
                                                                     var message = { 
                                                                     app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                    contents: {"vi": content},
-                                                                    // headings: {"vi": "Heading"},
+                                                                    contents: {"en": content},
+                                                                    // headings: {"en": "Heading"},
                                                                     include_player_ids: [userNoti.token]
                                                                     };
                                                                         
@@ -456,8 +456,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                         const content = `Rất tiếc, Video MS ${p[i].ms} của bạn không giành chiến thắng tại Vòng đấu vừa rồi, thứ hạng cao nhất là #${rank}`
                                                                         var message = { 
                                                                         app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                        contents: {"vi": content},
-                                                                        // headings: {"vi": "Heading"},
+                                                                        contents: {"en": content},
+                                                                        // headings: {"en": "Heading"},
                                                                         include_player_ids: [userNoti.token]
                                                                         };
                                                                             
@@ -487,8 +487,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                             const content = `Rất tiếc, Video MS ${p[i].ms} của bạn không giành chiến thắng tại Vòng đấu vừa rồi, thứ hạng cao nhất là #${rank}`
                                                                             var message = { 
                                                                             app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                            contents: {"vi": content},
-                                                                            // headings: {"vi": "Heading"},
+                                                                            contents: {"en": content},
+                                                                            // headings: {"en": "Heading"},
                                                                             include_player_ids: [userNoti.token]
                                                                             };
                                                                                 
@@ -660,8 +660,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                             const content = `Rất tiếc, Video MS ${p[i].ms} của bạn không giành chiến thắng tại Vòng đấu vừa rồi, thứ hạng cao nhất là #${rank}`
                                                             var message = { 
                                                             app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                            contents: {"vi": content},
-                                                            // headings: {"vi": "Heading"},
+                                                            contents: {"en": content},
+                                                            // headings: {"en": "Heading"},
                                                             include_player_ids: [userNoti.token]
                                                             };
                                                                 
@@ -691,8 +691,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                 const content = `Rất tiếc, Video MS ${p[i].ms} của bạn không giành chiến thắng tại Vòng đấu vừa rồi, thứ hạng cao nhất là #${rank}`
                                                                 var message = { 
                                                                 app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                contents: {"vi": content},
-                                                                // headings: {"vi": "Heading"},
+                                                                contents: {"en": content},
+                                                                // headings: {"en": "Heading"},
                                                                 include_player_ids: [userNoti.token]
                                                                 };
                                                                     
@@ -1176,8 +1176,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                             const content = `Bạn đã nhận được ${rw}LP qua việc đăng video tham dự Vòng đấu`
                                                             var message = { 
                                                             app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                            contents: {"vi": content},
-                                                            // headings: {"vi": "Heading"},
+                                                            contents: {"en": content},
+                                                            // headings: {"en": "Heading"},
                                                             include_player_ids: [userNoti.token]
                                                             };
                                                                 
@@ -1206,8 +1206,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                             const content = `Bạn đã nhận được ${rw}LP qua việc đăng video tham dự Vòng đấu`
                                                             var message = { 
                                                             app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                            contents: {"vi": content},
-                                                            // headings: {"vi": "Heading"},
+                                                            contents: {"en": content},
+                                                            // headings: {"en": "Heading"},
                                                             include_player_ids: [userNoti.token]
                                                             };
                                                                 
@@ -6155,8 +6155,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     const content = `${uname.username} đã theo dõi bạn.`
                                                     var message = { 
                                                     app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                    contents: {"vi": content},
-                                                    // headings: {"vi": "Heading"},
+                                                    contents: {"en": content},
+                                                    // headings: {"en": "Heading"},
                                                     include_player_ids: [userNoti.token]
                                                     };
                                                     console.log(userNoti.token)
@@ -6214,8 +6214,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     }
                                     var message = { 
                                     app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                    contents: {"vi": content},
-                                    // headings: {"vi": "Heading"},
+                                    contents: {"en": content},
+                                    // headings: {"en": "Heading"},
                                     include_player_ids: [userNoti.token]
                                     };
                                         
@@ -6268,8 +6268,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         }
                                         var message = { 
                                         app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                        contents: {"vi": content},
-                                        // headings: {"vi": "Heading"},
+                                        contents: {"en": content},
+                                        // headings: {"en": "Heading"},
                                         include_player_ids: [userNoti.token]
                                         };
                                             
@@ -6342,8 +6342,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         }
                                         var message = { 
                                         app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                        contents: {"vi": content},
-                                        // headings: {"vi": "Heading"},
+                                        contents: {"en": content},
+                                        // headings: {"en": "Heading"},
                                         include_player_ids: [userNoti.token]
                                         };
                                             
@@ -6422,8 +6422,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                         const content = `${uname.username} đã đăng một video mới vào Thể loại ${req.body.source[1]} cấp ${req.body.source[2]}`
                                                         var message = { 
                                                         app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                        contents: {"vi": content},
-                                                        // headings: {"vi": "Heading"},
+                                                        contents: {"en": content},
+                                                        // headings: {"en": "Heading"},
                                                         include_player_ids: [userNoti.token]
                                                         };
                                                             
@@ -6519,8 +6519,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                     const content = `${uname.username} đã có video đạt ${req.body.source[1]} lượt bình chọn`
                                                                     var message = { 
                                                                     app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                    contents: {"vi": content},
-                                                                    // headings: {"vi": "Heading"},
+                                                                    contents: {"en": content},
+                                                                    // headings: {"en": "Heading"},
                                                                     include_player_ids: [userNoti.token]
                                                                     };
                                                                         
@@ -6560,8 +6560,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                     const content = `${uname.username} đã có video đạt ${req.body.source[1]} lượt bình chọn`
                                                                     var message = { 
                                                                     app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                    contents: {"vi": content},
-                                                                    // headings: {"vi": "Heading"},
+                                                                    contents: {"en": content},
+                                                                    // headings: {"en": "Heading"},
                                                                     include_player_ids: [userNoti.token]
                                                                     };
                                                                         
@@ -6649,8 +6649,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                 }
                                                 var message = { 
                                                 app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                contents: {"vi": content},
-                                                // headings: {"vi": "Heading"},
+                                                contents: {"en": content},
+                                                // headings: {"en": "Heading"},
                                                 include_player_ids: [userNoti.token]
                                                 };
                                                 console.log(userNoti.token) 
@@ -6695,8 +6695,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     }
                                                     var message = { 
                                                     app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                    contents: {"vi": content},
-                                                    // headings: {"vi": "Heading"},
+                                                    contents: {"en": content},
+                                                    // headings: {"en": "Heading"},
                                                     include_player_ids: [userNoti.token]
                                                     };
                                                     console.log(userNoti.token) 
@@ -6799,8 +6799,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     const content = `${uname.username} đã bình luận về video của bạn tại Thể loại ${postInfo[2]} cấp ${postInfo[3]}`
                                                     var message = { 
                                                     app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                    contents: {"vi": content},
-                                                    // headings: {"vi": "Heading"},
+                                                    contents: {"en": content},
+                                                    // headings: {"en": "Heading"},
                                                     include_player_ids: [userNoti.token]
                                                     };
                                                         
@@ -6838,8 +6838,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     const content = `${uname.username} đã bình luận về video của bạn tại Thể loại ${postInfo[2]} cấp ${postInfo[3]}`
                                                     var message = { 
                                                     app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                    contents: {"vi": content},
-                                                    // headings: {"vi": "Heading"},
+                                                    contents: {"en": content},
+                                                    // headings: {"en": "Heading"},
                                                     include_player_ids: [userNoti.token]
                                                     };
                                                         
