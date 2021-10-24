@@ -46,6 +46,17 @@ function pretreatment(){
         xhttp.send(JSON.stringify(data))
     })
     })
+
+    let xhttp
+    if (window.XMLHttpRequest) {
+        xhttp = new XMLHttpRequest()
+    } else {
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP")
+    }
+    xhttp.open("POST", "/userinfo", true)
+    xhttp.setRequestHeader('Content-Type', 'application/json')
+    xhttp.send()
+
     if (document.querySelector(".header-inner-mobile") && document.querySelector(".header-inner-mobile").innerHTML != ''){
         headerInnerMobile = document.querySelector(".header").innerHTML
     }

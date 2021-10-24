@@ -840,45 +840,36 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
     })
 
-    app.use(cors())
+    app.post("/userToken", function (req1, res1) {
+        setInterval(function(){
+            app.post("userinfo", function(req2, res2){
+                if (req2.user){
+                    mobileTokens.findOne({
+                        where: {
+                            token: req1.body.token,
+                            userId: req2.user.userId
+                        }
+                    }).then(function(mt){
+                        console.log(req1.body.token)
+                        console.log(req2.user.userId)
 
-    app.get("/userToken", function (req, res, next) {
-        let userId = null
-        if (!req.user){
-            userId = null
-        }
-        else {
-            userId = req.user.userId
-        }
-        console.log(userId)
-        res.json({
-            "results": userId
-        })
-        // console.log(req.body.token)
-        // console.log(req)
-        // if (req.user && req.body.token){
-        //     mobileTokens.findOne({
-        //         where: {
-        //             token: req.body.token,
-        //             userId: req.user.userId
-        //         }
-        //     }).then(function(mt){
-        //         if (!mt){
-        //             mobileTokens.create({
-        //                 token: req.body.token,
-        //                 userId: req.user.userId
-        //             }).then(function(){
-        //                 res.end()
-        //             })
-        //         }
-        //         else {
-        //             res.end()
-        //         }
-        //     })
-        // }
-        // else {
-        //     res.end()
-        // }
+                        if (!mt){
+                            mobileTokens.create({
+                                token: req1.body.token,
+                                userId: req2.user.userId
+                            }).then(function(){
+                                res2.end()
+                                res1.end()
+                            })
+                        }
+                        else {
+                            res2.end()
+                            res1.end()
+                        }
+                    })
+                }
+            })
+        }, 1000)        
     })
 
     //home page
