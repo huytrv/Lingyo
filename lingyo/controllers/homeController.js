@@ -11,6 +11,7 @@ const FileType = require('file-type')
 const sendSMS = require("../contacts/sendSMS")
 const sendMail = require("../contacts/sendMail")
 const sendModerateMail = require("../contacts/sendModerateMail")
+const cors = require('cors')
 //azure
 const { BlobServiceClient } = require("@azure/storage-blob");
 
@@ -839,11 +840,31 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
     })
 
-    app.get("/userToken", function(req, res){
-        console.log(req.user.userId)
-        res.json({
-            "results": req.user.userId
+    app.use(cors())
+
+    app.post("/userToken", function (req, res, next) {
+        // let userId = null
+        // if (!req.user){
+        //     userId = null
+        // }
+        // else {
+        //     userId = req.user.userId
+        // }
+        console.log(req.body.token)
+        mobileTokens.findOne({
+            where: {
+                token: req.body.token,
+                userId: req.user.userId
+            }
+        }).then(function(mt){
+            if (!mt){
+                mobileTokens.create({
+                    token: req.body.token,
+                    userId: req.user.userId
+                })
+            }
         })
+        res.json({"results": userId})
     })
 
     //home page
