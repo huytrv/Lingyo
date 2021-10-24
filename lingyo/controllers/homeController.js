@@ -849,7 +849,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 tokenBuf.push(req.body.token)
                 res.end()
             }
-        }, 500)
+        }, 100)
 
         // mobileTokens.findOne({
         //     where: {
@@ -871,14 +871,15 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     })
 
     app.post("/userinfo", function(req, res){
-        console.log(321)
+        console.log(userBuf.length)
+        console.log(tokenBuf.length)
         setInterval(function(){
             if (req.user.userId && userBuf.length == tokenBuf.length - 1){
                 console.log(2)
                 userBuf.push(req.user.userId)
                 res.end()
             }
-        }, 500)
+        }, 100)
     })
 
     setInterval(function(){
