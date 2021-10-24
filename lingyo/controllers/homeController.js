@@ -851,7 +851,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         //     userId = req.user.userId
         // }
         console.log(req.body.token)
-        console.log(req.user)
+        console.log(req)
         if (req.user && req.body.token){
             mobileTokens.findOne({
                 where: {
