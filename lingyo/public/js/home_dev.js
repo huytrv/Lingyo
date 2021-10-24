@@ -32,10 +32,6 @@ function pretreatment(){
         appId: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
     })
     alert(123)
-    OneSignal.idsAvailable((idsAvailable) => { 
-        console.log(idsAvailable.playerId);
-        console.log(idsAvailable.pushToken);
-    });
     OneSignal.getUserId(function(userId) {
         let xhttp
         if (window.XMLHttpRequest) {
