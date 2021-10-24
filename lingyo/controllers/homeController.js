@@ -45,6 +45,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     const levelName = ["Sắt", "Đồng", "Bạc", "Vàng", "Bạch Kim", "Kim Cương", "Cao thủ", "Thách đấu"]
     const startTimeline = new Date("Mon Dec 28 2020 00:00:00")
     let round, currentTimeline, roundType, stageTime, TimeRange
+    let tokenBuf = [], userBuf = [], mid = 0
     //handleVoteChampion
     round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
     currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
@@ -840,37 +841,69 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
     })
 
-    app.post("/userToken", function (req1, res1) {
-            app.post("/userinfo", function(req2, res2){
-                console.log(567)
-                if (req2.user){
-                    mobileTokens.findOne({
-                        where: {
-                            token: req1.body.token,
-                            userId: req2.user.userId
-                        }
-                    }).then(function(mt){
-                        console.log(req1.body.token)
-                        console.log(req2.user.userId)
+    app.post("/userToken", function (req, res) {
+        // if (req.body.token && tokenBuf.length == mid){
+        //     tokenBuf.push(req.body.token)
+        //     mid ++
+        // }
+        // mobileTokens.findOne({
+        //     where: {
+        //         token: req.body.token
+        //     }
+        // }).then(function(t){
+        //     if (!t){
+        //         mobileTokens.create({
+        //             token: req.body.token,
+        //             userId: null
+        //         }).then(function(){
+        //             res.end()
+        //         })
+        //     }
+        //     else {
+        //         res.end()
+        //     }
+        // })
+        console.log(1)
+    })
 
-                        if (!mt){
-                            mobileTokens.create({
-                                token: req1.body.token,
-                                userId: req2.user.userId
-                            }).then(function(){
-                                res2.end()
-                                res1.end()
-                                clearInterval(itv)
-                            })
-                        }
-                        else {
-                            res2.end()
-                            res1.end()
-                            clearInterval(itv)
-                        }
-                    })
-                }
-            })
+    app.post("/userinfo", function(req, res){
+        // if (req.user && userBuf.length == mid){
+        //     userBuf.push(req.user.userId)
+        // }
+        // res.end()
+        console.log(2)
+        // setInterval(function(){
+        //     for (let i = 0 ; i < tokenBuf.length; i++){
+        //         if (tokenBuf[i] && userBuf[i]){
+        //             mobileTokens.findOne({
+        //                 where: {
+        //                     token: tokenBuf[i],
+        //                     userId: userBuf[i]
+        //                 }
+        //             }).then(function(mt){
+        //                 console.log(tokenBuf)
+        //                 console.log(userBuf[i])
+        //                 if (!mt){
+        //                     mobileTokens.create({
+        //                         token: tokenBuf[i],
+        //                         userId: userBuf[i]
+        //                     }).then(function(){
+        //                         tokenBuf.pop(tokenBuf[i])
+        //                         userBuf.pop(userBuf[i])
+        //                         mid --
+        //                         res.end()
+        //                     })
+        //                 }
+        //                 else {
+        //                     tokenBuf.pop(tokenBuf[i])
+        //                     userBuf.pop(userBuf[i])
+        //                     mid --
+        //                     res.end()
+        //                 }
+        //             })
+        //         }
+        //     }
+        // }, 1000)
     })
 
     //home page
