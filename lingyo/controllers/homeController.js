@@ -861,10 +861,15 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 mobileTokens.create({
                     token: req.body.token,
                     userId: req.user.userId
+                }).then(function(){
+                    res.end()
                 })
             }
+            else {
+                res.end()
+            }
         })
-        res.json({"results": userId})
+        // res.json({"results": userId})
     })
 
     //home page
