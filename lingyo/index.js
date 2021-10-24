@@ -417,6 +417,7 @@ const userAuth = mysqlDB.define("userauth", {
 
 const mobileTokens = mysqlDB.define("mobiletokens", {
     token: sequelize.STRING,
+    userId: sequelize.BIGINT,
 })
 
 users.hasOne(userProfile, {foreignKey: 'userId'});
@@ -443,8 +444,6 @@ users.hasMany(cardNumber, {foreignKey: 'userId'});
 cardNumber.belongsTo(users, {foreignKey: 'userId'})
 users.hasMany(userAuth, {foreignKey: 'userId'});
 userAuth.belongsTo(users, {foreignKey: 'userId'})
-users.hasMany(mobileTokens, {foreignKey: 'userId'});
-mobileTokens.belongsTo(users, {foreignKey: 'userId'})
 
 mysqlDB.sync()
 

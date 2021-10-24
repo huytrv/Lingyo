@@ -886,7 +886,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         userId: userBuf[i]
                     }
                 }).then(function(mt){
-                    console.log(tokenBuf)
+                    console.log(tokenBuf[i])
                     console.log(userBuf[i])
                     if (!mt){
                         mobileTokens.create({
