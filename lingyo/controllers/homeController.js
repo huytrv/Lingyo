@@ -879,6 +879,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
 
     setInterval(function(){
         for (let i = 0 ; i < tokenBuf.length; i++){
+            console.log(tokenBuf[i])
+            console.log(userBuf[i])
             if (tokenBuf[i] && userBuf[i]){
                 mobileTokens.findOne({
                     where: {
