@@ -190,20 +190,23 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                             time: Date.now(),
                                                             userId: postList[i].userId
                                                         }).then(function(){
-                                                            mobileTokens.findOne({
+                                                            mobileTokens.findAll({
                                                                 where: {
                                                                     userId: postList[i].userId
                                                                 }
                                                             }).then(function(userNoti){
-                                                                const content = `Bạn đã nhận được ${pr.postRank - (i+1)}LP theo mức tăng hạng video tham dự`
-                                                                var message = { 
-                                                                app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                contents: {"en": content},
-                                                                // headings: {"en": "Heading"},
-                                                                include_player_ids: [userNoti.token]
-                                                                };
-                                                                    
-                                                                sendNotification(message);
+                                                                for (let k = 0; k < userNoti.length; k++){
+                                                                    const content = `Bạn đã nhận được ${pr.postRank - (i+1)}LP theo mức tăng hạng video tham dự`
+                                                                    var message = { 
+                                                                    app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                                    contents: {"en": content},
+                                                                    // headings: {"en": "Heading"},
+                                                                    include_player_ids: [userNoti[k].token]
+                                                                    };
+                                                                        
+                                                                    sendNotification(message);
+                                                                }
+                                                                
                                                             })
                                                         })
                                                     }   
@@ -220,20 +223,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                 userId: postList[i].userId
                                                             }
                                                         }).then(function(){
-                                                            mobileTokens.findOne({
+                                                            mobileTokens.findAll({
                                                                 where: {
                                                                     userId: postList[i].userId
                                                                 }
                                                             }).then(function(userNoti){
-                                                                const content = `Bạn đã nhận được ${pr.postRank - (i+1)}LP theo mức tăng hạng video tham dự`
-                                                                var message = { 
-                                                                app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                contents: {"en": content},
-                                                                // headings: {"en": "Heading"},
-                                                                include_player_ids: [userNoti.token]
-                                                                };
-                                                                    
-                                                                sendNotification(message);
+                                                                for (let k = 0; k < userNoti.length; k++){
+                                                                    const content = `Bạn đã nhận được ${pr.postRank - (i+1)}LP theo mức tăng hạng video tham dự`
+                                                                    var message = { 
+                                                                    app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                                    contents: {"en": content},
+                                                                    // headings: {"en": "Heading"},
+                                                                    include_player_ids: [userNoti[i].token]
+                                                                    };
+                                                                        
+                                                                    sendNotification(message);
+                                                                }
                                                             })
                                                         })
                                                     }       
@@ -284,20 +289,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                 time: Date.now(),
                                                                 userId: likeList[j].userId
                                                             }).then(function(){
-                                                                mobileTokens.findOne({
+                                                                mobileTokens.findAll({
                                                                     where: {
                                                                         userId: postList[i].userId
                                                                     }
                                                                 }).then(function(userNoti){
-                                                                    const content = `>Bạn đã nhận được ${pr.postRank - (i+1)}LP qua việc bình chọn video tham dự`
-                                                                    var message = { 
-                                                                    app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                    contents: {"en": content},
-                                                                    // headings: {"en": "Heading"},
-                                                                    include_player_ids: [userNoti.token]
-                                                                    };
-                                                                        
-                                                                    sendNotification(message);
+                                                                    for (let k = 0; k < userNoti.length; k++){
+                                                                        const content = `>Bạn đã nhận được ${pr.postRank - (i+1)}LP qua việc bình chọn video tham dự`
+                                                                        var message = { 
+                                                                        app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                                        contents: {"en": content},
+                                                                        // headings: {"en": "Heading"},
+                                                                        include_player_ids: [userNoti[k].token]
+                                                                        };
+                                                                            
+                                                                        sendNotification(message);
+                                                                    }
                                                                 })
                                                             })
                                                         }   
@@ -314,20 +321,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                     userId: likeList[j].userId
                                                                 }
                                                             }).then(function(){
-                                                                mobileTokens.findOne({
+                                                                mobileTokens.findAll({
                                                                     where: {
                                                                         userId: postList[i].userId
                                                                     }
                                                                 }).then(function(userNoti){
-                                                                    const content = `>Bạn đã nhận được ${pr.postRank - (i+1)}LP qua việc bình chọn video tham dự`
-                                                                    var message = { 
-                                                                    app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                    contents: {"en": content},
-                                                                    // headings: {"en": "Heading"},
-                                                                    include_player_ids: [userNoti.token]
-                                                                    };
-                                                                        
-                                                                    sendNotification(message);
+                                                                    for (let k = 0; k < userNoti.length; k++){
+                                                                        const content = `>Bạn đã nhận được ${pr.postRank - (i+1)}LP qua việc bình chọn video tham dự`
+                                                                        var message = { 
+                                                                        app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                                        contents: {"en": content},
+                                                                        // headings: {"en": "Heading"},
+                                                                        include_player_ids: [userNoti[k].token]
+                                                                        };
+                                                                            
+                                                                        sendNotification(message);
+                                                                    }
                                                                 })
                                                             })
                                                         }   
@@ -448,20 +457,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                     time: Date.now(),
                                                                     userId: p[i].userId
                                                                 }).then(function(){
-                                                                    mobileTokens.findOne({
+                                                                    mobileTokens.findAll({
                                                                         where: {
                                                                             userId: p[i].userId
                                                                         }
                                                                     }).then(function(userNoti){
-                                                                        const content = `Rất tiếc, Video MS ${p[i].ms} của bạn không giành chiến thắng tại Vòng đấu vừa rồi, thứ hạng cao nhất là #${rank}`
-                                                                        var message = { 
-                                                                        app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                        contents: {"en": content},
-                                                                        // headings: {"en": "Heading"},
-                                                                        include_player_ids: [userNoti.token]
-                                                                        };
-                                                                            
-                                                                        sendNotification(message);
+                                                                        for (let k = 0; k < userNoti.length; k++){
+                                                                            const content = `Rất tiếc, Video MS ${p[i].ms} của bạn không giành chiến thắng tại Vòng đấu vừa rồi, thứ hạng cao nhất là #${rank}`
+                                                                            var message = { 
+                                                                            app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                                            contents: {"en": content},
+                                                                            // headings: {"en": "Heading"},
+                                                                            include_player_ids: [userNoti[k].token]
+                                                                            };
+                                                                                
+                                                                            sendNotification(message);
+                                                                        }
                                                                     })
                                                                 })
                                                             }   
@@ -479,20 +490,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                             userId: p[i].userId
                                                                         }
                                                                     }).then(function(){
-                                                                        mobileTokens.findOne({
+                                                                        mobileTokens.findAll({
                                                                             where: {
                                                                                 userId: p[i].userId
                                                                             }
                                                                         }).then(function(userNoti){
-                                                                            const content = `Rất tiếc, Video MS ${p[i].ms} của bạn không giành chiến thắng tại Vòng đấu vừa rồi, thứ hạng cao nhất là #${rank}`
-                                                                            var message = { 
-                                                                            app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                            contents: {"en": content},
-                                                                            // headings: {"en": "Heading"},
-                                                                            include_player_ids: [userNoti.token]
-                                                                            };
-                                                                                
-                                                                            sendNotification(message);
+                                                                            for (let k = 0; k < userNoti.length; k++){
+                                                                                const content = `Rất tiếc, Video MS ${p[i].ms} của bạn không giành chiến thắng tại Vòng đấu vừa rồi, thứ hạng cao nhất là #${rank}`
+                                                                                var message = { 
+                                                                                app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                                                contents: {"en": content},
+                                                                                // headings: {"en": "Heading"},
+                                                                                include_player_ids: [userNoti[k].token]
+                                                                                };
+                                                                                    
+                                                                                sendNotification(message);
+                                                                            }
                                                                         })
                                                                     })
                                                                 }
@@ -652,20 +665,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                         time: Date.now(),
                                                         userId: p[i].userId
                                                     }).then(function(){
-                                                        mobileTokens.findOne({
+                                                        mobileTokens.findAll({
                                                             where: {
                                                                 userId: p[i].userId
                                                             }
                                                         }).then(function(userNoti){
-                                                            const content = `Rất tiếc, Video MS ${p[i].ms} của bạn không giành chiến thắng tại Vòng đấu vừa rồi, thứ hạng cao nhất là #${rank}`
-                                                            var message = { 
-                                                            app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                            contents: {"en": content},
-                                                            // headings: {"en": "Heading"},
-                                                            include_player_ids: [userNoti.token]
-                                                            };
-                                                                
-                                                            sendNotification(message);
+                                                            for (let k = 0; k < userNoti.length; k++){
+                                                                const content = `Rất tiếc, Video MS ${p[i].ms} của bạn không giành chiến thắng tại Vòng đấu vừa rồi, thứ hạng cao nhất là #${rank}`
+                                                                var message = { 
+                                                                app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                                contents: {"en": content},
+                                                                // headings: {"en": "Heading"},
+                                                                include_player_ids: [userNoti[k].token]
+                                                                };
+                                                                    
+                                                                sendNotification(message);
+                                                            }
                                                         })
                                                     })
                                                 }   
@@ -683,20 +698,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                 userId: p[i].userId
                                                             }
                                                         }).then(function(){
-                                                            mobileTokens.findOne({
+                                                            mobileTokens.findAll({
                                                                 where: {
                                                                     userId: p[i].userId
                                                                 }
                                                             }).then(function(userNoti){
-                                                                const content = `Rất tiếc, Video MS ${p[i].ms} của bạn không giành chiến thắng tại Vòng đấu vừa rồi, thứ hạng cao nhất là #${rank}`
-                                                                var message = { 
-                                                                app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                contents: {"en": content},
-                                                                // headings: {"en": "Heading"},
-                                                                include_player_ids: [userNoti.token]
-                                                                };
-                                                                    
-                                                                sendNotification(message);
+                                                                for (let k = 0; k < userNoti.length; k++){
+                                                                    const content = `Rất tiếc, Video MS ${p[i].ms} của bạn không giành chiến thắng tại Vòng đấu vừa rồi, thứ hạng cao nhất là #${rank}`
+                                                                    var message = { 
+                                                                    app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                                    contents: {"en": content},
+                                                                    // headings: {"en": "Heading"},
+                                                                    include_player_ids: [userNoti[k].token]
+                                                                    };
+                                                                        
+                                                                    sendNotification(message);
+                                                                }
                                                             })
                                                         })
                                                     }
@@ -1168,20 +1185,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                         time: Date.now(),
                                                         userId: p.userId
                                                     }).then(function(){
-                                                        mobileTokens.findOne({
+                                                        mobileTokens.findAll({
                                                             where: {
                                                                 userId: p[i].userId
                                                             }
                                                         }).then(function(userNoti){
-                                                            const content = `Bạn đã nhận được ${rw}LP qua việc đăng video tham dự Vòng đấu`
-                                                            var message = { 
-                                                            app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                            contents: {"en": content},
-                                                            // headings: {"en": "Heading"},
-                                                            include_player_ids: [userNoti.token]
-                                                            };
-                                                                
-                                                            sendNotification(message);
+                                                            for (let k = 0; k < userNoti.length; k++){
+                                                                const content = `Bạn đã nhận được ${rw}LP qua việc đăng video tham dự Vòng đấu`
+                                                                var message = { 
+                                                                app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                                contents: {"en": content},
+                                                                // headings: {"en": "Heading"},
+                                                                include_player_ids: [userNoti[k].token]
+                                                                };
+                                                                    
+                                                                sendNotification(message);
+                                                            }
                                                         })
                                                     })
                                                 }   
@@ -1198,20 +1217,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                             userId: p.userId
                                                         }
                                                     }).then(function(){
-                                                        mobileTokens.findOne({
+                                                        mobileTokens.findAll({
                                                             where: {
                                                                 userId: p[i].userId
                                                             }
                                                         }).then(function(userNoti){
-                                                            const content = `Bạn đã nhận được ${rw}LP qua việc đăng video tham dự Vòng đấu`
-                                                            var message = { 
-                                                            app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                            contents: {"en": content},
-                                                            // headings: {"en": "Heading"},
-                                                            include_player_ids: [userNoti.token]
-                                                            };
-                                                                
-                                                            sendNotification(message);
+                                                            for (let k = 0; k < userNoti.length; k++){
+                                                                const content = `Bạn đã nhận được ${rw}LP qua việc đăng video tham dự Vòng đấu`
+                                                                var message = { 
+                                                                app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                                contents: {"en": content},
+                                                                // headings: {"en": "Heading"},
+                                                                include_player_ids: [userNoti[k].token]
+                                                                };
+                                                                    
+                                                                sendNotification(message);
+                                                            }
                                                         })
                                                     })
                                                 }   
@@ -6147,21 +6168,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     userId: req.user.userId
                                                 }
                                             }).then(function(uname){
-                                                mobileTokens.findOne({
+                                                mobileTokens.findAll({
                                                     where: {
                                                         userId: user.userId
                                                     }
                                                 }).then(function(userNoti){
-                                                    const content = `${uname.username} đã theo dõi bạn.`
-                                                    var message = { 
-                                                    app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                    contents: {"en": content},
-                                                    // headings: {"en": "Heading"},
-                                                    include_player_ids: [userNoti.token]
-                                                    };
-                                                    console.log(userNoti.token)
-                                                    sendNotification(message);
-                                                    res.end()
+                                                    for (let k = 0; k < userNoti.length; k++){
+                                                        const content = `${uname.username} đã theo dõi bạn.`
+                                                        var message = { 
+                                                        app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                        contents: {"en": content},
+                                                        // headings: {"en": "Heading"},
+                                                        include_player_ids: [userNoti[k].token]
+                                                        };
+                                                        sendNotification(message);
+                                                        res.end()
+                                                    }
                                                 })
                                             })
                                         })
@@ -6200,26 +6222,28 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 time: Date.now(),
                                 userId: req.body.source[0]
                             }).then(function(){
-                                mobileTokens.findOne({
+                                mobileTokens.findAll({
                                     where: {
                                         userId: req.body.source[0]
                                     }
                                 }).then(function(userNoti){
-                                    let content = ''
-                                    if (req.body.source[1] == "true" || req.body.source[1] == true){
-                                        content = "Bạn đã xác thực tài khoản thành công! Giờ đây bạn đã có thể đăng video tham gia bình chọn trên Lingyo, cảm ơn bạn đã tham gia xác thực tài khoản!"
+                                    for (let k = 0; k < userNoti.length; k++){
+                                        let content = ''
+                                        if (req.body.source[1] == "true" || req.body.source[1] == true){
+                                            content = "Bạn đã xác thực tài khoản thành công! Giờ đây bạn đã có thể đăng video tham gia bình chọn trên Lingyo, cảm ơn bạn đã tham gia xác thực tài khoản!"
+                                        }
+                                        else {
+                                            content = "Xác thực tài khoản không thành công! Hãy thử lại và đảm bảo thông tin bạn gửi đi là chính xác và trùng khớp."
+                                        }
+                                        var message = { 
+                                        app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                        contents: {"en": content},
+                                        // headings: {"en": "Heading"},
+                                        include_player_ids: [userNoti[k].token]
+                                        };
+                                            
+                                        sendNotification(message);
                                     }
-                                    else {
-                                        content = "Xác thực tài khoản không thành công! Hãy thử lại và đảm bảo thông tin bạn gửi đi là chính xác và trùng khớp."
-                                    }
-                                    var message = { 
-                                    app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                    contents: {"en": content},
-                                    // headings: {"en": "Heading"},
-                                    include_player_ids: [userNoti.token]
-                                    };
-                                        
-                                    sendNotification(message);
                                     res.end()
                                 })
                             })
@@ -6254,26 +6278,28 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         userId: req.user.userId
                                     }
                                 }).then(function(uname){
-                                    mobileTokens.findOne({
+                                    mobileTokens.findAll({
                                         where: {
                                             userId: p.userId
                                         }
                                     }).then(function(userNoti){
-                                        let content = ''
-                                        if (req.body.source[1]){
-                                            content = `Bạn đã tạo một video tham dự mới thành công tại Thể loại ${req.body.source[1]} cấp ${req.body.source[2]} - MS: ${req.body.source[3]}`
+                                        for (let k = 0; k < userNoti.length; k++){
+                                            let content = ''
+                                            if (req.body.source[1]){
+                                                content = `Bạn đã tạo một video tham dự mới thành công tại Thể loại ${req.body.source[1]} cấp ${req.body.source[2]} - MS: ${req.body.source[3]}`
+                                            }
+                                            else {
+                                                content = 'Bạn đã tạo một bài viết mới thành công trong Cộng đồng'
+                                            }
+                                            var message = { 
+                                            app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                            contents: {"en": content},
+                                            // headings: {"en": "Heading"},
+                                            include_player_ids: [userNoti[k].token]
+                                            };
+                                                
+                                            sendNotification(message);
                                         }
-                                        else {
-                                            content = 'Bạn đã tạo một bài viết mới thành công trong Cộng đồng'
-                                        }
-                                        var message = { 
-                                        app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                        contents: {"en": content},
-                                        // headings: {"en": "Heading"},
-                                        include_player_ids: [userNoti.token]
-                                        };
-                                            
-                                        sendNotification(message);
                                     })
                                 })
                                 notifications.findAll({
@@ -6328,26 +6354,28 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         userId: req.user.userId
                                     }
                                 }).then(function(uname){
-                                    mobileTokens.findOne({
+                                    mobileTokens.findAll({
                                         where: {
                                             userId: p.userId
                                         }
                                     }).then(function(userNoti){
-                                        let content = ''
-                                        if (req.body.source[1]){
-                                            content = `Bạn đã tạo một video tham dự mới không thành công tại Thể loại ${req.body.source[1]} cấp ${req.body.source[2]}`
+                                        for (let k = 0; k < userNoti.length; k++){
+                                            let content = ''
+                                            if (req.body.source[1]){
+                                                content = `Bạn đã tạo một video tham dự mới không thành công tại Thể loại ${req.body.source[1]} cấp ${req.body.source[2]}`
+                                            }
+                                            else {
+                                                content = 'Tạo bài viết mới không thành công trong Cộng đồng'
+                                            }
+                                            var message = { 
+                                            app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                            contents: {"en": content},
+                                            // headings: {"en": "Heading"},
+                                            include_player_ids: [userNoti[k].token]
+                                            };
+                                            console.log(userNoti.token)    
+                                            sendNotification(message);
                                         }
-                                        else {
-                                            content = 'Tạo bài viết mới không thành công trong Cộng đồng'
-                                        }
-                                        var message = { 
-                                        app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                        contents: {"en": content},
-                                        // headings: {"en": "Heading"},
-                                        include_player_ids: [userNoti.token]
-                                        };
-                                        console.log(userNoti.token)    
-                                        sendNotification(message);
                                         res.end()
                                     })
                                 })
@@ -6414,20 +6442,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                         userId: req.user.userId
                                                     }
                                                 }).then(function(uname){
-                                                    mobileTokens.findOne({
+                                                    mobileTokens.findAll({
                                                         where: {
                                                             userId: p.userId
                                                         }
                                                     }).then(function(userNoti){
-                                                        const content = `${uname.username} đã đăng một video mới vào Thể loại ${req.body.source[1]} cấp ${req.body.source[2]}`
-                                                        var message = { 
-                                                        app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                        contents: {"en": content},
-                                                        // headings: {"en": "Heading"},
-                                                        include_player_ids: [userNoti.token]
-                                                        };
-                                                            
-                                                        sendNotification(message);
+                                                        for (let k = 0; k < userNoti.length; k++){
+                                                            const content = `${uname.username} đã đăng một video mới vào Thể loại ${req.body.source[1]} cấp ${req.body.source[2]}`
+                                                            var message = { 
+                                                            app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                            contents: {"en": content},
+                                                            // headings: {"en": "Heading"},
+                                                            include_player_ids: [userNoti[k].token]
+                                                            };
+                                                                
+                                                            sendNotification(message);
+                                                        }
                                                         count ++
                                                         if (count == u.length){
                                                             res.end()
@@ -6511,20 +6541,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                     userId: u.userId
                                                                 }
                                                             }).then(function(uname){
-                                                                mobileTokens.findOne({
+                                                                mobileTokens.findAll({
                                                                     where: {
                                                                         userId: p.userId
                                                                     }
                                                                 }).then(function(userNoti){
-                                                                    const content = `${uname.username} đã có video đạt ${req.body.source[1]} lượt bình chọn`
-                                                                    var message = { 
-                                                                    app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                    contents: {"en": content},
-                                                                    // headings: {"en": "Heading"},
-                                                                    include_player_ids: [userNoti.token]
-                                                                    };
-                                                                        
-                                                                    sendNotification(message);
+                                                                    for (let k = 0; k < userNoti.length; k++){
+                                                                        const content = `${uname.username} đã có video đạt ${req.body.source[1]} lượt bình chọn`
+                                                                        var message = { 
+                                                                        app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                                        contents: {"en": content},
+                                                                        // headings: {"en": "Heading"},
+                                                                        include_player_ids: [userNoti[k].token]
+                                                                        };
+                                                                            
+                                                                        sendNotification(message);
+                                                                    }
                                                                     count ++
                                                                     if (count == profiles.length){
                                                                         res.end()
@@ -6552,20 +6584,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                     userId: u.userId
                                                                 }
                                                             }).then(function(uname){
-                                                                mobileTokens.findOne({
+                                                                mobileTokens.findAll({
                                                                     where: {
                                                                         userId: profiles[i].userId
                                                                     }
                                                                 }).then(function(userNoti){
-                                                                    const content = `${uname.username} đã có video đạt ${req.body.source[1]} lượt bình chọn`
-                                                                    var message = { 
-                                                                    app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                    contents: {"en": content},
-                                                                    // headings: {"en": "Heading"},
-                                                                    include_player_ids: [userNoti.token]
-                                                                    };
-                                                                        
-                                                                    sendNotification(message);
+                                                                    for (let k = 0; k < userNoti.length; k++){
+                                                                        const content = `${uname.username} đã có video đạt ${req.body.source[1]} lượt bình chọn`
+                                                                        var message = { 
+                                                                        app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                                        contents: {"en": content},
+                                                                        // headings: {"en": "Heading"},
+                                                                        include_player_ids: [userNoti[k].token]
+                                                                        };
+                                                                            
+                                                                        sendNotification(message);
+                                                                    }
                                                                     count ++
                                                                     if (count == profiles.length){
                                                                         res.end()
@@ -6635,26 +6669,27 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                 userId: req.user.userId
                                             }
                                         }).then(function(uname){
-                                            mobileTokens.findOne({
+                                            mobileTokens.findAll({
                                                 where: {
                                                     userId: post.userId
                                                 }
                                             }).then(function(userNoti){
-                                                let content = ''
-                                                if (postInfo[2]){
-                                                    content = `${uname.username} đã bình chọn video của bạn tại Thể loại ${postInfo[2]} cấp ${postInfo[3]}`
+                                                for (let k = 0; k < userNoti.length; k++){
+                                                    let content = ''
+                                                    if (postInfo[2]){
+                                                        content = `${uname.username} đã bình chọn video của bạn tại Thể loại ${postInfo[2]} cấp ${postInfo[3]}`
+                                                    }
+                                                    else {
+                                                        content = `${uname.username} đã yêu thích bài viết của bạn`
+                                                    }
+                                                    var message = { 
+                                                    app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                    contents: {"en": content},
+                                                    // headings: {"en": "Heading"},
+                                                    include_player_ids: [userNoti[k].token]
+                                                    };
+                                                    sendNotification(message);
                                                 }
-                                                else {
-                                                    content = `${uname.username} đã yêu thích bài viết của bạn`
-                                                }
-                                                var message = { 
-                                                app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                contents: {"en": content},
-                                                // headings: {"en": "Heading"},
-                                                include_player_ids: [userNoti.token]
-                                                };
-                                                console.log(userNoti.token) 
-                                                sendNotification(message);
                                                 res.end()
                                             })
                                         })
@@ -6681,26 +6716,27 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     userId: req.user.userId
                                                 }
                                             }).then(function(uname){
-                                                mobileTokens.findOne({
+                                                mobileTokens.findAll({
                                                     where: {
                                                         userId: post.userId
                                                     }
                                                 }).then(function(userNoti){
-                                                    let content = ''
-                                                    if (postInfo[2]){
-                                                        content = `${uname.username} đã bình chọn video của bạn tại Thể loại ${postInfo[2]} cấp ${postInfo[3]}`
+                                                    for (let k = 0; k < userNoti.length; k++){
+                                                        let content = ''
+                                                        if (postInfo[2]){
+                                                            content = `${uname.username} đã bình chọn video của bạn tại Thể loại ${postInfo[2]} cấp ${postInfo[3]}`
+                                                        }
+                                                        else {
+                                                            content = `${uname.username} đã yêu thích bài viết của bạn`
+                                                        }
+                                                        var message = { 
+                                                        app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                        contents: {"en": content},
+                                                        // headings: {"en": "Heading"},
+                                                        include_player_ids: [userNoti[k].token]
+                                                        };
+                                                        sendNotification(message);
                                                     }
-                                                    else {
-                                                        content = `${uname.username} đã yêu thích bài viết của bạn`
-                                                    }
-                                                    var message = { 
-                                                    app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                    contents: {"en": content},
-                                                    // headings: {"en": "Heading"},
-                                                    include_player_ids: [userNoti.token]
-                                                    };
-                                                    console.log(userNoti.token) 
-                                                    sendNotification(message);
                                                     res.end()
                                                 })
                                             })
@@ -6791,20 +6827,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     userId: req.user.userId
                                                 }
                                             }).then(function(uname){
-                                                mobileTokens.findOne({
+                                                mobileTokens.findAll({
                                                     where: {
                                                         userId: post.userId
                                                     }
                                                 }).then(function(userNoti){
-                                                    const content = `${uname.username} đã bình luận về video của bạn tại Thể loại ${postInfo[2]} cấp ${postInfo[3]}`
-                                                    var message = { 
-                                                    app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                    contents: {"en": content},
-                                                    // headings: {"en": "Heading"},
-                                                    include_player_ids: [userNoti.token]
-                                                    };
-                                                        
-                                                    sendNotification(message);
+                                                    for (let k = 0; k < userNoti.length; k++){
+                                                        const content = `${uname.username} đã bình luận về video của bạn tại Thể loại ${postInfo[2]} cấp ${postInfo[3]}`
+                                                        var message = { 
+                                                        app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                        contents: {"en": content},
+                                                        // headings: {"en": "Heading"},
+                                                        include_player_ids: [userNoti[k].token]
+                                                        };
+                                                            
+                                                        sendNotification(message);
+                                                    }
                                                     res.end()
                                                 })
                                             })
@@ -6830,20 +6868,22 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                     userId: req.user.userId
                                                 }
                                             }).then(function(uname){
-                                                mobileTokens.findOne({
+                                                mobileTokens.findAll({
                                                     where: {
                                                         userId: post.userId
                                                     }
                                                 }).then(function(userNoti){
-                                                    const content = `${uname.username} đã bình luận về video của bạn tại Thể loại ${postInfo[2]} cấp ${postInfo[3]}`
-                                                    var message = { 
-                                                    app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                    contents: {"en": content},
-                                                    // headings: {"en": "Heading"},
-                                                    include_player_ids: [userNoti.token]
-                                                    };
-                                                        
-                                                    sendNotification(message);
+                                                    for (let k = 0; k < userNoti.length; k++){
+                                                        const content = `${uname.username} đã bình luận về video của bạn tại Thể loại ${postInfo[2]} cấp ${postInfo[3]}`
+                                                        var message = { 
+                                                        app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                        contents: {"en": content},
+                                                        // headings: {"en": "Heading"},
+                                                        include_player_ids: [userNoti[k].token]
+                                                        };
+                                                            
+                                                        sendNotification(message);
+                                                    }
                                                     res.end()
                                                 })
                                             })
