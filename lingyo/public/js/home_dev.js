@@ -221,7 +221,6 @@ function pretreatment(){
                 searchDisplayedList.push(sItem[i].getAttribute("data-post-df"))
             }
         }
-        console.log(searchDisplayedList)
     }
 
     if (document.querySelector(".copy-link")){

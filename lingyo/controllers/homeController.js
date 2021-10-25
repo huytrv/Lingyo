@@ -812,14 +812,10 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         var https = require('https');
         var req = https.request(options, function(res) {  
           res.on('data', function(data) {
-            console.log("Response:");
-            console.log(JSON.parse(data));
           });
         });
         
         req.on('error', function(e) {
-          console.log("ERROR:");
-          console.log(e);
         });
         
         req.write(JSON.stringify(data));
@@ -861,41 +857,18 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     app.use(cors())
 
     app.post("/userToken", function (req, res) {
-        console.log(123)
         const itv = setInterval(function(){
             if (req.body.token && tokenBuf.length == userBuf.length){
-                console.log(1)
                 tokenBuf.push(req.body.token)
                 clearInterval(itv)
                 res.end()
             }
         }, 100)
-
-        // mobileTokens.findOne({
-        //     where: {
-        //         token: req.body.token
-        //     }
-        // }).then(function(t){
-        //     if (!t){
-        //         mobileTokens.create({
-        //             token: req.body.token,
-        //             userId: null
-        //         }).then(function(){
-        //             res.end()
-        //         })
-        //     }
-        //     else {
-        //         res.end()
-        //     }
-        // })
     })
 
     app.post("/userinfo", function(req, res){
-        console.log(userBuf.length)
-        console.log(tokenBuf.length)
         const itv = setInterval(function(){
             if (req.user.userId && userBuf.length == tokenBuf.length - 1){
-                console.log(2)
                 userBuf.push(req.user.userId)
                 clearInterval(itv)
                 res.end()
@@ -905,8 +878,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
 
     setInterval(function(){
         for (let i = 0 ; i < tokenBuf.length; i++){
-            console.log(tokenBuf[i])
-            console.log(userBuf[i])
             if (tokenBuf[i] && userBuf[i]){
                 mobileTokens.findOne({
                     where: {
@@ -914,8 +885,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         userId: userBuf[i]
                     }
                 }).then(function(mt){
-                    console.log(tokenBuf[i])
-                    console.log(userBuf[i])
                     if (!mt){
                         mobileTokens.create({
                             token: tokenBuf[i],
@@ -6373,7 +6342,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             // headings: {"en": "Heading"},
                                             include_player_ids: [userNoti[k].token]
                                             };
-                                            console.log(userNoti.token)    
                                             sendNotification(message);
                                         }
                                         res.end()
