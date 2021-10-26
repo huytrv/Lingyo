@@ -505,28 +505,28 @@ const server = https.createServer(op, app).listen(443, function(){
     })
 });
 
-// var Service = require('node-windows').Service;
+var Service = require('node-windows').Service;
 
-// // Create a new service object
-// var svc = new Service({
-//   name:'Lingyo Express',
-//   description: 'The nodejs web server.',
-//   script: 'C:\\Users\\Tran Huy\\Documents\\GitHub\\Lingyo\\lingyo\\index.js',
-//   nodeOptions: [
-//     '--harmony',
-//     '--max_old_space_size=4096'
-//   ]
-//   //, workingDirectory: '...'
-//   //, allowServiceLogon: true
-// });
+// Create a new service object
+var svc = new Service({
+  name:'Lingyo Express',
+  description: 'The nodejs web server.',
+  script: 'C:\\Users\\Tran Huy\\Documents\\Lingyo\\lingyo\\index.js',
+  nodeOptions: [
+    '--harmony',
+    '--max_old_space_size=4096'
+  ]
+  //, workingDirectory: '...'
+  //, allowServiceLogon: true
+});
 
-// // Listen for the "install" event, which indicates the
-// // process is available as a service.
-// svc.on('install',function(){
-//   svc.start();
-// });
+// Listen for the "install" event, which indicates the
+// process is available as a service.
+svc.on('install',function(){
+  svc.start();
+});
 
-// svc.install();
+svc.install();
 
 // const server = https.createServer(op, (req, res) => {
 //     console.log("Server is running...")
