@@ -900,8 +900,12 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     }
                 })
             }
+            else {
+                userBuf.pop(userBuf[i])
+                tokenBuf.pop(tokenBuf[i])
+            }
         }
-    }, 1000)
+    }, 500)
 
     //home page
     app.get("/", function(req, res) {

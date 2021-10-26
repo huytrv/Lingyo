@@ -1,0 +1,32 @@
+<service>
+	<id>lingyoexpress.exe</id>
+	<name>Lingyo Express</name>
+	<description>The nodejs web server.</description>
+	<executable>C:\Program Files\nodejs\node.exe</executable>
+	<argument>--harmony</argument>
+	<argument>--max_old_space_size=4096</argument>
+	<argument>C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js</argument>
+	<argument>--file</argument>
+	<argument>C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js</argument>
+	<argument>--scriptoptions=</argument>
+	<argument>--log</argument>
+	<argument>Lingyo Express wrapper</argument>
+	<argument>--grow</argument>
+	<argument>0.25</argument>
+	<argument>--wait</argument>
+	<argument>1</argument>
+	<argument>--maxrestarts</argument>
+	<argument>3</argument>
+	<argument>--abortonerror</argument>
+	<argument>n</argument>
+	<argument>--stopparentfirst</argument>
+	<argument>undefined</argument>
+	<logmode>rotate</logmode>
+	<stoptimeout>30sec</stoptimeout>
+	<serviceaccount>
+		<domain>16THCHILD</domain>
+		<user>LocalSystem</user>
+		<password></password>
+	</serviceaccount>
+	<workingdirectory>C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo</workingdirectory>
+</service>
