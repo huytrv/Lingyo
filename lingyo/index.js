@@ -511,7 +511,7 @@ var Service = require('node-windows').Service;
 var svc = new Service({
   name:'Lingyo Express',
   description: 'The nodejs web server.',
-  script: 'C:\\Users\\Tran Huy\\Documents\\Lingyo\\lingyo\\index.js',
+  script: 'C:\\Users\\Administrator\\Documents\\Lingyo\\lingyo\\index.js',
   nodeOptions: [
     '--harmony',
     '--max_old_space_size=4096'
