@@ -19,7 +19,7 @@ module.exports = function(app, users){
         projectId: "cf-project-318304"
     })
 
-    const cfFileBucket = gc.bucket("fodance-bk")
+    const cfFileBucket = gc.bucket("lingyo-bk")
 
     app.post("/record", function(req, res){
         async function saveFile() {

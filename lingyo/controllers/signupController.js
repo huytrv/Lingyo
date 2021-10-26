@@ -8,7 +8,7 @@ const { Op, INTEGER, INET } = require("sequelize")
 
 module.exports = function(app, users, userProfile, emailRegister, phoneRegister){
     app.get("/signup", function(req, res){
-        if (req.headers.host == "18.163.40.72") {res.redirect('https://lingyo.vn')}
+        if (req.headers.host == "52.221.187.132") {res.redirect('https://lingyo.vn')}
         else {
             req.logout()
             res.render("login", {message: '', username: ''})

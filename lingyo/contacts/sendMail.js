@@ -136,7 +136,7 @@ module.exports = function(email, code){
     });
 
     let mailOptions= ({
-        from: '"Lingyo" <fodancemailer@gmail.com>',
+        from: '"Lingyo" <lingyomailer@gmail.com>',
         to: email,
         subject: `${code} là mã xác nhận Lingyo của bạn`,
         html: output

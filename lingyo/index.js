@@ -201,7 +201,7 @@ app.use(function(req, res, next) {
 
 //mysqlSql cau hinh ket noi
 const mysqlDB = new sequelize({
-    database: "fodance",
+    database: "lingyo",
     username: mysqlConfig.getMysqlUsername(),
     password: mysqlConfig.getMysqlPassword(),
     host: "127.0.0.1",
@@ -452,7 +452,7 @@ var options = {
     port: 3306,
     user: mysqlConfig.getMysqlUsername(),
     password: mysqlConfig.getMysqlPassword(),
-    database: 'fodance'
+    database: 'lingyo'
 };
 
 const sessionStore = new MySQLStore(options);
@@ -501,32 +501,32 @@ const op = {
 const server = https.createServer(op, app).listen(443, function(){
     console.log("Server is running...")
     app.get('*', function(req, res){
-        if (req.headers.host == "18.163.40.72") {res.redirect('https://lingyo.vn')}
+        if (req.headers.host == "52.221.187.132") {res.redirect('https://lingyo.vn')}
     })
 });
 
-var Service = require('node-windows').Service;
+// var Service = require('node-windows').Service;
 
-// Create a new service object
-var svc = new Service({
-  name:'Lingyo Express',
-  description: 'The nodejs web server.',
-  script: 'C:\\Users\\Tran Huy\\Documents\\GitHub\\Lingyo\\lingyo\\index.js',
-  nodeOptions: [
-    '--harmony',
-    '--max_old_space_size=4096'
-  ]
-  //, workingDirectory: '...'
-  //, allowServiceLogon: true
-});
+// // Create a new service object
+// var svc = new Service({
+//   name:'Lingyo Express',
+//   description: 'The nodejs web server.',
+//   script: 'C:\\Users\\Tran Huy\\Documents\\GitHub\\Lingyo\\lingyo\\index.js',
+//   nodeOptions: [
+//     '--harmony',
+//     '--max_old_space_size=4096'
+//   ]
+//   //, workingDirectory: '...'
+//   //, allowServiceLogon: true
+// });
 
-// Listen for the "install" event, which indicates the
-// process is available as a service.
-svc.on('install',function(){
-  svc.start();
-});
+// // Listen for the "install" event, which indicates the
+// // process is available as a service.
+// svc.on('install',function(){
+//   svc.start();
+// });
 
-svc.install();
+// svc.install();
 
 // const server = https.createServer(op, (req, res) => {
 //     console.log("Server is running...")
@@ -536,9 +536,9 @@ svc.install();
 
 const io = socketio(server)
 
-// FBLogin()
-// GGLogin()
-// signupController(app, users, userProfile, emailRegister, phoneRegister)
+FBLogin()
+GGLogin()
+signupController(app, users, userProfile, emailRegister, phoneRegister)
 loginController(app, users)
 forgotController(app, users, forgotPasswordToken, forgotPasswordCode)
 updateController(app, users)

@@ -131,7 +131,7 @@ module.exports = function(email, token){
     });
 
     let mailOptions= ({
-        from: '"Lingyo" <fodancemailer@gmail.com>',
+        from: '"Lingyo" <lingyomailer@gmail.com>',
         to: email,
         subject: "Đặt lại mật khẩu",
         html: output 

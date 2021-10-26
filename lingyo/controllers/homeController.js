@@ -21,7 +21,7 @@ const gc = new Storage({
     keyFilename: path.join(__dirname, "../cf-project-318304-41a96963c2de.json"),
     projectId: "cf-project-318304"
 })
-const cfFileBucket = gc.bucket("fodance-bk")
+const cfFileBucket = gc.bucket("lingyo-bk")
 
 //aws
 const S3 = require("aws-sdk/clients/s3")
@@ -2850,7 +2850,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                                                         })
                                                                                                     }
                                                                                                     if (f.file){
-                                                                                                        sendModerateMail("fodancemoderator@gmail.com", id)
+                                                                                                        sendModerateMail("lingyomoderator@gmail.com", id)
                                                                                                         const interv = setInterval(function(){
                                                                                                             posts.findOne({
                                                                                                                 where: {
