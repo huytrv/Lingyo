@@ -857,21 +857,29 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     app.use(cors())
 
     app.post("/userToken", function (req, res) {
-        const itv = setInterval(function(){
+        let buf = 0
+        setInterval(function(){
             if (req.body.token && tokenBuf.length == userBuf.length){
                 tokenBuf.push(req.body.token)
-                clearInterval(itv)
                 res.end()
+            }
+            else {
+                buf ++
+                if (buf == 50){res.end()}
             }
         }, 100)
     })
 
     app.post("/userinfo", function(req, res){
-        const itv = setInterval(function(){
+        let buf = 0
+        setInterval(function(){
             if (req.user.userId && userBuf.length == tokenBuf.length - 1){
                 userBuf.push(req.user.userId)
-                clearInterval(itv)
                 res.end()
+            }
+            else {
+                buf ++
+                if (buf == 50){res.end()}
             }
         }, 100)
     })
