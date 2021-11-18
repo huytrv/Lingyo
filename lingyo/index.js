@@ -471,7 +471,8 @@ app.use(session({
     secret: "allbestthings", resave: false, saveUninitialized: true,
     cookie: {
         secure: true,
-        maxAge: 1000*60*60*24*365
+        maxAge: 1000*60*60*24*365,
+        sameSite: 'none'
     },
     store: sessionStore,
     httpOnly: true,
