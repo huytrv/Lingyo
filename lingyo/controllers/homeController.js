@@ -917,9 +917,9 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
 
     //home page
     app.get("/", function(req, res) {
-        // if (req.isAuthenticated()){
-        //     req.session.tryTime = 0
-        //     req.session.blockLogin = false  
+        if (req.isAuthenticated()){
+            req.session.tryTime = 0
+            req.session.blockLogin = false  
             const rank = req.query.rank
             let homeRank = "Sơ cấp"
             if (!rank){
@@ -1000,10 +1000,10 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 })
             }
             
-        // }
-        // else {
-        //     res.redirect("/login")
-        // }
+        }
+        else {
+            res.redirect("/login")
+        }
     })
 
     //handle competition
