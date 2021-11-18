@@ -2,3 +2,249 @@
 2021-10-26 15:36:45 - Started 6368
 2021-10-26 15:38:31 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
 2021-10-26 15:38:32 - Started 3012
+2021-10-28 14:50:19 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-10-28 14:50:19 - Started 3868
+2021-10-29 15:53:30 - Stopping lingyoexpress.exe
+2021-10-29 15:53:30 - ProcessKill 3868
+2021-10-29 15:53:31 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-10-29 15:53:56 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-10-29 15:53:56 - Started 4840
+2021-10-31 08:50:04 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-10-31 08:50:04 - Started 4748
+2021-11-03 15:48:07 - Stopping lingyoexpress.exe
+2021-11-03 15:48:07 - ProcessKill 4748
+2021-11-03 15:48:07 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-11-03 15:48:32 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-03 15:48:32 - Started 4652
+2021-11-04 08:56:59 - Stopping lingyoexpress.exe
+2021-11-04 08:56:59 - ProcessKill 4652
+2021-11-04 08:57:00 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-11-04 08:57:26 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-04 08:57:26 - Started 4824
+2021-11-05 14:45:32 - Stopping lingyoexpress.exe
+2021-11-05 14:45:32 - ProcessKill 4824
+2021-11-05 14:45:32 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-11-05 14:46:14 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-05 14:46:14 - Started 4884
+2021-11-06 15:06:37 - Stopping lingyoexpress.exe
+2021-11-06 15:06:37 - ProcessKill 4884
+2021-11-06 15:06:37 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-11-06 15:07:25 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-06 15:07:25 - Started 4532
+2021-11-07 21:18:48 - Stopping lingyoexpress.exe
+2021-11-07 21:18:48 - ProcessKill 4532
+2021-11-07 21:18:49 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-11-07 21:19:36 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-07 21:19:36 - Started 4804
+2021-11-07 21:19:38 - Stopping lingyoexpress.exe
+2021-11-07 21:19:38 - ProcessKill 4804
+2021-11-07 21:19:39 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-11-08 09:28:17 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-08 09:28:17 - Started 5092
+2021-11-10 10:54:26 - Stopping lingyoexpress.exe
+2021-11-10 10:54:26 - ProcessKill 5092
+2021-11-10 10:54:26 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-11-10 10:54:52 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-10 10:54:52 - Started 4820
+2021-11-10 21:06:02 - Stopping lingyoexpress.exe
+2021-11-10 21:06:02 - ProcessKill 4820
+2021-11-10 21:06:02 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-11-10 21:06:29 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-10 21:06:29 - Started 5108
+2021-11-11 15:57:16 - Stopping lingyoexpress.exe
+2021-11-11 15:57:16 - ProcessKill 5108
+2021-11-11 15:57:16 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-11-11 15:57:44 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-11 15:57:44 - Started 4784
+2021-11-11 21:53:42 - Stopping lingyoexpress.exe
+2021-11-11 21:53:42 - ProcessKill 4784
+2021-11-11 21:53:42 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-11-11 21:54:07 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-11 21:54:07 - Started 4600
+2021-11-11 21:54:56 - Stopping lingyoexpress.exe
+2021-11-11 21:54:56 - ProcessKill 4600
+2021-11-11 21:54:56 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-11-12 08:17:33 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-12 08:17:33 - Started 4824
+2021-11-13 16:43:28 - Stopping lingyoexpress.exe
+2021-11-13 16:43:28 - ProcessKill 4824
+2021-11-13 16:43:29 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-11-13 16:44:00 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-13 16:44:00 - Started 4824
+2021-11-13 18:51:06 - Stopping lingyoexpress.exe
+2021-11-13 18:51:06 - ProcessKill 4824
+2021-11-13 18:51:14 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-11-13 18:51:36 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-13 18:51:36 - Started 4932
+2021-11-13 19:38:28 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-13 19:38:28 - Started 5144
+2021-11-17 18:44:38 - Stopping lingyoexpress.exe
+2021-11-17 18:44:38 - ProcessKill 5144
+2021-11-17 18:44:38 - Shutdown exception
+Message:A system shutdown is in progress.
+
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2021-11-17 18:45:38 - Starting C:\Program Files\nodejs\node.exe  --harmony --max_old_space_size=4096 "C:\Users\Tran Huy\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js" --file "C:\Users\Tran Huy\Documents\GitHub\Lingyo\lingyo\index.js" --scriptoptions= --log "Lingyo Express wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2021-11-17 18:45:38 - Started 5044
