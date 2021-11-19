@@ -475,7 +475,6 @@ app.use(session({
         sameSite: 'none'
     },
     store: sessionStore,
-    httpOnly: true,
     secure: true
 }))
 app.use(passport.initialize())
