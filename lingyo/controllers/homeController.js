@@ -43,7 +43,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     const navName = ["Xếp hạng", "Thông báo", "Đã lưu", "Cộng đồng", "Thêm thể loại", "Cài đặt"]
     const levelList = ["iron", "bronze", "silver", "gold", "platinum", "diamon", "master", "challenge"]
     const levelName = ["Sắt", "Đồng", "Bạc", "Vàng", "Bạch Kim", "Kim Cương", "Cao thủ", "Thách đấu"]
-    const startTimeline = new Date("Mon Dec 28 2020 00:00:00")
+    const startTimeline = new Date("Thu Dec 24 2020 00:00:00")
     let round, currentTimeline, roundType, stageTime, TimeRange
     let tokenBuf = [], userBuf = [], mid = 0
     //handleVoteChampion
