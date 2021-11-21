@@ -1993,7 +1993,7 @@ function handleNotification(type, source){
 }
 
 function handleRoundTimerBar(){
-    const startTimeline = new Date("Thu Dec 24 2020 00:00:00")
+    const startTimeline = new Date("Mon Dec 28 2020 00:00:00")
     round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
     const timeline = Date.parse(startTimeline) + round*7*24*60*60*1000
     if (document.querySelector(".home-round-timer")){
@@ -2042,7 +2042,7 @@ handleRoundTimerBar()
 
 function handleMainInfo(){
     function handleVoteRound() {
-        const startTimeline = new Date("Thu Dec 24 2020 00:00:00")
+        const startTimeline = new Date("Mon Dec 28 2020 00:00:00")
         round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
         const timeline = Date.parse(startTimeline) + round*7*24*60*60*1000
         if (document.querySelector(".vote-round")){
