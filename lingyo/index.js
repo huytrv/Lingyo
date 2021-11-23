@@ -452,7 +452,7 @@ var options = {
     port: 3306,
     user: mysqlConfig.getMysqlUsername(),
     password: mysqlConfig.getMysqlPassword(),
-    database: 'lingyo'
+    database: "lingyo"
 };
 
 const sessionStore = new MySQLStore(options);

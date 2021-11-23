@@ -39,9 +39,11 @@ function viewImage(){
 }
 viewImage()
 
-socket.on("post-need-moderate", function(posts){
+socket.on("post-need-moderate", function(data){
     console.log(123)
     window.navigator.vibrate(800)
+    const posts = data.p
+    const authInfo = data.postAuthInfo
     if (posts && posts.length != 0){
         if (document.querySelector(".none-video")){
             document.querySelector(".none-video").remove()
@@ -53,6 +55,9 @@ socket.on("post-need-moderate", function(posts){
             }
             document.querySelector(".moderate-content").insertAdjacentHTML("beforeend", `<div class="d-flex-col post-moderate" data-post-df="${posts[i].postId}" data-post-ms="${posts[i].ms}" data-post-competition="${posts[i].competition}">
             <div class="pre-post-media">
+                ${(()=>{if (authInfo[i]) {return `
+                <div><img src="https://cdn.lingyo.vn/lingyo-media/${authInfo[i].face}"></div>
+                `}})()}
                 ${(()=>{if (posts[i].file.type == "video") {return `
                     <video muted controls src="https://cdn.lingyo.vn/lingyo-media/${posts[i].file.path[0]}"></video>
                 `}
@@ -188,7 +193,7 @@ function validateMedia(post){
                     if (c == cateList[i]){cate = cateName[i]}
                 }
                 for(let i = 0; i < rankList.length; i++){
-                    if (rank == rankList[i]){rank = rankName[i]}
+                    if (r == rankList[i]){rank = rankName[i]}
                 }
                 if (data.validData == "true") {
                     handleNotification("post-done", [postId, cate, rank, ms, competition])

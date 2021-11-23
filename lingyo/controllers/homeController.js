@@ -1336,11 +1336,23 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                 }
             }).then(function(p){
                 if (p.length != 0){
-                    for (let i = 0; i < p.length; p ++){
+                    const postAuthInfo = []
+                    for (let i = 0; i < p.length; i ++){
                         postList.push(p[i].postId)
-                        if (i == p.length - 1){
-                            socket.emit("post-need-moderate", p)
-                        }
+                        userAuth.findOne({
+                            where: {
+                                userId: p[i].userId
+                            }
+                        }).then(function(ua){
+                            postAuthInfo.push(ua)
+                            if (i == p.length - 1){
+                                const data = {
+                                    p: p,
+                                    postAuthInfo: postAuthInfo
+                                }
+                                socket.emit("post-need-moderate", data)
+                            }
+                        })
                     }
                 }
             })
@@ -1412,7 +1424,24 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             ['time', 'ASC']
                         ],
                     }).then(function(p){
-                        res.render("moderate", {posts: p})
+                        const postAuthInfo = []
+                        if (p.length > 0){
+                            for (let i = 0; i < p.length; i ++){
+                                userAuth.findOne({
+                                    where: {
+                                        userId: p[i].userId
+                                    }
+                                }).then(function(ua){
+                                    postAuthInfo.push(ua)
+                                    if (i == p.length - 1){
+                                        res.render("moderate", {posts: p, authInfo: postAuthInfo})
+                                    }
+                                })
+                            }
+                        }
+                        else {
+                            res.render("moderate", {posts: p, authInfo: postAuthInfo})
+                        }
                     })
                 }
                 else {
