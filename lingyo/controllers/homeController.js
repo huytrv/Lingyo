@@ -1799,7 +1799,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     model: users,
                                 },],
                                 order: [
-                                    ['time', 'ASC'],
+                                    ['time', 'DESC'],
                                     ['like', 'DESC']
                                 ],
                                 limit: 5,
