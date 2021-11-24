@@ -4798,6 +4798,9 @@ input[type='range']::-ms-fill-lower {
   height: 245px !important;
 }
 
+.rep-avt-small .avt-rank {
+  display: none;
+}
 
 .avatar .avt-rank.challenge {
   top: -55px;
