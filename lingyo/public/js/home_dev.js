@@ -7318,5 +7318,4 @@ function handleSetting(type){
         }
     }
 }
-}
 handleSetting("setting")
