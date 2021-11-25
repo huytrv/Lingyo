@@ -5176,7 +5176,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 ['time', 'ASC']
                             ],
                         }).then(function(cmts){
-                            const cmtUsernames = [], cmtNicknames = [], cmtAvts = [], cmtTags = [], cmtLiked = [], cmtTagNickname = [], cmtRank = []
+                            const cmtUsernames = [], cmtNicknames = [], cmtAvts = [], cmtAuth = [] ,cmtTags = [], cmtLiked = [], cmtTagNickname = [], cmtRank = []
                             let buf = 0
                             for (let i = 0 ; i < cmts.length; i++){
                                 users.findOne({
@@ -5195,6 +5195,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         cmtNicknames[i] = n.nickname
                                         cmtAvts[i] = n.avatar
                                         cmtRank[i] = n.rank
+                                        cmtAuth[i] = n.auth
                                         userProfile.findOne({
                                             where: {
                                                 userId: cmts[i].tag
@@ -5235,6 +5236,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                     cmtUsernames: cmtUsernames,
                                                                     cmtNicknames: cmtNicknames,
                                                                     cmtLiked: cmtLiked,
+                                                                    cmtAuth: cmtAuth,
+                                                                    cmtRank: cmtRank,
                                                                     cmtAvts: cmtAvts,
                                                                     cmtTags: cmtTags,
                                                                     cmtRank: cmtRank,
@@ -5273,12 +5276,16 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                 cmtUsernames: cmtUsernames,
                                                                 cmtNicknames: cmtNicknames,
                                                                 cmtLiked: cmtLiked,
+                                                                cmtAuth: cmtAuth,
+                                                                cmtRank: cmtRank,
                                                                 cmtAvts: cmtAvts,
                                                                 cmtTags: cmtTags,
                                                                 cmtTagNickname: cmtTagNickname,
                                                                 total: total,
                                                                 postUser: p.userId,
                                                             }
+                                                            console.log(data)
+
                                                             res.json({
                                                                 status: 'done',
                                                                 data: data
