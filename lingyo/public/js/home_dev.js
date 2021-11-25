@@ -126,13 +126,7 @@ function pretreatment(){
     const currentRank = Object.fromEntries(urlSearchParams.entries())
     if (currentRank != '') {
         rankLink = currentRank.rank
-    }
-
-    document.querySelectorAll(".mobile-download-img").forEach(function(e){
-        e.onclick = function(){
-            showAlert("Sắp có trên di động!")
-        }
-    })
+    
     
     if (document.querySelector(".main-frame").querySelector(".frame-post-home")){
         competitionContentText = document.querySelector(".main-frame").innerHTML
@@ -1993,7 +1987,7 @@ function handleNotification(type, source){
 }
 
 function handleRoundTimerBar(){
-    const startTimeline = new Date("Mon Dec 28 2020 00:00:00")
+    const startTimeline = new Date("Mon Nov 22 2021 00:00:00")
     round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
     const timeline = Date.parse(startTimeline) + round*7*24*60*60*1000
     if (document.querySelector(".home-round-timer")){
@@ -2042,7 +2036,7 @@ handleRoundTimerBar()
 
 function handleMainInfo(){
     function handleVoteRound() {
-        const startTimeline = new Date("Mon Dec 28 2020 00:00:00")
+        const startTimeline = new Date("Mon Nov 22 2021 00:00:00")
         round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
         const timeline = Date.parse(startTimeline) + round*7*24*60*60*1000
         if (document.querySelector(".vote-round")){
