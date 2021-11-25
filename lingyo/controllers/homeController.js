@@ -7166,87 +7166,100 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             user1: p.userId,
                         }
                     }).then(function(total){
-                        follow.findAll({
+                        userProfile.findAll({
                             where: {
-                                user1: p.userId,
-                                user2: {
-                                    [Op.notIn]: req.body.followingDisplayedList
+                                nickname: {
+                                    [Op.in]: req.body.followingDisplayedList
                                 }
-                            },
-                            limit: 5
-                        }).then(function(fl){
-                            const followingList = []
-                            const followingUsername = []
-                            const followingAvt = []
-                            const followingId = []
-                            const isFollowing = []
-                            const isCurrentUser = []
-                            let buf = 0
-                            if (fl.length != 0){
-                                for (let i = 0; i < fl.length; i++){
-                                    userProfile.findOne({
-                                        where: {
-                                            userId: req.user.userId
-                                        }
-                                    }).then(function(currentProfile){
-                                        if (currentProfile.nickname == fl[i].user2){
-                                            isCurrentUser[i] = true
-                                        }
-                                        else {isCurrentUser[i] = false}
-                                        follow.findOne({
+                            }
+                        }).then(function(followed){
+                            const followingDisplayedId = []
+                            for (let i = 0; i < followed.length; i++){
+                                followingDisplayedId.push(followed[i].userId)
+                            }
+                            follow.findAll({
+                                where: {
+                                    user1: p.userId,
+                                    user2: {
+                                        [Op.notIn]: followingDisplayedId
+                                    }
+                                },
+                                limit: 5
+                            }).then(function(fl){
+                                const followingList = []
+                                const followingUsername = []
+                                const followingAvt = []
+                                const followingId = []
+                                const isFollowing = []
+                                const isCurrentUser = []
+                                let buf = 0
+                                if (fl.length != 0){
+                                    for (let i = 0; i < fl.length; i++){
+                                        userProfile.findOne({
                                             where: {
-                                                user1: currentProfile.userId,
-                                                user2: fl[i].user2,
+                                                userId: req.user.userId
                                             }
-                                        }).then(function(isF){
-                                            if (isF) {isFollowing[i] = true}
-                                            else {isFollowing[i] = false}
-                                            userProfile.findOne({
+                                        }).then(function(currentProfile){
+                                            if (currentProfile.nickname == fl[i].user2){
+                                                isCurrentUser[i] = true
+                                            }
+                                            else {isCurrentUser[i] = false}
+                                            follow.findOne({
                                                 where: {
-                                                    userId: fl[i].user2
+                                                    user1: currentProfile.userId,
+                                                    user2: fl[i].user2,
                                                 }
-                                            }).then(function(profileUser){
-                                                followingList.push(profileUser.nickname)
-                                                users.findOne({
+                                            }).then(function(isF){
+                                                if (isF) {isFollowing[i] = true}
+                                                else {isFollowing[i] = false}
+                                                userProfile.findOne({
                                                     where: {
-                                                        userId: profileUser.userId
+                                                        userId: fl[i].user2
                                                     }
-                                                }).then(function(user){
-                                                    buf ++
-                                                    followingAvt[i] = profileUser.avatar
-                                                    followingUsername[i] = user.username
-                                                    followingId[i] = profileUser.nickname
-                                                    if (buf == followingList.length) {
-                                                        res.json({
-                                                            status: 'done',
-                                                            followingList: followingList,
-                                                            followingUsername: followingUsername,
-                                                            followingAvt: followingAvt,
-                                                            followingId: followingId,
-                                                            isFollowing: isFollowing,
-                                                            isCurrentUser: isCurrentUser,
-                                                            total: total
-                                                        })
-                                                    } 
+                                                }).then(function(profileUser){
+                                                    followingList.push(profileUser.nickname)
+                                                    users.findOne({
+                                                        where: {
+                                                            userId: profileUser.userId
+                                                        }
+                                                    }).then(function(user){
+                                                        buf ++
+                                                        followingAvt[i] = profileUser.avatar
+                                                        followingUsername[i] = user.username
+                                                        followingId[i] = profileUser.nickname
+                                                        if (buf == followingList.length) {
+                                                            res.json({
+                                                                status: 'done',
+                                                                followingList: followingList,
+                                                                followingUsername: followingUsername,
+                                                                followingAvt: followingAvt,
+                                                                followingId: followingId,
+                                                                isFollowing: isFollowing,
+                                                                isCurrentUser: isCurrentUser,
+                                                                total: total
+                                                            })
+                                                        } 
+                                                    })
                                                 })
                                             })
                                         })
+                                    }
+                                }
+                                else {
+                                    res.json({
+                                        status: 'done',
+                                        followingList: followingList,
+                                        followingUsername: followingUsername,
+                                        followingAvt: followingAvt,
+                                        followingId: followingId,
+                                        isFollowing: isFollowing,
+                                        isCurrentUser: isCurrentUser,
+                                        total: total
                                     })
                                 }
-                            }
-                            else {
-                                res.json({
-                                    status: 'done',
-                                    followingList: followingList,
-                                    followingUsername: followingUsername,
-                                    followingAvt: followingAvt,
-                                    followingId: followingId,
-                                    isFollowing: isFollowing,
-                                    isCurrentUser: isCurrentUser,
-                                    total: total
-                                })
-                            }
+                            })
                         })
+                        
                     })
                 }
                 else {
