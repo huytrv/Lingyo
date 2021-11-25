@@ -126,7 +126,7 @@ function pretreatment(){
     const currentRank = Object.fromEntries(urlSearchParams.entries())
     if (currentRank != '') {
         rankLink = currentRank.rank
-    
+    }
     
     if (document.querySelector(".main-frame").querySelector(".frame-post-home")){
         competitionContentText = document.querySelector(".main-frame").innerHTML
