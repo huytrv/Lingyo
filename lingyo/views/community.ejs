@@ -110,7 +110,7 @@
                         <% if (posts[i].file) { %>
                             <% if (posts[i].file.type == 'video') { %>
                             <div class="post-file">
-                                <video class="player media-post post-video" loop muted autoplay playsinline poster="/public/images/poster.png" src="https://cdn.lingyo.vn/lingyo-media/<%- posts[i].file.path[0] -%>"></video>
+                                <video class="player media-post post-video" loop muted playsinline poster="/public/images/poster.png" src="https://cdn.lingyo.vn/lingyo-media/<%- posts[i].file.path[0] -%>"></video>
                             </div>
                             <% } %>
                             <% if (posts[i].file.type == 'image') { %>
