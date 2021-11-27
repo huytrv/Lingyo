@@ -6025,13 +6025,12 @@ function handleUpdateProfile(){
                     })()}</div><div class="border-b"></div><div class="edit-profile-frame">
                     <div class="pd d-flex">Trước tiên hãy xác thực khuôn mặt, hình ảnh xác thực này ở chế độ riêng tư trong bản ghi của Lingyo.</div>
                     <div class="auth-video">
-                    <video autoplay loop muted playsinline webkit-playsinline></video>
+                    <video autoplay muted playsinline webkit-playsinline></video>
                     <div class="loading-frame d-flex"><span class="iconify spin loading-icon" data-icon="ant-design:loading-3-quarters-outlined" data-inline="false"></span></div>
                     </div>
-                    <div class="d-flex"><h3 class="face-request pd">Chờ một chút trong khi chúng tôi nhận dạng khuôn mặt bạn!</h3></div>
+                    <div class="d-flex"><h3 class="face-request pd">Hãy chờ một chút trong khi ứng dụng truy cập camera, đảm bảo bạn đã cho phép quyền truy cập vào máy ảnh!</h3></div>
                     </div></div></div>`)
                     const video = document.querySelector('.auth-video video')
-                    showAlert(0)
                     Promise.all([
                     faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
                     faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
