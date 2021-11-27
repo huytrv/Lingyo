@@ -5478,26 +5478,31 @@ function editProfileRedirect(editBut, pushState){
                     birthday: birthday,
                     location: location
                 }
-                xhttp.onreadystatechange = function() {
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        const res = JSON.parse(xhttp.responseText)
-                        if (res.status == 'done'){
-                            document.querySelectorAll(".user-username").forEach(function(e){
-                                e.textContent = username
-                                usernameUpdate = username
-                            })
-                            if (introduce == "") {document.querySelector(".introduce-content").textContent = "Thêm đoạn ngắn giới thiệu bản thân.."}
-                            else {document.querySelector(".introduce-content").textContent = introduce}
-                            if (birthday == null) {document.querySelector(".birthday-content").textContent = "Chưa cập nhật ngày sinh"}
-                            else {document.querySelector(".birthday-content").innerHTML = `<div>Sinh ngày <span class="day-birthday">${dayBithday}</span>, tháng <span class="month-birthday">${monthBithday}</span>, năm <span class="year-birthday">${yearBithday}</span></div>`}
-                            if (location == "") {document.querySelector(".location-content").textContent = "Chưa cập nhật địa điểm"}
-                            else {document.querySelector(".location-content").textContent =  location} 
+                if (!username.toLowerCase().includes("lingyo")){
+                    xhttp.onreadystatechange = function() {
+                        if (xhttp.readyState == 4 && xhttp.status == 200) {
+                            const res = JSON.parse(xhttp.responseText)
+                            if (res.status == 'done'){
+                                document.querySelectorAll(".user-username").forEach(function(e){
+                                    e.textContent = username
+                                    usernameUpdate = username
+                                })
+                                if (introduce == "") {document.querySelector(".introduce-content").textContent = "Thêm đoạn ngắn giới thiệu bản thân.."}
+                                else {document.querySelector(".introduce-content").textContent = introduce}
+                                if (birthday == null) {document.querySelector(".birthday-content").textContent = "Chưa cập nhật ngày sinh"}
+                                else {document.querySelector(".birthday-content").innerHTML = `<div>Sinh ngày <span class="day-birthday">${dayBithday}</span>, tháng <span class="month-birthday">${monthBithday}</span>, năm <span class="year-birthday">${yearBithday}</span></div>`}
+                                if (location == "") {document.querySelector(".location-content").textContent = "Chưa cập nhật địa điểm"}
+                                else {document.querySelector(".location-content").textContent =  location} 
+                            }
                         }
                     }
+                    xhttp.open("POST", "/update-profile", true)
+                    xhttp.setRequestHeader('Content-Type', 'application/json')
+                    xhttp.send(JSON.stringify(data))
                 }
-                xhttp.open("POST", "/update-profile", true)
-                xhttp.setRequestHeader('Content-Type', 'application/json')
-                xhttp.send(JSON.stringify(data))
+                else {
+                    showAlert("Tên không được chứa 'Lingyo'")
+                }
             }
         }
         let xCrop, yCrop = 0

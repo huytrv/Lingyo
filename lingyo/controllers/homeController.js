@@ -6044,7 +6044,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         if (req.isAuthenticated()){
             req.session.tryTime = 0
             req.session.blockLogin = false
-            if (typeof(req.body.username) === "string"){
+            if (typeof(req.body.username) === "string" && !req.body.username.toLowerCase().includes("lingyo")){
                 users.update({
                     username: req.body.username,
                 }, {
