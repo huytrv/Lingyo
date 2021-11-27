@@ -4927,6 +4927,19 @@ function handleNavigation(){
                                     const contentText = page.querySelector(".main-frame").innerHTML
                                     document.querySelector(".main-frame").innerHTML = contentText
                                     if (navLink != "setting"){
+                                        if (navLink == "community"){
+                                            if (document.querySelectorAll(".post").length != 0){
+                                                const posts = document.querySelectorAll(".post")
+                                                console.log(posts.length)
+                                                postDisplayedList = []
+                                                param = ''
+                                                for (let i = 0; i < posts.length; i++){
+                                                    if (posts[i].getAttribute("data-post-df")){
+                                                        postDisplayedList.push(posts[i].getAttribute("data-post-df"))
+                                                    }
+                                                }
+                                            }
+                                        }
                                         if (document.querySelector(".main-info-inner") && document.querySelector(".main-info-inner").classList.contains("info-personal")) {
                                             const mainInfo = page.querySelector(".main-info")
                                             const mainInfoText = mainInfo.innerHTML
