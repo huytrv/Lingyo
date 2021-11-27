@@ -3130,9 +3130,7 @@ function commentPostHandle(viewPost, viewWithCmt){
                                     xhttp.setRequestHeader('Content-Type', 'application/json')
                                     xhttp.send(JSON.stringify(data))
                                 }
-                                console.log(res.data.repTotal[i])
                                 if (res.data.repTotal[i]) {
-                                    console.log(2)
                                     comment.insertAdjacentHTML('beforeend', `<div class="d-flex-end"><div class="rep-comment"><div class="rep-commented"></div>${(() => {if (res.data.repTotal[i] >= 1 && res.data.repTotal[i] <= 5){return `<div class="rep-comment-expand noselect"><span class="rep-comment-expand-text">Xem thêm ${res.data.repTotal[i]} phản hồi</span></div>`} else if(res.data.repTotal[i] > 5){return `<div class="rep-comment-expand noselect"><span class="rep-comment-expand-text">Xem thêm 5 phản hồi</span></div>`} else {return ''}})()}</div>`)
                                     // showCmt(comment.querySelector(".rep-commented"), res.data.repCmt, true, i)
                                     if (comment.querySelectorAll(".rep-comment-expand-text").length != 0){
@@ -3208,7 +3206,6 @@ function commentPostHandle(viewPost, viewWithCmt){
                         }
                         xhttp.onreadystatechange = function(){
                             if (xhttp.readyState == 4 && xhttp.status == 200) {
-                                console.log(123)
                                 const res = JSON.parse(xhttp.responseText)
                                 if (res.status == 'done'){
                                     commented.insertAdjacentHTML(pos, `<div class="comment-item d-flex-start-top" data-cmt-df="${res.data.cmtId}"><div class="comment-content"><a class="avt mg-t nav-red ${(()=>{if (cmtId) {return 'rep-avt-small'} else {return ''}})()}" nav-data="personal" data-user-df="${res.data.nickname}"><img src="${(()=>{if (res.data.avt.includes("https")) {return `${res.data.avt}`} else {return `https://cdn.lingyo.vn/lingyo-media/${res.data.avt}`}})()}"><img src="${document.querySelectorAll(".avt-rank")[0].getAttribute('src')}" class="avt-rank ${document.querySelectorAll(".avt-rank")[0].className}"></a><div class="comment-inner d-flex-col-start mg-l-sm"><div class="comment-wrapper d-flex-col-start"><div class="d-flex"><a class="nav-red username" nav-data="personal" data-user-df="${res.data.nickname}"><span class="avt-username user-username cmt-username">${res.data.username}</span></a>${(()=>{if(res.data.auth){return '<span class="iconify mg-l-sm mg-t-sm theme-color verified" data-icon="ic:round-verified"></span>'}else{return ''}})()}<div class="mark-icon"></div><a class="avt d-flex mg-l-sm"><span class="post-time nickname-content">@${res.data.nickname}</span></a></div><div>${(() => {if (data.tag){return `<a class="nav-red" nav-data="personal" data-user-df="${data.tag}"><span class="avt-username cmt-username">${tagUsername}</span></a>`} else {return ""}})()}${data.content}</div></div><div class="d-flex"><div class="comment-interactive d-flex-start"><a class="like-cmt-but d-flex-start noselect" data-cmt-liked="false"><span class="iconify mg-r-sm" data-icon="simple-line-icons:like" data-inline="false"></span><span>Thích </span><span class="comment-total mg-r-sm"></span></a><a class="rep-comment-but d-flex-start noselect"><span class="iconify mg-r-sm" data-icon="bi:chat-square" data-inline="false"></span><span>Trả lời</span></a></div><div class="mg-l d-flex"><span class="contact-item"></span><a class="avt"><span class="post-time"><span>Vừa xong</span></a></div></div></div><div class="comment-util noselect"><button class="avt-but header-but dropdown-but util-dropdown-but"><span class="iconify dropdown-icon bg-white" data-icon="vaadin:ellipsis-dots-h" data-inline="false"></span></button><div class="comment-util-dropdown-content dropdown-content"><a class="nav-item del-cmt"><span class="iconify" data-icon="bx:bx-hide" data-inline="false"></span>Xóa bình luận</a></div></div><div></div>`)
@@ -3489,7 +3486,7 @@ function viewPostRedirect(t, post, pushState){
                     <div class="view-media-content">
                         <img src="${mediaPost[t].getAttribute("src")}" class="view-post-img">
                     </div>
-                    <div class="post-description post-description-mobile">${post.querySelector(".post-description").textContent.trim()}</div>
+                    <div class="post-description post-description-mobile pd-l-lg pd-r pd-b">${post.querySelector(".post-description").textContent.trim()}</div>
                     <div class="interactive-but-total interactive-but-total-mobile d-flex vote-total">${post.querySelector(".interactive-but-total").innerHTML}</div>
                     <div class="post-interactive post-interactive-mobile">${post.querySelector(".post-interactive").innerHTML}</div>
                 </div>
@@ -3515,7 +3512,7 @@ function viewPostRedirect(t, post, pushState){
                         ${post.querySelector(".post-user").innerHTML}
                         </div>
                         <div class="post-content">
-                            <div class="post-description">${post.querySelector(".post-description").textContent.trim()}</div>
+                            <div class="post-description pd-l-lg pd-r pd-b">${post.querySelector(".post-description").textContent.trim()}</div>
                         </div>
                         <div class="d-flex-start pd-l-lg pd-r-lg">
                             <div class="interactive-but-total d-flex vote-total">${post.querySelector(".interactive-but-total").innerHTML}</div>
@@ -6098,7 +6095,7 @@ function handleUpdateProfile(){
                                 }    
                                 if (faceValid1 && faceValid2 && faceValid3 && !faceValid4){  
                                     faceReq.textContent = "4.Hãy để mặt tự nhiên nhất..."
-                                    console.log(detections[0].expressions.neutral)
+                                    // console.log(detections[0].expressions.neutral)
                                     if (detections[0].expressions.neutral >= 0.99){
                                         faceValid4 = true
                                         const f = document.createElement("CANVAS")

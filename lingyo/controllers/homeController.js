@@ -4887,7 +4887,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             req.session.tryTime = 0
             req.session.blockLogin = false
             if (req.body.content.trim().length > 0 && req.body.content.trim().length <= 1000){
-                console.log(1)
                 function getRndInteger(min, max) {
                     return Math.floor(Math.random() * (max - min)) + min;
                 }
@@ -4898,14 +4897,12 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                     }
                 }).then(function(p){
                     if (p){
-                        console.log(2)
                         comments.count({
                             where: {
                                 postId: postId,
                                 reply: null
                             }
                         }).then(function(total){
-                            console.log(3)
                             function generateComment(){
                                 const id = getRndInteger(1000000000000000, 10000000000000000)
                                 comments.findOne({
@@ -4914,9 +4911,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     }
                                 }).then(function(c){
                                     if (!c){
-                                        console.log(4)
                                         function createWithoutTag(){
-                                            if (typeof(id) === "number" && typeof(req.body.cmtId) === "string" && typeof(req.user.userId) == "number" && typeof(req.body.content) === "string"){
+                                            if (typeof(id) === "number" && (typeof(req.body.cmtId) === "object" || typeof(req.body.cmtId) === "string") && typeof(req.user.userId) == "number" && typeof(req.body.content) === "string"){
                                                 comments.create({ 
                                                     cmtId: id,
                                                     user: req.user.userId,
