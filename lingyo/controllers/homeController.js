@@ -2808,7 +2808,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         }
                                     }).then(function(isWin){
                                         if (profile.auth || competition == "false"){
-                                            if ((roundType == "final" && (isWin || !competition)) || roundType == "group-stage"){
+                                            if ((roundType == "final" && (isWin || competition == "false")) || roundType == "group-stage"){
                                                 if (((roundType == "final" && postNumbers < 1) || (roundType == "group-stage" && postNumbers < 3)) || competition == "false"){
                                                     if ((competition && files[0] && files[0].type.includes("video")) || competition == "false"){
                                                         if (rank == "primary" || rank == "intermediate" || rank == "highgrade" || rank == ''){
