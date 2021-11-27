@@ -3476,7 +3476,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             const postDisplayedList = req.body.postDisplayedList
             if (!req.body.savedView){
                 if (req.body.param == ''){
-                    // if (req.body.category != '' && cateList.includes(req.body.category)){
+                    if (req.body.navLink != "community"){
+                        console.log(req.body.cateSort)
                         if (req.body.category != 'competition' && req.body.category != '') {categoryList = [req.body.category]} else {categoryList = cateList}
                         if (req.body.cateSort == 'rank-sort-content'){
                             posts.count({
@@ -3989,121 +3990,125 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 }
                             })
                         }
-                    // }
-                    // else {
-                    //     posts.count().then(function(total){
-                    //         let limit = 5
-                    //         if (postDisplayedList.length + 5 > total) {limit = total - postDisplayedList.length}
-                    //         if (postDisplayedList.length <= total){
-                    //             posts.findAll({
-                    //                 raw: true,
-                    //                 include : [{
-                    //                     model: users,
-                    //                 }],
-                    //                 order: [
-                    //                     Sequelize.fn('RAND')
-                    //                 ],
-                    //                 where: {
-                    //                     postId: {
-                    //                         [Op.notIn]: postDisplayedList
-                    //                     },
-                    //                     auth: true
-                    //                 },
-                    //                 limit: limit
-                    //             }).then(function(p){
-                    //                 const postProfile = []
-                    //                 const postLiked = []
-                    //                 const followed = []
-                    //                 let buf = 0, saved = [], notice = []
-                    //                 if (p.length != 0){
-                    //                     for (let i = 0; i < p.length; i++){
-                    //                         userProfile.findOne({
-                    //                             raw: true,
-                    //                             where: {
-                    //                                 userId: p[i]['user.userId']
-                    //                             }
-                    //                         }).then(function(pp){
-                    //                             postProfile[i] = pp
-                    //                             postLikes.findAll({
-                    //                                 raw: true,
-                    //                                 where: {
-                    //                                     postId: p[i].postId
-                    //                                 }
-                    //                             }).then(function(pl){
-                    //                                 postLiked[i] = false
-                    //                                 for (let c = 0; c < pl.length; c++){
-                    //                                     if (pl[c].userId == req.user.userId) {
-                    //                                         postLiked[i] = true
-                    //                                     }
-                    //                                 }
-                    //                                 userProfile.findOne({
-                    //                                     where: {
-                    //                                         userId: req.user.userId
-                    //                                     }
-                    //                                 }).then(function(up){
-                    //                                     postSaved.findOne({
-                    //                                         where: {
-                    //                                             postId: p[i].postId,
-                    //                                             userId: p[i]['user.userId']
-                    //                                         }
-                    //                                     }).then(function(s){
-                    //                                         if (s){saved[i] = true} else {saved[i] = false}
-                    //                                         if (up.notice.includes(p[i].postId.toString())){notice[i] = true}else {notice[i] = false}
-                    //                                         follow.findOne({
-                    //                                             where: {
-                    //                                                 user1: up.userId,
-                    //                                                 user2: pp.userId
-                    //                                             }
-                    //                                         }).then(function(fl){
-                    //                                             buf ++
-                    //                                             if (fl) {followed[i] = true}
-                    //                                             else {followed[i] = false}
-                    //                                             if (buf == p.length){
-                    //                                                 data = {
-                    //                                                     userId: req.user.userId,
-                    //                                                     postProfile: postProfile,
-                    //                                                     postLiked: postLiked,
-                    //                                                     followed: followed,
-                    //                                                     posts: p,
-                    //                                                     total: total,
-                    //                                                     limit: limit,
-                    //                                                     saved: saved,
-                    //                                                     notice: notice,
-                    //                                                     rank: false,
-                    //                                                 }
-                    //                                                 res.json({
-                    //                                                     status: "done",
-                    //                                                     data: data
-                    //                                                 })
-                    //                                             }
-                    //                                         })
-                    //                                     })
-                    //                                 })
-                    //                             })
-                    //                         })
-                    //                     }
-                    //                 }
-                    //                 else {
-                    //                     data = {
-                    //                         username: req.user.username,
-                    //                         userId: req.user.userId,
-                    //                         postProfile: postProfile,
-                    //                         postLiked: postLiked,
-                    //                         posts: p,
-                    //                         total: total,
-                    //                         limit: limit,
-                    //                         saved: saved,
-                    //                         rank: false
-                    //                     }
-                    //                     res.json({
-                    //                         status: "done",
-                    //                         data: data
-                    //                     })
-                    //                 }
-                    //             })
-                    //         }
-                    //     })
-                    // }
+                    }
+                    else {
+                        posts.count().then(function(total){
+                            let limit = 5
+                            if (postDisplayedList.length + 5 > total) {limit = total - postDisplayedList.length}
+                            if (postDisplayedList.length <= total){
+                                posts.findAll({
+                                    raw: true,
+                                    include : [{
+                                        model: users,
+                                    }],
+                                    order: [
+                                        ['time', 'DESC'],
+                                        ['like', 'DESC']
+                                    ],
+                                    where: {
+                                        postId: {
+                                            [Op.notIn]: postDisplayedList
+                                        },
+                                        auth: true,
+                                        competition: false
+                                    },
+                                    limit: limit
+                                }).then(function(p){
+                                    const postProfile = []
+                                    const postLiked = []
+                                    const followed = []
+                                    let buf = 0, saved = [], notice = []
+                                    if (p.length != 0){
+                                        for (let i = 0; i < p.length; i++){
+                                            userProfile.findOne({
+                                                raw: true,
+                                                where: {
+                                                    userId: p[i]['user.userId']
+                                                }
+                                            }).then(function(pp){
+                                                postProfile[i] = pp
+                                                postLikes.findAll({
+                                                    raw: true,
+                                                    where: {
+                                                        postId: p[i].postId
+                                                    }
+                                                }).then(function(pl){
+                                                    postLiked[i] = false
+                                                    for (let c = 0; c < pl.length; c++){
+                                                        if (pl[c].userId == req.user.userId) {
+                                                            postLiked[i] = true
+                                                        }
+                                                    }
+                                                    userProfile.findOne({
+                                                        where: {
+                                                            userId: req.user.userId
+                                                        }
+                                                    }).then(function(up){
+                                                        postSaved.findOne({
+                                                            where: {
+                                                                postId: p[i].postId,
+                                                                userId: p[i]['user.userId']
+                                                            }
+                                                        }).then(function(s){
+                                                            if (s){saved[i] = true} else {saved[i] = false}
+                                                            if (up.notice.includes(p[i].postId.toString())){notice[i] = true}else {notice[i] = false}
+                                                            follow.findOne({
+                                                                where: {
+                                                                    user1: up.userId,
+                                                                    user2: pp.userId
+                                                                }
+                                                            }).then(function(fl){
+                                                                buf ++
+                                                                if (fl) {followed[i] = true}
+                                                                else {followed[i] = false}
+                                                                if (buf == p.length){
+                                                                    data = {
+                                                                        userId: req.user.userId,
+                                                                        postProfile: postProfile,
+                                                                        postLiked: postLiked,
+                                                                        followed: followed,
+                                                                        posts: p,
+                                                                        total: total,
+                                                                        limit: limit,
+                                                                        saved: saved,
+                                                                        notice: notice,
+                                                                        rank: false,
+                                                                    }
+                                                                    console.log(data)
+                                                                    res.json({
+                                                                        status: "done",
+                                                                        data: data
+                                                                    })
+                                                                }
+                                                            })
+                                                        })
+                                                    })
+                                                })
+                                            })
+                                        }
+                                    }
+                                    else {
+                                        data = {
+                                            username: req.user.username,
+                                            userId: req.user.userId,
+                                            postProfile: postProfile,
+                                            postLiked: postLiked,
+                                            posts: [],
+                                            total: total,
+                                            limit: limit,
+                                            saved: saved,
+                                            rank: false
+                                        }
+                                        console.log(data)
+                                        res.json({
+                                            status: "done",
+                                            data: data
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
                 }
                 else {
                     userProfile.findOne({
