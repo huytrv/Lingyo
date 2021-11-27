@@ -59,7 +59,7 @@ socket.on("post-need-moderate", function(data){
                 <div><img src="https://cdn.lingyo.vn/lingyo-media/${authInfo[i].face}"></div>
                 `}})()}
                 ${(()=>{if (posts[i].file.type == "video") {return `
-                    <video muted controls src="https://cdn.lingyo.vn/lingyo-media/${posts[i].file.path[0]}"></video>
+                    <video muted loop muted playsinline webkit-playsinline controls src="https://cdn.lingyo.vn/lingyo-media/${posts[i].file.path[0]}"></video>
                 `}
                 else {return `
                 ${(()=>{if (posts[i].file.path.length == 1){return `
