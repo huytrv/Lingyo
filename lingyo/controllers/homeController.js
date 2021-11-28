@@ -383,6 +383,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 time: {
                                     [Op.gte]: currentTimeline
                                 },
+                                competition: true,
                                 auth: true
                             },
                             limit: 10
@@ -591,6 +592,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         time: {
                             [Op.gte]: currentTimeline
                         },
+                        competition: true,
                         auth: true
                     },
                     limit: 10
@@ -3477,7 +3479,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
             if (!req.body.savedView){
                 if (req.body.param == ''){
                     if (req.body.navLink != "community"){
-                        console.log(req.body.cateSort)
                         if (req.body.category != 'competition' && req.body.category != '') {categoryList = [req.body.category]} else {categoryList = cateList}
                         if (req.body.cateSort == 'rank-sort-content'){
                             posts.count({
@@ -4074,7 +4075,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                         notice: notice,
                                                                         rank: false,
                                                                     }
-                                                                    console.log(data)
                                                                     res.json({
                                                                         status: "done",
                                                                         data: data
@@ -4099,7 +4099,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             saved: saved,
                                             rank: false
                                         }
-                                        console.log(data)
                                         res.json({
                                             status: "done",
                                             data: data
@@ -5285,8 +5284,6 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                 total: total,
                                                                 postUser: p.userId,
                                                             }
-                                                            console.log(data)
-
                                                             res.json({
                                                                 status: 'done',
                                                                 data: data

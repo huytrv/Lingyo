@@ -201,7 +201,7 @@ app.use(function(req, res, next) {
 
 //mysqlSql cau hinh ket noi
 const mysqlDB = new sequelize({
-    database: "lingyo",
+    database: "fodance",
     username: mysqlConfig.getMysqlUsername(),
     password: mysqlConfig.getMysqlPassword(),
     host: "127.0.0.1",
@@ -452,7 +452,7 @@ var options = {
     port: 3306,
     user: mysqlConfig.getMysqlUsername(),
     password: mysqlConfig.getMysqlPassword(),
-    database: "lingyo"
+    database: "fodance"
 };
 
 const sessionStore = new MySQLStore(options);
