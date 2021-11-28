@@ -43,9 +43,9 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     const navName = ["Xếp hạng", "Thông báo", "Đã lưu", "Cộng đồng", "Thêm thể loại", "Cài đặt"]
     const levelList = ["iron", "bronze", "silver", "gold", "platinum", "diamon", "master", "challenge"]
     const levelName = ["Sắt", "Đồng", "Bạc", "Vàng", "Bạch Kim", "Kim Cương", "Cao thủ", "Thách đấu"]
-    const startTimeline = new Date("Mon Nov 22 2020 00:00:00")
+    const startTimeline = new Date("Sun Nov 21 2021 17:00:00")
     let round, currentTimeline, roundType, stageTime, TimeRange
-    let tokenBuf = [], userBuf = [], mid = 0
+    let tokenBuf = [], userBuf = []
     //handleVoteChampion
     round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
     currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
@@ -80,7 +80,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             [Op.gte]: currentTimeline
                         },
                         category: cateList[c],
-                        rank: rankList[r]
+                        rank: rankList[r],
+                        competition: true
                     },
                     order: [
                         ['like', 'DESC']
@@ -129,7 +130,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         })
 
         let d = new Date()
-        if (d.toLocaleTimeString() == '11:59:00 PM'){
+        if (d.toLocaleTimeString() == '4:59:00 PM'){
             for (let r = 0; r < rankList.length; r++){
                 for (let c = 0; c < cateList.length; c++){
                     posts.findAll({
@@ -139,7 +140,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 [Op.gte]: currentTimeline
                             },
                             category: cateList[c],
-                            rank: rankList[r]
+                            rank: rankList[r],
+                            competition: true
                         },
                         order: [
                             ['like', 'DESC'],
