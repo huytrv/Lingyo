@@ -43,7 +43,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     const navName = ["Xếp hạng", "Thông báo", "Đã lưu", "Cộng đồng", "Thêm thể loại", "Cài đặt"]
     const levelList = ["iron", "bronze", "silver", "gold", "platinum", "diamon", "master", "challenge"]
     const levelName = ["Sắt", "Đồng", "Bạc", "Vàng", "Bạch Kim", "Kim Cương", "Cao thủ", "Thách đấu"]
-    const startTimeline = new Date("Sun Nov 21 2021 17:00:00")
+    const startTimeline = new Date("2021-11-29T00:00:00")
     let round, currentTimeline, roundType, stageTime, TimeRange
     let tokenBuf = [], userBuf = []
     //handleVoteChampion
@@ -131,7 +131,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         })
 
         let d = new Date()
-        if (d.toLocaleTimeString() == '4:59:00 PM'){
+        if (d.toLocaleTimeString() == '11:59:00 PM'){
             for (let r = 0; r < rankList.length; r++){
                 for (let c = 0; c < cateList.length; c++){
                     posts.findAll({
