@@ -562,9 +562,11 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                         round: round,
                                                     }
                                                 })
-                                                currentTimeline = currentTimeline + 5*24*60*60*1000
-                                                TimeRange = [stageTime, currentTimeline]
                                             }
+                                    }
+                                    if (buf == rankList.length * cateList.length) {
+                                        currentTimeline = currentTimeline + 5*24*60*60*1000
+                                        TimeRange = [stageTime, currentTimeline]
                                     }
                                 })                                
                             }
@@ -1098,7 +1100,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                             if (fl) {followed[i] = true}
                                             else {followed[i] = false}
                                             if (buf == p.length){
-                                                res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'competition', rankLink: '', rankName: rankName, cateActive: 'competition', cateName: '', rank: false, modal: modal, roundType: roundType})
+                                                res.render("competition", {currentTimeline: new Date(currentTimeline), username: req.user.username, userId: req.user.userId, profile: profile, posts: p, postProfile: postProfile, saved: saved, postLiked: postLiked, followed: followed, active: 'competition', rankLink: '', rankName: rankName, cateActive: 'competition', cateName: '', rank: false, modal: modal, roundType: roundType})
                                             }
                                         })
                                     })
@@ -1107,7 +1109,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         }
                     }
                     else {
-                        res.render("competition", {username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'competition', rankLink: '', cateActive: 'competition', cateName: '', rankName: rankName, rank: false, modal: modal, roundType: roundType})
+                        res.render("competition", {currentTimeline: new Date(currentTimeline), username: req.user.username, userId: req.user.userId, profile: profile, posts: p, active: 'competition', rankLink: '', cateActive: 'competition', cateName: '', rankName: rankName, rank: false, modal: modal, roundType: roundType})
                     }
                 })
             })
