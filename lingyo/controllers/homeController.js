@@ -568,7 +568,12 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                     }
                                 })                                
                             }
-                            
+                            else {
+                                if (buf == rankList.length * cateList.length) {
+                                    currentTimeline = currentTimeline + 5*24*60*60*1000
+                                    TimeRange = [stageTime, currentTimeline]
+                                }
+                            }
                         })
                     }
                     
@@ -1050,7 +1055,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         },
                         auth: true,
                         time: {
-                            [Op.gte]: TimeRange
+                            [Op.in]: TimeRange
                         }
                     }
                 }).then(function(p){
