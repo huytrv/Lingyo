@@ -1055,7 +1055,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         },
                         auth: true,
                         time: {
-                            [Op.in]: TimeRange
+                            [Op.between]: TimeRange
                         }
                     }
                 }).then(function(p){
