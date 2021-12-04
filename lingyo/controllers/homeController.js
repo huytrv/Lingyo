@@ -44,8 +44,8 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
     const levelList = ["iron", "bronze", "silver", "gold", "platinum", "diamon", "master", "challenge"]
     const levelName = ["Sắt", "Đồng", "Bạc", "Vàng", "Bạch Kim", "Kim Cương", "Cao thủ", "Thách đấu"]
     const startTimeline = new Date("2021-11-29T00:00:00")
-    let round, currentTimeline, roundType, stageTime, TimeRange
-    let tokenBuf = [], userBuf = []
+    let round, currentTimeline, roundType, stageTime
+    let tokenBuf = [], userBuf = [], TimeRange = []
     //handleVoteChampion
     round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
     currentTimeline = Date.parse(startTimeline) + round*7*24*60*60*1000
