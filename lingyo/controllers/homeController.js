@@ -69,9 +69,9 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         })
     }
     setInterval(function(){ 
-        let currentDate = new Date(currentTimeline)
+        // let currentDate = new Date(currentTimeline)
         TimeRange = [stageTime, stageTime + 5*24*60*60*1000]
-        if (currentDate.getDay() >= 0 && currentDate.getDay() <= 4) {roundType = "group-stage"}else {roundType = "final"}
+        if (new Date().getDay() >= 1 && new Date().getDay() <= 5) {roundType = "group-stage"}else {roundType = "final"}
         for (let r = 0; r < rankList.length; r++){
             for (let c = 0; c < cateList.length; c++){
                 posts.findAll({
