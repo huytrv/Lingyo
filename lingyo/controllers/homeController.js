@@ -944,7 +944,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             where: {
                                 category: cateList[i],
                                 rank: rank,
-                                round: round                           
+                                round: round                      
                             }
                         }).then(function(cateTotal){
                             if (!cateTotal){
@@ -1050,7 +1050,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                         },
                         auth: true,
                         time: {
-                            [Op.gte]: currentTimeline
+                            [Op.gte]: TimeRange
                         }
                     }
                 }).then(function(p){
