@@ -835,30 +835,30 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         res.sendFile(__dirname.replace("\\controllers", '') + '\\OneSignalSDKUpdaterWorker.js');
     })
 
-    app.post("/devide-info", function(req, res){
-        if (req.isAuthenticated()){
-            req.session.tryTime = 0
-            req.session.blockLogin = false  
-            mobileTokens.findOne({
-                where: {
-                    token: req.body.devideId,
-                    userId: req.user.userId
-                }
-            }).then(function(mt){
-                if (!mt && req.body.devideId){
-                    mobileTokens.create({
-                        token: req.body.devideId,
-                        userId: req.user.userId
-                    }).then(function(){
-                        res.end()
-                    })
-                }
-            })
-        }
-        else {
-            res.redirect("/login")
-        }
-    })
+    // app.post("/devide-info", function(req, res){
+    //     if (req.isAuthenticated()){
+    //         req.session.tryTime = 0
+    //         req.session.blockLogin = false  
+    //         mobileTokens.findOne({
+    //             where: {
+    //                 token: req.body.devideId,
+    //                 userId: req.user.userId
+    //             }
+    //         }).then(function(mt){
+    //             if (!mt && req.body.devideId){
+    //                 mobileTokens.create({
+    //                     token: req.body.devideId,
+    //                     userId: req.user.userId
+    //                 }).then(function(){
+    //                     res.end()
+    //                 })
+    //             }
+    //         })
+    //     }
+    //     else {
+    //         res.redirect("/login")
+    //     }
+    // })
 
     app.use(cors())
 

@@ -26,26 +26,26 @@ function pretreatment(){
     // round = Math.floor((Date.now() - startTimeline)/1000/60/60/24/7)
     // localStorage.roundVisit = round + 1
     
-    window.OneSignal = window.OneSignal || []
-    OneSignal.push(function() {
-    OneSignal.init({
-        appId: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-    })
-    OneSignal.getUserId(function(userId) {
-        let xhttp
-        if (window.XMLHttpRequest) {
-            xhttp = new XMLHttpRequest()
-        } else {
-            xhttp = new ActiveXObject("Microsoft.XMLHTTP")
-        }
-        const data = {
-            devideId: userId
-        }
-        xhttp.open("POST", "/devide-info", true)
-        xhttp.setRequestHeader('Content-Type', 'application/json')
-        xhttp.send(JSON.stringify(data))
-    })
-    })
+    // window.OneSignal = window.OneSignal || []
+    // OneSignal.push(function() {
+    // OneSignal.init({
+    //     appId: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+    // })
+    // OneSignal.getUserId(function(userId) {
+    //     let xhttp
+    //     if (window.XMLHttpRequest) {
+    //         xhttp = new XMLHttpRequest()
+    //     } else {
+    //         xhttp = new ActiveXObject("Microsoft.XMLHTTP")
+    //     }
+    //     const data = {
+    //         devideId: userId
+    //     }
+    //     xhttp.open("POST", "/devide-info", true)
+    //     xhttp.setRequestHeader('Content-Type', 'application/json')
+    //     xhttp.send(JSON.stringify(data))
+    // })
+    // })
 
     let xhttp
     if (window.XMLHttpRequest) {
