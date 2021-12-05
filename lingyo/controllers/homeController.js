@@ -1661,7 +1661,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                         }).then(function(profileList){
                                             let currentRank
                                             for (let j = 0; j < profileList.length; j++){
-                                                if (profile.points == profileList[j].points){currentRank = j+1}
+                                                if (profile.userId == profileList[j].userId){currentRank = j+1}
                                                 if (j == profileList.length - 1){
                                                     res.render(navList[i], {currentRank: currentRank, topFames: topFames, topFameUsers: topFameUsers, username: req.user.username, userId: req.user.userId, profile: profile, rankLink: '', rankName: '', cateActive: '', active: navList[i], cateName: navName[i], modal: false})
                                                 }

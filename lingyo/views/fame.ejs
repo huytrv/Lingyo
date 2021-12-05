@@ -60,10 +60,10 @@
             <% } %>
             <tr class="user-fame fame-ele nav-red fame-top-1" nav-data="personal" data-user-df="<%- profile.nickname -%>">
                 <td class="width-5">
-                    <span class="<% if (currentRank == 0) { %>rank1-color<% } %><% if (currentRank == 1) { %>rank2-color<% } %><% if (currentRank == 2) { %>rank3-color<% } %>"><%- currentRank -%></span>
+                    <span class="<% if (currentRank == 1) { %>rank1-color<% } %><% if (currentRank == 2) { %>rank2-color<% } %><% if (currentRank == 3) { %>rank3-color<% } %>"><%- currentRank -%></span>
                 </td>
                 <td class="width-50">
-                    <a class="avt none-deco d-flex d-flex-start nav-red <% if (currentRank == 0) { %>avt-rank1<% } %><% if (currentRank == 1) { %>avt-rank2<% } %><% if (currentRank == 2) { %>avt-rank3<% } %>" nav-data="personal" data-user-df="<%- profile.nickname -%>">
+                    <a class="avt none-deco d-flex d-flex-start nav-red <% if (currentRank == 1) { %>avt-rank1<% } %><% if (currentRank == 2) { %>avt-rank2<% } %><% if (currentRank == 3) { %>avt-rank3<% } %>" nav-data="personal" data-user-df="<%- profile.nickname -%>">
                         <% if (profile.avatar.includes("http")) { %>
                         <img src="<%- profile.avatar -%>">
                         <img src="https://cdn.lingyo.vn/lingyo-media/<%- profile.rank -%>.png" class="avt-rank <%- profile.rank -%> avt-rank-frame">
