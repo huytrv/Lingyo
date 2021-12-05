@@ -501,7 +501,7 @@ const op = {
 const server = https.createServer(op, app).listen(443, function(){
     console.log("Server is running...")
     app.get('*', function(req, res){
-        if (req.headers.host == "52.221.187.132") {res.redirect('https://lingyo.vn')}
+        if (req.headers.host == "13.250.34.203") {res.redirect('https://lingyo.vn')}
     })
 });
 
