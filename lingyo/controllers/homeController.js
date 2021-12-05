@@ -403,96 +403,62 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                 }).then(function(cateTotal){
                                     if (cateTotal) {
                                         sum += cateTotal.post
-                                    }
-                                    for (let i = 0; i < p.length; i++){
-                                        const rank = i + 1
-                                        const winnerObj = {}
-                                        if (!WinnerList[p[i].userId]){
-                                            WinnerList[p[i].userId] = []}
-                                    
-                                            if (rankList[r] == 'primary'){homeRank = "Sơ cấp", buf4 = 0.09}
-                                            if (rankList[r] == 'intermediate'){homeRank = "Trung cấp", buf4 = 0.18}
-                                            if (rankList[r] == 'highgrade'){homeRank = "Cao cấp", buf4 = 0.54}
-                                            if (sum > 0){
-                                                cateRewardList = (Math.round((sum * buf4) * 100) / 100)
-                                                cateLPList = Math.round(sum * 1)
-                                            }
-                                            else {
-                                                cateRewardList = 0.00
-                                                cateLPList = 0
-                                            }
-                                            if (rank == 1){
-                                                userProfile.increment('rank1', {by: 1, where: {userId: p[i].userId}})
-                                                userProfile.increment('points', {by: cateLPList, where: {userId: p[i].userId}})
-                                                userProfile.increment('usd', {by: cateRewardList, where: {userId: p[i].userId}})
-                                                winnerObj['usd'] = cateRewardList
-                                                winnerObj['lp'] = cateLPList
-                                                if (winnerObj[`${cateName[c]} - ${rankName[r]}`] != rank) {
-                                                    winnerObj[`${cateName[c]} - ${rankName[r]}`] = rank
+                                        for (let i = 0; i < p.length; i++){
+                                            const rank = i + 1
+                                            const winnerObj = {}
+                                            if (!WinnerList[p[i].userId]){
+                                                WinnerList[p[i].userId] = []}
+                                        
+                                                if (rankList[r] == 'primary'){homeRank = "Sơ cấp", buf4 = 0.09}
+                                                if (rankList[r] == 'intermediate'){homeRank = "Trung cấp", buf4 = 0.18}
+                                                if (rankList[r] == 'highgrade'){homeRank = "Cao cấp", buf4 = 0.54}
+                                                if (sum > 0){
+                                                    cateRewardList = (Math.round((sum * buf4) * 100) / 100)
+                                                    cateLPList = Math.round(sum * 1)
                                                 }
-                                                userProfile.findOne({
-                                                    where: {
-                                                        userId: p[i].userId
+                                                else {
+                                                    cateRewardList = 0.00
+                                                    cateLPList = 0
+                                                }
+                                                if (rank == 1){
+                                                    userProfile.increment('rank1', {by: 1, where: {userId: p[i].userId}})
+                                                    userProfile.increment('points', {by: cateLPList, where: {userId: p[i].userId}})
+                                                    userProfile.increment('usd', {by: cateRewardList, where: {userId: p[i].userId}})
+                                                    winnerObj['usd'] = cateRewardList
+                                                    winnerObj['lp'] = cateLPList
+                                                    if (winnerObj[`${cateName[c]} - ${rankName[r]}`] != rank) {
+                                                        winnerObj[`${cateName[c]} - ${rankName[r]}`] = rank
                                                     }
-                                                }).then(function(ur){
-                                                    updateUserRank(ur.points, ur.userId)
-                                                })
-                                            }
-                                            if (rank > 1){
-                                                notifications.findOne({
-                                                    where: {
-                                                        sourceUser: p[i].userId,
-                                                        type: "not-win",
-                                                        userId: p[i].userId
-                                                    }
-                                                }).then(function(n){
-                                                    if (typeof(p[i].userId) === "number"){
-                                                        userProfile.findOne({
-                                                            where: {
-                                                                userId: p[i].userId
-                                                            }
-                                                        }).then(function(up){
-                                                            if (!n){
-                                                                notifications.create({
-                                                                    sourceUser: p[i].userId,
-                                                                    postInfo: [up.nickname, rank, p[i].ms],
-                                                                    type: "not-win",
-                                                                    read: false,
-                                                                    time: Date.now(),
+                                                    userProfile.findOne({
+                                                        where: {
+                                                            userId: p[i].userId
+                                                        }
+                                                    }).then(function(ur){
+                                                        updateUserRank(ur.points, ur.userId)
+                                                    })
+                                                }
+                                                if (rank > 1){
+                                                    notifications.findOne({
+                                                        where: {
+                                                            sourceUser: p[i].userId,
+                                                            type: "not-win",
+                                                            userId: p[i].userId
+                                                        }
+                                                    }).then(function(n){
+                                                        if (typeof(p[i].userId) === "number"){
+                                                            userProfile.findOne({
+                                                                where: {
                                                                     userId: p[i].userId
-                                                                }).then(function(){
-                                                                    mobileTokens.findAll({
-                                                                        where: {
-                                                                            userId: p[i].userId
-                                                                        }
-                                                                    }).then(function(userNoti){
-                                                                        for (let k = 0; k < userNoti.length; k++){
-                                                                            const content = `Rất tiếc, Video MS ${p[i].ms} của bạn không giành chiến thắng tại Vòng đấu vừa rồi, thứ hạng cao nhất là #${rank}`
-                                                                            var message = { 
-                                                                            app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
-                                                                            contents: {"en": content},
-                                                                            // headings: {"en": "Heading"},
-                                                                            include_player_ids: [userNoti[k].token]
-                                                                            };
-                                                                                
-                                                                            sendNotification(message);
-                                                                        }
-                                                                    })
-                                                                })
-                                                            }   
-                                                            else {
-                                                                if (n.postInfo[1] > rank){
-                                                                    notifications.update({
+                                                                }
+                                                            }).then(function(up){
+                                                                if (!n){
+                                                                    notifications.create({
+                                                                        sourceUser: p[i].userId,
                                                                         postInfo: [up.nickname, rank, p[i].ms],
+                                                                        type: "not-win",
                                                                         read: false,
                                                                         time: Date.now(),
-                                                                    },
-                                                                    {
-                                                                        where: {
-                                                                            sourceUser: p[i].userId,
-                                                                            type: "not-win",
-                                                                            userId: p[i].userId
-                                                                        }
+                                                                        userId: p[i].userId
                                                                     }).then(function(){
                                                                         mobileTokens.findAll({
                                                                             where: {
@@ -512,57 +478,91 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                                                                             }
                                                                         })
                                                                     })
-                                                                }
-                                                            }   
-                                                        })
-                                                        
-                                                    }
-                                                })
-                                            }
-                                            if (typeof(round) === "number" && typeof(rank), typeof(p[i].userId) === "number"){
-                                                voteWinners.findOne({
-                                                    where: {
-                                                        round: round + 1,
-                                                        rank: rankList[r],
-                                                        category: cateList[c],
-                                                        userId: p[i].userId
-                                                    }
-                                                }).then(function(v){
-                                                    if (!v){
-                                                        voteWinners.create({
+                                                                }   
+                                                                else {
+                                                                    if (n.postInfo[1] > rank){
+                                                                        notifications.update({
+                                                                            postInfo: [up.nickname, rank, p[i].ms],
+                                                                            read: false,
+                                                                            time: Date.now(),
+                                                                        },
+                                                                        {
+                                                                            where: {
+                                                                                sourceUser: p[i].userId,
+                                                                                type: "not-win",
+                                                                                userId: p[i].userId
+                                                                            }
+                                                                        }).then(function(){
+                                                                            mobileTokens.findAll({
+                                                                                where: {
+                                                                                    userId: p[i].userId
+                                                                                }
+                                                                            }).then(function(userNoti){
+                                                                                for (let k = 0; k < userNoti.length; k++){
+                                                                                    const content = `Rất tiếc, Video MS ${p[i].ms} của bạn không giành chiến thắng tại Vòng đấu vừa rồi, thứ hạng cao nhất là #${rank}`
+                                                                                    var message = { 
+                                                                                    app_id: "efa501b3-8346-4a6f-a6d8-2015fdb115b6",
+                                                                                    contents: {"en": content},
+                                                                                    // headings: {"en": "Heading"},
+                                                                                    include_player_ids: [userNoti[k].token]
+                                                                                    };
+                                                                                        
+                                                                                    sendNotification(message);
+                                                                                }
+                                                                            })
+                                                                        })
+                                                                    }
+                                                                }   
+                                                            })
+                                                            
+                                                        }
+                                                    })
+                                                }
+                                                if (typeof(round) === "number" && typeof(rank), typeof(p[i].userId) === "number"){
+                                                    voteWinners.findOne({
+                                                        where: {
                                                             round: round + 1,
                                                             rank: rankList[r],
                                                             category: cateList[c],
                                                             userId: p[i].userId
+                                                        }
+                                                    }).then(function(v){
+                                                        if (!v){
+                                                            voteWinners.create({
+                                                                round: round + 1,
+                                                                rank: rankList[r],
+                                                                category: cateList[c],
+                                                                userId: p[i].userId
+                                                            })
+                                                        }
+                                                    })
+                                                }  
+                                                if (winnerObj.usd){
+                                                    WinnerList[p[i].userId].push(winnerObj)
+                                                }
+                                                if (buf == rankList.length * cateList.length) {
+                                                    for (userId in WinnerList) {
+                                                        userProfile.update({
+                                                            winner: WinnerList[userId]
+                                                        },{
+                                                            where: {
+                                                                userId: userId
+                                                            }
+                                                        }).then(function(){
                                                         })
                                                     }
-                                                })
-                                            }  
-                                            if (winnerObj.usd){
-                                                WinnerList[p[i].userId].push(winnerObj)
-                                            }
-                                            if (buf == rankList.length * cateList.length) {
-                                                for (userId in WinnerList) {
-                                                    userProfile.update({
-                                                        winner: WinnerList[userId]
-                                                    },{
+                                                    reward.update({
+                                                        groupReceived: true
+                                                    },
+                                                    {
                                                         where: {
-                                                            userId: userId
+                                                            rank: rankList[r],
+                                                            category: cateList[c],
+                                                            round: round,
                                                         }
-                                                    }).then(function(){
                                                     })
                                                 }
-                                                reward.update({
-                                                    groupReceived: true
-                                                },
-                                                {
-                                                    where: {
-                                                        rank: rankList[r],
-                                                        category: cateList[c],
-                                                        round: round,
-                                                    }
-                                                })
-                                            }
+                                        }
                                     }
                                     if (buf == rankList.length * cateList.length) {
                                         currentTimeline = currentTimeline + 5*24*60*60*1000
@@ -1641,7 +1641,7 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
                             order: [
                                 ['points', 'DESC'],
                             ],
-                            limit: 50
+                            limit: 10
                         }).then(function(topFames){
                             let count = 0
                             const topFameUsers = []
