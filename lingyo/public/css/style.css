@@ -3727,6 +3727,7 @@ img.thumb {
 }
 
 .login-with-gg-fb {
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
