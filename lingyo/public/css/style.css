@@ -3727,16 +3727,11 @@ img.thumb {
 }
 
 .login-with-gg-fb {
-  display: none;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
   border-left: none;
-}
-
-.choice-fb-gg {
-  display: none;
 }
 
 .connect-but {
