@@ -6484,6 +6484,7 @@ tbody {
   }
 
   .bg-image {
+    display: none;
     background: none;
   }
 
