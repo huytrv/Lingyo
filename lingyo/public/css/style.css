@@ -6484,7 +6484,7 @@ tbody {
   }
 
   .bg-image {
-    background-color: transparent;
+    background: none;
   }
 
   .fame-title th:nth-child(3) {
