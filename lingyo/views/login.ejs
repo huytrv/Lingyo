@@ -5,7 +5,7 @@
 </head>
 <body>
     <div class="global-lg font-size-lg-1">
-        <div class="main main-login d-flex-start">
+        <div class="main main-login d-flex">
             <div class="bg-container">
                 <div class="bg-image"></div>
             </div>
@@ -22,7 +22,7 @@
                             <form method="post" action="/login" class="login-form d-flex-col-start" novalidate>
                                 <span class="error"><%- message -%></span>
                                 <label  class="username-label">Email hoặc số điện thoại</label>
-                                <input type="text" name="username" autofocus="on" value="<%- username -%>">
+                                <input type="text" name="username" value="<%- username -%>">
                                 <label class="password-label">Mật khẩu</label>
                                 <input type="password" name="password">
                                 <a href="/forgot-password" class="forgot-link">Quên mật khẩu?</a>

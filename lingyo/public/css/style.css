@@ -518,7 +518,6 @@ img {
 .bg-image {
   display: none;
   background: none;
-
 }
 
 .bg-color {
@@ -3678,7 +3677,7 @@ img.thumb {
 
 .content {
   position: relative;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.904);
   border-radius: 0;
   height: 100%;
 }
@@ -6359,7 +6358,7 @@ tbody {
   }
 
   .content {
-    width: 500px;
+    width: 450px;
     /* border-radius: 5px; */
     /* box-shadow: 0 0 5px 1px rgb(211, 211, 211); */
     margin-top: 0;
@@ -6479,6 +6478,7 @@ tbody {
   }
 
   .bg-image {
+    display: flex;
     background: url("/public/images/loginbanner.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
