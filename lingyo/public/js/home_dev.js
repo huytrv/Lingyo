@@ -6057,7 +6057,7 @@ function handleUpdateProfile(){
                     <video autoplay muted playsinline webkit-playsinline></video>
                     <div class="loading-frame d-flex"><span class="iconify spin loading-icon" data-icon="ant-design:loading-3-quarters-outlined" data-inline="false"></span></div>
                     </div>
-                    <div class="d-flex"><h4 class="face-request pd">Hãy chờ một chút trong khi ứng dụng truy cập camera. Đảm bảo quyền truy cập máy ảnh đã được phép</h4></div>
+                    <div class="d-flex"><span class="face-request pd">Hãy chờ một chút trong khi ứng dụng truy cập camera. Đảm bảo quyền truy cập máy ảnh đã được phép</span></div>
                     </div></div></div>`)
                     const video = document.querySelector('.auth-video video')
                     Promise.all([
