@@ -7512,6 +7512,97 @@ module.exports = function(io, app, users, userProfile, posts, comments, postLike
         }
     })
 
+    app.get("/admin0105", function (req, res){
+        if (req.isAuthenticated()){
+            users.findOne({
+                where: {
+                    userId: req.user.userId
+                }
+            }).then(function(user){
+                if (user.role == "vip-admin" || user.role == "admin"){
+                    req.session.tryTime = 0
+                    req.session.blockLogin = false
+                    res.render("admin")
+                }
+                else {
+                    res.render("notfound")
+                }
+            })
+        }
+        else {
+            res.redirect("/login")
+        }
+    })
+
+    app.post("/permission-changed", function(req, res){
+        userProfile.findOne({
+            where: {
+                nickname: req.body.user
+            }
+        }).then(function(up){
+            if (up){
+                users.findOne({
+                    where: {
+                        userId: up.userId
+                    }
+                }).then(function(u){
+                    if (u && u.role != "vip-admin" && typeof(req.body.permission) === "string") {
+                        if (req.body.permission == "add-admin" && u.role == null) {
+                            users.update({
+                                role: "admin"
+                            }, {
+                                where: {
+                                    userId: u.userId
+                                }
+                            }).then(function(){
+                                res.end()
+                            })
+                        }
+                        if (req.body.permission == "add-moderator" && u.role == null) {
+                            users.update({
+                                role: "moderator"
+                            }, {
+                                where: {
+                                    userId: u.userId
+                                }
+                            }).then(function(){
+                                res.end()
+                            })
+                        }
+                        if (req.body.permission == "remove-admin") {
+                            users.update({
+                                role: null
+                            }, {
+                                where: {
+                                    userId: u.userId
+                                }
+                            }).then(function(){
+                                res.end()
+                            })
+                        }
+                        if (req.body.permission == "remove-moderator") {
+                            users.update({
+                                role: null
+                            }, {
+                                where: {
+                                    userId: u.userId
+                                }
+                            }).then(function(){
+                                res.end()
+                            })
+                        }
+                    }
+                    else {
+                        res.end()
+                    }
+                })
+            }
+            else {
+                res.end()
+            }
+        })
+    })
+
     app.get("/privacy-policy", function (req, res) {
         res.render("privacy-policy")
     })

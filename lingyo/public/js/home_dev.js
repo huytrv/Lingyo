@@ -2525,11 +2525,12 @@ function createPostRedirect(c, pushState){
 
     const createPostCateBut = document.querySelectorAll(".create-post-category-but")
     const createPostRankBut = document.querySelectorAll(".create-post-rank-but")
+
     for (let i = 0; i < createPostCateBut.length; i++){
-        if (createPostCateBut[i].getAttribute("data-category-create-post") == 'freestyle') {
+        if (createPostCateBut[i].getAttribute("data-category-create-post") == cateLink) {
             createPostCateBut[i].classList.add("create-post-category-but-active")
             createPostRankBut[0].classList.add("create-post-rank-but-active")
-            cateLinkPost = "freestyle"
+            cateLinkPost = cateLink
         }
         createPostCateBut[i].onclick = function(){
             if (!this.classList.contains("create-post-category-but-active")){
@@ -4930,7 +4931,6 @@ function handleNavigation(){
                                         if (navLink == "community"){
                                             if (document.querySelectorAll(".post").length != 0){
                                                 const posts = document.querySelectorAll(".post")
-                                                console.log(posts.length)
                                                 postDisplayedList = []
                                                 param = ''
                                                 for (let i = 0; i < posts.length; i++){

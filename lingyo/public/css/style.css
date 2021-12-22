@@ -701,6 +701,10 @@ video {
   z-index: 1000;
 }
 
+.nav-bar-mobile a {
+  flex-direction: column;
+}
+
 .nav-bar-mobile .unread-notifications {
   top: 5px;
   left: 50px;
@@ -4426,7 +4430,7 @@ input[type=radio] {
 
 .user-auth {
   cursor: pointer;
-  z-index: 3000;
+  z-index: 1000;
 }
 
 .user-auth:hover {
