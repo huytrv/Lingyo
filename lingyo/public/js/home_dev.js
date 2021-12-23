@@ -8,7 +8,8 @@ let roundType = navLink = statusRedirect = infoContentText = homeContentText = p
 let headerInnerMobile = navbarMobile = headerInner = creatorMobile = mainInfo = leftNav = frameSort = highLightMobile = followUserInfoMobile = settingBarMobile = avtName = avtNameMobile = followUserInfo = categoryInfo = ''
 let headerContentText = document.querySelector(".header").innerHTML
 let personalLink = interval = null
-let openVolume = fullscreen = false
+let fullscreen = false
+let openVolume = true
 let videoAjaxSend = [], impessionAjaxSend = [], paused = []
 let postDisplayedList = [], cmtDisplayedList = {}, repCmtDisplayedList = {}, searchDisplayedList = []
 let param = navState = cateState = ''
