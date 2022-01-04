@@ -2527,12 +2527,24 @@ function createPostRedirect(c, pushState){
     const createPostCateBut = document.querySelectorAll(".create-post-category-but")
     const createPostRankBut = document.querySelectorAll(".create-post-rank-but")
 
-    for (let i = 0; i < createPostCateBut.length; i++){
-        if (createPostCateBut[i].getAttribute("data-category-create-post") == cateLink) {
-            createPostCateBut[i].classList.add("create-post-category-but-active")
-            createPostRankBut[0].classList.add("create-post-rank-but-active")
-            cateLinkPost = cateLink
+    for (let i = 0; i < createPostRankBut.length; i++){
+        if (createPostRankBut[i].getAttribute("data-rank-create-post") == rankLink) {
+            createPostRankBut[i].classList.add("create-post-rank-but-active")
+            rankLinkPost = rankLink
         }
+    }
+    for (let i = 0; i < createPostCateBut.length; i++){
+        if (cateLink == 'competition'){
+            createPostCateBut[0].classList.add("create-post-category-but-active")
+        }
+        else {
+            if (createPostCateBut[i].getAttribute("data-category-create-post") == cateLink) {
+                createPostCateBut[i].classList.add("create-post-category-but-active")
+                cateLinkPost = cateLink
+            }
+        }
+    }
+    for (let i = 0; i < createPostCateBut.length; i++){
         createPostCateBut[i].onclick = function(){
             if (!this.classList.contains("create-post-category-but-active")){
                 for (let i = 0; i < createPostCateBut.length; i++){
