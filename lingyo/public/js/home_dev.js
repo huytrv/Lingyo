@@ -2536,6 +2536,7 @@ function createPostRedirect(c, pushState){
     for (let i = 0; i < createPostCateBut.length; i++){
         if (cateLink == 'competition'){
             createPostCateBut[0].classList.add("create-post-category-but-active")
+            cateLinkPost = cateLink
         }
         else {
             if (createPostCateBut[i].getAttribute("data-category-create-post") == cateLink) {
