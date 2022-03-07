@@ -23,8 +23,8 @@ const app = express();
 
 function FBLogin(){
     passport.use(new facebookStrategy({
-        clientID: "2671130773138286",
-        clientSecret: "199ef7c41209b16d275cabe262123ab0",
+        clientID: "1954297918085513",
+        clientSecret: "8e2c97a87052433e8da0222dbc7750fa",
         callbackURL:"https://lingyo.vn/facebook/callback",
         profileFields: ["id", "displayName", "name", "picture.type(large)", "email"]
     },
